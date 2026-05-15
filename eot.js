@@ -3,7 +3,7 @@ window.eotData = [
     "JOB_ID": "LD00012",
     "JOB_ID_APP": "LD00012",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "2.5",
@@ -44,7 +44,7 @@ window.eotData = [
     "JOB_ID": "LD00015",
     "JOB_ID_APP": "LD00015",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "2.5",
@@ -85,7 +85,7 @@ window.eotData = [
     "JOB_ID": "SH00001",
     "JOB_ID_APP": "SH00001",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.61",
     "DAILY_OT": {
       "1": "1",
@@ -126,7 +126,7 @@ window.eotData = [
     "JOB_ID": "SH00020",
     "JOB_ID_APP": "SH00020",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.89",
     "DAILY_OT": {
       "1": "1",
@@ -167,7 +167,7 @@ window.eotData = [
     "JOB_ID": "SH00090",
     "JOB_ID_APP": "SH00090",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.85",
     "DAILY_OT": {
       "1": "2",
@@ -208,7 +208,7 @@ window.eotData = [
     "JOB_ID": "SH00238",
     "JOB_ID_APP": "SH00238",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "2",
@@ -249,7 +249,7 @@ window.eotData = [
     "JOB_ID": "SH00295",
     "JOB_ID_APP": "SH00295",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -290,7 +290,7 @@ window.eotData = [
     "JOB_ID": "SH00296",
     "JOB_ID_APP": "SH00296",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -331,7 +331,7 @@ window.eotData = [
     "JOB_ID": "SH00304",
     "JOB_ID_APP": "SH00304",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -372,7 +372,7 @@ window.eotData = [
     "JOB_ID": "SH00308",
     "JOB_ID_APP": "SH00308",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -413,7 +413,7 @@ window.eotData = [
     "JOB_ID": "SH00322",
     "JOB_ID_APP": "SH00322",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -454,7 +454,7 @@ window.eotData = [
     "JOB_ID": "SH00325",
     "JOB_ID_APP": "SH00325",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -495,7 +495,7 @@ window.eotData = [
     "JOB_ID": "SH00326",
     "JOB_ID_APP": "SH00326",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "0",
@@ -536,7 +536,7 @@ window.eotData = [
     "JOB_ID": "SH00327",
     "JOB_ID_APP": "SH00327",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -577,7 +577,7 @@ window.eotData = [
     "JOB_ID": "SH00328",
     "JOB_ID_APP": "SH00328",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -618,7 +618,7 @@ window.eotData = [
     "JOB_ID": "SH00330",
     "JOB_ID_APP": "SH00330",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -659,7 +659,7 @@ window.eotData = [
     "JOB_ID": "SH00336",
     "JOB_ID_APP": "SH00336",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -700,7 +700,7 @@ window.eotData = [
     "JOB_ID": "SH00343",
     "JOB_ID_APP": "SH00343",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -741,7 +741,7 @@ window.eotData = [
     "JOB_ID": "SH00348",
     "JOB_ID_APP": "SH00348",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -782,7 +782,7 @@ window.eotData = [
     "JOB_ID": "SH00349",
     "JOB_ID_APP": "SH00349",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -823,7 +823,7 @@ window.eotData = [
     "JOB_ID": "SH00350",
     "JOB_ID_APP": "SH00350",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -864,7 +864,7 @@ window.eotData = [
     "JOB_ID": "SH00353",
     "JOB_ID_APP": "SH00353",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -905,7 +905,7 @@ window.eotData = [
     "JOB_ID": "SH00360",
     "JOB_ID_APP": "SH00360",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -946,7 +946,7 @@ window.eotData = [
     "JOB_ID": "SH00374",
     "JOB_ID_APP": "SH00374",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -987,7 +987,7 @@ window.eotData = [
     "JOB_ID": "SH00376",
     "JOB_ID_APP": "SH00376",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -1028,7 +1028,7 @@ window.eotData = [
     "JOB_ID": "SH00390",
     "JOB_ID_APP": "SH00390",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -1069,7 +1069,7 @@ window.eotData = [
     "JOB_ID": "SH00401",
     "JOB_ID_APP": "SH00401",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -1110,7 +1110,7 @@ window.eotData = [
     "JOB_ID": "SH00406",
     "JOB_ID_APP": "SH00406",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1151,7 +1151,7 @@ window.eotData = [
     "JOB_ID": "SH00407",
     "JOB_ID_APP": "SH00407",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -1192,7 +1192,7 @@ window.eotData = [
     "JOB_ID": "SH00409",
     "JOB_ID_APP": "SH00409",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1233,7 +1233,7 @@ window.eotData = [
     "JOB_ID": "SH00413",
     "JOB_ID_APP": "SH00413",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1274,7 +1274,7 @@ window.eotData = [
     "JOB_ID": "SH00414",
     "JOB_ID_APP": "SH00414",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -1315,7 +1315,7 @@ window.eotData = [
     "JOB_ID": "SH00419",
     "JOB_ID_APP": "SH00419",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -1356,7 +1356,7 @@ window.eotData = [
     "JOB_ID": "SH00421",
     "JOB_ID_APP": "SH00421",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -1397,7 +1397,7 @@ window.eotData = [
     "JOB_ID": "SH00422",
     "JOB_ID_APP": "SH00422",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -1438,7 +1438,7 @@ window.eotData = [
     "JOB_ID": "SH00438",
     "JOB_ID_APP": "SH00438",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1479,7 +1479,7 @@ window.eotData = [
     "JOB_ID": "SH00439",
     "JOB_ID_APP": "SH00439",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1520,7 +1520,7 @@ window.eotData = [
     "JOB_ID": "SH00440",
     "JOB_ID_APP": "SH00440",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1561,7 +1561,7 @@ window.eotData = [
     "JOB_ID": "SH00442",
     "JOB_ID_APP": "SH00442",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -1602,7 +1602,7 @@ window.eotData = [
     "JOB_ID": "SH00443",
     "JOB_ID_APP": "SH00443",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -1643,7 +1643,7 @@ window.eotData = [
     "JOB_ID": "SH00444",
     "JOB_ID_APP": "SH00444",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1684,7 +1684,7 @@ window.eotData = [
     "JOB_ID": "SH00445",
     "JOB_ID_APP": "SH00445",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1725,7 +1725,7 @@ window.eotData = [
     "JOB_ID": "SH00446",
     "JOB_ID_APP": "SH00446",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1766,7 +1766,7 @@ window.eotData = [
     "JOB_ID": "SH00451",
     "JOB_ID_APP": "SH00451",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -1807,7 +1807,7 @@ window.eotData = [
     "JOB_ID": "SH00452",
     "JOB_ID_APP": "SH00452",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -1848,7 +1848,7 @@ window.eotData = [
     "JOB_ID": "SI00041",
     "JOB_ID_APP": "SI00041",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.74",
     "DAILY_OT": {
       "1": "3",
@@ -1889,7 +1889,7 @@ window.eotData = [
     "JOB_ID": "SI00048",
     "JOB_ID_APP": "SI00048",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "56.25",
     "DAILY_OT": {
       "1": "1",
@@ -1930,7 +1930,7 @@ window.eotData = [
     "JOB_ID": "SI00056",
     "JOB_ID_APP": "SI00056",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -1971,7 +1971,7 @@ window.eotData = [
     "JOB_ID": "SI00060",
     "JOB_ID_APP": "SI00060",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -2012,7 +2012,7 @@ window.eotData = [
     "JOB_ID": "SI00061",
     "JOB_ID_APP": "SI00061",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -2053,7 +2053,7 @@ window.eotData = [
     "JOB_ID": "SI00062",
     "JOB_ID_APP": "SI00062",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -2094,7 +2094,7 @@ window.eotData = [
     "JOB_ID": "SO00003",
     "JOB_ID_APP": "SO00003",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.7",
     "DAILY_OT": {
       "1": "1",
@@ -2135,7 +2135,7 @@ window.eotData = [
     "JOB_ID": "SO00006",
     "JOB_ID_APP": "SO00006",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "86.05",
     "DAILY_OT": {
       "1": "1",
@@ -2176,7 +2176,7 @@ window.eotData = [
     "JOB_ID": "SO00008",
     "JOB_ID_APP": "SO00008",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "75.48",
     "DAILY_OT": {
       "1": "1",
@@ -2217,7 +2217,7 @@ window.eotData = [
     "JOB_ID": "SO00009",
     "JOB_ID_APP": "SO00009",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "89.49",
     "DAILY_OT": {
       "1": "1",
@@ -2258,7 +2258,7 @@ window.eotData = [
     "JOB_ID": "SO00023",
     "JOB_ID_APP": "SO00023",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "95.59",
     "DAILY_OT": {
       "1": "3",
@@ -2299,7 +2299,7 @@ window.eotData = [
     "JOB_ID": "SO00031",
     "JOB_ID_APP": "SO00031",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.11",
     "DAILY_OT": {
       "1": "1",
@@ -2340,7 +2340,7 @@ window.eotData = [
     "JOB_ID": "SO00032",
     "JOB_ID_APP": "SO00032",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.01",
     "DAILY_OT": {
       "1": "1",
@@ -2381,7 +2381,7 @@ window.eotData = [
     "JOB_ID": "SO00036",
     "JOB_ID_APP": "SO00036",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.24",
     "DAILY_OT": {
       "1": "1",
@@ -2422,7 +2422,7 @@ window.eotData = [
     "JOB_ID": "SO00038",
     "JOB_ID_APP": "SO00038",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "87.2",
     "DAILY_OT": {
       "1": "1",
@@ -2463,7 +2463,7 @@ window.eotData = [
     "JOB_ID": "SO00050",
     "JOB_ID_APP": "SO00050",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.41",
     "DAILY_OT": {
       "1": "2",
@@ -2504,7 +2504,7 @@ window.eotData = [
     "JOB_ID": "SO00056",
     "JOB_ID_APP": "SO00056",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "95.59",
     "DAILY_OT": {
       "1": "2",
@@ -2545,7 +2545,7 @@ window.eotData = [
     "JOB_ID": "SO00082",
     "JOB_ID_APP": "SO00082",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "87.2",
     "DAILY_OT": {
       "1": "2",
@@ -2586,7 +2586,7 @@ window.eotData = [
     "JOB_ID": "SO00089",
     "JOB_ID_APP": "SO00089",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "86.44",
     "DAILY_OT": {
       "1": "2",
@@ -2627,7 +2627,7 @@ window.eotData = [
     "JOB_ID": "SO00110",
     "JOB_ID_APP": "SO00110",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "1",
@@ -2668,7 +2668,7 @@ window.eotData = [
     "JOB_ID": "SO00195",
     "JOB_ID_APP": "SO00195",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "87.97",
     "DAILY_OT": {
       "1": "1",
@@ -2709,7 +2709,7 @@ window.eotData = [
     "JOB_ID": "SO00257",
     "JOB_ID_APP": "SO00257",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.44",
     "DAILY_OT": {
       "1": "2",
@@ -2750,7 +2750,7 @@ window.eotData = [
     "JOB_ID": "SO00294",
     "JOB_ID_APP": "SO00294",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "84.16",
     "DAILY_OT": {
       "1": "1",
@@ -2791,7 +2791,7 @@ window.eotData = [
     "JOB_ID": "SO00339",
     "JOB_ID_APP": "SO00339",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.96",
     "DAILY_OT": {
       "1": "3",
@@ -2832,7 +2832,7 @@ window.eotData = [
     "JOB_ID": "SO00347",
     "JOB_ID_APP": "SO00347",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "82.63",
     "DAILY_OT": {
       "1": "0",
@@ -2873,7 +2873,7 @@ window.eotData = [
     "JOB_ID": "SO00354",
     "JOB_ID_APP": "SO00354",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "1",
@@ -2914,7 +2914,7 @@ window.eotData = [
     "JOB_ID": "SO00359",
     "JOB_ID_APP": "SO00359",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "0",
@@ -2955,7 +2955,7 @@ window.eotData = [
     "JOB_ID": "SO00369",
     "JOB_ID_APP": "SO00369",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "1",
@@ -2996,7 +2996,7 @@ window.eotData = [
     "JOB_ID": "SO00372",
     "JOB_ID_APP": "SO00372",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "1",
@@ -3037,7 +3037,7 @@ window.eotData = [
     "JOB_ID": "SO00402",
     "JOB_ID_APP": "SO00402",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "3",
@@ -3078,7 +3078,7 @@ window.eotData = [
     "JOB_ID": "SO00409",
     "JOB_ID_APP": "SO00409",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.03",
     "DAILY_OT": {
       "1": "1",
@@ -3119,7 +3119,7 @@ window.eotData = [
     "JOB_ID": "SO00429",
     "JOB_ID_APP": "SO00429",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "2",
@@ -3160,7 +3160,7 @@ window.eotData = [
     "JOB_ID": "SO00430",
     "JOB_ID_APP": "SO00430",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "1",
@@ -3201,7 +3201,7 @@ window.eotData = [
     "JOB_ID": "SO00444",
     "JOB_ID_APP": "SO00444",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "91.78",
     "DAILY_OT": {
       "1": "0",
@@ -3242,7 +3242,7 @@ window.eotData = [
     "JOB_ID": "SO00457",
     "JOB_ID_APP": "SO00457",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "2",
@@ -3283,7 +3283,7 @@ window.eotData = [
     "JOB_ID": "SO00465",
     "JOB_ID_APP": "SO00465",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.34",
     "DAILY_OT": {
       "1": "2",
@@ -3324,7 +3324,7 @@ window.eotData = [
     "JOB_ID": "SO00473",
     "JOB_ID_APP": "SO00473",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.74",
     "DAILY_OT": {
       "1": "0",
@@ -3365,7 +3365,7 @@ window.eotData = [
     "JOB_ID": "SO00477",
     "JOB_ID_APP": "SO00477",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "2",
@@ -3406,7 +3406,7 @@ window.eotData = [
     "JOB_ID": "SO00478",
     "JOB_ID_APP": "SO00478",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "2",
@@ -3447,7 +3447,7 @@ window.eotData = [
     "JOB_ID": "SO00486",
     "JOB_ID_APP": "SO00486",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "86.44",
     "DAILY_OT": {
       "1": "2",
@@ -3488,7 +3488,7 @@ window.eotData = [
     "JOB_ID": "SO00487",
     "JOB_ID_APP": "SO00487",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "86.44",
     "DAILY_OT": {
       "1": "2",
@@ -3529,7 +3529,7 @@ window.eotData = [
     "JOB_ID": "SO00504",
     "JOB_ID_APP": "SO00504",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -3570,7 +3570,7 @@ window.eotData = [
     "JOB_ID": "SO00506",
     "JOB_ID_APP": "SO00506",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -3611,7 +3611,7 @@ window.eotData = [
     "JOB_ID": "SO00524",
     "JOB_ID_APP": "SO00524",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "2",
@@ -3652,7 +3652,7 @@ window.eotData = [
     "JOB_ID": "SO00527",
     "JOB_ID_APP": "SO00527",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -3693,7 +3693,7 @@ window.eotData = [
     "JOB_ID": "SO00530",
     "JOB_ID_APP": "SO00530",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -3734,7 +3734,7 @@ window.eotData = [
     "JOB_ID": "SO00532",
     "JOB_ID_APP": "SO00532",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -3775,7 +3775,7 @@ window.eotData = [
     "JOB_ID": "SO00534",
     "JOB_ID_APP": "SO00534",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -3816,7 +3816,7 @@ window.eotData = [
     "JOB_ID": "SO00536",
     "JOB_ID_APP": "SO00536",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -3857,7 +3857,7 @@ window.eotData = [
     "JOB_ID": "SO00537",
     "JOB_ID_APP": "SO00537",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -3898,7 +3898,7 @@ window.eotData = [
     "JOB_ID": "SO00546",
     "JOB_ID_APP": "SO00546",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -3939,7 +3939,7 @@ window.eotData = [
     "JOB_ID": "SO00549",
     "JOB_ID_APP": "SO00549",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -3980,7 +3980,7 @@ window.eotData = [
     "JOB_ID": "SO00555",
     "JOB_ID_APP": "SO00555",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "2",
@@ -4021,7 +4021,7 @@ window.eotData = [
     "JOB_ID": "SO00567",
     "JOB_ID_APP": "SO00567",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -4062,7 +4062,7 @@ window.eotData = [
     "JOB_ID": "SO00569",
     "JOB_ID_APP": "SO00569",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "2",
@@ -4103,7 +4103,7 @@ window.eotData = [
     "JOB_ID": "SO00571",
     "JOB_ID_APP": "SO00571",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -4144,7 +4144,7 @@ window.eotData = [
     "JOB_ID": "SO00572",
     "JOB_ID_APP": "SO00572",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -4185,7 +4185,7 @@ window.eotData = [
     "JOB_ID": "SO00582",
     "JOB_ID_APP": "SO00582",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "0",
@@ -4226,7 +4226,7 @@ window.eotData = [
     "JOB_ID": "SO00589",
     "JOB_ID_APP": "SO00589",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.83",
     "DAILY_OT": {
       "1": "1",
@@ -4267,7 +4267,7 @@ window.eotData = [
     "JOB_ID": "SO00594",
     "JOB_ID_APP": "SO00594",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "2",
@@ -4308,7 +4308,7 @@ window.eotData = [
     "JOB_ID": "SO00595",
     "JOB_ID_APP": "SO00595",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -4349,7 +4349,7 @@ window.eotData = [
     "JOB_ID": "SO00617",
     "JOB_ID_APP": "SO00617",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "2",
@@ -4390,7 +4390,7 @@ window.eotData = [
     "JOB_ID": "SO00621",
     "JOB_ID_APP": "SO00621",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "2",
@@ -4431,7 +4431,7 @@ window.eotData = [
     "JOB_ID": "SO00623",
     "JOB_ID_APP": "SO00623",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -4472,7 +4472,7 @@ window.eotData = [
     "JOB_ID": "SO00633",
     "JOB_ID_APP": "SO00633",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -4513,7 +4513,7 @@ window.eotData = [
     "JOB_ID": "SO00638",
     "JOB_ID_APP": "SO00638",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "0",
@@ -4554,7 +4554,7 @@ window.eotData = [
     "JOB_ID": "SO00639",
     "JOB_ID_APP": "SO00639",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -4595,7 +4595,7 @@ window.eotData = [
     "JOB_ID": "SO00641",
     "JOB_ID_APP": "SO00641",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "2",
@@ -4636,7 +4636,7 @@ window.eotData = [
     "JOB_ID": "SO00642",
     "JOB_ID_APP": "SO00642",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -4677,7 +4677,7 @@ window.eotData = [
     "JOB_ID": "SO00646",
     "JOB_ID_APP": "SO00646",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.45",
     "DAILY_OT": {
       "1": "2",
@@ -4718,7 +4718,7 @@ window.eotData = [
     "JOB_ID": "SO00654",
     "JOB_ID_APP": "SO00654",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "1",
@@ -4759,7 +4759,7 @@ window.eotData = [
     "JOB_ID": "SO00675",
     "JOB_ID_APP": "SO00675",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -4800,7 +4800,7 @@ window.eotData = [
     "JOB_ID": "SO00678",
     "JOB_ID_APP": "SO00678",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -4841,7 +4841,7 @@ window.eotData = [
     "JOB_ID": "SO00679",
     "JOB_ID_APP": "SO00679",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -4882,7 +4882,7 @@ window.eotData = [
     "JOB_ID": "SO00684",
     "JOB_ID_APP": "SO00684",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -4923,7 +4923,7 @@ window.eotData = [
     "JOB_ID": "SO00685",
     "JOB_ID_APP": "SO00685",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "2",
@@ -4964,7 +4964,7 @@ window.eotData = [
     "JOB_ID": "SO00687",
     "JOB_ID_APP": "SO00687",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -5005,7 +5005,7 @@ window.eotData = [
     "JOB_ID": "SO00688",
     "JOB_ID_APP": "SO00688",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "2",
@@ -5046,7 +5046,7 @@ window.eotData = [
     "JOB_ID": "SO00689",
     "JOB_ID_APP": "SO00689",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -5087,7 +5087,7 @@ window.eotData = [
     "JOB_ID": "SO00691",
     "JOB_ID_APP": "SO00691",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.5",
     "DAILY_OT": {
       "1": "2",
@@ -5128,7 +5128,7 @@ window.eotData = [
     "JOB_ID": "SO00692",
     "JOB_ID_APP": "SO00692",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "0",
@@ -5169,7 +5169,7 @@ window.eotData = [
     "JOB_ID": "LD00009",
     "JOB_ID_APP": "LD00009",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "75.02",
     "DAILY_OT": {
       "1": "2.5",
@@ -5210,7 +5210,7 @@ window.eotData = [
     "JOB_ID": "LD00021",
     "JOB_ID_APP": "LD00021",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "2.5",
@@ -5251,7 +5251,7 @@ window.eotData = [
     "JOB_ID": "SH00111",
     "JOB_ID_APP": "SH00111",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.85",
     "DAILY_OT": {
       "1": "1",
@@ -5292,7 +5292,7 @@ window.eotData = [
     "JOB_ID": "SH00181",
     "JOB_ID_APP": "SH00181",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.85",
     "DAILY_OT": {
       "1": "1",
@@ -5333,7 +5333,7 @@ window.eotData = [
     "JOB_ID": "SH00187",
     "JOB_ID_APP": "SH00187",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.85",
     "DAILY_OT": {
       "1": "2",
@@ -5374,7 +5374,7 @@ window.eotData = [
     "JOB_ID": "SH00207",
     "JOB_ID_APP": "SH00207",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.85",
     "DAILY_OT": {
       "1": "2",
@@ -5415,7 +5415,7 @@ window.eotData = [
     "JOB_ID": "SH00257",
     "JOB_ID_APP": "SH00257",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "2",
@@ -5456,7 +5456,7 @@ window.eotData = [
     "JOB_ID": "SH00270",
     "JOB_ID_APP": "SH00270",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "2",
@@ -5497,7 +5497,7 @@ window.eotData = [
     "JOB_ID": "SH00271",
     "JOB_ID_APP": "SH00271",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "2",
@@ -5538,7 +5538,7 @@ window.eotData = [
     "JOB_ID": "SH00275",
     "JOB_ID_APP": "SH00275",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -5579,7 +5579,7 @@ window.eotData = [
     "JOB_ID": "SH00280",
     "JOB_ID_APP": "SH00280",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "2",
@@ -5620,7 +5620,7 @@ window.eotData = [
     "JOB_ID": "SH00305",
     "JOB_ID_APP": "SH00305",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -5661,7 +5661,7 @@ window.eotData = [
     "JOB_ID": "SH00311",
     "JOB_ID_APP": "SH00311",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -5702,7 +5702,7 @@ window.eotData = [
     "JOB_ID": "SH00313",
     "JOB_ID_APP": "SH00313",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -5743,7 +5743,7 @@ window.eotData = [
     "JOB_ID": "SH00319",
     "JOB_ID_APP": "SH00319",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -5784,7 +5784,7 @@ window.eotData = [
     "JOB_ID": "SH00339",
     "JOB_ID_APP": "SH00339",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -5825,7 +5825,7 @@ window.eotData = [
     "JOB_ID": "SH00344",
     "JOB_ID_APP": "SH00344",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -5866,7 +5866,7 @@ window.eotData = [
     "JOB_ID": "SH00347",
     "JOB_ID_APP": "SH00347",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -5907,7 +5907,7 @@ window.eotData = [
     "JOB_ID": "SH00357",
     "JOB_ID_APP": "SH00357",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -5948,7 +5948,7 @@ window.eotData = [
     "JOB_ID": "SH00380",
     "JOB_ID_APP": "SH00380",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -5989,7 +5989,7 @@ window.eotData = [
     "JOB_ID": "SH00381",
     "JOB_ID_APP": "SH00381",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6030,7 +6030,7 @@ window.eotData = [
     "JOB_ID": "SH00383",
     "JOB_ID_APP": "SH00383",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6071,7 +6071,7 @@ window.eotData = [
     "JOB_ID": "SH00391",
     "JOB_ID_APP": "SH00391",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6112,7 +6112,7 @@ window.eotData = [
     "JOB_ID": "SH00394",
     "JOB_ID_APP": "SH00394",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -6153,7 +6153,7 @@ window.eotData = [
     "JOB_ID": "SH00395",
     "JOB_ID_APP": "SH00395",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6194,7 +6194,7 @@ window.eotData = [
     "JOB_ID": "SH00397",
     "JOB_ID_APP": "SH00397",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6235,7 +6235,7 @@ window.eotData = [
     "JOB_ID": "SH00399",
     "JOB_ID_APP": "SH00399",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6276,7 +6276,7 @@ window.eotData = [
     "JOB_ID": "SH00415",
     "JOB_ID_APP": "SH00415",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6317,7 +6317,7 @@ window.eotData = [
     "JOB_ID": "SH00417",
     "JOB_ID_APP": "SH00417",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -6358,7 +6358,7 @@ window.eotData = [
     "JOB_ID": "SH00418",
     "JOB_ID_APP": "SH00418",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6399,7 +6399,7 @@ window.eotData = [
     "JOB_ID": "SH00423",
     "JOB_ID_APP": "SH00423",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -6440,7 +6440,7 @@ window.eotData = [
     "JOB_ID": "SH00424",
     "JOB_ID_APP": "SH00424",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6481,7 +6481,7 @@ window.eotData = [
     "JOB_ID": "SH00427",
     "JOB_ID_APP": "SH00427",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6522,7 +6522,7 @@ window.eotData = [
     "JOB_ID": "SH00428",
     "JOB_ID_APP": "SH00428",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -6563,7 +6563,7 @@ window.eotData = [
     "JOB_ID": "SH00430",
     "JOB_ID_APP": "SH00430",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -6604,7 +6604,7 @@ window.eotData = [
     "JOB_ID": "SH00431",
     "JOB_ID_APP": "SH00431",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6645,7 +6645,7 @@ window.eotData = [
     "JOB_ID": "SH00433",
     "JOB_ID_APP": "SH00433",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6686,7 +6686,7 @@ window.eotData = [
     "JOB_ID": "SH00434",
     "JOB_ID_APP": "SH00434",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6727,7 +6727,7 @@ window.eotData = [
     "JOB_ID": "SH00435",
     "JOB_ID_APP": "SH00435",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6768,7 +6768,7 @@ window.eotData = [
     "JOB_ID": "SH00437",
     "JOB_ID_APP": "SH00437",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -6809,7 +6809,7 @@ window.eotData = [
     "JOB_ID": "SH00448",
     "JOB_ID_APP": "SH00448",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -6850,7 +6850,7 @@ window.eotData = [
     "JOB_ID": "SH00449",
     "JOB_ID_APP": "SH00449",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -6891,7 +6891,7 @@ window.eotData = [
     "JOB_ID": "SH00450",
     "JOB_ID_APP": "SH00450",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -6932,7 +6932,7 @@ window.eotData = [
     "JOB_ID": "SI00038",
     "JOB_ID_APP": "SI00038",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.13",
     "DAILY_OT": {
       "1": "3",
@@ -6973,7 +6973,7 @@ window.eotData = [
     "JOB_ID": "SI00052",
     "JOB_ID_APP": "SI00052",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "54.81",
     "DAILY_OT": {
       "1": "2",
@@ -7014,7 +7014,7 @@ window.eotData = [
     "JOB_ID": "SI00057",
     "JOB_ID_APP": "SI00057",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -7055,7 +7055,7 @@ window.eotData = [
     "JOB_ID": "SI00058",
     "JOB_ID_APP": "SI00058",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -7096,7 +7096,7 @@ window.eotData = [
     "JOB_ID": "SI00059",
     "JOB_ID_APP": "SI00059",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "54.81",
     "DAILY_OT": {
       "1": "2",
@@ -7137,7 +7137,7 @@ window.eotData = [
     "JOB_ID": "SI00063",
     "JOB_ID_APP": "SI00063",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "2",
@@ -7178,7 +7178,7 @@ window.eotData = [
     "JOB_ID": "SO00011",
     "JOB_ID_APP": "SO00011",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "91.01",
     "DAILY_OT": {
       "1": "0",
@@ -7219,7 +7219,7 @@ window.eotData = [
     "JOB_ID": "SO00062",
     "JOB_ID_APP": "SO00062",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.84",
     "DAILY_OT": {
       "1": "2",
@@ -7260,7 +7260,7 @@ window.eotData = [
     "JOB_ID": "SO00130",
     "JOB_ID_APP": "SO00130",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.24",
     "DAILY_OT": {
       "1": "2",
@@ -7301,7 +7301,7 @@ window.eotData = [
     "JOB_ID": "SO00141",
     "JOB_ID_APP": "SO00141",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.26",
     "DAILY_OT": {
       "1": "2",
@@ -7342,7 +7342,7 @@ window.eotData = [
     "JOB_ID": "SO00149",
     "JOB_ID_APP": "SO00149",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "86.44",
     "DAILY_OT": {
       "1": "1",
@@ -7383,7 +7383,7 @@ window.eotData = [
     "JOB_ID": "SO00163",
     "JOB_ID_APP": "SO00163",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "87.97",
     "DAILY_OT": {
       "1": "0",
@@ -7424,7 +7424,7 @@ window.eotData = [
     "JOB_ID": "SO00164",
     "JOB_ID_APP": "SO00164",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "89.49",
     "DAILY_OT": {
       "1": "1",
@@ -7465,7 +7465,7 @@ window.eotData = [
     "JOB_ID": "SO00176",
     "JOB_ID_APP": "SO00176",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.84",
     "DAILY_OT": {
       "1": "1",
@@ -7506,7 +7506,7 @@ window.eotData = [
     "JOB_ID": "SO00179",
     "JOB_ID_APP": "SO00179",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "89.49",
     "DAILY_OT": {
       "1": "1",
@@ -7547,7 +7547,7 @@ window.eotData = [
     "JOB_ID": "SO00335",
     "JOB_ID_APP": "SO00335",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.13",
     "DAILY_OT": {
       "1": "2",
@@ -7588,7 +7588,7 @@ window.eotData = [
     "JOB_ID": "SO00349",
     "JOB_ID_APP": "SO00349",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "1",
@@ -7629,7 +7629,7 @@ window.eotData = [
     "JOB_ID": "SO00350",
     "JOB_ID_APP": "SO00350",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "2",
@@ -7670,7 +7670,7 @@ window.eotData = [
     "JOB_ID": "SO00356",
     "JOB_ID_APP": "SO00356",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "86.44",
     "DAILY_OT": {
       "1": "1",
@@ -7711,7 +7711,7 @@ window.eotData = [
     "JOB_ID": "SO00381",
     "JOB_ID_APP": "SO00381",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "82.63",
     "DAILY_OT": {
       "1": "1",
@@ -7752,7 +7752,7 @@ window.eotData = [
     "JOB_ID": "SO00385",
     "JOB_ID_APP": "SO00385",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.33",
     "DAILY_OT": {
       "1": "1",
@@ -7793,7 +7793,7 @@ window.eotData = [
     "JOB_ID": "SO00394",
     "JOB_ID_APP": "SO00394",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.22",
     "DAILY_OT": {
       "1": "1",
@@ -7834,7 +7834,7 @@ window.eotData = [
     "JOB_ID": "SO00415",
     "JOB_ID_APP": "SO00415",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "1",
@@ -7875,7 +7875,7 @@ window.eotData = [
     "JOB_ID": "SO00417",
     "JOB_ID_APP": "SO00417",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.22",
     "DAILY_OT": {
       "1": "2",
@@ -7916,7 +7916,7 @@ window.eotData = [
     "JOB_ID": "SO00432",
     "JOB_ID_APP": "SO00432",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "2",
@@ -7957,7 +7957,7 @@ window.eotData = [
     "JOB_ID": "SO00438",
     "JOB_ID_APP": "SO00438",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "1",
@@ -7998,7 +7998,7 @@ window.eotData = [
     "JOB_ID": "SO00443",
     "JOB_ID_APP": "SO00443",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "1",
@@ -8039,7 +8039,7 @@ window.eotData = [
     "JOB_ID": "SO00468",
     "JOB_ID_APP": "SO00468",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -8080,7 +8080,7 @@ window.eotData = [
     "JOB_ID": "SO00488",
     "JOB_ID_APP": "SO00488",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.14",
     "DAILY_OT": {
       "1": "1",
@@ -8121,7 +8121,7 @@ window.eotData = [
     "JOB_ID": "SO00491",
     "JOB_ID_APP": "SO00491",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -8162,7 +8162,7 @@ window.eotData = [
     "JOB_ID": "SO00496",
     "JOB_ID_APP": "SO00496",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -8203,7 +8203,7 @@ window.eotData = [
     "JOB_ID": "SO00497",
     "JOB_ID_APP": "SO00497",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -8244,7 +8244,7 @@ window.eotData = [
     "JOB_ID": "SO00499",
     "JOB_ID_APP": "SO00499",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "0",
@@ -8285,7 +8285,7 @@ window.eotData = [
     "JOB_ID": "SO00501",
     "JOB_ID_APP": "SO00501",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "0",
@@ -8326,7 +8326,7 @@ window.eotData = [
     "JOB_ID": "SO00502",
     "JOB_ID_APP": "SO00502",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -8367,7 +8367,7 @@ window.eotData = [
     "JOB_ID": "SO00503",
     "JOB_ID_APP": "SO00503",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -8408,7 +8408,7 @@ window.eotData = [
     "JOB_ID": "SO00512",
     "JOB_ID_APP": "SO00512",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "0",
@@ -8449,7 +8449,7 @@ window.eotData = [
     "JOB_ID": "SO00515",
     "JOB_ID_APP": "SO00515",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -8490,7 +8490,7 @@ window.eotData = [
     "JOB_ID": "SO00520",
     "JOB_ID_APP": "SO00520",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "0",
@@ -8531,7 +8531,7 @@ window.eotData = [
     "JOB_ID": "SO00522",
     "JOB_ID_APP": "SO00522",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -8572,7 +8572,7 @@ window.eotData = [
     "JOB_ID": "SO00523",
     "JOB_ID_APP": "SO00523",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "2",
@@ -8613,7 +8613,7 @@ window.eotData = [
     "JOB_ID": "SO00538",
     "JOB_ID_APP": "SO00538",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -8654,7 +8654,7 @@ window.eotData = [
     "JOB_ID": "SO00540",
     "JOB_ID_APP": "SO00540",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -8695,7 +8695,7 @@ window.eotData = [
     "JOB_ID": "SO00541",
     "JOB_ID_APP": "SO00541",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -8736,7 +8736,7 @@ window.eotData = [
     "JOB_ID": "SO00542",
     "JOB_ID_APP": "SO00542",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "2",
@@ -8777,7 +8777,7 @@ window.eotData = [
     "JOB_ID": "SO00544",
     "JOB_ID_APP": "SO00544",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "2",
@@ -8818,7 +8818,7 @@ window.eotData = [
     "JOB_ID": "SO00545",
     "JOB_ID_APP": "SO00545",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -8859,7 +8859,7 @@ window.eotData = [
     "JOB_ID": "SO00553",
     "JOB_ID_APP": "SO00553",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.32",
     "DAILY_OT": {
       "1": "1",
@@ -8900,7 +8900,7 @@ window.eotData = [
     "JOB_ID": "SO00556",
     "JOB_ID_APP": "SO00556",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -8941,7 +8941,7 @@ window.eotData = [
     "JOB_ID": "SO00562",
     "JOB_ID_APP": "SO00562",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -8982,7 +8982,7 @@ window.eotData = [
     "JOB_ID": "SO00570",
     "JOB_ID_APP": "SO00570",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "0",
@@ -9023,7 +9023,7 @@ window.eotData = [
     "JOB_ID": "SO00574",
     "JOB_ID_APP": "SO00574",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -9064,7 +9064,7 @@ window.eotData = [
     "JOB_ID": "SO00576",
     "JOB_ID_APP": "SO00576",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "0",
@@ -9105,7 +9105,7 @@ window.eotData = [
     "JOB_ID": "SO00577",
     "JOB_ID_APP": "SO00577",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -9146,7 +9146,7 @@ window.eotData = [
     "JOB_ID": "SO00579",
     "JOB_ID_APP": "SO00579",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -9187,7 +9187,7 @@ window.eotData = [
     "JOB_ID": "SO00599",
     "JOB_ID_APP": "SO00599",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -9228,7 +9228,7 @@ window.eotData = [
     "JOB_ID": "SO00602",
     "JOB_ID_APP": "SO00602",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -9269,7 +9269,7 @@ window.eotData = [
     "JOB_ID": "SO00603",
     "JOB_ID_APP": "SO00603",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "75.12",
     "DAILY_OT": {
       "1": "1",
@@ -9310,7 +9310,7 @@ window.eotData = [
     "JOB_ID": "SO00604",
     "JOB_ID_APP": "SO00604",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.7",
     "DAILY_OT": {
       "1": "1",
@@ -9351,7 +9351,7 @@ window.eotData = [
     "JOB_ID": "SO00606",
     "JOB_ID_APP": "SO00606",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -9392,7 +9392,7 @@ window.eotData = [
     "JOB_ID": "SO00616",
     "JOB_ID_APP": "SO00616",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -9433,7 +9433,7 @@ window.eotData = [
     "JOB_ID": "SO00619",
     "JOB_ID_APP": "SO00619",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.04",
     "DAILY_OT": {
       "1": "1",
@@ -9474,7 +9474,7 @@ window.eotData = [
     "JOB_ID": "SO00620",
     "JOB_ID_APP": "SO00620",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.35",
     "DAILY_OT": {
       "1": "1",
@@ -9515,7 +9515,7 @@ window.eotData = [
     "JOB_ID": "SO00622",
     "JOB_ID_APP": "SO00622",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "0",
@@ -9556,7 +9556,7 @@ window.eotData = [
     "JOB_ID": "SO00626",
     "JOB_ID_APP": "SO00626",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -9597,7 +9597,7 @@ window.eotData = [
     "JOB_ID": "SO00627",
     "JOB_ID_APP": "SO00627",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "0",
@@ -9638,7 +9638,7 @@ window.eotData = [
     "JOB_ID": "SO00628",
     "JOB_ID_APP": "SO00628",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -9679,7 +9679,7 @@ window.eotData = [
     "JOB_ID": "SO00631",
     "JOB_ID_APP": "SO00631",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "2",
@@ -9720,7 +9720,7 @@ window.eotData = [
     "JOB_ID": "SO00644",
     "JOB_ID_APP": "SO00644",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "2",
@@ -9761,7 +9761,7 @@ window.eotData = [
     "JOB_ID": "SO00645",
     "JOB_ID_APP": "SO00645",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -9802,7 +9802,7 @@ window.eotData = [
     "JOB_ID": "SO00649",
     "JOB_ID_APP": "SO00649",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.76",
     "DAILY_OT": {
       "1": "0",
@@ -9843,7 +9843,7 @@ window.eotData = [
     "JOB_ID": "SO00656",
     "JOB_ID_APP": "SO00656",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.21",
     "DAILY_OT": {
       "1": "0",
@@ -9884,7 +9884,7 @@ window.eotData = [
     "JOB_ID": "SO00657",
     "JOB_ID_APP": "SO00657",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "2",
@@ -9925,7 +9925,7 @@ window.eotData = [
     "JOB_ID": "SO00659",
     "JOB_ID_APP": "SO00659",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.35",
     "DAILY_OT": {
       "1": "1",
@@ -9966,7 +9966,7 @@ window.eotData = [
     "JOB_ID": "SO00669",
     "JOB_ID_APP": "SO00669",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "2",
@@ -10007,7 +10007,7 @@ window.eotData = [
     "JOB_ID": "SO00670",
     "JOB_ID_APP": "SO00670",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.5",
     "DAILY_OT": {
       "1": "1",
@@ -10048,7 +10048,7 @@ window.eotData = [
     "JOB_ID": "SO00677",
     "JOB_ID_APP": "SO00677",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -10089,7 +10089,7 @@ window.eotData = [
     "JOB_ID": "SO00681",
     "JOB_ID_APP": "SO00681",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "85.58",
     "DAILY_OT": {
       "1": "1",
@@ -10130,7 +10130,7 @@ window.eotData = [
     "JOB_ID": "SO00682",
     "JOB_ID_APP": "SO00682",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -10171,7 +10171,7 @@ window.eotData = [
     "JOB_ID": "CQ00001",
     "JOB_ID_APP": "CQ00001",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.92",
     "DAILY_OT": {
       "1": "3",
@@ -10212,7 +10212,7 @@ window.eotData = [
     "JOB_ID": "CQ00002",
     "JOB_ID_APP": "CQ00002",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.64",
     "DAILY_OT": {
       "1": "3",
@@ -10253,7 +10253,7 @@ window.eotData = [
     "JOB_ID": "CQ00005",
     "JOB_ID_APP": "CQ00005",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -10294,7 +10294,7 @@ window.eotData = [
     "JOB_ID": "CQ00007",
     "JOB_ID_APP": "CQ00007",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -10335,7 +10335,7 @@ window.eotData = [
     "JOB_ID": "SQ00001",
     "JOB_ID_APP": "SQ00001",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.42",
     "DAILY_OT": {
       "1": "1",
@@ -10376,7 +10376,7 @@ window.eotData = [
     "JOB_ID": "SQ00007",
     "JOB_ID_APP": "SQ00007",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.55",
     "DAILY_OT": {
       "1": "2",
@@ -10417,7 +10417,7 @@ window.eotData = [
     "JOB_ID": "SQ00010",
     "JOB_ID_APP": "SQ00010",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.21",
     "DAILY_OT": {
       "1": "0",
@@ -10458,7 +10458,7 @@ window.eotData = [
     "JOB_ID": "SQ00017",
     "JOB_ID_APP": "SQ00017",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.21",
     "DAILY_OT": {
       "1": "2",
@@ -10499,7 +10499,7 @@ window.eotData = [
     "JOB_ID": "SQ00019",
     "JOB_ID_APP": "SQ00019",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.21",
     "DAILY_OT": {
       "1": "3",
@@ -10540,7 +10540,7 @@ window.eotData = [
     "JOB_ID": "SQ00034",
     "JOB_ID_APP": "SQ00034",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "2",
@@ -10581,7 +10581,7 @@ window.eotData = [
     "JOB_ID": "SQ00036",
     "JOB_ID_APP": "SQ00036",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -10622,7 +10622,7 @@ window.eotData = [
     "JOB_ID": "SQ00038",
     "JOB_ID_APP": "SQ00038",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -10663,7 +10663,7 @@ window.eotData = [
     "JOB_ID": "SQ00041",
     "JOB_ID_APP": "SQ00041",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -10704,7 +10704,7 @@ window.eotData = [
     "JOB_ID": "SQ00043",
     "JOB_ID_APP": "SQ00043",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -10745,7 +10745,7 @@ window.eotData = [
     "JOB_ID": "SQ00045",
     "JOB_ID_APP": "SQ00045",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -10786,7 +10786,7 @@ window.eotData = [
     "JOB_ID": "SQ00046",
     "JOB_ID_APP": "SQ00046",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -10827,7 +10827,7 @@ window.eotData = [
     "JOB_ID": "SQ00050",
     "JOB_ID_APP": "SQ00050",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "2",
@@ -10868,7 +10868,7 @@ window.eotData = [
     "JOB_ID": "SQ00051",
     "JOB_ID_APP": "SQ00051",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "2",
@@ -10909,7 +10909,7 @@ window.eotData = [
     "JOB_ID": "SQ00052",
     "JOB_ID_APP": "SQ00052",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "2",
@@ -10950,7 +10950,7 @@ window.eotData = [
     "JOB_ID": "ELD0003",
     "JOB_ID_APP": "ELD0003",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "86.86",
     "DAILY_OT": {
       "1": "0",
@@ -10991,7 +10991,7 @@ window.eotData = [
     "JOB_ID": "EMH0102",
     "JOB_ID_APP": "EMH0102",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "75.91",
     "DAILY_OT": {
       "1": "0.5",
@@ -11032,7 +11032,7 @@ window.eotData = [
     "JOB_ID": "EMH0128",
     "JOB_ID_APP": "EMH0128",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "0",
@@ -11073,7 +11073,7 @@ window.eotData = [
     "JOB_ID": "EMH0165",
     "JOB_ID_APP": "EMH0165",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "1",
@@ -11114,7 +11114,7 @@ window.eotData = [
     "JOB_ID": "EMH0169",
     "JOB_ID_APP": "EMH0169",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "0",
@@ -11155,7 +11155,7 @@ window.eotData = [
     "JOB_ID": "EMH0178",
     "JOB_ID_APP": "EMH0178",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "1",
@@ -11196,7 +11196,7 @@ window.eotData = [
     "JOB_ID": "EMH0215",
     "JOB_ID_APP": "EMH0215",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "0",
@@ -11237,7 +11237,7 @@ window.eotData = [
     "JOB_ID": "EMH0216",
     "JOB_ID_APP": "EMH0216",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "0",
@@ -11278,7 +11278,7 @@ window.eotData = [
     "JOB_ID": "EMO0005",
     "JOB_ID_APP": "EMO0005",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "102.49",
     "DAILY_OT": {
       "1": "0.5",
@@ -11319,7 +11319,7 @@ window.eotData = [
     "JOB_ID": "EMO0010",
     "JOB_ID_APP": "EMO0010",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "98.5",
     "DAILY_OT": {
       "1": "0.5",
@@ -11360,7 +11360,7 @@ window.eotData = [
     "JOB_ID": "EMO0011",
     "JOB_ID_APP": "EMO0011",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "106.49",
     "DAILY_OT": {
       "1": "1",
@@ -11401,7 +11401,7 @@ window.eotData = [
     "JOB_ID": "EMO0020",
     "JOB_ID_APP": "EMO0020",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "102.49",
     "DAILY_OT": {
       "1": "0",
@@ -11442,7 +11442,7 @@ window.eotData = [
     "JOB_ID": "EMO0030",
     "JOB_ID_APP": "EMO0030",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "99.39",
     "DAILY_OT": {
       "1": "1",
@@ -11483,7 +11483,7 @@ window.eotData = [
     "JOB_ID": "EMO0042",
     "JOB_ID_APP": "EMO0042",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "99.39",
     "DAILY_OT": {
       "1": "0",
@@ -11524,7 +11524,7 @@ window.eotData = [
     "JOB_ID": "EMO0044",
     "JOB_ID_APP": "EMO0044",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "85.44",
     "DAILY_OT": {
       "1": "1",
@@ -11565,7 +11565,7 @@ window.eotData = [
     "JOB_ID": "EMO0045",
     "JOB_ID_APP": "EMO0045",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "84.22",
     "DAILY_OT": {
       "1": "1",
@@ -11606,7 +11606,7 @@ window.eotData = [
     "JOB_ID": "EMO0047",
     "JOB_ID_APP": "EMO0047",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "101.68",
     "DAILY_OT": {
       "1": "0",
@@ -11647,7 +11647,7 @@ window.eotData = [
     "JOB_ID": "EMO0051",
     "JOB_ID_APP": "EMO0051",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "87.97",
     "DAILY_OT": {
       "1": "0",
@@ -11688,7 +11688,7 @@ window.eotData = [
     "JOB_ID": "EMO0052",
     "JOB_ID_APP": "EMO0052",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "100.91",
     "DAILY_OT": {
       "1": "0",
@@ -11729,7 +11729,7 @@ window.eotData = [
     "JOB_ID": "EMO0053",
     "JOB_ID_APP": "EMO0053",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "0",
@@ -11770,7 +11770,7 @@ window.eotData = [
     "JOB_ID": "EMO0058",
     "JOB_ID_APP": "EMO0058",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "98.17",
     "DAILY_OT": {
       "1": "1",
@@ -11811,7 +11811,7 @@ window.eotData = [
     "JOB_ID": "EMO0059",
     "JOB_ID_APP": "EMO0059",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "94.68",
     "DAILY_OT": {
       "1": "0",
@@ -11852,7 +11852,7 @@ window.eotData = [
     "JOB_ID": "EMO0062",
     "JOB_ID_APP": "EMO0062",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "85.58",
     "DAILY_OT": {
       "1": "0",
@@ -11893,7 +11893,7 @@ window.eotData = [
     "JOB_ID": "EMO0063",
     "JOB_ID_APP": "EMO0063",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "81.75",
     "DAILY_OT": {
       "1": "1",
@@ -11934,7 +11934,7 @@ window.eotData = [
     "JOB_ID": "EMO0067",
     "JOB_ID_APP": "EMO0067",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.12",
     "DAILY_OT": {
       "1": "0",
@@ -11975,7 +11975,7 @@ window.eotData = [
     "JOB_ID": "EMO0068",
     "JOB_ID_APP": "EMO0068",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "93.27",
     "DAILY_OT": {
       "1": "0",
@@ -12016,7 +12016,7 @@ window.eotData = [
     "JOB_ID": "EMO0069",
     "JOB_ID_APP": "EMO0069",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "83.65",
     "DAILY_OT": {
       "1": "0",
@@ -12057,7 +12057,7 @@ window.eotData = [
     "JOB_ID": "EMO0070",
     "JOB_ID_APP": "EMO0070",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "85.58",
     "DAILY_OT": {
       "1": "0",
@@ -12098,7 +12098,7 @@ window.eotData = [
     "JOB_ID": "EMQ0014",
     "JOB_ID_APP": "EMQ0014",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -12139,7 +12139,7 @@ window.eotData = [
     "JOB_ID": "CH00007",
     "JOB_ID_APP": "CH00007",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.64",
     "DAILY_OT": {
       "1": "1",
@@ -12180,7 +12180,7 @@ window.eotData = [
     "JOB_ID": "CH00008",
     "JOB_ID_APP": "CH00008",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.64",
     "DAILY_OT": {
       "1": "1",
@@ -12221,7 +12221,7 @@ window.eotData = [
     "JOB_ID": "CH00011",
     "JOB_ID_APP": "CH00011",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.14",
     "DAILY_OT": {
       "1": "1",
@@ -12262,7 +12262,7 @@ window.eotData = [
     "JOB_ID": "CH00012",
     "JOB_ID_APP": "CH00012",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.64",
     "DAILY_OT": {
       "1": "1",
@@ -12303,7 +12303,7 @@ window.eotData = [
     "JOB_ID": "CH00013",
     "JOB_ID_APP": "CH00013",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.64",
     "DAILY_OT": {
       "1": "1",
@@ -12344,7 +12344,7 @@ window.eotData = [
     "JOB_ID": "CH00014",
     "JOB_ID_APP": "CH00014",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.64",
     "DAILY_OT": {
       "1": "1",
@@ -12385,7 +12385,7 @@ window.eotData = [
     "JOB_ID": "CH00018",
     "JOB_ID_APP": "CH00018",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.64",
     "DAILY_OT": {
       "1": "1",
@@ -12426,7 +12426,7 @@ window.eotData = [
     "JOB_ID": "CH00020",
     "JOB_ID_APP": "CH00020",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.14",
     "DAILY_OT": {
       "1": "3",
@@ -12467,7 +12467,7 @@ window.eotData = [
     "JOB_ID": "CH00022",
     "JOB_ID_APP": "CH00022",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -12508,7 +12508,7 @@ window.eotData = [
     "JOB_ID": "CH00023",
     "JOB_ID_APP": "CH00023",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -12549,7 +12549,7 @@ window.eotData = [
     "JOB_ID": "CH00025",
     "JOB_ID_APP": "CH00025",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -12590,7 +12590,7 @@ window.eotData = [
     "JOB_ID": "CH00027",
     "JOB_ID_APP": "CH00027",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -12631,7 +12631,7 @@ window.eotData = [
     "JOB_ID": "CH00028",
     "JOB_ID_APP": "CH00028",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -12672,7 +12672,7 @@ window.eotData = [
     "JOB_ID": "CH00030",
     "JOB_ID_APP": "CH00030",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -12713,7 +12713,7 @@ window.eotData = [
     "JOB_ID": "CH00031",
     "JOB_ID_APP": "CH00031",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -12754,7 +12754,7 @@ window.eotData = [
     "JOB_ID": "CH00033",
     "JOB_ID_APP": "CH00033",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -12795,7 +12795,7 @@ window.eotData = [
     "JOB_ID": "CH00034",
     "JOB_ID_APP": "CH00034",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -12836,7 +12836,7 @@ window.eotData = [
     "JOB_ID": "CH00035",
     "JOB_ID_APP": "CH00035",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "3",
@@ -12877,7 +12877,7 @@ window.eotData = [
     "JOB_ID": "CH00036",
     "JOB_ID_APP": "CH00036",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -12918,7 +12918,7 @@ window.eotData = [
     "JOB_ID": "CH00037",
     "JOB_ID_APP": "CH00037",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -12959,7 +12959,7 @@ window.eotData = [
     "JOB_ID": "CH00038",
     "JOB_ID_APP": "CH00038",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -13000,7 +13000,7 @@ window.eotData = [
     "JOB_ID": "LD00018",
     "JOB_ID_APP": "LD00018",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "3",
@@ -13041,7 +13041,7 @@ window.eotData = [
     "JOB_ID": "LD00019",
     "JOB_ID_APP": "LD00019",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "3",
@@ -13082,7 +13082,7 @@ window.eotData = [
     "JOB_ID": "LD00022",
     "JOB_ID_APP": "LD00022",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "0",
@@ -13123,7 +13123,7 @@ window.eotData = [
     "JOB_ID": "AC00001",
     "JOB_ID_APP": "AC00001",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "69.45",
     "DAILY_OT": {
       "1": "1",
@@ -13164,7 +13164,7 @@ window.eotData = [
     "JOB_ID": "AC00002",
     "JOB_ID_APP": "AC00002",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.64",
     "DAILY_OT": {
       "1": "1",
@@ -13205,7 +13205,7 @@ window.eotData = [
     "JOB_ID": "AC00006",
     "JOB_ID_APP": "AC00006",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.64",
     "DAILY_OT": {
       "1": "2",
@@ -13246,7 +13246,7 @@ window.eotData = [
     "JOB_ID": "AC00009",
     "JOB_ID_APP": "AC00009",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.64",
     "DAILY_OT": {
       "1": "3",
@@ -13287,7 +13287,7 @@ window.eotData = [
     "JOB_ID": "AC00013",
     "JOB_ID_APP": "AC00013",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.64",
     "DAILY_OT": {
       "1": "3",
@@ -13328,7 +13328,7 @@ window.eotData = [
     "JOB_ID": "AC00014",
     "JOB_ID_APP": "AC00014",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.64",
     "DAILY_OT": {
       "1": "3",
@@ -13369,7 +13369,7 @@ window.eotData = [
     "JOB_ID": "AC00015",
     "JOB_ID_APP": "AC00015",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "60.16",
     "DAILY_OT": {
       "1": "0",
@@ -13410,7 +13410,7 @@ window.eotData = [
     "JOB_ID": "AC00019",
     "JOB_ID_APP": "AC00019",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "60.16",
     "DAILY_OT": {
       "1": "3",
@@ -13451,7 +13451,7 @@ window.eotData = [
     "JOB_ID": "AC00025",
     "JOB_ID_APP": "AC00025",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -13492,7 +13492,7 @@ window.eotData = [
     "JOB_ID": "AC00026",
     "JOB_ID_APP": "AC00026",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "2",
@@ -13533,7 +13533,7 @@ window.eotData = [
     "JOB_ID": "AC00028",
     "JOB_ID_APP": "AC00028",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -13574,7 +13574,7 @@ window.eotData = [
     "JOB_ID": "AC00029",
     "JOB_ID_APP": "AC00029",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -13615,7 +13615,7 @@ window.eotData = [
     "JOB_ID": "SW0001",
     "JOB_ID_APP": "SW0001",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "44.56",
     "DAILY_OT": {
       "1": "0",
@@ -13656,7 +13656,7 @@ window.eotData = [
     "JOB_ID": "SW0002",
     "JOB_ID_APP": "SW0002",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "44.56",
     "DAILY_OT": {
       "1": "0",
@@ -13697,7 +13697,7 @@ window.eotData = [
     "JOB_ID": "SW0004",
     "JOB_ID_APP": "SW0004",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -13738,7 +13738,7 @@ window.eotData = [
     "JOB_ID": "SG00054",
     "JOB_ID_APP": "SG00054",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "138.46",
     "DAILY_OT": {
       "1": "1",
@@ -13779,7 +13779,7 @@ window.eotData = [
     "JOB_ID": "KCH0065",
     "JOB_ID_APP": "KCH0065",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.84",
     "DAILY_OT": {
       "1": "3",
@@ -13820,7 +13820,7 @@ window.eotData = [
     "JOB_ID": "KCH0107",
     "JOB_ID_APP": "KCH0107",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.32",
     "DAILY_OT": {
       "1": "3",
@@ -13861,7 +13861,7 @@ window.eotData = [
     "JOB_ID": "KCH0109",
     "JOB_ID_APP": "KCH0109",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.32",
     "DAILY_OT": {
       "1": "3",
@@ -13902,7 +13902,7 @@ window.eotData = [
     "JOB_ID": "KCH0111",
     "JOB_ID_APP": "KCH0111",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.32",
     "DAILY_OT": {
       "1": "3",
@@ -13943,7 +13943,7 @@ window.eotData = [
     "JOB_ID": "KCH0126",
     "JOB_ID_APP": "KCH0126",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.79",
     "DAILY_OT": {
       "1": "3",
@@ -13984,7 +13984,7 @@ window.eotData = [
     "JOB_ID": "KCH0134",
     "JOB_ID_APP": "KCH0134",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "54.86",
     "DAILY_OT": {
       "1": "3",
@@ -14025,7 +14025,7 @@ window.eotData = [
     "JOB_ID": "KCH0142",
     "JOB_ID_APP": "KCH0142",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "54.86",
     "DAILY_OT": {
       "1": "3",
@@ -14066,7 +14066,7 @@ window.eotData = [
     "JOB_ID": "KCH0145",
     "JOB_ID_APP": "KCH0145",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "54.86",
     "DAILY_OT": {
       "1": "3",
@@ -14107,7 +14107,7 @@ window.eotData = [
     "JOB_ID": "KCH0148",
     "JOB_ID_APP": "KCH0148",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -14148,7 +14148,7 @@ window.eotData = [
     "JOB_ID": "KCH0149",
     "JOB_ID_APP": "KCH0149",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -14189,7 +14189,7 @@ window.eotData = [
     "JOB_ID": "KCH0154",
     "JOB_ID_APP": "KCH0154",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -14230,7 +14230,7 @@ window.eotData = [
     "JOB_ID": "KCH0157",
     "JOB_ID_APP": "KCH0157",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "50.32",
     "DAILY_OT": {
       "1": "3",
@@ -14271,7 +14271,7 @@ window.eotData = [
     "JOB_ID": "KCQ0006",
     "JOB_ID_APP": "KCQ0006",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.32",
     "DAILY_OT": {
       "1": "3",
@@ -14312,7 +14312,7 @@ window.eotData = [
     "JOB_ID": "KCQ0008",
     "JOB_ID_APP": "KCQ0008",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.32",
     "DAILY_OT": {
       "1": "3",
@@ -14353,7 +14353,7 @@ window.eotData = [
     "JOB_ID": "KCQ0009",
     "JOB_ID_APP": "KCQ0009",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.32",
     "DAILY_OT": {
       "1": "3",
@@ -14394,7 +14394,7 @@ window.eotData = [
     "JOB_ID": "KCQ0015",
     "JOB_ID_APP": "KCQ0015",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "51.61",
     "DAILY_OT": {
       "1": "3",
@@ -14435,7 +14435,7 @@ window.eotData = [
     "JOB_ID": "KCQ0017",
     "JOB_ID_APP": "KCQ0017",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "51.61",
     "DAILY_OT": {
       "1": "3",
@@ -14476,7 +14476,7 @@ window.eotData = [
     "JOB_ID": "KCQ0018",
     "JOB_ID_APP": "KCQ0018",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "51.61",
     "DAILY_OT": {
       "1": "3",
@@ -14517,7 +14517,7 @@ window.eotData = [
     "JOB_ID": "KCQ0021",
     "JOB_ID_APP": "KCQ0021",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "51.61",
     "DAILY_OT": {
       "1": "3",
@@ -14558,7 +14558,7 @@ window.eotData = [
     "JOB_ID": "KCQ0023",
     "JOB_ID_APP": "KCQ0023",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "3",
@@ -14599,7 +14599,7 @@ window.eotData = [
     "JOB_ID": "KCQ0024",
     "JOB_ID_APP": "KCQ0024",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "51.61",
     "DAILY_OT": {
       "1": "3",
@@ -14640,7 +14640,7 @@ window.eotData = [
     "JOB_ID": "KCQ0025",
     "JOB_ID_APP": "KCQ0025",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.3",
     "DAILY_OT": {
       "1": "1",
@@ -14681,7 +14681,7 @@ window.eotData = [
     "JOB_ID": "KCQ0026",
     "JOB_ID_APP": "KCQ0026",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "51.61",
     "DAILY_OT": {
       "1": "0",
@@ -14722,7 +14722,7 @@ window.eotData = [
     "JOB_ID": "KLD0007",
     "JOB_ID_APP": "KLD0007",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.64",
     "DAILY_OT": {
       "1": "1",
@@ -14763,7 +14763,7 @@ window.eotData = [
     "JOB_ID": "KLD0011",
     "JOB_ID_APP": "KLD0011",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.64",
     "DAILY_OT": {
       "1": "0",
@@ -14804,7 +14804,7 @@ window.eotData = [
     "JOB_ID": "KLD0012",
     "JOB_ID_APP": "KLD0012",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.64",
     "DAILY_OT": {
       "1": "1",
@@ -14845,7 +14845,7 @@ window.eotData = [
     "JOB_ID": "KLD0013",
     "JOB_ID_APP": "KLD0013",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.84",
     "DAILY_OT": {
       "1": "1",
@@ -14886,7 +14886,7 @@ window.eotData = [
     "JOB_ID": "KLD0015",
     "JOB_ID_APP": "KLD0015",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.64",
     "DAILY_OT": {
       "1": "1",
@@ -14927,7 +14927,7 @@ window.eotData = [
     "JOB_ID": "KLD0025",
     "JOB_ID_APP": "KLD0025",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "1",
@@ -14968,7 +14968,7 @@ window.eotData = [
     "JOB_ID": "KLD0028",
     "JOB_ID_APP": "KLD0028",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "69.69",
     "DAILY_OT": {
       "1": "1",
@@ -15009,7 +15009,7 @@ window.eotData = [
     "JOB_ID": "KLD0032",
     "JOB_ID_APP": "KLD0032",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.68",
     "DAILY_OT": {
       "1": "0",
@@ -15050,7 +15050,7 @@ window.eotData = [
     "JOB_ID": "KLD0041",
     "JOB_ID_APP": "KLD0041",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "0",
@@ -15091,7 +15091,7 @@ window.eotData = [
     "JOB_ID": "KLD0044",
     "JOB_ID_APP": "KLD0044",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.84",
     "DAILY_OT": {
       "1": "1",
@@ -15132,7 +15132,7 @@ window.eotData = [
     "JOB_ID": "KLD0046",
     "JOB_ID_APP": "KLD0046",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.63",
     "DAILY_OT": {
       "1": "1",
@@ -15173,7 +15173,7 @@ window.eotData = [
     "JOB_ID": "KLD0047",
     "JOB_ID_APP": "KLD0047",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.34",
     "DAILY_OT": {
       "1": "1",
@@ -15214,7 +15214,7 @@ window.eotData = [
     "JOB_ID": "KLD0050",
     "JOB_ID_APP": "KLD0050",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "56.73",
     "DAILY_OT": {
       "1": "3",
@@ -15255,7 +15255,7 @@ window.eotData = [
     "JOB_ID": "KLD0052",
     "JOB_ID_APP": "KLD0052",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "1",
@@ -15296,7 +15296,7 @@ window.eotData = [
     "JOB_ID": "KLD0053",
     "JOB_ID_APP": "KLD0053",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "1",
@@ -15337,7 +15337,7 @@ window.eotData = [
     "JOB_ID": "KLD0060",
     "JOB_ID_APP": "KLD0060",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -15378,7 +15378,7 @@ window.eotData = [
     "JOB_ID": "KLD0062",
     "JOB_ID_APP": "KLD0062",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "56.73",
     "DAILY_OT": {
       "1": "3",
@@ -15419,7 +15419,7 @@ window.eotData = [
     "JOB_ID": "KLD0064",
     "JOB_ID_APP": "KLD0064",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "56.73",
     "DAILY_OT": {
       "1": "0",
@@ -15460,7 +15460,7 @@ window.eotData = [
     "JOB_ID": "KLD0065",
     "JOB_ID_APP": "KLD0065",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.24",
     "DAILY_OT": {
       "1": "0",
@@ -15501,7 +15501,7 @@ window.eotData = [
     "JOB_ID": "FH00123",
     "JOB_ID_APP": "FH00123",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.85",
     "DAILY_OT": {
       "1": "1",
@@ -15542,7 +15542,7 @@ window.eotData = [
     "JOB_ID": "FH00155",
     "JOB_ID_APP": "FH00155",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.85",
     "DAILY_OT": {
       "1": "1",
@@ -15583,7 +15583,7 @@ window.eotData = [
     "JOB_ID": "FH00198",
     "JOB_ID_APP": "FH00198",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "1",
@@ -15624,7 +15624,7 @@ window.eotData = [
     "JOB_ID": "FH00270",
     "JOB_ID_APP": "FH00270",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "1",
@@ -15665,7 +15665,7 @@ window.eotData = [
     "JOB_ID": "FH00293",
     "JOB_ID_APP": "FH00293",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -15706,7 +15706,7 @@ window.eotData = [
     "JOB_ID": "FH00336",
     "JOB_ID_APP": "FH00336",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -15747,7 +15747,7 @@ window.eotData = [
     "JOB_ID": "FH00371",
     "JOB_ID_APP": "FH00371",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -15788,7 +15788,7 @@ window.eotData = [
     "JOB_ID": "FH00413",
     "JOB_ID_APP": "FH00413",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -15829,7 +15829,7 @@ window.eotData = [
     "JOB_ID": "FH00426",
     "JOB_ID_APP": "FH00426",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -15870,7 +15870,7 @@ window.eotData = [
     "JOB_ID": "FH00429",
     "JOB_ID_APP": "FH00429",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -15911,7 +15911,7 @@ window.eotData = [
     "JOB_ID": "FH00432",
     "JOB_ID_APP": "FH00432",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -15952,7 +15952,7 @@ window.eotData = [
     "JOB_ID": "FH00451",
     "JOB_ID_APP": "FH00451",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -15993,7 +15993,7 @@ window.eotData = [
     "JOB_ID": "FH00453",
     "JOB_ID_APP": "FH00453",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16034,7 +16034,7 @@ window.eotData = [
     "JOB_ID": "FH00455",
     "JOB_ID_APP": "FH00455",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16075,7 +16075,7 @@ window.eotData = [
     "JOB_ID": "FH00482",
     "JOB_ID_APP": "FH00482",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16116,7 +16116,7 @@ window.eotData = [
     "JOB_ID": "FH00490",
     "JOB_ID_APP": "FH00490",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16157,7 +16157,7 @@ window.eotData = [
     "JOB_ID": "FH00498",
     "JOB_ID_APP": "FH00498",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16198,7 +16198,7 @@ window.eotData = [
     "JOB_ID": "FH00500",
     "JOB_ID_APP": "FH00500",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16239,7 +16239,7 @@ window.eotData = [
     "JOB_ID": "FH00503",
     "JOB_ID_APP": "FH00503",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16280,7 +16280,7 @@ window.eotData = [
     "JOB_ID": "FH00505",
     "JOB_ID_APP": "FH00505",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16321,7 +16321,7 @@ window.eotData = [
     "JOB_ID": "FH00509",
     "JOB_ID_APP": "FH00509",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16362,7 +16362,7 @@ window.eotData = [
     "JOB_ID": "FH00511",
     "JOB_ID_APP": "FH00511",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16403,7 +16403,7 @@ window.eotData = [
     "JOB_ID": "FH00519",
     "JOB_ID_APP": "FH00519",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -16444,7 +16444,7 @@ window.eotData = [
     "JOB_ID": "FH00521",
     "JOB_ID_APP": "FH00521",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16485,7 +16485,7 @@ window.eotData = [
     "JOB_ID": "FH00529",
     "JOB_ID_APP": "FH00529",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16526,7 +16526,7 @@ window.eotData = [
     "JOB_ID": "FH00531",
     "JOB_ID_APP": "FH00531",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16567,7 +16567,7 @@ window.eotData = [
     "JOB_ID": "FH00535",
     "JOB_ID_APP": "FH00535",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16608,7 +16608,7 @@ window.eotData = [
     "JOB_ID": "FH00539",
     "JOB_ID_APP": "FH00539",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16649,7 +16649,7 @@ window.eotData = [
     "JOB_ID": "FH00565",
     "JOB_ID_APP": "FH00565",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16690,7 +16690,7 @@ window.eotData = [
     "JOB_ID": "FH00572",
     "JOB_ID_APP": "FH00572",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16731,7 +16731,7 @@ window.eotData = [
     "JOB_ID": "FH00574",
     "JOB_ID_APP": "FH00574",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16772,7 +16772,7 @@ window.eotData = [
     "JOB_ID": "FH00575",
     "JOB_ID_APP": "FH00575",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16813,7 +16813,7 @@ window.eotData = [
     "JOB_ID": "FH00580",
     "JOB_ID_APP": "FH00580",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16854,7 +16854,7 @@ window.eotData = [
     "JOB_ID": "FH00583",
     "JOB_ID_APP": "FH00583",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16895,7 +16895,7 @@ window.eotData = [
     "JOB_ID": "FH00584",
     "JOB_ID_APP": "FH00584",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16936,7 +16936,7 @@ window.eotData = [
     "JOB_ID": "FH00585",
     "JOB_ID_APP": "FH00585",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -16977,7 +16977,7 @@ window.eotData = [
     "JOB_ID": "FH00586",
     "JOB_ID_APP": "FH00586",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17018,7 +17018,7 @@ window.eotData = [
     "JOB_ID": "FH00589",
     "JOB_ID_APP": "FH00589",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17059,7 +17059,7 @@ window.eotData = [
     "JOB_ID": "FH00591",
     "JOB_ID_APP": "FH00591",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17100,7 +17100,7 @@ window.eotData = [
     "JOB_ID": "FH00592",
     "JOB_ID_APP": "FH00592",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17141,7 +17141,7 @@ window.eotData = [
     "JOB_ID": "FH00594",
     "JOB_ID_APP": "FH00594",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17182,7 +17182,7 @@ window.eotData = [
     "JOB_ID": "FH00597",
     "JOB_ID_APP": "FH00597",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17223,7 +17223,7 @@ window.eotData = [
     "JOB_ID": "FH00601",
     "JOB_ID_APP": "FH00601",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17264,7 +17264,7 @@ window.eotData = [
     "JOB_ID": "FH00602",
     "JOB_ID_APP": "FH00602",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17305,7 +17305,7 @@ window.eotData = [
     "JOB_ID": "FH00605",
     "JOB_ID_APP": "FH00605",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17346,7 +17346,7 @@ window.eotData = [
     "JOB_ID": "FH00606",
     "JOB_ID_APP": "FH00606",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17387,7 +17387,7 @@ window.eotData = [
     "JOB_ID": "FH00607",
     "JOB_ID_APP": "FH00607",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17428,7 +17428,7 @@ window.eotData = [
     "JOB_ID": "FH00608",
     "JOB_ID_APP": "FH00608",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17469,7 +17469,7 @@ window.eotData = [
     "JOB_ID": "FH00609",
     "JOB_ID_APP": "FH00609",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17510,7 +17510,7 @@ window.eotData = [
     "JOB_ID": "FH00612",
     "JOB_ID_APP": "FH00612",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17551,7 +17551,7 @@ window.eotData = [
     "JOB_ID": "FH00613",
     "JOB_ID_APP": "FH00613",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17592,7 +17592,7 @@ window.eotData = [
     "JOB_ID": "FH00614",
     "JOB_ID_APP": "FH00614",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17633,7 +17633,7 @@ window.eotData = [
     "JOB_ID": "FH00616",
     "JOB_ID_APP": "FH00616",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -17674,7 +17674,7 @@ window.eotData = [
     "JOB_ID": "FH00617",
     "JOB_ID_APP": "FH00617",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17715,7 +17715,7 @@ window.eotData = [
     "JOB_ID": "FH00618",
     "JOB_ID_APP": "FH00618",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17756,7 +17756,7 @@ window.eotData = [
     "JOB_ID": "FH00619",
     "JOB_ID_APP": "FH00619",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17797,7 +17797,7 @@ window.eotData = [
     "JOB_ID": "FH00620",
     "JOB_ID_APP": "FH00620",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17838,7 +17838,7 @@ window.eotData = [
     "JOB_ID": "FH00621",
     "JOB_ID_APP": "FH00621",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17879,7 +17879,7 @@ window.eotData = [
     "JOB_ID": "FH00623",
     "JOB_ID_APP": "FH00623",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17920,7 +17920,7 @@ window.eotData = [
     "JOB_ID": "FH00624",
     "JOB_ID_APP": "FH00624",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -17961,7 +17961,7 @@ window.eotData = [
     "JOB_ID": "FH00625",
     "JOB_ID_APP": "FH00625",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -18002,7 +18002,7 @@ window.eotData = [
     "JOB_ID": "FH00626",
     "JOB_ID_APP": "FH00626",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -18043,7 +18043,7 @@ window.eotData = [
     "JOB_ID": "FH00627",
     "JOB_ID_APP": "FH00627",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -18084,7 +18084,7 @@ window.eotData = [
     "JOB_ID": "FH00629",
     "JOB_ID_APP": "FH00629",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -18125,7 +18125,7 @@ window.eotData = [
     "JOB_ID": "FH00630",
     "JOB_ID_APP": "FH00630",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -18166,7 +18166,7 @@ window.eotData = [
     "JOB_ID": "FH00631",
     "JOB_ID_APP": "FH00631",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -18207,7 +18207,7 @@ window.eotData = [
     "JOB_ID": "FH00632",
     "JOB_ID_APP": "FH00632",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -18248,7 +18248,7 @@ window.eotData = [
     "JOB_ID": "FI00001",
     "JOB_ID_APP": "FI00001",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "85.44",
     "DAILY_OT": {
       "1": "1",
@@ -18289,7 +18289,7 @@ window.eotData = [
     "JOB_ID": "FI00007",
     "JOB_ID_APP": "FI00007",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "85.44",
     "DAILY_OT": {
       "1": "1",
@@ -18330,7 +18330,7 @@ window.eotData = [
     "JOB_ID": "FI00028",
     "JOB_ID_APP": "FI00028",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.23",
     "DAILY_OT": {
       "1": "1",
@@ -18371,7 +18371,7 @@ window.eotData = [
     "JOB_ID": "FI00031",
     "JOB_ID_APP": "FI00031",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.36",
     "DAILY_OT": {
       "1": "1",
@@ -18412,7 +18412,7 @@ window.eotData = [
     "JOB_ID": "FI00039",
     "JOB_ID_APP": "FI00039",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.94",
     "DAILY_OT": {
       "1": "1",
@@ -18453,7 +18453,7 @@ window.eotData = [
     "JOB_ID": "FI00044",
     "JOB_ID_APP": "FI00044",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -18494,7 +18494,7 @@ window.eotData = [
     "JOB_ID": "FI00049",
     "JOB_ID_APP": "FI00049",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.35",
     "DAILY_OT": {
       "1": "1",
@@ -18535,7 +18535,7 @@ window.eotData = [
     "JOB_ID": "FI00052",
     "JOB_ID_APP": "FI00052",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.04",
     "DAILY_OT": {
       "1": "1",
@@ -18576,7 +18576,7 @@ window.eotData = [
     "JOB_ID": "FI00053",
     "JOB_ID_APP": "FI00053",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "1",
@@ -18617,7 +18617,7 @@ window.eotData = [
     "JOB_ID": "FI00054",
     "JOB_ID_APP": "FI00054",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.32",
     "DAILY_OT": {
       "1": "1",
@@ -18658,7 +18658,7 @@ window.eotData = [
     "JOB_ID": "FI00056",
     "JOB_ID_APP": "FI00056",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.76",
     "DAILY_OT": {
       "1": "1",
@@ -18699,7 +18699,7 @@ window.eotData = [
     "JOB_ID": "FI00057",
     "JOB_ID_APP": "FI00057",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "1",
@@ -18740,7 +18740,7 @@ window.eotData = [
     "JOB_ID": "FO00019",
     "JOB_ID_APP": "FO00019",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "81.25",
     "DAILY_OT": {
       "1": "1",
@@ -18781,7 +18781,7 @@ window.eotData = [
     "JOB_ID": "FO00024",
     "JOB_ID_APP": "FO00024",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "85.24",
     "DAILY_OT": {
       "1": "1",
@@ -18822,7 +18822,7 @@ window.eotData = [
     "JOB_ID": "FO00051",
     "JOB_ID_APP": "FO00051",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.34",
     "DAILY_OT": {
       "1": "1",
@@ -18863,7 +18863,7 @@ window.eotData = [
     "JOB_ID": "FO00053",
     "JOB_ID_APP": "FO00053",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.26",
     "DAILY_OT": {
       "1": "1",
@@ -18904,7 +18904,7 @@ window.eotData = [
     "JOB_ID": "FO00069",
     "JOB_ID_APP": "FO00069",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "1",
@@ -18945,7 +18945,7 @@ window.eotData = [
     "JOB_ID": "FO00084",
     "JOB_ID_APP": "FO00084",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.41",
     "DAILY_OT": {
       "1": "1",
@@ -18986,7 +18986,7 @@ window.eotData = [
     "JOB_ID": "FO00087",
     "JOB_ID_APP": "FO00087",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.83",
     "DAILY_OT": {
       "1": "1",
@@ -19027,7 +19027,7 @@ window.eotData = [
     "JOB_ID": "FO00094",
     "JOB_ID_APP": "FO00094",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "75.12",
     "DAILY_OT": {
       "1": "1",
@@ -19068,7 +19068,7 @@ window.eotData = [
     "JOB_ID": "FO00096",
     "JOB_ID_APP": "FO00096",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -19109,7 +19109,7 @@ window.eotData = [
     "JOB_ID": "FO00097",
     "JOB_ID_APP": "FO00097",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -19150,7 +19150,7 @@ window.eotData = [
     "JOB_ID": "FO00098",
     "JOB_ID_APP": "FO00098",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -19191,7 +19191,7 @@ window.eotData = [
     "JOB_ID": "FO00099",
     "JOB_ID_APP": "FO00099",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -19232,7 +19232,7 @@ window.eotData = [
     "JOB_ID": "FO00100",
     "JOB_ID_APP": "FO00100",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -19273,7 +19273,7 @@ window.eotData = [
     "JOB_ID": "FO00102",
     "JOB_ID_APP": "FO00102",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -19314,7 +19314,7 @@ window.eotData = [
     "JOB_ID": "FO00106",
     "JOB_ID_APP": "FO00106",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "1",
@@ -19355,7 +19355,7 @@ window.eotData = [
     "JOB_ID": "FO00109",
     "JOB_ID_APP": "FO00109",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "1",
@@ -19396,7 +19396,7 @@ window.eotData = [
     "JOB_ID": "FO00110",
     "JOB_ID_APP": "FO00110",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -19437,7 +19437,7 @@ window.eotData = [
     "JOB_ID": "FO00111",
     "JOB_ID_APP": "FO00111",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.12",
     "DAILY_OT": {
       "1": "1",
@@ -19478,7 +19478,7 @@ window.eotData = [
     "JOB_ID": "FO00113",
     "JOB_ID_APP": "FO00113",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.91",
     "DAILY_OT": {
       "1": "1",
@@ -19519,7 +19519,7 @@ window.eotData = [
     "JOB_ID": "FO00115",
     "JOB_ID_APP": "FO00115",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "0",
@@ -19560,7 +19560,7 @@ window.eotData = [
     "JOB_ID": "FO00117",
     "JOB_ID_APP": "FO00117",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.91",
     "DAILY_OT": {
       "1": "1",
@@ -19601,7 +19601,7 @@ window.eotData = [
     "JOB_ID": "FO00120",
     "JOB_ID_APP": "FO00120",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "1",
@@ -19642,7 +19642,7 @@ window.eotData = [
     "JOB_ID": "FO00123",
     "JOB_ID_APP": "FO00123",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.35",
     "DAILY_OT": {
       "1": "1",
@@ -19683,7 +19683,7 @@ window.eotData = [
     "JOB_ID": "FO00124",
     "JOB_ID_APP": "FO00124",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.76",
     "DAILY_OT": {
       "1": "0",
@@ -19724,7 +19724,7 @@ window.eotData = [
     "JOB_ID": "FO00125",
     "JOB_ID_APP": "FO00125",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "0",
@@ -19765,7 +19765,7 @@ window.eotData = [
     "JOB_ID": "FO00126",
     "JOB_ID_APP": "FO00126",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.99",
     "DAILY_OT": {
       "1": "0",
@@ -19806,7 +19806,7 @@ window.eotData = [
     "JOB_ID": "FQ00035",
     "JOB_ID_APP": "FQ00035",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "84.45",
     "DAILY_OT": {
       "1": "1",
@@ -19847,7 +19847,7 @@ window.eotData = [
     "JOB_ID": "FQ00060",
     "JOB_ID_APP": "FQ00060",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.25",
     "DAILY_OT": {
       "1": "1",
@@ -19888,7 +19888,7 @@ window.eotData = [
     "JOB_ID": "FQ00079",
     "JOB_ID_APP": "FQ00079",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "1",
@@ -19929,7 +19929,7 @@ window.eotData = [
     "JOB_ID": "FQ00082",
     "JOB_ID_APP": "FQ00082",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.62",
     "DAILY_OT": {
       "1": "1",
@@ -19970,7 +19970,7 @@ window.eotData = [
     "JOB_ID": "FQ00092",
     "JOB_ID_APP": "FQ00092",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.36",
     "DAILY_OT": {
       "1": "1",
@@ -20011,7 +20011,7 @@ window.eotData = [
     "JOB_ID": "FQ00102",
     "JOB_ID_APP": "FQ00102",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "82.63",
     "DAILY_OT": {
       "1": "1",
@@ -20052,7 +20052,7 @@ window.eotData = [
     "JOB_ID": "FQ00119",
     "JOB_ID_APP": "FQ00119",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "0",
@@ -20093,7 +20093,7 @@ window.eotData = [
     "JOB_ID": "FQ00132",
     "JOB_ID_APP": "FQ00132",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "0",
@@ -20134,7 +20134,7 @@ window.eotData = [
     "JOB_ID": "FQ00170",
     "JOB_ID_APP": "FQ00170",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.63",
     "DAILY_OT": {
       "1": "1",
@@ -20175,7 +20175,7 @@ window.eotData = [
     "JOB_ID": "FQ00180",
     "JOB_ID_APP": "FQ00180",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.13",
     "DAILY_OT": {
       "1": "1",
@@ -20216,7 +20216,7 @@ window.eotData = [
     "JOB_ID": "FQ00181",
     "JOB_ID_APP": "FQ00181",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "1",
@@ -20257,7 +20257,7 @@ window.eotData = [
     "JOB_ID": "FQ00184",
     "JOB_ID_APP": "FQ00184",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "2",
@@ -20298,7 +20298,7 @@ window.eotData = [
     "JOB_ID": "FQ00187",
     "JOB_ID_APP": "FQ00187",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.32",
     "DAILY_OT": {
       "1": "0",
@@ -20339,7 +20339,7 @@ window.eotData = [
     "JOB_ID": "FQ00194",
     "JOB_ID_APP": "FQ00194",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "1",
@@ -20380,7 +20380,7 @@ window.eotData = [
     "JOB_ID": "FQ00196",
     "JOB_ID_APP": "FQ00196",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -20421,7 +20421,7 @@ window.eotData = [
     "JOB_ID": "FQ00197",
     "JOB_ID_APP": "FQ00197",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -20462,7 +20462,7 @@ window.eotData = [
     "JOB_ID": "FQ00198",
     "JOB_ID_APP": "FQ00198",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -20503,7 +20503,7 @@ window.eotData = [
     "JOB_ID": "FQ00200",
     "JOB_ID_APP": "FQ00200",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -20544,7 +20544,7 @@ window.eotData = [
     "JOB_ID": "FQ00201",
     "JOB_ID_APP": "FQ00201",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "1",
@@ -20585,7 +20585,7 @@ window.eotData = [
     "JOB_ID": "FQ00207",
     "JOB_ID_APP": "FQ00207",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.91",
     "DAILY_OT": {
       "1": "1",
@@ -20626,7 +20626,7 @@ window.eotData = [
     "JOB_ID": "FQ00209",
     "JOB_ID_APP": "FQ00209",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.47",
     "DAILY_OT": {
       "1": "1",
@@ -20667,7 +20667,7 @@ window.eotData = [
     "JOB_ID": "FQ00214",
     "JOB_ID_APP": "FQ00214",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "1",
@@ -20708,7 +20708,7 @@ window.eotData = [
     "JOB_ID": "FQ00215",
     "JOB_ID_APP": "FQ00215",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.47",
     "DAILY_OT": {
       "1": "1",
@@ -20749,7 +20749,7 @@ window.eotData = [
     "JOB_ID": "FQ00218",
     "JOB_ID_APP": "FQ00218",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "1",
@@ -20790,7 +20790,7 @@ window.eotData = [
     "JOB_ID": "FQ00220",
     "JOB_ID_APP": "FQ00220",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.13",
     "DAILY_OT": {
       "1": "1",
@@ -20831,7 +20831,7 @@ window.eotData = [
     "JOB_ID": "FQ00221",
     "JOB_ID_APP": "FQ00221",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.13",
     "DAILY_OT": {
       "1": "1",
@@ -20872,7 +20872,7 @@ window.eotData = [
     "JOB_ID": "FQ00224",
     "JOB_ID_APP": "FQ00224",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -20913,7 +20913,7 @@ window.eotData = [
     "JOB_ID": "FQ00225",
     "JOB_ID_APP": "FQ00225",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -20954,7 +20954,7 @@ window.eotData = [
     "JOB_ID": "FQ00226",
     "JOB_ID_APP": "FQ00226",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "1",
@@ -20995,7 +20995,7 @@ window.eotData = [
     "JOB_ID": "FQ00229",
     "JOB_ID_APP": "FQ00229",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "1",
@@ -21036,7 +21036,7 @@ window.eotData = [
     "JOB_ID": "FQ00230",
     "JOB_ID_APP": "FQ00230",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -21077,7 +21077,7 @@ window.eotData = [
     "JOB_ID": "FQ00231",
     "JOB_ID_APP": "FQ00231",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -21118,7 +21118,7 @@ window.eotData = [
     "JOB_ID": "FQ00233",
     "JOB_ID_APP": "FQ00233",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.04",
     "DAILY_OT": {
       "1": "1",
@@ -21159,7 +21159,7 @@ window.eotData = [
     "JOB_ID": "FQ00235",
     "JOB_ID_APP": "FQ00235",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.5",
     "DAILY_OT": {
       "1": "1",
@@ -21200,7 +21200,7 @@ window.eotData = [
     "JOB_ID": "FQ00236",
     "JOB_ID_APP": "FQ00236",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -21241,7 +21241,7 @@ window.eotData = [
     "JOB_ID": "FQ00237",
     "JOB_ID_APP": "FQ00237",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.07",
     "DAILY_OT": {
       "1": "1",
@@ -21282,7 +21282,7 @@ window.eotData = [
     "JOB_ID": "FQ00238",
     "JOB_ID_APP": "FQ00238",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "0",
@@ -21323,7 +21323,7 @@ window.eotData = [
     "JOB_ID": "FQ00239",
     "JOB_ID_APP": "FQ00239",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "1",
@@ -21364,7 +21364,7 @@ window.eotData = [
     "JOB_ID": "LD00010",
     "JOB_ID_APP": "LD00010",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.21",
     "DAILY_OT": {
       "1": "2",
@@ -21405,7 +21405,7 @@ window.eotData = [
     "JOB_ID": "LD00023",
     "JOB_ID_APP": "LD00023",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "2",
@@ -21446,7 +21446,7 @@ window.eotData = [
     "JOB_ID": "LD00024",
     "JOB_ID_APP": "LD00024",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "2",
@@ -21487,7 +21487,7 @@ window.eotData = [
     "JOB_ID": "PO00001",
     "JOB_ID_APP": "PO00001",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "83.64",
     "DAILY_OT": {
       "1": "0",
@@ -21528,7 +21528,7 @@ window.eotData = [
     "JOB_ID": "PO00006",
     "JOB_ID_APP": "PO00006",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.64",
     "DAILY_OT": {
       "1": "1",
@@ -21569,7 +21569,7 @@ window.eotData = [
     "JOB_ID": "PO00013",
     "JOB_ID_APP": "PO00013",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "75.84",
     "DAILY_OT": {
       "1": "1",
@@ -21610,7 +21610,7 @@ window.eotData = [
     "JOB_ID": "PO00030",
     "JOB_ID_APP": "PO00030",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "0",
@@ -21651,7 +21651,7 @@ window.eotData = [
     "JOB_ID": "PO00037",
     "JOB_ID_APP": "PO00037",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "1",
@@ -21692,7 +21692,7 @@ window.eotData = [
     "JOB_ID": "PO00044",
     "JOB_ID_APP": "PO00044",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "1",
@@ -21733,7 +21733,7 @@ window.eotData = [
     "JOB_ID": "PO00050",
     "JOB_ID_APP": "PO00050",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "1",
@@ -21774,7 +21774,7 @@ window.eotData = [
     "JOB_ID": "PO00052",
     "JOB_ID_APP": "PO00052",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "0",
@@ -21815,7 +21815,7 @@ window.eotData = [
     "JOB_ID": "PO00053",
     "JOB_ID_APP": "PO00053",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -21856,7 +21856,7 @@ window.eotData = [
     "JOB_ID": "PO00055",
     "JOB_ID_APP": "PO00055",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "1",
@@ -21897,7 +21897,7 @@ window.eotData = [
     "JOB_ID": "PO00056",
     "JOB_ID_APP": "PO00056",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "1",
@@ -21938,7 +21938,7 @@ window.eotData = [
     "JOB_ID": "PO00059",
     "JOB_ID_APP": "PO00059",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.84",
     "DAILY_OT": {
       "1": "1",
@@ -21979,7 +21979,7 @@ window.eotData = [
     "JOB_ID": "PO00060",
     "JOB_ID_APP": "PO00060",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.76",
     "DAILY_OT": {
       "1": "1",
@@ -22020,7 +22020,7 @@ window.eotData = [
     "JOB_ID": "PO00061",
     "JOB_ID_APP": "PO00061",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "69.55",
     "DAILY_OT": {
       "1": "1",
@@ -22061,7 +22061,7 @@ window.eotData = [
     "JOB_ID": "PO00062",
     "JOB_ID_APP": "PO00062",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.14",
     "DAILY_OT": {
       "1": "1",
@@ -22102,7 +22102,7 @@ window.eotData = [
     "JOB_ID": "PO00063",
     "JOB_ID_APP": "PO00063",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.5",
     "DAILY_OT": {
       "1": "0",
@@ -22143,7 +22143,7 @@ window.eotData = [
     "JOB_ID": "KFH0018",
     "JOB_ID_APP": "KFH0018",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -22184,7 +22184,7 @@ window.eotData = [
     "JOB_ID": "KFH0030",
     "JOB_ID_APP": "KFH0030",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -22225,7 +22225,7 @@ window.eotData = [
     "JOB_ID": "KFH0031",
     "JOB_ID_APP": "KFH0031",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "56.25",
     "DAILY_OT": {
       "1": "3",
@@ -22266,7 +22266,7 @@ window.eotData = [
     "JOB_ID": "KFH0032",
     "JOB_ID_APP": "KFH0032",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -22307,7 +22307,7 @@ window.eotData = [
     "JOB_ID": "KFI0049",
     "JOB_ID_APP": "KFI0049",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.07",
     "DAILY_OT": {
       "1": "3",
@@ -22348,7 +22348,7 @@ window.eotData = [
     "JOB_ID": "KFI0057",
     "JOB_ID_APP": "KFI0057",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.36",
     "DAILY_OT": {
       "1": "3",
@@ -22389,7 +22389,7 @@ window.eotData = [
     "JOB_ID": "KFI0061",
     "JOB_ID_APP": "KFI0061",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "3",
@@ -22430,7 +22430,7 @@ window.eotData = [
     "JOB_ID": "KFI0062",
     "JOB_ID_APP": "KFI0062",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.72",
     "DAILY_OT": {
       "1": "3",
@@ -22471,7 +22471,7 @@ window.eotData = [
     "JOB_ID": "KFI0064",
     "JOB_ID_APP": "KFI0064",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.21",
     "DAILY_OT": {
       "1": "3",
@@ -22512,7 +22512,7 @@ window.eotData = [
     "JOB_ID": "KFI0073",
     "JOB_ID_APP": "KFI0073",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.12",
     "DAILY_OT": {
       "1": "3",
@@ -22553,7 +22553,7 @@ window.eotData = [
     "JOB_ID": "KFI0076",
     "JOB_ID_APP": "KFI0076",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.12",
     "DAILY_OT": {
       "1": "3",
@@ -22594,7 +22594,7 @@ window.eotData = [
     "JOB_ID": "KFI0077",
     "JOB_ID_APP": "KFI0077",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.76",
     "DAILY_OT": {
       "1": "3",
@@ -22635,7 +22635,7 @@ window.eotData = [
     "JOB_ID": "KFI0079",
     "JOB_ID_APP": "KFI0079",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.12",
     "DAILY_OT": {
       "1": "3",
@@ -22676,7 +22676,7 @@ window.eotData = [
     "JOB_ID": "KFI0081",
     "JOB_ID_APP": "KFI0081",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.76",
     "DAILY_OT": {
       "1": "3",
@@ -22717,7 +22717,7 @@ window.eotData = [
     "JOB_ID": "KFQ0019",
     "JOB_ID_APP": "KFQ0019",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.64",
     "DAILY_OT": {
       "1": "3",
@@ -22758,7 +22758,7 @@ window.eotData = [
     "JOB_ID": "KFQ0028",
     "JOB_ID_APP": "KFQ0028",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.85",
     "DAILY_OT": {
       "1": "1",
@@ -22799,7 +22799,7 @@ window.eotData = [
     "JOB_ID": "KFQ0059",
     "JOB_ID_APP": "KFQ0059",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.64",
     "DAILY_OT": {
       "1": "3",
@@ -22840,7 +22840,7 @@ window.eotData = [
     "JOB_ID": "KFQ0068",
     "JOB_ID_APP": "KFQ0068",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.95",
     "DAILY_OT": {
       "1": "3",
@@ -22881,7 +22881,7 @@ window.eotData = [
     "JOB_ID": "KFQ0076",
     "JOB_ID_APP": "KFQ0076",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "0",
@@ -22922,7 +22922,7 @@ window.eotData = [
     "JOB_ID": "KFQ0077",
     "JOB_ID_APP": "KFQ0077",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.44",
     "DAILY_OT": {
       "1": "3",
@@ -22963,7 +22963,7 @@ window.eotData = [
     "JOB_ID": "KFQ0081",
     "JOB_ID_APP": "KFQ0081",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "1",
@@ -23004,7 +23004,7 @@ window.eotData = [
     "JOB_ID": "KFQ0086",
     "JOB_ID_APP": "KFQ0086",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.54",
     "DAILY_OT": {
       "1": "3",
@@ -23045,7 +23045,7 @@ window.eotData = [
     "JOB_ID": "KFQ0093",
     "JOB_ID_APP": "KFQ0093",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.35",
     "DAILY_OT": {
       "1": "3",
@@ -23086,7 +23086,7 @@ window.eotData = [
     "JOB_ID": "KFQ0096",
     "JOB_ID_APP": "KFQ0096",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "3",
@@ -23127,7 +23127,7 @@ window.eotData = [
     "JOB_ID": "KFQ0098",
     "JOB_ID_APP": "KFQ0098",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "3",
@@ -23168,7 +23168,7 @@ window.eotData = [
     "JOB_ID": "KFQ0103",
     "JOB_ID_APP": "KFQ0103",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "3",
@@ -23209,7 +23209,7 @@ window.eotData = [
     "JOB_ID": "KFQ0106",
     "JOB_ID_APP": "KFQ0106",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "1",
@@ -23250,7 +23250,7 @@ window.eotData = [
     "JOB_ID": "KFQ0107",
     "JOB_ID_APP": "KFQ0107",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "3",
@@ -23291,7 +23291,7 @@ window.eotData = [
     "JOB_ID": "KFQ0108",
     "JOB_ID_APP": "KFQ0108",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "56.09",
     "DAILY_OT": {
       "1": "3",
@@ -23332,7 +23332,7 @@ window.eotData = [
     "JOB_ID": "KFQ0109",
     "JOB_ID_APP": "KFQ0109",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "3",
@@ -23373,7 +23373,7 @@ window.eotData = [
     "JOB_ID": "KFQ0110",
     "JOB_ID_APP": "KFQ0110",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "0",
@@ -23414,7 +23414,7 @@ window.eotData = [
     "JOB_ID": "KFQ0111",
     "JOB_ID_APP": "KFQ0111",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -23455,7 +23455,7 @@ window.eotData = [
     "JOB_ID": "KFQ0112",
     "JOB_ID_APP": "KFQ0112",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "54.81",
     "DAILY_OT": {
       "1": "0",
@@ -23496,7 +23496,7 @@ window.eotData = [
     "JOB_ID": "KLD0057",
     "JOB_ID_APP": "KLD0057",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "3",
@@ -23537,7 +23537,7 @@ window.eotData = [
     "JOB_ID": "KPO0002",
     "JOB_ID_APP": "KPO0002",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.85",
     "DAILY_OT": {
       "1": "1",
@@ -23578,7 +23578,7 @@ window.eotData = [
     "JOB_ID": "KPO0009",
     "JOB_ID_APP": "KPO0009",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.84",
     "DAILY_OT": {
       "1": "1",
@@ -23619,7 +23619,7 @@ window.eotData = [
     "JOB_ID": "KPO0018",
     "JOB_ID_APP": "KPO0018",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.85",
     "DAILY_OT": {
       "1": "3",
@@ -23660,7 +23660,7 @@ window.eotData = [
     "JOB_ID": "KPO0032",
     "JOB_ID_APP": "KPO0032",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.64",
     "DAILY_OT": {
       "1": "1",
@@ -23701,7 +23701,7 @@ window.eotData = [
     "JOB_ID": "KPO0035",
     "JOB_ID_APP": "KPO0035",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.4",
     "DAILY_OT": {
       "1": "1",
@@ -23742,7 +23742,7 @@ window.eotData = [
     "JOB_ID": "KPO0036",
     "JOB_ID_APP": "KPO0036",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.13",
     "DAILY_OT": {
       "1": "0",
@@ -23783,7 +23783,7 @@ window.eotData = [
     "JOB_ID": "KPO0037",
     "JOB_ID_APP": "KPO0037",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.35",
     "DAILY_OT": {
       "1": "1",
@@ -23824,7 +23824,7 @@ window.eotData = [
     "JOB_ID": "KPO0043",
     "JOB_ID_APP": "KPO0043",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.34",
     "DAILY_OT": {
       "1": "0",
@@ -23865,7 +23865,7 @@ window.eotData = [
     "JOB_ID": "KPO0044",
     "JOB_ID_APP": "KPO0044",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "1",
@@ -23906,7 +23906,7 @@ window.eotData = [
     "JOB_ID": "KPO0047",
     "JOB_ID_APP": "KPO0047",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "3",
@@ -23947,7 +23947,7 @@ window.eotData = [
     "JOB_ID": "KPO0048",
     "JOB_ID_APP": "KPO0048",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "0",
@@ -23988,7 +23988,7 @@ window.eotData = [
     "JOB_ID": "KPO0049",
     "JOB_ID_APP": "KPO0049",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "1",
@@ -24029,7 +24029,7 @@ window.eotData = [
     "JOB_ID": "LMH0001",
     "JOB_ID_APP": "LMH0001",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -24070,7 +24070,7 @@ window.eotData = [
     "JOB_ID": "LMH0002",
     "JOB_ID_APP": "LMH0002",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -24111,7 +24111,7 @@ window.eotData = [
     "JOB_ID": "LMH0003",
     "JOB_ID_APP": "LMH0003",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "0",
@@ -24152,7 +24152,7 @@ window.eotData = [
     "JOB_ID": "LMH0005",
     "JOB_ID_APP": "LMH0005",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "0",
@@ -24193,7 +24193,7 @@ window.eotData = [
     "JOB_ID": "LMH0007",
     "JOB_ID_APP": "LMH0007",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -24234,7 +24234,7 @@ window.eotData = [
     "JOB_ID": "LMO0001",
     "JOB_ID_APP": "LMO0001",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "90.95",
     "DAILY_OT": {
       "1": "0",
@@ -24275,7 +24275,7 @@ window.eotData = [
     "JOB_ID": "LMO0002",
     "JOB_ID_APP": "LMO0002",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "80.45",
     "DAILY_OT": {
       "1": "0",
@@ -24316,7 +24316,7 @@ window.eotData = [
     "JOB_ID": "LMO0003",
     "JOB_ID_APP": "LMO0003",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "90.07",
     "DAILY_OT": {
       "1": "0",
@@ -24357,7 +24357,7 @@ window.eotData = [
     "JOB_ID": "KSH0145",
     "JOB_ID_APP": "KSH0145",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24398,7 +24398,7 @@ window.eotData = [
     "JOB_ID": "KSH0147",
     "JOB_ID_APP": "KSH0147",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24439,7 +24439,7 @@ window.eotData = [
     "JOB_ID": "KSH0150",
     "JOB_ID_APP": "KSH0150",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24480,7 +24480,7 @@ window.eotData = [
     "JOB_ID": "KSH0153",
     "JOB_ID_APP": "KSH0153",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24521,7 +24521,7 @@ window.eotData = [
     "JOB_ID": "KSH0158",
     "JOB_ID_APP": "KSH0158",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24562,7 +24562,7 @@ window.eotData = [
     "JOB_ID": "KSH0165",
     "JOB_ID_APP": "KSH0165",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24603,7 +24603,7 @@ window.eotData = [
     "JOB_ID": "KSH0168",
     "JOB_ID_APP": "KSH0168",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24644,7 +24644,7 @@ window.eotData = [
     "JOB_ID": "KSH0216",
     "JOB_ID_APP": "KSH0216",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24685,7 +24685,7 @@ window.eotData = [
     "JOB_ID": "KSH0223",
     "JOB_ID_APP": "KSH0223",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24726,7 +24726,7 @@ window.eotData = [
     "JOB_ID": "KSH0225",
     "JOB_ID_APP": "KSH0225",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24767,7 +24767,7 @@ window.eotData = [
     "JOB_ID": "KSH0240",
     "JOB_ID_APP": "KSH0240",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -24808,7 +24808,7 @@ window.eotData = [
     "JOB_ID": "KSH0262",
     "JOB_ID_APP": "KSH0262",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -24849,7 +24849,7 @@ window.eotData = [
     "JOB_ID": "KSH0267",
     "JOB_ID_APP": "KSH0267",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -24890,7 +24890,7 @@ window.eotData = [
     "JOB_ID": "KSH0273",
     "JOB_ID_APP": "KSH0273",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -24931,7 +24931,7 @@ window.eotData = [
     "JOB_ID": "KSH0279",
     "JOB_ID_APP": "KSH0279",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -24972,7 +24972,7 @@ window.eotData = [
     "JOB_ID": "KSH0280",
     "JOB_ID_APP": "KSH0280",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -25013,7 +25013,7 @@ window.eotData = [
     "JOB_ID": "KSH0286",
     "JOB_ID_APP": "KSH0286",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -25054,7 +25054,7 @@ window.eotData = [
     "JOB_ID": "KSH0298",
     "JOB_ID_APP": "KSH0298",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -25095,7 +25095,7 @@ window.eotData = [
     "JOB_ID": "KSH0299",
     "JOB_ID_APP": "KSH0299",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25136,7 +25136,7 @@ window.eotData = [
     "JOB_ID": "KSH0301",
     "JOB_ID_APP": "KSH0301",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25177,7 +25177,7 @@ window.eotData = [
     "JOB_ID": "KSH0304",
     "JOB_ID_APP": "KSH0304",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25218,7 +25218,7 @@ window.eotData = [
     "JOB_ID": "KSH0308",
     "JOB_ID_APP": "KSH0308",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25259,7 +25259,7 @@ window.eotData = [
     "JOB_ID": "KSH0320",
     "JOB_ID_APP": "KSH0320",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25300,7 +25300,7 @@ window.eotData = [
     "JOB_ID": "KSH0328",
     "JOB_ID_APP": "KSH0328",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25341,7 +25341,7 @@ window.eotData = [
     "JOB_ID": "KSH0329",
     "JOB_ID_APP": "KSH0329",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25382,7 +25382,7 @@ window.eotData = [
     "JOB_ID": "KSH0330",
     "JOB_ID_APP": "KSH0330",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25423,7 +25423,7 @@ window.eotData = [
     "JOB_ID": "KSH0332",
     "JOB_ID_APP": "KSH0332",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25464,7 +25464,7 @@ window.eotData = [
     "JOB_ID": "KSH0333",
     "JOB_ID_APP": "KSH0333",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -25505,7 +25505,7 @@ window.eotData = [
     "JOB_ID": "KSH0334",
     "JOB_ID_APP": "KSH0334",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -25546,7 +25546,7 @@ window.eotData = [
     "JOB_ID": "KSH0336",
     "JOB_ID_APP": "KSH0336",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -25587,7 +25587,7 @@ window.eotData = [
     "JOB_ID": "KSH0337",
     "JOB_ID_APP": "KSH0337",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -25628,7 +25628,7 @@ window.eotData = [
     "JOB_ID": "KSO0020",
     "JOB_ID_APP": "KSO0020",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.43",
     "DAILY_OT": {
       "1": "3",
@@ -25669,7 +25669,7 @@ window.eotData = [
     "JOB_ID": "KSO0021",
     "JOB_ID_APP": "KSO0021",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.04",
     "DAILY_OT": {
       "1": "3",
@@ -25710,7 +25710,7 @@ window.eotData = [
     "JOB_ID": "KSO0033",
     "JOB_ID_APP": "KSO0033",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.84",
     "DAILY_OT": {
       "1": "3",
@@ -25751,7 +25751,7 @@ window.eotData = [
     "JOB_ID": "KSO0059",
     "JOB_ID_APP": "KSO0059",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "73.44",
     "DAILY_OT": {
       "1": "0",
@@ -25792,7 +25792,7 @@ window.eotData = [
     "JOB_ID": "KSO0157",
     "JOB_ID_APP": "KSO0157",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.84",
     "DAILY_OT": {
       "1": "3",
@@ -25833,7 +25833,7 @@ window.eotData = [
     "JOB_ID": "KSO0169",
     "JOB_ID_APP": "KSO0169",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.84",
     "DAILY_OT": {
       "1": "0",
@@ -25874,7 +25874,7 @@ window.eotData = [
     "JOB_ID": "KSO0175",
     "JOB_ID_APP": "KSO0175",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.85",
     "DAILY_OT": {
       "1": "3",
@@ -25915,7 +25915,7 @@ window.eotData = [
     "JOB_ID": "KSO0208",
     "JOB_ID_APP": "KSO0208",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.43",
     "DAILY_OT": {
       "1": "3",
@@ -25956,7 +25956,7 @@ window.eotData = [
     "JOB_ID": "KSO0217",
     "JOB_ID_APP": "KSO0217",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.26",
     "DAILY_OT": {
       "1": "3",
@@ -25997,7 +25997,7 @@ window.eotData = [
     "JOB_ID": "KSO0219",
     "JOB_ID_APP": "KSO0219",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.26",
     "DAILY_OT": {
       "1": "3",
@@ -26038,7 +26038,7 @@ window.eotData = [
     "JOB_ID": "KSO0224",
     "JOB_ID_APP": "KSO0224",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.07",
     "DAILY_OT": {
       "1": "3",
@@ -26079,7 +26079,7 @@ window.eotData = [
     "JOB_ID": "KSO0231",
     "JOB_ID_APP": "KSO0231",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "75.02",
     "DAILY_OT": {
       "1": "3",
@@ -26120,7 +26120,7 @@ window.eotData = [
     "JOB_ID": "KSO0233",
     "JOB_ID_APP": "KSO0233",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "3",
@@ -26161,7 +26161,7 @@ window.eotData = [
     "JOB_ID": "KSO0239",
     "JOB_ID_APP": "KSO0239",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "3",
@@ -26202,7 +26202,7 @@ window.eotData = [
     "JOB_ID": "KSO0247",
     "JOB_ID_APP": "KSO0247",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "3",
@@ -26243,7 +26243,7 @@ window.eotData = [
     "JOB_ID": "KSO0293",
     "JOB_ID_APP": "KSO0293",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "3",
@@ -26284,7 +26284,7 @@ window.eotData = [
     "JOB_ID": "KSO0310",
     "JOB_ID_APP": "KSO0310",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.31",
     "DAILY_OT": {
       "1": "0",
@@ -26325,7 +26325,7 @@ window.eotData = [
     "JOB_ID": "KSO0317",
     "JOB_ID_APP": "KSO0317",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "3",
@@ -26366,7 +26366,7 @@ window.eotData = [
     "JOB_ID": "KSO0358",
     "JOB_ID_APP": "KSO0358",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "3",
@@ -26407,7 +26407,7 @@ window.eotData = [
     "JOB_ID": "KSO0361",
     "JOB_ID_APP": "KSO0361",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.63",
     "DAILY_OT": {
       "1": "3",
@@ -26448,7 +26448,7 @@ window.eotData = [
     "JOB_ID": "KSO0374",
     "JOB_ID_APP": "KSO0374",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "3",
@@ -26489,7 +26489,7 @@ window.eotData = [
     "JOB_ID": "KSO0378",
     "JOB_ID_APP": "KSO0378",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -26530,7 +26530,7 @@ window.eotData = [
     "JOB_ID": "KSO0406",
     "JOB_ID_APP": "KSO0406",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -26571,7 +26571,7 @@ window.eotData = [
     "JOB_ID": "KSO0412",
     "JOB_ID_APP": "KSO0412",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -26612,7 +26612,7 @@ window.eotData = [
     "JOB_ID": "KSO0413",
     "JOB_ID_APP": "KSO0413",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.92",
     "DAILY_OT": {
       "1": "3",
@@ -26653,7 +26653,7 @@ window.eotData = [
     "JOB_ID": "KSO0417",
     "JOB_ID_APP": "KSO0417",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -26694,7 +26694,7 @@ window.eotData = [
     "JOB_ID": "KSO0425",
     "JOB_ID_APP": "KSO0425",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.83",
     "DAILY_OT": {
       "1": "3",
@@ -26735,7 +26735,7 @@ window.eotData = [
     "JOB_ID": "KSO0435",
     "JOB_ID_APP": "KSO0435",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -26776,7 +26776,7 @@ window.eotData = [
     "JOB_ID": "KSO0438",
     "JOB_ID_APP": "KSO0438",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.24",
     "DAILY_OT": {
       "1": "3",
@@ -26817,7 +26817,7 @@ window.eotData = [
     "JOB_ID": "KSO0439",
     "JOB_ID_APP": "KSO0439",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.63",
     "DAILY_OT": {
       "1": "3",
@@ -26858,7 +26858,7 @@ window.eotData = [
     "JOB_ID": "KSO0447",
     "JOB_ID_APP": "KSO0447",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.63",
     "DAILY_OT": {
       "1": "3",
@@ -26899,7 +26899,7 @@ window.eotData = [
     "JOB_ID": "KSO0448",
     "JOB_ID_APP": "KSO0448",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "3",
@@ -26940,7 +26940,7 @@ window.eotData = [
     "JOB_ID": "KSO0462",
     "JOB_ID_APP": "KSO0462",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.63",
     "DAILY_OT": {
       "1": "3",
@@ -26981,7 +26981,7 @@ window.eotData = [
     "JOB_ID": "KSO0463",
     "JOB_ID_APP": "KSO0463",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "0",
@@ -27022,7 +27022,7 @@ window.eotData = [
     "JOB_ID": "KSO0465",
     "JOB_ID_APP": "KSO0465",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.21",
     "DAILY_OT": {
       "1": "3",
@@ -27063,7 +27063,7 @@ window.eotData = [
     "JOB_ID": "KSO0474",
     "JOB_ID_APP": "KSO0474",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "3",
@@ -27104,7 +27104,7 @@ window.eotData = [
     "JOB_ID": "KSO0475",
     "JOB_ID_APP": "KSO0475",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "3",
@@ -27145,7 +27145,7 @@ window.eotData = [
     "JOB_ID": "KSO0478",
     "JOB_ID_APP": "KSO0478",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.93",
     "DAILY_OT": {
       "1": "3",
@@ -27186,7 +27186,7 @@ window.eotData = [
     "JOB_ID": "KSO0480",
     "JOB_ID_APP": "KSO0480",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.5",
     "DAILY_OT": {
       "1": "3",
@@ -27227,7 +27227,7 @@ window.eotData = [
     "JOB_ID": "KSO0484",
     "JOB_ID_APP": "KSO0484",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "3",
@@ -27268,7 +27268,7 @@ window.eotData = [
     "JOB_ID": "KSO0493",
     "JOB_ID_APP": "KSO0493",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "3",
@@ -27309,7 +27309,7 @@ window.eotData = [
     "JOB_ID": "KSO0494",
     "JOB_ID_APP": "KSO0494",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.35",
     "DAILY_OT": {
       "1": "3",
@@ -27350,7 +27350,7 @@ window.eotData = [
     "JOB_ID": "KSO0495",
     "JOB_ID_APP": "KSO0495",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "3",
@@ -27391,7 +27391,7 @@ window.eotData = [
     "JOB_ID": "KSO0496",
     "JOB_ID_APP": "KSO0496",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "3",
@@ -27432,7 +27432,7 @@ window.eotData = [
     "JOB_ID": "KSO0501",
     "JOB_ID_APP": "KSO0501",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "3",
@@ -27473,7 +27473,7 @@ window.eotData = [
     "JOB_ID": "KSO0502",
     "JOB_ID_APP": "KSO0502",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "3",
@@ -27514,7 +27514,7 @@ window.eotData = [
     "JOB_ID": "KSO0503",
     "JOB_ID_APP": "KSO0503",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "3",
@@ -27555,7 +27555,7 @@ window.eotData = [
     "JOB_ID": "KSO0510",
     "JOB_ID_APP": "KSO0510",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "3",
@@ -27596,7 +27596,7 @@ window.eotData = [
     "JOB_ID": "KSO0511",
     "JOB_ID_APP": "KSO0511",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "3",
@@ -27637,7 +27637,7 @@ window.eotData = [
     "JOB_ID": "KSO0513",
     "JOB_ID_APP": "KSO0513",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "3",
@@ -27678,7 +27678,7 @@ window.eotData = [
     "JOB_ID": "KSO0517",
     "JOB_ID_APP": "KSO0517",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "3",
@@ -27719,7 +27719,7 @@ window.eotData = [
     "JOB_ID": "KSO0518",
     "JOB_ID_APP": "KSO0518",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "3",
@@ -27760,7 +27760,7 @@ window.eotData = [
     "JOB_ID": "KSQ0042",
     "JOB_ID_APP": "KSQ0042",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "62.84",
     "DAILY_OT": {
       "1": "0",
@@ -27801,7 +27801,7 @@ window.eotData = [
     "JOB_ID": "KSQ0061",
     "JOB_ID_APP": "KSQ0061",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.64",
     "DAILY_OT": {
       "1": "3",
@@ -27842,7 +27842,7 @@ window.eotData = [
     "JOB_ID": "KSQ0064",
     "JOB_ID_APP": "KSQ0064",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.64",
     "DAILY_OT": {
       "1": "3",
@@ -27883,7 +27883,7 @@ window.eotData = [
     "JOB_ID": "KSQ0071",
     "JOB_ID_APP": "KSQ0071",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "58.01",
     "DAILY_OT": {
       "1": "3",
@@ -27924,7 +27924,7 @@ window.eotData = [
     "JOB_ID": "KLD0036",
     "JOB_ID_APP": "KLD0036",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.13",
     "DAILY_OT": {
       "1": "3",
@@ -27965,7 +27965,7 @@ window.eotData = [
     "JOB_ID": "KSH0175",
     "JOB_ID_APP": "KSH0175",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -28006,7 +28006,7 @@ window.eotData = [
     "JOB_ID": "KSH0195",
     "JOB_ID_APP": "KSH0195",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -28047,7 +28047,7 @@ window.eotData = [
     "JOB_ID": "KSH0202",
     "JOB_ID_APP": "KSH0202",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -28088,7 +28088,7 @@ window.eotData = [
     "JOB_ID": "KSH0207",
     "JOB_ID_APP": "KSH0207",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -28129,7 +28129,7 @@ window.eotData = [
     "JOB_ID": "KSH0213",
     "JOB_ID_APP": "KSH0213",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -28170,7 +28170,7 @@ window.eotData = [
     "JOB_ID": "KSH0236",
     "JOB_ID_APP": "KSH0236",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "57.51",
     "DAILY_OT": {
       "1": "3",
@@ -28211,7 +28211,7 @@ window.eotData = [
     "JOB_ID": "KSH0246",
     "JOB_ID_APP": "KSH0246",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28252,7 +28252,7 @@ window.eotData = [
     "JOB_ID": "KSH0247",
     "JOB_ID_APP": "KSH0247",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28293,7 +28293,7 @@ window.eotData = [
     "JOB_ID": "KSH0251",
     "JOB_ID_APP": "KSH0251",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28334,7 +28334,7 @@ window.eotData = [
     "JOB_ID": "KSH0253",
     "JOB_ID_APP": "KSH0253",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28375,7 +28375,7 @@ window.eotData = [
     "JOB_ID": "KSH0255",
     "JOB_ID_APP": "KSH0255",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "0",
@@ -28416,7 +28416,7 @@ window.eotData = [
     "JOB_ID": "KSH0256",
     "JOB_ID_APP": "KSH0256",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28457,7 +28457,7 @@ window.eotData = [
     "JOB_ID": "KSH0258",
     "JOB_ID_APP": "KSH0258",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28498,7 +28498,7 @@ window.eotData = [
     "JOB_ID": "KSH0259",
     "JOB_ID_APP": "KSH0259",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28539,7 +28539,7 @@ window.eotData = [
     "JOB_ID": "KSH0274",
     "JOB_ID_APP": "KSH0274",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28580,7 +28580,7 @@ window.eotData = [
     "JOB_ID": "KSH0275",
     "JOB_ID_APP": "KSH0275",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28621,7 +28621,7 @@ window.eotData = [
     "JOB_ID": "KSH0277",
     "JOB_ID_APP": "KSH0277",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28662,7 +28662,7 @@ window.eotData = [
     "JOB_ID": "KSH0282",
     "JOB_ID_APP": "KSH0282",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28703,7 +28703,7 @@ window.eotData = [
     "JOB_ID": "KSH0283",
     "JOB_ID_APP": "KSH0283",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28744,7 +28744,7 @@ window.eotData = [
     "JOB_ID": "KSH0292",
     "JOB_ID_APP": "KSH0292",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28785,7 +28785,7 @@ window.eotData = [
     "JOB_ID": "KSH0294",
     "JOB_ID_APP": "KSH0294",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28826,7 +28826,7 @@ window.eotData = [
     "JOB_ID": "KSH0295",
     "JOB_ID_APP": "KSH0295",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.76",
     "DAILY_OT": {
       "1": "3",
@@ -28867,7 +28867,7 @@ window.eotData = [
     "JOB_ID": "KSH0310",
     "JOB_ID_APP": "KSH0310",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -28908,7 +28908,7 @@ window.eotData = [
     "JOB_ID": "KSH0311",
     "JOB_ID_APP": "KSH0311",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -28949,7 +28949,7 @@ window.eotData = [
     "JOB_ID": "KSH0313",
     "JOB_ID_APP": "KSH0313",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -28990,7 +28990,7 @@ window.eotData = [
     "JOB_ID": "KSH0316",
     "JOB_ID_APP": "KSH0316",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "0",
@@ -29031,7 +29031,7 @@ window.eotData = [
     "JOB_ID": "KSH0317",
     "JOB_ID_APP": "KSH0317",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -29072,7 +29072,7 @@ window.eotData = [
     "JOB_ID": "KSH0318",
     "JOB_ID_APP": "KSH0318",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -29113,7 +29113,7 @@ window.eotData = [
     "JOB_ID": "KSH0319",
     "JOB_ID_APP": "KSH0319",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -29154,7 +29154,7 @@ window.eotData = [
     "JOB_ID": "KSH0321",
     "JOB_ID_APP": "KSH0321",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -29195,7 +29195,7 @@ window.eotData = [
     "JOB_ID": "KSH0323",
     "JOB_ID_APP": "KSH0323",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "48.39",
     "DAILY_OT": {
       "1": "3",
@@ -29236,7 +29236,7 @@ window.eotData = [
     "JOB_ID": "KSO0006",
     "JOB_ID_APP": "KSO0006",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "75.84",
     "DAILY_OT": {
       "1": "3",
@@ -29277,7 +29277,7 @@ window.eotData = [
     "JOB_ID": "KSO0028",
     "JOB_ID_APP": "KSO0028",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.84",
     "DAILY_OT": {
       "1": "3",
@@ -29318,7 +29318,7 @@ window.eotData = [
     "JOB_ID": "KSO0088",
     "JOB_ID_APP": "KSO0088",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.43",
     "DAILY_OT": {
       "1": "3",
@@ -29359,7 +29359,7 @@ window.eotData = [
     "JOB_ID": "KSO0164",
     "JOB_ID_APP": "KSO0164",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.84",
     "DAILY_OT": {
       "1": "3",
@@ -29400,7 +29400,7 @@ window.eotData = [
     "JOB_ID": "KSO0196",
     "JOB_ID_APP": "KSO0196",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "79.04",
     "DAILY_OT": {
       "1": "0",
@@ -29441,7 +29441,7 @@ window.eotData = [
     "JOB_ID": "KSO0251",
     "JOB_ID_APP": "KSO0251",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "3",
@@ -29482,7 +29482,7 @@ window.eotData = [
     "JOB_ID": "KSO0256",
     "JOB_ID_APP": "KSO0256",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.26",
     "DAILY_OT": {
       "1": "3",
@@ -29523,7 +29523,7 @@ window.eotData = [
     "JOB_ID": "KSO0263",
     "JOB_ID_APP": "KSO0263",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "78.07",
     "DAILY_OT": {
       "1": "3",
@@ -29564,7 +29564,7 @@ window.eotData = [
     "JOB_ID": "KSO0282",
     "JOB_ID_APP": "KSO0282",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "3",
@@ -29605,7 +29605,7 @@ window.eotData = [
     "JOB_ID": "KSO0288",
     "JOB_ID_APP": "KSO0288",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.26",
     "DAILY_OT": {
       "1": "3",
@@ -29646,7 +29646,7 @@ window.eotData = [
     "JOB_ID": "KSO0300",
     "JOB_ID_APP": "KSO0300",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "77.31",
     "DAILY_OT": {
       "1": "3",
@@ -29687,7 +29687,7 @@ window.eotData = [
     "JOB_ID": "KSO0304",
     "JOB_ID_APP": "KSO0304",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "3",
@@ -29728,7 +29728,7 @@ window.eotData = [
     "JOB_ID": "KSO0337",
     "JOB_ID_APP": "KSO0337",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "68.93",
     "DAILY_OT": {
       "1": "3",
@@ -29769,7 +29769,7 @@ window.eotData = [
     "JOB_ID": "KSO0344",
     "JOB_ID_APP": "KSO0344",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "3",
@@ -29810,7 +29810,7 @@ window.eotData = [
     "JOB_ID": "KSO0352",
     "JOB_ID_APP": "KSO0352",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "76.55",
     "DAILY_OT": {
       "1": "3",
@@ -29851,7 +29851,7 @@ window.eotData = [
     "JOB_ID": "KSO0359",
     "JOB_ID_APP": "KSO0359",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "72.74",
     "DAILY_OT": {
       "1": "3",
@@ -29892,7 +29892,7 @@ window.eotData = [
     "JOB_ID": "KSO0363",
     "JOB_ID_APP": "KSO0363",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -29933,7 +29933,7 @@ window.eotData = [
     "JOB_ID": "KSO0368",
     "JOB_ID_APP": "KSO0368",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.73",
     "DAILY_OT": {
       "1": "3",
@@ -29974,7 +29974,7 @@ window.eotData = [
     "JOB_ID": "KSO0379",
     "JOB_ID_APP": "KSO0379",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -30015,7 +30015,7 @@ window.eotData = [
     "JOB_ID": "KSO0380",
     "JOB_ID_APP": "KSO0380",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -30056,7 +30056,7 @@ window.eotData = [
     "JOB_ID": "KSO0384",
     "JOB_ID_APP": "KSO0384",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "74.94",
     "DAILY_OT": {
       "1": "3",
@@ -30097,7 +30097,7 @@ window.eotData = [
     "JOB_ID": "KSO0429",
     "JOB_ID_APP": "KSO0429",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -30138,7 +30138,7 @@ window.eotData = [
     "JOB_ID": "KSO0434",
     "JOB_ID_APP": "KSO0434",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "71.63",
     "DAILY_OT": {
       "1": "3",
@@ -30179,7 +30179,7 @@ window.eotData = [
     "JOB_ID": "KSO0440",
     "JOB_ID_APP": "KSO0440",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "70.22",
     "DAILY_OT": {
       "1": "3",
@@ -30220,7 +30220,7 @@ window.eotData = [
     "JOB_ID": "KSO0452",
     "JOB_ID_APP": "KSO0452",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.49",
     "DAILY_OT": {
       "1": "0",
@@ -30261,7 +30261,7 @@ window.eotData = [
     "JOB_ID": "KSO0453",
     "JOB_ID_APP": "KSO0453",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.49",
     "DAILY_OT": {
       "1": "3",
@@ -30302,7 +30302,7 @@ window.eotData = [
     "JOB_ID": "KSO0454",
     "JOB_ID_APP": "KSO0454",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.49",
     "DAILY_OT": {
       "1": "3",
@@ -30343,7 +30343,7 @@ window.eotData = [
     "JOB_ID": "KSO0482",
     "JOB_ID_APP": "KSO0482",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "3",
@@ -30384,7 +30384,7 @@ window.eotData = [
     "JOB_ID": "KSO0486",
     "JOB_ID_APP": "KSO0486",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "3",
@@ -30425,7 +30425,7 @@ window.eotData = [
     "JOB_ID": "KSO0488",
     "JOB_ID_APP": "KSO0488",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "3",
@@ -30466,7 +30466,7 @@ window.eotData = [
     "JOB_ID": "KSO0490",
     "JOB_ID_APP": "KSO0490",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "3",
@@ -30507,7 +30507,7 @@ window.eotData = [
     "JOB_ID": "KSO0491",
     "JOB_ID_APP": "KSO0491",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "3",
@@ -30548,7 +30548,7 @@ window.eotData = [
     "JOB_ID": "KSO0499",
     "JOB_ID_APP": "KSO0499",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.07",
     "DAILY_OT": {
       "1": "3",
@@ -30589,7 +30589,7 @@ window.eotData = [
     "JOB_ID": "KSO0505",
     "JOB_ID_APP": "KSO0505",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "63.14",
     "DAILY_OT": {
       "1": "3",
@@ -30630,7 +30630,7 @@ window.eotData = [
     "JOB_ID": "KSO0507",
     "JOB_ID_APP": "KSO0507",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.07",
     "DAILY_OT": {
       "1": "3",
@@ -30671,7 +30671,7 @@ window.eotData = [
     "JOB_ID": "KSO0509",
     "JOB_ID_APP": "KSO0509",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "66.35",
     "DAILY_OT": {
       "1": "3",
@@ -30712,7 +30712,7 @@ window.eotData = [
     "JOB_ID": "KSO0512",
     "JOB_ID_APP": "KSO0512",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "3",
@@ -30753,7 +30753,7 @@ window.eotData = [
     "JOB_ID": "KSO0515",
     "JOB_ID_APP": "KSO0515",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "67.63",
     "DAILY_OT": {
       "1": "3",
@@ -30794,7 +30794,7 @@ window.eotData = [
     "JOB_ID": "KSO0520",
     "JOB_ID_APP": "KSO0520",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "3",
@@ -30835,7 +30835,7 @@ window.eotData = [
     "JOB_ID": "KSO0521",
     "JOB_ID_APP": "KSO0521",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -30876,7 +30876,7 @@ window.eotData = [
     "JOB_ID": "KSO0522",
     "JOB_ID_APP": "KSO0522",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "3",
@@ -30917,7 +30917,7 @@ window.eotData = [
     "JOB_ID": "KSO0523",
     "JOB_ID_APP": "KSO0523",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -30958,7 +30958,7 @@ window.eotData = [
     "JOB_ID": "KSO0524",
     "JOB_ID_APP": "KSO0524",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "65.7",
     "DAILY_OT": {
       "1": "0",
@@ -30999,7 +30999,7 @@ window.eotData = [
     "JOB_ID": "KSO0525",
     "JOB_ID_APP": "KSO0525",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "64.42",
     "DAILY_OT": {
       "1": "0",
@@ -31040,7 +31040,7 @@ window.eotData = [
     "JOB_ID": "KSQ0041",
     "JOB_ID_APP": "KSQ0041",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.32",
     "DAILY_OT": {
       "1": "3",
@@ -31081,7 +31081,7 @@ window.eotData = [
     "JOB_ID": "KSQ0057",
     "JOB_ID_APP": "KSQ0057",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "59.74",
     "DAILY_OT": {
       "1": "3",
@@ -31122,7 +31122,7 @@ window.eotData = [
     "JOB_ID": "KSQ0068",
     "JOB_ID_APP": "KSQ0068",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "52.88",
     "DAILY_OT": {
       "1": "3",
@@ -31163,7 +31163,7 @@ window.eotData = [
     "JOB_ID": "KSQ0074",
     "JOB_ID_APP": "KSQ0074",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "53.53",
     "DAILY_OT": {
       "1": "3",
@@ -31204,7 +31204,7 @@ window.eotData = [
     "JOB_ID": "KSQ0075",
     "JOB_ID_APP": "KSQ0075",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "61.22",
     "DAILY_OT": {
       "1": "3",
@@ -31245,7 +31245,7 @@ window.eotData = [
     "JOB_ID": "KSQ0076",
     "JOB_ID_APP": "KSQ0076",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "53.53",
     "DAILY_OT": {
       "1": "3",
@@ -31286,7 +31286,7 @@ window.eotData = [
     "JOB_ID": "KSQ0077",
     "JOB_ID_APP": "KSQ0077",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "53.53",
     "DAILY_OT": {
       "1": "3",
@@ -31327,7 +31327,7 @@ window.eotData = [
     "JOB_ID": "KSQ0079",
     "JOB_ID_APP": "KSQ0079",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "53.53",
     "DAILY_OT": {
       "1": "3",
@@ -31368,7 +31368,7 @@ window.eotData = [
     "JOB_ID": "KSQ0080",
     "JOB_ID_APP": "KSQ0080",
     "NAME": "",
-    "MONTH": "Apr-2026",
+    "MONTH": "April-2026",
     "OT_RATE": "54.81",
     "DAILY_OT": {
       "1": "0",
