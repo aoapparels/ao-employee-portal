@@ -139,7 +139,7 @@ function employeeLogin(){
 "Welcome " + info.Name_OF_Employee;
         showEmployeeInfo();
     }else{
-        alert("Employee Not Found");
+        alert("Wrong User ID or Password");
     }
 }
 
@@ -237,7 +237,7 @@ function showJobCard(){
     let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.EMPLOYEE_NAME || "-"])[1];
     let present = (text.match(/Total Present-(\d+)/i) || [,"0"])[1];
     let absent = (text.match(/Absent-(\d+)/i) || [,"0"])[1];
-    let ot = (text.match(/OT-(\d+)/i) || [,"0"])[1];
+    let ot = (text.match(/OT-([\d.]+)/i) || [,"0"])[1];
     let leave = (text.match(/Leave-(\d+)/i) || [,"0"])[1];
     let late = (text.match(/Late-(\d+)/i) || [,"0"])[1];
 
@@ -326,7 +326,7 @@ function showMore(){
             font-weight:bold;
             cursor:pointer;
             ">
-            Overall Point
+            Excessive OT
             </button>
 
         </div>
@@ -368,7 +368,7 @@ function showEOT(){
     document.getElementById("employeeView").innerHTML = `
     <div style="background:white;padding:25px;border-radius:12px;">
 
-        <h2 style="color:#0754a6;text-align:center;">Overall Point</h2>
+        <h2 style="color:#0754a6;text-align:center;">OT Summery</h2>
 
         <p><b>ID:</b> ${eot.JOB_ID}</p>
         <p><b>OT Rate:</b> ${eot.OT_RATE || "-"}</p>
@@ -376,7 +376,7 @@ function showEOT(){
         <table style="width:100%;border-collapse:collapse;font-size:17px;">
             <tr>
                 <th style="padding:10px;">Date</th>
-                <th style="padding:10px;">Point</th>
+                <th style="padding:10px;">Hour</th>
             </tr>
             ${rows}
             <tr>
