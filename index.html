@@ -50,7 +50,7 @@ th{background:#e7f0ff;}
     Employee Login
     </button>
 
-    <button onclick="showAttendanceReport()" style="
+    <button onclick="showAttendancePassword()" style="
     margin-top:15px;
     background:#0754a6;
     color:white;
@@ -68,7 +68,49 @@ th{background:#e7f0ff;}
     <button onclick="employeeLogin()">Login</button>
     <button class="gray" onclick="goHome()">Back</button>
 </div>
+<div class="card hidden" id="attendancePasswordPage">
 
+    <h2>Attendance Report Login</h2>
+
+    <input
+    type="password"
+    id="attendancePassword"
+    placeholder="Enter Password">
+
+    <button onclick="checkAttendancePassword()">
+    Login
+    </button>
+
+    <button class="gray" onclick="goHome()">
+    Back
+    </button>
+
+</div>
+<div class="card hidden" id="attendancePage">
+
+    <h2>Attendance Report</h2>
+
+    <div class="menu">
+
+    <button onclick="showManpowerReport()">
+    Manpower Report
+    </button>
+
+    <button onclick="showAbsentReport()">
+    Absent Report
+    </button>
+
+    <button onclick="showHalfDayReport()">
+    Half Day Report
+    </button>
+
+</div>
+
+    <button class="gray" onclick="goHome()" style="margin-top:20px;">
+    Back
+    </button>
+
+</div>
 <div class="card hidden" id="employeeDashboard">
     <div class="topbar">
         <h2 id="welcomeText">Welcome</h2>
@@ -101,6 +143,7 @@ function hideAll(){
     document.getElementById("homePage").classList.add("hidden");
     document.getElementById("employeeLoginPage").classList.add("hidden");
     document.getElementById("employeeDashboard").classList.add("hidden");
+    document.getElementById("attendancePasswordPage").classList.add("hidden");
 }
 
 function goHome(){
@@ -402,15 +445,175 @@ function showEOT(){
     </div>
     `;
 }
+const ATTENDANCE_PASSWORD = "4321";
+
+function showAttendancePassword(){
+
+    hideAll();
+
+    document
+    .getElementById("attendancePasswordPage")
+    .classList.remove("hidden");
+}
+
+function checkAttendancePassword(){
+
+    let pass = document
+    .getElementById("attendancePassword")
+    .value
+    .trim();
+
+    if(pass === ATTENDANCE_PASSWORD){
+
+        document
+        .getElementById("attendancePassword")
+        .value = "";
+
+        showAttendanceReport();
+
+    }else{
+
+        alert("Wrong Password");
+    }
+}
+function showAttendanceReport(){
+    hideAll();
+    document.getElementById("attendancePage").classList.remove("hidden");
+}
+function showAttendanceReportMenu(){
+
+    document.getElementById("attendancePage").innerHTML = `
+
+    <h2>Attendance Report</h2>
+
+    <div class="menu">
+
+    <button onclick="window.open('manpower.pdf','_blank')">
+    Manpower Report
+    </button>
+
+    <button onclick="window.open('absent.pdf','_blank')">
+    Absent Report
+    </button>
+
+    <button onclick="window.open('halfday.pdf','_blank')">
+    Half Day Report
+    </button>
+
+</div>
+
+    <button class="gray"
+    onclick="goHome()"
+    style="margin-top:20px;">
+    Back
+    </button>
+
+    `;
+}
+function showManpowerReport(){
+
+    document.getElementById("attendancePage").innerHTML = `
+
+    <h2>Manpower Report</h2>
+
+    <div class="box">
+        <h3>Total Manpower</h3>
+
+        <p style="
+        font-size:25px;
+        font-weight:bold;
+        color:#0754a6;
+        ">
+        827
+        </p>
+    </div>
+
+    <button class="gray"
+    onclick="showAttendanceReportMenu()"
+    style="margin-top:20px;">
+    Back
+    </button>
+
+    `;
+}
+
+function showAbsentReport(){
+
+    document.getElementById("attendancePage").innerHTML = `
+
+    <h2>Absent Report</h2>
+
+    <div class="box">
+        <h3>Today's Absent</h3>
+
+        <p style="
+        font-size:25px;
+        font-weight:bold;
+        color:#c62828;
+        ">
+        32
+        </p>
+    </div>
+
+    <button class="gray"
+    onclick="showAttendanceReportMenu()"
+    style="margin-top:20px;">
+    Back
+    </button>
+
+    `;
+}
+
+function showHalfDayReport(){
+
+    document.getElementById("attendancePage").innerHTML = `
+
+    <h2>Half Day Report</h2>
+
+    <div class="box">
+        <h3>Today's Half Day</h3>
+
+        <p style="
+        font-size:25px;
+        font-weight:bold;
+        color:#ff9800;
+        ">
+        18
+        </p>
+    </div>
+
+    <button class="gray"
+    onclick="showAttendanceReportMenu()"
+    style="margin-top:20px;">
+    Back
+    </button>
+
+    `;
+}
 function logout(){
     currentEmployee = null;
     goHome();
 }
 
 document.addEventListener("keypress", function(event){
+
     if(event.key === "Enter"){
-        let employeePage = !document.getElementById("employeeLoginPage").classList.contains("hidden");
-        if(employeePage) employeeLogin();
+
+        let employeePage =
+        !document.getElementById("employeeLoginPage")
+        .classList.contains("hidden");
+
+        let attendancePage =
+        !document.getElementById("attendancePasswordPage")
+        .classList.contains("hidden");
+
+        if(employeePage){
+            employeeLogin();
+        }
+
+        if(attendancePage){
+            checkAttendancePassword();
+        }
     }
 });
 
