@@ -1,634 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A&O Employee Portal</title>
+   <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A&O Apparels (Pvt.) Ltd. | Garments Manufacturer in Bangladesh</title>
 
-<script src="employee.js"></script>
-<script src="jobcard.js"></script>
-<script src="payslip.js"></script>
-<script src="eot.js"></script>
-
-<style>
-.portal-title-box{display:inline-block;padding:12px 25px;border-radius:12px;background:rgba(128,0,128,0.75);box-shadow:0 0 18px rgba(128,0,128,0.9);}
-.portal-title-box h1{color:white;margin:0;animation:blinkText 1.2s infinite;}
-@keyframes blinkText{0%{opacity:1;}50%{opacity:0.35;}100%{opacity:1;}}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-body{background:linear-gradient(rgba(255,255,255,0.30),rgba(255,255,255,0.30)),url('background.jpg');background-size:cover;background-position:center;background-attachment:fixed;padding:20px;}
-.container{max-width:1100px;margin:auto;}
-.card{background:white;padding:20px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);margin-bottom:20px;}
-h1,h2,h3{text-align:center;margin-bottom:15px;}
-input,button{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;}
-button{background:#0754a6;color:white;border:none;cursor:pointer;font-weight:bold;}
-button:hover{background:#003f7f;}
-.red{background:#c62828;}
-.gray{background:#555;}
-.hidden{display:none;}
-.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:15px;}
-.box{border:1px solid #ddd;padding:15px;border-radius:12px;background:#fafafa;margin-top:15px;}
-table{width:100%;border-collapse:collapse;margin-top:10px;}
-th,td{border:1px solid #aaa;padding:8px;text-align:left;}
-th{background:#e7f0ff;}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;}
-.topbar button{width:auto;padding:10px 18px;}
-</style>
+<meta name="description" content="A&O Apparels (Pvt.) Ltd. is a leading garments manufacturer in Bangladesh specialized in knit garments, compliance, washing and apparel production.">
+  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
 
-<div style="display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:20px;width:100%;">
-    <img src="logo.jpeg" style="width:110px;height:110px;object-fit:contain;margin-bottom:15px;">
-    <div class="portal-title-box"><h1>A&O Employee Portal</h1></div>
-</div>
+<header id="home">
 
-<div class="container">
+  <nav>
 
-<div class="card" id="homePage">
-
-    <button onclick="showEmployeeLogin()">
-    Employee Login
-    </button>
-
-    <button onclick="showAttendancePassword()" style="
-    margin-top:15px;
-    background:#0754a6;
-    color:white;
-    font-weight:bold;
-    ">
-    Attendance Report
-    </button>
-
-</div>
-
-<div class="card hidden" id="employeeLoginPage">
-    <h2>Employee Login</h2>
-    <input type="text" id="empLoginId" placeholder="User Id">
-    <input type="text" id="empLoginPhone" placeholder="Password">
-    <button onclick="employeeLogin()">Login</button>
-    <button class="gray" onclick="goHome()">Back</button>
-</div>
-<div class="card hidden" id="attendancePasswordPage">
-
-    <h2>Attendance Report Login</h2>
-
-    <input
-    type="password"
-    id="attendancePassword"
-    placeholder="Enter Password">
-
-    <button onclick="checkAttendancePassword()">
-    Login
-    </button>
-
-    <button class="gray" onclick="goHome()">
-    Back
-    </button>
-
-</div>
-<div class="card hidden" id="attendancePage">
-
-    <h2>Attendance Report</h2>
-
-    <div class="menu">
-
-    <button onclick="showManpowerReport()">
-    Manpower Report
-    </button>
-
-    <button onclick="showAbsentReport()">
-    Absent Report
-    </button>
-
-    <button onclick="showHalfDayReport()">
-    Half Day Report
-    </button>
-
-</div>
-
-    <button class="gray" onclick="goHome()" style="margin-top:20px;">
-    Back
-    </button>
-
-</div>
-<div class="card hidden" id="employeeDashboard">
-    <div class="topbar">
-        <h2 id="welcomeText">Welcome</h2>
-        <button class="red" onclick="logout()">Logout</button>
+    <div class="logo-box">
+      <img src="logo.png" alt="A&O Apparels Logo">
+      <h1>A&O Apparels</h1>
     </div>
 
-    <div class="menu">
-        <button onclick="showEmployeeInfo()">Employee Info</button>
-        <button onclick="showJobCard()">Job Card</button>
-        <button onclick="showPaySlip()">Pay Slip</button>
-        <button onclick="showMore()">More</button>
+    <ul>
+      <li><a class="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#compliance">Compliance</a></li>
+      <li><a href="#manpower">Manpower</a></li>
+      <li><a href="#machines">Machines</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+
+      <li class="webmail-btn">
+  <a href="https://mail.zoho.com" target="_blank">Webmail</a>
+</li>
+
+<li class="webmail-btn employee-portal-btn">
+<li class="webmail-btn employee-portal-btn">
+  <a href="https://portal.aoapparels.com" target="_blank">Employee Portal</a>
+</li>
+<li class="webmail-btn download-app-btn">
+  <a href="aoapparelsportal.apk" download>
+    Download Employee App
+  </a>
+</li>
+</li>
+</li>
+
+  </nav>
+
+  <div class="hero">
+    <h2>A&O Apparels (Pvt.) Ltd.</h2>
+
+    <h3>100% Export Oriented Garments Factory</h3>
+
+    <p>
+      Committed to quality, compliance,
+      timely delivery and customer satisfaction.
+    </p>
+
+    <a href="#contact" class="btn">Contact Us</a>
+  </div>
+
+</header>
+<section id="notice-home" class="section light">
+
+  <h2 class="notice-heading">Notice Board</h2>
+
+  <div class="notice-box">
+
+    <a href="compliance-related.pdf" target="_blank" class="notice-item">
+      📄 Social Compliance Notice
+    </a>
+
+  </div>
+
+</section>
+
+<section id="about" class="section about-section">
+
+  <div class="about-glass">
+
+    <h2>About A&O Apparels</h2>
+
+    <p>
+      A&O Apparels (Pvt.) Ltd. is a 100% export oriented woven garments manufacturing
+      company located at 256, Char Rajapur, Shashongaon, Baktobali, Fatullah,
+      Narayanganj, Bangladesh.
+    </p>
+
+    <p>
+      Established in 2019, the company focuses on quality garments production,
+      washing & dyeing facility, compliance, modern machinery and reliable export
+      service for international markets.
+    </p>
+
+    <p>
+      With skilled manpower, experienced management and continuous development,
+      A&O Apparels is committed to delivering quality products, timely shipment and
+      long-term customer satisfaction.
+    </p>
+
+  </div>
+
+</section>
+<section id="factory-overview" class="section factory-overview">
+
+  <h2>Factory Overview</h2>
+
+  <div class="overview-grid">
+
+    <div class="overview-card">
+      <h3 class="counter" data-target="2019">0</h3>
+      <p>Established</p>
     </div>
 
-    <div id="employeeView" class="box">Select Option</div>
-</div>
-
-</div>
-
-<script>
-let db = {
-    employeeInfo: window.employeeInfoData || [],
-    jobCard: window.jobCardData || [],
-    paySlip: window.paySlipData || [],
-eot: window.eotData || []
-};
-
-let currentEmployee = null;
-
-function hideAll(){
-    document.getElementById("homePage").classList.add("hidden");
-    document.getElementById("employeeLoginPage").classList.add("hidden");
-    document.getElementById("employeeDashboard").classList.add("hidden");
-    document.getElementById("attendancePasswordPage").classList.add("hidden");
-}
-
-function goHome(){
-    hideAll();
-    document.getElementById("homePage").classList.remove("hidden");
-}
-
-function showEmployeeLogin(){
-    hideAll();
-    document.getElementById("employeeLoginPage").classList.remove("hidden");
-}
-
-function cleanMobile(num){
-
-    let mobile = String(num || "")
-    .replace(/\s/g,"")
-    .replace(/-/g,"")
-    .replace(".0","")
-    .trim();
-
-    if(mobile.length === 10){
-        mobile = "0" + mobile;
-    }
-
-    return mobile;
-}
-
-function getId(row){
-    return String(row.JOB_ID_APP || row.JOB_ID_NO || row.JOB_ID || row.ID || "").trim().toUpperCase();
-}
-
-function employeeLogin(){
-    let id = document.getElementById("empLoginId").value.trim().toUpperCase();
-    let phone = cleanMobile(document.getElementById("empLoginPhone").value);
-
-    let info = db.employeeInfo.find(e =>
-        getId(e) === id &&
-        cleanMobile(e.MOBILE_NO_APP || e.Mobile_No || e.MOBILE_NO || e.Phone || "") === phone
-    );
-
-    let job = db.jobCard.find(e => getId(e) === id);
-    let pay = db.paySlip.find(e => getId(e) === id);
-
-    if(info){
-        currentEmployee = { info, job, pay };
-        hideAll();
-        document.getElementById("employeeDashboard").classList.remove("hidden");
-        document.getElementById("welcomeText").innerText =
-"Welcome " + info.Name_OF_Employee;
-        showEmployeeInfo();
-    }else{
-        alert("Wrong User ID or Password");
-    }
-}
-
-function rowToTable(row){
-    if(!row) return "<p>No Data Found</p>";
-
-    let html = "<table>";
-    Object.keys(row).forEach(key => {
-        if(key === "JOB_ID_APP" || key === "MOBILE_NO_APP") return;
-        html += `<tr><th>${key}</th><td>${row[key]}</td></tr>`;
-    });
-    html += "</table>";
-    return html;
-}
-
-function showEmployeeInfo(){
-
-    let info = currentEmployee.info;
-
-    if(!info){
-        document.getElementById("employeeView").innerHTML =
-        "<h3>No Employee Information Found</h3>";
-        return;
-    }
-
-    let html = `
-    <div style="
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    ">
-
-    <h2 style="
-    color:#0754a6;
-    margin-bottom:20px;
-    ">
-    Employee Information
-    </h2>
-    <div style="text-align:center; margin-bottom:25px;">
-
-<img 
-src="photos/${info.Employee_ID
-.toLowerCase()
-.replace(/([a-z]+)0+(\d+)/i,'$1$2')}.jpg"
-
-onerror="this.src='photos/no-photo.jpg'"
-
-style="
-width:130px;
-height:150px;
-object-fit:cover;
-border:3px solid #0754a6;
-border-radius:10px;
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-">
-
-</div>
-
-    <table style="
-    width:100%;
-    border-collapse:collapse;
-    font-size:16px;
-    ">
-    `;
-
-    Object.keys(info).forEach(key => {
-
-        if(key === "JOB_ID_APP" || key === "MOBILE_NO_APP"){
-            return;
-        }
-
-        html += `
-        <tr>
-            <td style="padding:10px;"><b>${key}</b></td>
-            <td style="padding:10px;">${info[key]}</td>
-        </tr>
-        `;
-    });
-
-    html += "</table></div>";
-
-    document.getElementById("employeeView").innerHTML = html;
-}
-function showJobCard(){
-    let job = currentEmployee.job;
-
-    if(!job || !job.DASHBOARD){
-        document.getElementById("employeeView").innerHTML = "<h3>No Job Card Found</h3>";
-        return;
-    }
-
-    let text = job.DASHBOARD;
-
-    let month = (text.match(/Job card\s+(.+?)\s+of/i) || [,"-"])[1];
-    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.EMPLOYEE_NAME || "-"])[1];
-    let present = (text.match(/Total Present-(\d+)/i) || [,"0"])[1];
-    let absent = (text.match(/Absent-(\d+)/i) || [,"0"])[1];
-    let ot = (text.match(/OT-([\d.]+)/i) || [,"0"])[1];
-    let leave = (text.match(/Leave-(\d+)/i) || [,"0"])[1];
-    let late = (text.match(/Late-(\d+)/i) || [,"0"])[1];
-
-    document.getElementById("employeeView").innerHTML = `
-    <div style="background:white;padding:25px;border-radius:12px;">
-        <h2 style="text-align:left;margin-bottom:20px;color:#0754a6;">Job Card</h2>
-        <table style="width:100%;border-collapse:collapse;font-size:18px;">
-            <tr><td style="padding:10px;"><b>Job Card Month :</b></td><td style="padding:10px;">${month}</td></tr>
-            <tr><td style="padding:10px;"><b>Name :</b></td><td style="padding:10px;">${name}</td></tr>
-            <tr><td style="padding:10px;"><b>Total Present :</b></td><td style="padding:10px;">${present} Days</td></tr>
-            <tr><td style="padding:10px;"><b>Absent :</b></td><td style="padding:10px;">${absent}</td></tr>
-            <tr><td style="padding:10px;"><b>Over Time (OT) :</b></td><td style="padding:10px;">${ot}</td></tr>
-            <tr><td style="padding:10px;"><b>Leave :</b></td><td style="padding:10px;">${leave}</td></tr>
-            <tr><td style="padding:10px;"><b>Late :</b></td><td style="padding:10px;">${late}</td></tr>
-        </table>
-    </div>`;
-}
-
-function showPaySlip(){
-    let pay = currentEmployee.pay;
-
-    if(!pay || !pay.DASHBOARD){
-        document.getElementById("employeeView").innerHTML = "<h3>No Pay Slip Found</h3>";
-        return;
-    }
-
-    let text = pay.DASHBOARD;
-
-    let month = (text.match(/PaySlip\s+(.+?)\s+of/i) || [,"-"])[1];
-    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.EMPLOYEE_NAME || "-"])[1];
-    let gross = (text.match(/G\.Salary=([^;]*)/i) || [,"0"])[1];
-    let att = (text.match(/AttBns=([^;]*)/i) || [,"0"])[1];
-    let el = (text.match(/EL=([^;]*)/i) || [,"0"])[1];
-    let otMatch = text.match(/OT=\[([^\]]*)\]([^;]*)/i);
-    let otHourRate = otMatch ? otMatch[1] : "0";
-    let otAmount = otMatch ? otMatch[2] : "0";
-    let abs = (text.match(/AbsAmt=([^;]*)/i) || [,"0"])[1];
-    let stamp = (text.match(/Stm=([^;]*)/i) || [,"0"])[1];
-    let net = (text.match(/NetSalary=([^ ]*)/i) || [,"0"])[1];
-
-    document.getElementById("employeeView").innerHTML = `
-    <div style="background:white;padding:25px;border-radius:12px;">
-        <h2 style="text-align:left;margin-bottom:20px;color:#0754a6;">Pay Slip</h2>
-        <table style="width:100%;border-collapse:collapse;font-size:18px;">
-            <tr><td style="padding:10px;"><b>Pay Slip Month :</b></td><td style="padding:10px;">${month}</td></tr>
-            <tr><td style="padding:10px;"><b>Name :</b></td><td style="padding:10px;">${name}</td></tr>
-            <tr><td style="padding:10px;"><b>Gross Salary :</b></td><td style="padding:10px;">${gross}</td></tr>
-            <tr><td style="padding:10px;"><b>Attendance Bonus :</b></td><td style="padding:10px;">${att}</td></tr>
-            <tr><td style="padding:10px;"><b>Earn Leave :</b></td><td style="padding:10px;">${el}</td></tr>
-            <tr><td style="padding:10px;"><b>Over Time (OT) :</b></td><td style="padding:10px;">${otHourRate} = ${otAmount}</td></tr>
-            <tr><td style="padding:10px;"><b>Absent Amount :</b></td><td style="padding:10px;">${abs}</td></tr>
-            <tr><td style="padding:10px;"><b>Stamp :</b></td><td style="padding:10px;">${stamp}</td></tr>
-            <tr><td style="padding:10px;"><b>Net Salary :</b></td><td style="padding:10px;"><b>${net}</b></td></tr>
-        </table>
-    </div>`;
-}
-function showMore(){
-
-    document.getElementById("employeeView").innerHTML = `
-
-    <div style="
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    ">
-
-        <h2 style="
-        color:#0754a6;
-        text-align:center;
-        margin-bottom:25px;
-        ">
-        More
-        </h2>
-
-        <div style="
-        text-align:center;
-        ">
-
-            <button onclick="showEOT()" style="
-            background:#0754a6;
-            color:white;
-            border:none;
-            padding:14px 30px;
-            border-radius:10px;
-            font-size:18px;
-            font-weight:bold;
-            cursor:pointer;
-            ">
-            Excessive OT
-            </button>
-
-        </div>
-
+    <div class="overview-card">
+      <h3 class="counter" data-target="10">0</h3>
+      <p>Production Lines</p>
     </div>
 
-    `;
-}
-function showEOT(){
-
-    let id = getId(currentEmployee.info);
-
-    let eot = db.eot.find(e =>
-        String(e.JOB_ID_APP || e.JOB_ID || "").toUpperCase() === id
-    );
-
-    if(!eot){
-        document.getElementById("employeeView").innerHTML = `
-        <div style="background:white;padding:25px;border-radius:12px;">
-            <h2 style="color:#0754a6;text-align:center;">Overall Point</h2>
-            <h3>No Data Found</h3>
-            <button onclick="showMore()">Back</button>
-        </div>
-        `;
-        return;
-    }
-
-    let rows = "";
-
-    Object.keys(eot.DAILY_OT).forEach(day => {
-        rows += `
-        <tr>
-            <td style="padding:10px;">${day}</td>
-            <td style="padding:10px;">${eot.DAILY_OT[day]}</td>
-        </tr>
-        `;
-    });
-
-    document.getElementById("employeeView").innerHTML = `
-    <div style="background:white;padding:25px;border-radius:12px;">
-
-        <h2 style="color:#0754a6;text-align:center;">OT Summery</h2>
-
-        <p><b>ID:</b> ${eot.JOB_ID}</p>
-        <p><b>OT Rate:</b> ${eot.OT_RATE || "-"}</p>
-
-        <table style="width:100%;border-collapse:collapse;font-size:17px;">
-            <tr>
-                <th style="padding:10px;">Date</th>
-                <th style="padding:10px;">Hour</th>
-            </tr>
-            ${rows}
-            <tr>
-                <th style="padding:10px;">Total</th>
-                <th style="padding:10px;">${eot.TOTAL_OT || "-"}</th>
-            </tr>
-        </table>
-
-        <button onclick="showMore()" style="margin-top:15px;">Back</button>
+    <div class="overview-card">
+      <h3 class="counter" data-target="828">0</h3>
+      <p>Total Manpower</p>
     </div>
-    `;
-}
-const ATTENDANCE_PASSWORD = "4321";
 
-function showAttendancePassword(){
+    <div class="overview-card">
+      <h3 class="counter" data-target="65600">0</h3>
+      <p>Washing Capacity / Day</p>
+    </div>
 
-    hideAll();
+  </div>
 
-    document
-    .getElementById("attendancePasswordPage")
-    .classList.remove("hidden");
-}
+</section>
 
-function checkAttendancePassword(){
+<section id="services" class="section light">
 
-    let pass = document
-    .getElementById("attendancePassword")
-    .value
-    .trim();
+  <h2>Our Services</h2>
 
-    if(pass === ATTENDANCE_PASSWORD){
+  <div class="cards">
 
-        document
-        .getElementById("attendancePassword")
-        .value = "";
+    <div class="card">
+      <h3>Knit</h3>
+      <p>Professional knit garments manufacturing support.</p>
+    </div>
 
-        showAttendanceReport();
+    <div class="card">
+      <h3>Woven</h3>
+      <p>Quality woven garments production facility.</p>
+    </div>
 
-    }else{
+    <div class="card">
+      <h3>Sewing</h3>
+      <p>Skilled sewing lines with quality inspection.</p>
+    </div>
 
-        alert("Wrong Password");
-    }
-}
-function showAttendanceReport(){
-    hideAll();
-    document.getElementById("attendancePage").classList.remove("hidden");
-    showAttendanceReportMenu();
-}
-function showAttendanceReportMenu(){
+    <div class="card">
+      <h3>Finishing</h3>
+      <p>Complete finishing, packing and shipment preparation.</p>
+    </div>
 
-    document.getElementById("attendancePage").innerHTML = `
+    <div class="card">
+      <h3>Export</h3>
+      <p>Reliable export support for international buyers.</p>
+    </div>
 
-    <h2>Attendance Report</h2>
+  </div>
 
-    <div class="menu">
+</section>
 
-    <button onclick="window.open('manpower.pdf','_blank')">
-    Manpower Report
-    </button>
 
-    <button onclick="window.open('absent.pdf','_blank')">
-    Absent Report
-    </button>
+<section id="compliance" class="section">
 
-    <button onclick="window.open('halfday.pdf','_blank')">
-    Half Day Report
-    </button>
+  <h2>Compliance & Certification</h2>
 
-    <button onclick="window.open('jobcardhistory.pdf','_blank')">
-    Job Card History (Month End)
+  <div class="certification-grid">
+
+    <div class="cert-card">
+      <img src="ctpat.jpg" alt="C-TPAT">
+      <h3>C-TPAT</h3>
+    </div>
+
+    <div class="cert-card">
+      <img src="wrap.jpeg" alt="WRAP">
+      <h3>WRAP</h3>
+    </div>
+
+    <div class="cert-card">
+      <img src="bsci.png" alt="BSCI">
+      <h3>BSCI</h3>
+    </div>
+
+    <div class="cert-card">
+      <img src="iso.jpg" alt="ISO">
+      <h3>ISO</h3>
+    </div>
+
+  </div>
+
+  <p>
+    We maintain compliance standards to ensure workplace safety,
+    ethical practice, security awareness and customer confidence.
+  </p>
+
+</section>
+
+
+<section id="director" class="section light">
+
+  <h2>Board of Directors</h2>
+
+  <!-- Managing Director -->
+  <div class="md-box">
+
+    <div class="director-card">
+      <h3>Mohammad Zakir Ahmed</h3>
+      <p>Managing Director</p>
+    </div>
+
+  </div>
+
+ 
+</section>
+
+
+<section id="machines" class="section light">
+
+  <h2>Machine Overview</h2>
+
+  <div class="stats">
+
+    <div>
+      <h3 class="counter" data-target="495">0</h3>
+      <p>Total Factory Machines</p>
+    </div>
+
+    <div>
+      <h3 class="counter" data-target="309">0</h3>
+      <p>Woven Machines</p>
+    </div>
+
+    <div>
+      <h3 class="counter" data-target="186">0</h3>
+      <p>Knit Machines</p>
+    </div>
+
+    <div>
+      <h3 class="counter" data-target="15">0</h3>
+      <p>Embroidery Machines</p>
+    </div>
+
+  </div>
+
+</section>
+<div class="why-grid">
+
+  <div class="why-card">
+
+    <img src="mm1.png" alt="Compliance">
+
+    <h3>Compliance Focused</h3>
+
+    <p>
+      Maintaining international compliance and workplace safety standards.
+      Producing premium quality garments for international markets.
+    </p>
+
+  </div>
+
+ 
+  <div class="why-card">
+
+    <img src="m2.jpg" alt="Skilled Workforce">
+
+    <h3>Skilled Workforce</h3>
+
+    <p>
+      Experienced management team with skilled manpower support.
+    </p>
+
+  </div>
 
 </div>
 
-    <button class="gray"
-    onclick="goHome()"
-    style="margin-top:20px;">
-    Back
-    </button>
 
-    `;
-}
-function showManpowerReport(){
+<section id="contact" class="section">
 
-    document.getElementById("attendancePage").innerHTML = `
+  <h2>Contact Us</h2>
 
-    <h2>Manpower Report</h2>
+  <div class="contact-box">
 
-    <div class="box">
-        <h3>Total Manpower</h3>
+    <p>
+      <strong>Address:</strong>
+      256, Char Rajapur, Boktaboli, Fatullah, Narayanganj
+    </p>
 
-        <p style="
-        font-size:25px;
-        font-weight:bold;
-        color:#0754a6;
-        ">
-        827
-        </p>
-    </div>
+    <p>
+      <strong>Phone:</strong>
+      +8801716413239, +8801672727362
+    </p>
 
-    <button class="gray"
-    onclick="showAttendanceReportMenu()"
-    style="margin-top:20px;">
-    Back
-    </button>
+    <p>
+      <strong>Email:</strong>
+      info@aoapparels.com
+      admin@aoapparels.com
+    </p>
 
-    `;
-}
+    <p>
+      <strong>Website:</strong>
+      www.aoapparels.com
+    </p>
 
-function showAbsentReport(){
+  </div>
 
-    document.getElementById("attendancePage").innerHTML = `
+</section>
 
-    <h2>Absent Report</h2>
 
-    <div class="box">
-        <h3>Today's Absent</h3>
+<section class="section light">
 
-        <p style="
-        font-size:25px;
-        font-weight:bold;
-        color:#c62828;
-        ">
-        32
-        </p>
-    </div>
+  <h2>Factory Location</h2>
 
-    <button class="gray"
-    onclick="showAttendanceReportMenu()"
-    style="margin-top:20px;">
-    Back
-    </button>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3655.8337190387438!2d90.4637757743213!3d23.61029569414255!2m3!1f0!2f0!3f0!2m3!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b1c9d66f22f9%3A0x9113e92efed32807!2sA%20%26%20O%20Apparels%20Pvt.%20Ltd!5e0!3m2!1sen!2sbd!4v1778326352463!5m2!1sen!2sbd"
+    width="100%"
+    height="450"
+    style="border:0; border-radius:15px;"
+    allowfullscreen=""
+    loading="lazy">
+  </iframe>
 
-    `;
-}
+</section>
 
-function showHalfDayReport(){
 
-    document.getElementById("attendancePage").innerHTML = `
+<a class="whatsapp"
+href="https://wa.me/8801716413239"
+target="_blank">
+WhatsApp
+</a>
 
-    <h2>Half Day Report</h2>
 
-    <div class="box">
-        <h3>Today's Half Day</h3>
+<footer>
 
-        <p style="
-        font-size:25px;
-        font-weight:bold;
-        color:#ff9800;
-        ">
-        18
-        </p>
-    </div>
+  <p>
+    © 2021 A&O Apparels (Pvt.) Ltd.
+    All Rights Reserved.
+  </p>
 
-    <button class="gray"
-    onclick="showAttendanceReportMenu()"
-    style="margin-top:20px;">
-    Back
-    </button>
+</footer>
 
-    `;
-}
-function logout(){
-    currentEmployee = null;
-    goHome();
-}
-
-document.addEventListener("keypress", function(event){
-
-    if(event.key === "Enter"){
-
-        let employeePage =
-        !document.getElementById("employeeLoginPage")
-        .classList.contains("hidden");
-
-        let attendancePage =
-        !document.getElementById("attendancePasswordPage")
-        .classList.contains("hidden");
-
-        if(employeePage){
-            employeeLogin();
-        }
-
-        if(attendancePage){
-            checkAttendancePassword();
-        }
-    }
-});
-
-goHome();
-</script>
-
-<div style="text-align:center; margin-top:20px;">
-<p style="color:white;font-size:14px;font-weight:bold;background:rgba(0,0,0,0.55);display:inline;padding:6px 12px;border-radius:6px;">
-Developed by Robin
-</p>
-</div>
+<script src="script.js"></script>
 
 </body>
 </html>
