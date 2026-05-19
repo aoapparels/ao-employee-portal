@@ -479,6 +479,7 @@ function checkAttendancePassword(){
 function showAttendanceReport(){
     hideAll();
     document.getElementById("attendancePage").classList.remove("hidden");
+    showAttendanceReportMenu();
 }
 function showAttendanceReportMenu(){
 
@@ -499,6 +500,9 @@ function showAttendanceReportMenu(){
     <button onclick="window.open('halfday.pdf','_blank')">
     Half Day Report
     </button>
+
+    <button onclick="window.open('jobcardhistory.pdf','_blank')">
+    Job Card History (Month End)
 
 </div>
 
