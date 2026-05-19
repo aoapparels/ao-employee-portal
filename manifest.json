@@ -3,10 +3,12 @@
   "short_name": "A&O Portal",
   "description": "A&O Employee Management System",
   "start_url": "/",
+  "id": "/",
   "display": "standalone",
   "background_color": "#0754a6",
   "theme_color": "#0754a6",
   "orientation": "portrait",
+  "categories": ["business", "productivity"],
   "icons": [
     {
       "src": "icon-192.png",
