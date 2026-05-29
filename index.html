@@ -7,18 +7,11 @@
 <meta name="robots" content="noindex,nofollow">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 const supabaseUrl = "https://hneomxtzhbeseqlyrszh.supabase.co";
 const supabaseKey = "sb_publishable_oT6uhXtknOi9PfP6QIu9gw_6hdgrb7Z";
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 </script>
-
-<!-- পুরান JS data backup হিসেবে থাকবে. পরে চাইলে এগুলো remove করতে পারবা -->
-<script src="employee.js"></script>
-<script src="jobcard.js"></script>
-<script src="payslip.js"></script>
-<script src="eot.js"></script>
 
 <style>
 .portal-title-box{display:inline-block;padding:12px 25px;border-radius:12px;background:rgba(128,0,128,0.75);box-shadow:0 0 18px rgba(128,0,128,0.9);}
@@ -41,12 +34,14 @@ button:hover{background:#003f7f;}
 .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:15px;}
 .box{border:1px solid #ddd;padding:15px;border-radius:12px;background:#fafafa;margin-top:15px;}
 table{width:100%;border-collapse:collapse;margin-top:10px;}
-th,td{border:1px solid #aaa;padding:8px;text-align:left;}
+th,td{border:1px solid #aaa;padding:8px;text-align:left;vertical-align:top;}
 th{background:#e7f0ff;}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;}
 .topbar button{width:auto;padding:10px 18px;}
 .small-note{font-size:14px;color:#555;margin-top:8px;line-height:1.5;}
 .status{padding:10px;border-radius:8px;background:#eef6ff;margin-top:10px;line-height:1.5;}
+.success{background:#e8f5e9;}
+.error{background:#ffebee;}
 </style>
 </head>
 
@@ -67,8 +62,8 @@ th{background:#e7f0ff;}
 
 <div class="card hidden" id="employeeLoginPage">
     <h2>Employee Login</h2>
-    <input type="text" id="empLoginId" placeholder="User Id">
-    <input type="text" id="empLoginPhone" placeholder="Password">
+    <input type="text" id="empLoginId" placeholder="User Id / Employee ID">
+    <input type="text" id="empLoginPhone" placeholder="Password / Mobile No">
     <button onclick="employeeLogin()">Login</button>
     <button class="gray" onclick="goHome()">Back</button>
 </div>
@@ -91,19 +86,22 @@ th{background:#e7f0ff;}
         <h3>Database Control Panel</h3>
 
         <div class="menu">
-            <button onclick="showSupabaseUpload('employees')">Employee Data</button>
-            <button onclick="showSupabaseUpload('jobcards')">Job Card Data</button>
-            <button onclick="showSupabaseUpload('payslips')">Pay Slip Data</button>
-            <button onclick="showSupabaseUpload('total_overtime')">Total Overtime Data</button>
+            <button onclick="showSupabaseUpload('employee')">Employee Info</button>
+            <button onclick="showSupabaseUpload('jobcard')">Job Card</button>
+            <button onclick="showSupabaseUpload('payslip')">Pay Slip</button>
+            <button onclick="showSupabaseUpload('overtime')">Total Overtime</button>
         </div>
+
+        <button class="red" onclick="showOutEmployeePanel()" style="margin-top:15px;">
+            Out Employee Remove
+        </button>
 
         <button class="orange" onclick="openSupabaseDashboard()" style="margin-top:15px;">
             Open Supabase Dashboard
         </button>
 
         <p class="small-note">
-            এখানে CSV upload দিলে Supabase database এ data update হবে। HTML/JS file বারবার edit করার দরকার হবে না।
-            Upload/Delete কাজ করতে হলে Supabase RLS policy তে insert/update/delete permission দিতে হবে।
+            CSV upload দিলে Supabase database এ data update হবে। Excel heading আর Supabase column name একই রাখতে হবে।
         </p>
     </div>
 
@@ -138,13 +136,6 @@ th{background:#e7f0ff;}
 </div>
 
 <script>
-let db = {
-    employeeInfo: window.employeeInfoData || [],
-    jobCard: window.jobCardData || [],
-    paySlip: window.paySlipData || [],
-    totalOvertime: window.eotData || []
-};
-
 let currentEmployee = null;
 
 const ADMIN_USER = "admin";
@@ -153,24 +144,24 @@ const ATTENDANCE_PASSWORD = "4321";
 const SUPABASE_DASHBOARD_URL = "https://supabase.com/dashboard/project/hneomxtzhbeseqlyrszh/editor";
 
 const tableConfig = {
-    employees: {
-        title: "Employee Data",
-        table: "employees",
+    employee: {
+        title: "Employee Info",
+        table: "Employee_Info",
         key: "Employee_ID"
     },
-    jobcards: {
-        title: "Job Card Data",
-        table: "jobcards",
+    jobcard: {
+        title: "Job Card",
+        table: "Jobcard",
         key: "Employee_ID"
     },
-    payslips: {
-        title: "Pay Slip Data",
-        table: "payslips",
+    payslip: {
+        title: "Pay Slip",
+        table: "Payslip",
         key: "Employee_ID"
     },
-    total_overtime: {
-        title: "Total Overtime Data",
-        table: "total_overtime",
+    overtime: {
+        title: "Total Overtime",
+        table: "Total_Overtime",
         key: "Employee_ID"
     }
 };
@@ -227,7 +218,7 @@ function showSupabaseUpload(type){
     const cfg = tableConfig[type];
 
     document.getElementById("adminView").innerHTML = `
-        <h3>${cfg.title}</h3>
+        <h3>${cfg.title} Upload / Update</h3>
 
         <input type="file" id="adminCsvFile" accept=".csv">
 
@@ -248,20 +239,38 @@ function showSupabaseUpload(type){
         </button>
 
         <div id="adminStatus" class="status">
-            CSV file select করে Upload / Update চাপো।
+            CSV file select করে Upload / Update চাপো।<br>
+            Table: <b>${cfg.table}</b> | Primary Key: <b>${cfg.key}</b>
         </div>
 
         <p class="small-note">
-            Table name: <b>${cfg.table}</b><br>
-            Match key: <b>${cfg.key}</b><br>
-            CSV header আর Supabase column name same হতে হবে।
+            CSV header exactly Supabase column name এর মতো হতে হবে। Same Employee_ID থাকলে update হবে, new Employee_ID থাকলে add হবে।
         </p>
     `;
 }
 
-function setAdminStatus(msg){
+function showOutEmployeePanel(){
+    document.getElementById("adminView").innerHTML = `
+        <h3>Out Employee Remove</h3>
+        <input type="text" id="outEmployeeId" placeholder="Enter Employee_ID, example: OS00002">
+        <button onclick="removeOutEmployee()" class="red">
+            Remove Employee From All Tables
+        </button>
+        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+            Back
+        </button>
+        <div id="adminStatus" class="status">
+            Employee_ID দিলে Employee_Info, Jobcard, Payslip, Total_Overtime — ৪টা table থেকেই remove হবে।
+        </div>
+    `;
+}
+
+function setAdminStatus(msg, type=""){
     let status = document.getElementById("adminStatus");
-    if(status) status.innerHTML = msg;
+    if(status){
+        status.className = "status" + (type ? " " + type : "");
+        status.innerHTML = msg;
+    }
 }
 
 function parseCSV(text){
@@ -338,14 +347,19 @@ async function uploadCsvToSupabase(type){
             let rows = parseCSV(csvText);
 
             if(!rows.length){
-                setAdminStatus("No data found in CSV.");
+                setAdminStatus("No data found in CSV.", "error");
                 return;
             }
 
-            rows = rows.filter(row => row[cfg.key] && String(row[cfg.key]).trim() !== "");
+            rows = rows.map(row => {
+                if(row[cfg.key]){
+                    row[cfg.key] = String(row[cfg.key]).trim().toUpperCase();
+                }
+                return row;
+            }).filter(row => row[cfg.key] && String(row[cfg.key]).trim() !== "");
 
             if(!rows.length){
-                setAdminStatus(`CSV তে ${cfg.key} column/value পাওয়া যায়নি।`);
+                setAdminStatus(`CSV তে ${cfg.key} column/value পাওয়া যায়নি।`, "error");
                 return;
             }
 
@@ -360,17 +374,17 @@ async function uploadCsvToSupabase(type){
                 setAdminStatus(`
                     <b>Upload failed.</b><br>
                     ${error.message}<br><br>
-                    Check করো: table আছে কিনা, column name match করছে কিনা, RLS insert/update policy আছে কিনা।
-                `);
+                    Check করো: table name, column heading, primary key, RLS insert/update policy.
+                `, "error");
                 return;
             }
 
             fileInput.value = "";
-            setAdminStatus(`<b>Success!</b> ${rows.length} rows uploaded/updated in ${cfg.table}.`);
+            setAdminStatus(`<b>Success!</b> ${rows.length} rows uploaded/updated in ${cfg.table}.`, "success");
 
         }catch(error){
             console.log(error);
-            setAdminStatus("CSV upload failed. File format check করো.");
+            setAdminStatus("CSV upload failed. File format check করো.", "error");
         }
     };
 
@@ -396,21 +410,51 @@ async function removeAllDataFromSupabase(type){
 
     if(error){
         console.log(error);
-        setAdminStatus(`
-            <b>Remove failed.</b><br>
-            ${error.message}<br><br>
-            Delete permission/RLS policy check করতে হবে।
-        `);
+        setAdminStatus(`<b>Remove failed.</b><br>${error.message}<br><br>Delete permission/RLS policy check করতে হবে।`, "error");
         return;
     }
 
-    setAdminStatus(`<b>Removed!</b> All data deleted from ${cfg.table}.`);
+    setAdminStatus(`<b>Removed!</b> All data deleted from ${cfg.table}.`, "success");
+}
+
+async function removeOutEmployee(){
+    let empId = document.getElementById("outEmployeeId").value.trim().toUpperCase();
+
+    if(!empId){
+        alert("Employee_ID লিখো");
+        return;
+    }
+
+    let confirmText = prompt(`Type DELETE to remove ${empId} from all tables`);
+    if(confirmText !== "DELETE"){
+        alert("Delete cancelled");
+        return;
+    }
+
+    setAdminStatus(`Removing ${empId} from all tables...`);
+
+    let messages = [];
+
+    for(const key of Object.keys(tableConfig)){
+        const cfg = tableConfig[key];
+        const { error } = await supabaseClient
+        .from(cfg.table)
+        .delete()
+        .eq(cfg.key, empId);
+
+        if(error){
+            console.log(cfg.table, error);
+            messages.push(`${cfg.table}: Failed - ${error.message}`);
+        }else{
+            messages.push(`${cfg.table}: Removed`);
+        }
+    }
+
+    setAdminStatus(messages.join("<br>"), "success");
 }
 
 function cleanMobile(num){
-    let mobile = String(num || "")
-    .replace(/\D/g, "")
-    .trim();
+    let mobile = String(num || "").replace(/\D/g, "").trim();
 
     if(mobile.startsWith("88") && mobile.length === 13){
         mobile = mobile.slice(2);
@@ -423,15 +467,9 @@ function cleanMobile(num){
     return mobile;
 }
 
-function getId(row){
-    return String(
-        row.Employee_ID ||
-        row.JOB_ID_APP ||
-        row.JOB_ID_NO ||
-        row.JOB_ID ||
-        row.ID ||
-        ""
-    ).trim().toUpperCase();
+function formatValue(value){
+    if(value === null || value === undefined) return "";
+    return String(value);
 }
 
 async function fetchOneByEmployeeId(table, employeeId){
@@ -465,54 +503,45 @@ async function employeeLogin(){
 
     try{
         const { data: info, error } = await supabaseClient
-        .from("employees")
+        .from("Employee_Info")
         .select("*")
         .eq("Employee_ID", id)
         .maybeSingle();
 
         if(error){
             console.log(error);
-            alert("Database connection problem");
+            alert("Database connection problem: " + error.message);
+            return;
+        }
+
+        if(!info){
+            alert("Employee ID not found");
             return;
         }
 
         let dbPhone = cleanMobile(info.Mobile_No || "");
 
-        if(
-            !info ||
-            !(dbPhone === phone || dbPhone.slice(-10) === phone.slice(-10))
-        ){
-            alert("Wrong User ID or Password");
+        if(!(dbPhone === phone || dbPhone.slice(-10) === phone.slice(-10))){
+            alert("Wrong Password");
             return;
         }
 
-        let job = null;
-        let pay = null;
-        let totalOvertime = null;
-        if(!job){
-           job = db.jobCard.find(e => getId(e) === id) || null;
-        }
-
-        if(!pay){
-            pay = db.paySlip.find(e => getId(e) === id) || null;
-        }
-
-        if(!totalOvertime){
-            totalOvertime = db.totalOvertime.find(e => getId(e) === id) || null;
-        }
+        let job = await fetchOneByEmployeeId("Jobcard", id);
+        let pay = await fetchOneByEmployeeId("Payslip", id);
+        let totalOvertime = await fetchOneByEmployeeId("Total_Overtime", id);
 
         currentEmployee = { info, job, pay, totalOvertime };
 
         hideAll();
         document.getElementById("employeeDashboard").classList.remove("hidden");
         document.getElementById("welcomeText").innerText =
-        "Welcome " + (info.Name_OF_Employee || info.EMPLOYEE_NAME || id);
+        "Welcome " + (info.Name_OF_Employee || id);
 
         showEmployeeInfo();
 
     }catch(error){
         console.log(error);
-        alert("Supabase connection failed");
+        alert("Supabase connection failed: " + error.message);
     }
 }
 
@@ -546,12 +575,12 @@ function showEmployeeInfo(){
     `;
 
     Object.keys(info).forEach(key => {
-        if(key === "id" || key === "created_at" || key === "JOB_ID_APP" || key === "MOBILE_NO_APP") return;
+        if(key === "id" || key === "created_at") return;
 
         html += `
         <tr>
             <td style="padding:10px;"><b>${key}</b></td>
-            <td style="padding:10px;">${info[key] || ""}</td>
+            <td style="padding:10px;">${formatValue(info[key])}</td>
         </tr>
         `;
     });
@@ -569,7 +598,7 @@ function rowToTable(title, row){
 
     Object.keys(row).forEach(key => {
         if(key === "id" || key === "created_at") return;
-        html += `<tr><th>${key}</th><td>${row[key] || ""}</td></tr>`;
+        html += `<tr><th>${key}</th><td>${formatValue(row[key])}</td></tr>`;
     });
 
     html += "</table></div>";
@@ -579,20 +608,20 @@ function rowToTable(title, row){
 function showJobCard(){
     let job = currentEmployee.job;
 
-    if(job && !job.DASHBOARD){
-        document.getElementById("employeeView").innerHTML = rowToTable("Job Card", job);
-        return;
-    }
-
-    if(!job || !job.DASHBOARD){
+    if(!job){
         document.getElementById("employeeView").innerHTML = "<h3>No Job Card Found</h3>";
         return;
     }
 
-    let text = job.DASHBOARD;
+    if(!job.DASHBOARD){
+        document.getElementById("employeeView").innerHTML = rowToTable("Job Card", job);
+        return;
+    }
+
+    let text = job.DASHBOARD || "";
 
     let month = (text.match(/Job card\s+(.+?)\s+of/i) || [,"-"])[1];
-    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.EMPLOYEE_NAME || currentEmployee.info.Name_OF_Employee || "-"])[1];
+    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.Name_OF_Employee || "-"])[1];
     let present = (text.match(/Total Present-(\d+)/i) || [,"0"])[1];
     let absent = (text.match(/Absent-(\d+)/i) || [,"0"])[1];
     let ot = (text.match(/OT-([\d.]+)/i) || [,"0"])[1];
@@ -617,20 +646,20 @@ function showJobCard(){
 function showPaySlip(){
     let pay = currentEmployee.pay;
 
-    if(pay && !pay.DASHBOARD){
-        document.getElementById("employeeView").innerHTML = rowToTable("Pay Slip", pay);
-        return;
-    }
-
-    if(!pay || !pay.DASHBOARD){
+    if(!pay){
         document.getElementById("employeeView").innerHTML = "<h3>No Pay Slip Found</h3>";
         return;
     }
 
-    let text = pay.DASHBOARD;
+    if(!pay.DASHBOARD){
+        document.getElementById("employeeView").innerHTML = rowToTable("Pay Slip", pay);
+        return;
+    }
+
+    let text = pay.DASHBOARD || "";
 
     let month = (text.match(/PaySlip\s+(.+?)\s+of/i) || [,"-"])[1];
-    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.EMPLOYEE_NAME || currentEmployee.info.Name_OF_Employee || "-"])[1];
+    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.Name_OF_Employee || "-"])[1];
     let gross = (text.match(/G\.Salary=([^;]*)/i) || [,"0"])[1];
     let att = (text.match(/AttBns=([^;]*)/i) || [,"0"])[1];
     let el = (text.match(/EL=([^;]*)/i) || [,"0"])[1];
@@ -669,11 +698,6 @@ function showMore(){
 function showTotalOvertime(){
     let overtime = currentEmployee.totalOvertime;
 
-    if(overtime && !overtime.DAILY_OT){
-        document.getElementById("employeeView").innerHTML = rowToTable("Total Overtime", overtime);
-        return;
-    }
-
     if(!overtime){
         document.getElementById("employeeView").innerHTML = `
         <div style="background:white;padding:25px;border-radius:12px;">
@@ -685,30 +709,27 @@ function showTotalOvertime(){
     }
 
     let rows = "";
-
-    Object.keys(overtime.DAILY_OT || {}).forEach(day => {
-        rows += `<tr><td>${day}</td><td>${overtime.DAILY_OT[day]}</td></tr>`;
-    });
+    for(let i = 1; i <= 31; i++){
+        let key = "Day_" + i;
+        if(overtime[key] !== undefined && overtime[key] !== null && overtime[key] !== ""){
+            rows += `<tr><td>Day ${i}</td><td>${formatValue(overtime[key])}</td></tr>`;
+        }
+    }
 
     document.getElementById("employeeView").innerHTML = `
     <div style="background:white;padding:25px;border-radius:12px;">
         <h2 style="color:#0754a6;text-align:center;">Total Overtime</h2>
-        <p><b>ID:</b> ${overtime.JOB_ID || overtime.Employee_ID || "-"}</p>
+        <p><b>Employee ID:</b> ${overtime.Employee_ID || "-"}</p>
         <p><b>OT Rate:</b> ${overtime.OT_RATE || "-"}</p>
 
         <table>
-            <tr><th>Date</th><th>Hour</th></tr>
+            <tr><th>Day</th><th>Hour</th></tr>
             ${rows}
-            <tr><th>Total</th><th>${overtime.TOTAL_OT || "-"}</th></tr>
+            <tr><th>Total OT</th><th>${overtime.TOTAL_OT || "-"}</th></tr>
         </table>
 
         <button onclick="showMore()" style="margin-top:15px;">Back</button>
     </div>`;
-}
-
-/* পুরান নাম backup হিসেবে রাখা হলো */
-function showEOT(){
-    showTotalOvertime();
 }
 
 function showAttendancePassword(){
