@@ -1,33 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0754a6">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A&O Employee Portal</title>
-<meta name="description" content="
-A&O Employee Portal provides employee information, job card, attendance, overall point and pay slip access for A&O Apparels employees.
-">
-
-<meta name="keywords" content="
-A&O Employee Portal,
-ao portal,
-Employee management system,
-employee management system,
-garments employee management system,
-HR management portal,
-portal aoapparels,
-employee portal Bangladesh,
-job card system,
-pay slip portal,
-garments employee portal,
-attendance portal,
-A&O Apparels employee login
-">
-
 <meta name="robots" content="noindex,nofollow">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseUrl = "https://hneomxtzhbeseqlyrszh.supabase.co";
+const supabaseKey = "sb_publishable_oT6uhXtknOi9PfP6QIu9gw_6hdgrb7Z";
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+</script>
+
+<!-- পুরান JS data backup হিসেবে থাকবে. পরে চাইলে এগুলো remove করতে পারবা -->
 <script src="employee.js"></script>
 <script src="jobcard.js"></script>
 <script src="payslip.js"></script>
@@ -42,11 +29,14 @@ body{background:linear-gradient(rgba(255,255,255,0.30),rgba(255,255,255,0.30)),u
 .container{max-width:1100px;margin:auto;}
 .card{background:white;padding:20px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);margin-bottom:20px;}
 h1,h2,h3{text-align:center;margin-bottom:15px;}
-input,button{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;}
+input,button,textarea,select{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;}
 button{background:#0754a6;color:white;border:none;cursor:pointer;font-weight:bold;}
 button:hover{background:#003f7f;}
 .red{background:#c62828;}
 .gray{background:#555;}
+.purple{background:#6a1b9a;}
+.green{background:#2e7d32;}
+.orange{background:#ef6c00;}
 .hidden{display:none;}
 .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:15px;}
 .box{border:1px solid #ddd;padding:15px;border-radius:12px;background:#fafafa;margin-top:15px;}
@@ -55,6 +45,8 @@ th,td{border:1px solid #aaa;padding:8px;text-align:left;}
 th{background:#e7f0ff;}
 .topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;}
 .topbar button{width:auto;padding:10px 18px;}
+.small-note{font-size:14px;color:#555;margin-top:8px;line-height:1.5;}
+.status{padding:10px;border-radius:8px;background:#eef6ff;margin-top:10px;line-height:1.5;}
 </style>
 </head>
 
@@ -68,20 +60,9 @@ th{background:#e7f0ff;}
 <div class="container">
 
 <div class="card" id="homePage">
-
-    <button onclick="showEmployeeLogin()">
-    Employee Login
-    </button>
-
-    <button onclick="showAttendancePassword()" style="
-    margin-top:15px;
-    background:#0754a6;
-    color:white;
-    font-weight:bold;
-    ">
-    Attendance Report
-    </button>
-
+    <button onclick="showEmployeeLogin()">Employee Login</button>
+    <button onclick="showAttendancePassword()" style="margin-top:15px;">Attendance Report</button>
+    <button onclick="showAdminLogin()" class="purple" style="margin-top:15px;">Admin Panel</button>
 </div>
 
 <div class="card hidden" id="employeeLoginPage">
@@ -91,49 +72,53 @@ th{background:#e7f0ff;}
     <button onclick="employeeLogin()">Login</button>
     <button class="gray" onclick="goHome()">Back</button>
 </div>
+
+<div class="card hidden" id="adminLoginPage">
+    <h2>Admin Login</h2>
+    <input type="text" id="adminUser" placeholder="Admin User ID">
+    <input type="password" id="adminPass" placeholder="Admin Password">
+    <button onclick="adminLogin()">Login</button>
+    <button class="gray" onclick="goHome()">Back</button>
+</div>
+
+<div class="card hidden" id="adminDashboard">
+    <div class="topbar">
+        <h2>Admin Panel</h2>
+        <button class="red" onclick="adminLogout()">Logout</button>
+    </div>
+
+    <div class="box">
+        <h3>Database Control Panel</h3>
+
+        <div class="menu">
+            <button onclick="showSupabaseUpload('employees')">Employee Data</button>
+            <button onclick="showSupabaseUpload('jobcards')">Job Card Data</button>
+            <button onclick="showSupabaseUpload('payslips')">Pay Slip Data</button>
+            <button onclick="showSupabaseUpload('total_overtime')">Total Overtime Data</button>
+        </div>
+
+        <button class="orange" onclick="openSupabaseDashboard()" style="margin-top:15px;">
+            Open Supabase Dashboard
+        </button>
+
+        <p class="small-note">
+            এখানে CSV upload দিলে Supabase database এ data update হবে। HTML/JS file বারবার edit করার দরকার হবে না।
+            Upload/Delete কাজ করতে হলে Supabase RLS policy তে insert/update/delete permission দিতে হবে।
+        </p>
+    </div>
+
+    <div id="adminView" class="box">Select data option</div>
+</div>
+
 <div class="card hidden" id="attendancePasswordPage">
-
     <h2>Attendance Report Login</h2>
-
-    <input
-    type="password"
-    id="attendancePassword"
-    placeholder="Enter Password">
-
-    <button onclick="checkAttendancePassword()">
-    Login
-    </button>
-
-    <button class="gray" onclick="goHome()">
-    Back
-    </button>
-
-</div>
-<div class="card hidden" id="attendancePage">
-
-    <h2>Attendance Report</h2>
-
-    <div class="menu">
-
-    <button onclick="showManpowerReport()">
-    Manpower Report
-    </button>
-
-    <button onclick="showAbsentReport()">
-    Absent Report
-    </button>
-
-    <button onclick="showHalfDayReport()">
-    Half Day Report
-    </button>
-
+    <input type="password" id="attendancePassword" placeholder="Enter Password">
+    <button onclick="checkAttendancePassword()">Login</button>
+    <button class="gray" onclick="goHome()">Back</button>
 </div>
 
-    <button class="gray" onclick="goHome()" style="margin-top:20px;">
-    Back
-    </button>
+<div class="card hidden" id="attendancePage"></div>
 
-</div>
 <div class="card hidden" id="employeeDashboard">
     <div class="topbar">
         <h2 id="welcomeText">Welcome</h2>
@@ -157,16 +142,47 @@ let db = {
     employeeInfo: window.employeeInfoData || [],
     jobCard: window.jobCardData || [],
     paySlip: window.paySlipData || [],
-eot: window.eotData || []
+    totalOvertime: window.eotData || []
 };
 
 let currentEmployee = null;
+
+const ADMIN_USER = "admin";
+const ADMIN_PASS = "1234";
+const ATTENDANCE_PASSWORD = "4321";
+const SUPABASE_DASHBOARD_URL = "https://supabase.com/dashboard/project/hneomxtzhbeseqlyrszh/editor";
+
+const tableConfig = {
+    employees: {
+        title: "Employee Data",
+        table: "employees",
+        key: "Employee_ID"
+    },
+    jobcards: {
+        title: "Job Card Data",
+        table: "jobcards",
+        key: "Employee_ID"
+    },
+    payslips: {
+        title: "Pay Slip Data",
+        table: "payslips",
+        key: "Employee_ID"
+    },
+    total_overtime: {
+        title: "Total Overtime Data",
+        table: "total_overtime",
+        key: "Employee_ID"
+    }
+};
 
 function hideAll(){
     document.getElementById("homePage").classList.add("hidden");
     document.getElementById("employeeLoginPage").classList.add("hidden");
     document.getElementById("employeeDashboard").classList.add("hidden");
     document.getElementById("attendancePasswordPage").classList.add("hidden");
+    document.getElementById("attendancePage").classList.add("hidden");
+    document.getElementById("adminLoginPage").classList.add("hidden");
+    document.getElementById("adminDashboard").classList.add("hidden");
 }
 
 function goHome(){
@@ -179,8 +195,219 @@ function showEmployeeLogin(){
     document.getElementById("employeeLoginPage").classList.remove("hidden");
 }
 
-function cleanMobile(num){
+function showAdminLogin(){
+    hideAll();
+    document.getElementById("adminLoginPage").classList.remove("hidden");
+}
 
+function adminLogin(){
+    let user = document.getElementById("adminUser").value.trim();
+    let pass = document.getElementById("adminPass").value.trim();
+
+    if(user === ADMIN_USER && pass === ADMIN_PASS){
+        hideAll();
+        document.getElementById("adminDashboard").classList.remove("hidden");
+        document.getElementById("adminView").innerHTML = "Select data option";
+    }else{
+        alert("Wrong Admin ID or Password");
+    }
+}
+
+function adminLogout(){
+    document.getElementById("adminUser").value = "";
+    document.getElementById("adminPass").value = "";
+    goHome();
+}
+
+function openSupabaseDashboard(){
+    window.open(SUPABASE_DASHBOARD_URL, "_blank");
+}
+
+function showSupabaseUpload(type){
+    const cfg = tableConfig[type];
+
+    document.getElementById("adminView").innerHTML = `
+        <h3>${cfg.title}</h3>
+
+        <input type="file" id="adminCsvFile" accept=".csv">
+
+        <button onclick="uploadCsvToSupabase('${type}')" class="green">
+            Upload / Update CSV To Database
+        </button>
+
+        <button onclick="removeAllDataFromSupabase('${type}')" class="red">
+            Remove All ${cfg.title}
+        </button>
+
+        <button onclick="openSupabaseDashboard()" class="orange">
+            Open Supabase Table
+        </button>
+
+        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+            Back
+        </button>
+
+        <div id="adminStatus" class="status">
+            CSV file select করে Upload / Update চাপো।
+        </div>
+
+        <p class="small-note">
+            Table name: <b>${cfg.table}</b><br>
+            Match key: <b>${cfg.key}</b><br>
+            CSV header আর Supabase column name same হতে হবে।
+        </p>
+    `;
+}
+
+function setAdminStatus(msg){
+    let status = document.getElementById("adminStatus");
+    if(status) status.innerHTML = msg;
+}
+
+function parseCSV(text){
+    let rows = [];
+    let row = [];
+    let value = "";
+    let insideQuotes = false;
+
+    for(let i = 0; i < text.length; i++){
+        let char = text[i];
+        let next = text[i + 1];
+
+        if(char === '"' && insideQuotes && next === '"'){
+            value += '"';
+            i++;
+        }else if(char === '"'){
+            insideQuotes = !insideQuotes;
+        }else if(char === "," && !insideQuotes){
+            row.push(value.trim());
+            value = "";
+        }else if((char === "\n" || char === "\r") && !insideQuotes){
+            if(char === "\r" && next === "\n") i++;
+            row.push(value.trim());
+            value = "";
+
+            if(row.some(cell => cell !== "")){
+                rows.push(row);
+            }
+            row = [];
+        }else{
+            value += char;
+        }
+    }
+
+    if(value || row.length){
+        row.push(value.trim());
+        if(row.some(cell => cell !== "")){
+            rows.push(row);
+        }
+    }
+
+    if(rows.length < 2) return [];
+
+    let headers = rows[0].map(h => h.replace(/^\uFEFF/, "").trim());
+
+    return rows.slice(1).map(r => {
+        let obj = {};
+        headers.forEach((h, index) => {
+            if(h){
+                obj[h] = r[index] || "";
+            }
+        });
+        return obj;
+    });
+}
+
+async function uploadCsvToSupabase(type){
+    const cfg = tableConfig[type];
+    const fileInput = document.getElementById("adminCsvFile");
+    const file = fileInput.files[0];
+
+    if(!file){
+        alert("Please select CSV file first");
+        return;
+    }
+
+    setAdminStatus("Reading CSV file...");
+
+    const reader = new FileReader();
+
+    reader.onload = async function(e){
+        try{
+            let csvText = e.target.result;
+            let rows = parseCSV(csvText);
+
+            if(!rows.length){
+                setAdminStatus("No data found in CSV.");
+                return;
+            }
+
+            rows = rows.filter(row => row[cfg.key] && String(row[cfg.key]).trim() !== "");
+
+            if(!rows.length){
+                setAdminStatus(`CSV তে ${cfg.key} column/value পাওয়া যায়নি।`);
+                return;
+            }
+
+            setAdminStatus(`Uploading ${rows.length} rows to ${cfg.table}...`);
+
+            const { error } = await supabaseClient
+            .from(cfg.table)
+            .upsert(rows, { onConflict: cfg.key });
+
+            if(error){
+                console.log(error);
+                setAdminStatus(`
+                    <b>Upload failed.</b><br>
+                    ${error.message}<br><br>
+                    Check করো: table আছে কিনা, column name match করছে কিনা, RLS insert/update policy আছে কিনা।
+                `);
+                return;
+            }
+
+            fileInput.value = "";
+            setAdminStatus(`<b>Success!</b> ${rows.length} rows uploaded/updated in ${cfg.table}.`);
+
+        }catch(error){
+            console.log(error);
+            setAdminStatus("CSV upload failed. File format check করো.");
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+async function removeAllDataFromSupabase(type){
+    const cfg = tableConfig[type];
+
+    let confirmText = prompt(`Type DELETE to remove all data from ${cfg.title}`);
+
+    if(confirmText !== "DELETE"){
+        alert("Delete cancelled");
+        return;
+    }
+
+    setAdminStatus(`Removing all data from ${cfg.table}...`);
+
+    const { error } = await supabaseClient
+    .from(cfg.table)
+    .delete()
+    .not(cfg.key, "is", null);
+
+    if(error){
+        console.log(error);
+        setAdminStatus(`
+            <b>Remove failed.</b><br>
+            ${error.message}<br><br>
+            Delete permission/RLS policy check করতে হবে।
+        `);
+        return;
+    }
+
+    setAdminStatus(`<b>Removed!</b> All data deleted from ${cfg.table}.`);
+}
+
+function cleanMobile(num){
     let mobile = String(num || "")
     .replace(/\s/g,"")
     .replace(/-/g,"")
@@ -195,115 +422,161 @@ function cleanMobile(num){
 }
 
 function getId(row){
-    return String(row.JOB_ID_APP || row.JOB_ID_NO || row.JOB_ID || row.ID || "").trim().toUpperCase();
+    return String(
+        row.Employee_ID ||
+        row.JOB_ID_APP ||
+        row.JOB_ID_NO ||
+        row.JOB_ID ||
+        row.ID ||
+        ""
+    ).trim().toUpperCase();
 }
 
-function employeeLogin(){
+async function fetchOneByEmployeeId(table, employeeId){
+    try{
+        const { data, error } = await supabaseClient
+        .from(table)
+        .select("*")
+        .eq("Employee_ID", employeeId)
+        .maybeSingle();
+
+        if(error){
+            console.log(table, error);
+            return null;
+        }
+
+        return data || null;
+    }catch(error){
+        console.log(table, error);
+        return null;
+    }
+}
+
+async function employeeLogin(){
     let id = document.getElementById("empLoginId").value.trim().toUpperCase();
     let phone = cleanMobile(document.getElementById("empLoginPhone").value);
 
-    let info = db.employeeInfo.find(e =>
-        getId(e) === id &&
-        cleanMobile(e.MOBILE_NO_APP || e.Mobile_No || e.MOBILE_NO || e.Phone || "") === phone
-    );
-
-    let job = db.jobCard.find(e => getId(e) === id);
-    let pay = db.paySlip.find(e => getId(e) === id);
-
-    if(info){
-        currentEmployee = { info, job, pay };
-        hideAll();
-        document.getElementById("employeeDashboard").classList.remove("hidden");
-        document.getElementById("welcomeText").innerText =
-"Welcome " + info.Name_OF_Employee;
-        showEmployeeInfo();
-    }else{
-        alert("Wrong User ID or Password");
-    }
-}
-
-function rowToTable(row){
-    if(!row) return "<p>No Data Found</p>";
-
-    let html = "<table>";
-    Object.keys(row).forEach(key => {
-        if(key === "JOB_ID_APP" || key === "MOBILE_NO_APP") return;
-        html += `<tr><th>${key}</th><td>${row[key]}</td></tr>`;
-    });
-    html += "</table>";
-    return html;
-}
-
-function showEmployeeInfo(){
-
-    let info = currentEmployee.info;
-
-    if(!info){
-        document.getElementById("employeeView").innerHTML =
-        "<h3>No Employee Information Found</h3>";
+    if(!id || !phone){
+        alert("Please enter User ID and Password");
         return;
     }
 
+    try{
+        const { data: info, error } = await supabaseClient
+        .from("employees")
+        .select("*")
+        .eq("Employee_ID", id)
+        .maybeSingle();
+
+        if(error){
+            console.log(error);
+            alert("Database connection problem");
+            return;
+        }
+
+        if(!info || cleanMobile(info.Mobile_No || "") !== phone){
+            alert("Wrong User ID or Password");
+            return;
+        }
+
+        let job = await fetchOneByEmployeeId("jobcards", id);
+        let pay = await fetchOneByEmployeeId("payslips", id);
+        let totalOvertime = await fetchOneByEmployeeId("total_overtime", id);
+
+        if(!job){
+            job = db.jobCard.find(e => getId(e) === id) || null;
+        }
+
+        if(!pay){
+            pay = db.paySlip.find(e => getId(e) === id) || null;
+        }
+
+        if(!totalOvertime){
+            totalOvertime = db.totalOvertime.find(e => getId(e) === id) || null;
+        }
+
+        currentEmployee = { info, job, pay, totalOvertime };
+
+        hideAll();
+        document.getElementById("employeeDashboard").classList.remove("hidden");
+        document.getElementById("welcomeText").innerText =
+        "Welcome " + (info.Name_OF_Employee || info.EMPLOYEE_NAME || id);
+
+        showEmployeeInfo();
+
+    }catch(error){
+        console.log(error);
+        alert("Supabase connection failed");
+    }
+}
+
+function showEmployeeInfo(){
+    let info = currentEmployee.info;
+
+    if(!info){
+        document.getElementById("employeeView").innerHTML = "<h3>No Employee Information Found</h3>";
+        return;
+    }
+
+    let photoId = "no-photo";
+
+    if(info.Employee_ID){
+        photoId = String(info.Employee_ID)
+        .toLowerCase()
+        .replace(/([a-z]+)0+(\d+)/i,'$1$2');
+    }
+
     let html = `
-    <div style="
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    ">
+    <div style="background:white;padding:25px;border-radius:12px;">
+    <h2 style="color:#0754a6;margin-bottom:20px;">Employee Information</h2>
 
-    <h2 style="
-    color:#0754a6;
-    margin-bottom:20px;
-    ">
-    Employee Information
-    </h2>
     <div style="text-align:center; margin-bottom:25px;">
+        <img src="photos/${photoId}.jpg"
+        onerror="this.src='photos/no-photo.jpg'"
+        style="width:130px;height:150px;object-fit:cover;border:3px solid #0754a6;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.25);">
+    </div>
 
-<img 
-src="photos/${info.Employee_ID
-.toLowerCase()
-.replace(/([a-z]+)0+(\d+)/i,'$1$2')}.jpg"
-
-onerror="this.src='photos/no-photo.jpg'"
-
-style="
-width:130px;
-height:150px;
-object-fit:cover;
-border:3px solid #0754a6;
-border-radius:10px;
-box-shadow:0 4px 12px rgba(0,0,0,0.25);
-">
-
-</div>
-
-    <table style="
-    width:100%;
-    border-collapse:collapse;
-    font-size:16px;
-    ">
+    <table style="width:100%;border-collapse:collapse;font-size:16px;">
     `;
 
     Object.keys(info).forEach(key => {
-
-        if(key === "JOB_ID_APP" || key === "MOBILE_NO_APP"){
-            return;
-        }
+        if(key === "id" || key === "created_at" || key === "JOB_ID_APP" || key === "MOBILE_NO_APP") return;
 
         html += `
         <tr>
             <td style="padding:10px;"><b>${key}</b></td>
-            <td style="padding:10px;">${info[key]}</td>
+            <td style="padding:10px;">${info[key] || ""}</td>
         </tr>
         `;
     });
 
     html += "</table></div>";
-
     document.getElementById("employeeView").innerHTML = html;
 }
+
+function rowToTable(title, row){
+    if(!row){
+        return `<div style="background:white;padding:25px;border-radius:12px;"><h2>${title}</h2><h3>No Data Found</h3></div>`;
+    }
+
+    let html = `<div style="background:white;padding:25px;border-radius:12px;"><h2 style="color:#0754a6;">${title}</h2><table>`;
+
+    Object.keys(row).forEach(key => {
+        if(key === "id" || key === "created_at") return;
+        html += `<tr><th>${key}</th><td>${row[key] || ""}</td></tr>`;
+    });
+
+    html += "</table></div>";
+    return html;
+}
+
 function showJobCard(){
     let job = currentEmployee.job;
+
+    if(job && !job.DASHBOARD){
+        document.getElementById("employeeView").innerHTML = rowToTable("Job Card", job);
+        return;
+    }
 
     if(!job || !job.DASHBOARD){
         document.getElementById("employeeView").innerHTML = "<h3>No Job Card Found</h3>";
@@ -313,7 +586,7 @@ function showJobCard(){
     let text = job.DASHBOARD;
 
     let month = (text.match(/Job card\s+(.+?)\s+of/i) || [,"-"])[1];
-    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.EMPLOYEE_NAME || "-"])[1];
+    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.EMPLOYEE_NAME || currentEmployee.info.Name_OF_Employee || "-"])[1];
     let present = (text.match(/Total Present-(\d+)/i) || [,"0"])[1];
     let absent = (text.match(/Absent-(\d+)/i) || [,"0"])[1];
     let ot = (text.match(/OT-([\d.]+)/i) || [,"0"])[1];
@@ -324,19 +597,24 @@ function showJobCard(){
     <div style="background:white;padding:25px;border-radius:12px;">
         <h2 style="text-align:left;margin-bottom:20px;color:#0754a6;">Job Card</h2>
         <table style="width:100%;border-collapse:collapse;font-size:18px;">
-            <tr><td style="padding:10px;"><b>Job Card Month :</b></td><td style="padding:10px;">${month}</td></tr>
-            <tr><td style="padding:10px;"><b>Name :</b></td><td style="padding:10px;">${name}</td></tr>
-            <tr><td style="padding:10px;"><b>Total Present :</b></td><td style="padding:10px;">${present} Days</td></tr>
-            <tr><td style="padding:10px;"><b>Absent :</b></td><td style="padding:10px;">${absent}</td></tr>
-            <tr><td style="padding:10px;"><b>Over Time (OT) :</b></td><td style="padding:10px;">${ot}</td></tr>
-            <tr><td style="padding:10px;"><b>Leave :</b></td><td style="padding:10px;">${leave}</td></tr>
-            <tr><td style="padding:10px;"><b>Late :</b></td><td style="padding:10px;">${late}</td></tr>
+            <tr><td><b>Job Card Month :</b></td><td>${month}</td></tr>
+            <tr><td><b>Name :</b></td><td>${name}</td></tr>
+            <tr><td><b>Total Present :</b></td><td>${present} Days</td></tr>
+            <tr><td><b>Absent :</b></td><td>${absent}</td></tr>
+            <tr><td><b>Over Time OT :</b></td><td>${ot}</td></tr>
+            <tr><td><b>Leave :</b></td><td>${leave}</td></tr>
+            <tr><td><b>Late :</b></td><td>${late}</td></tr>
         </table>
     </div>`;
 }
 
 function showPaySlip(){
     let pay = currentEmployee.pay;
+
+    if(pay && !pay.DASHBOARD){
+        document.getElementById("employeeView").innerHTML = rowToTable("Pay Slip", pay);
+        return;
+    }
 
     if(!pay || !pay.DASHBOARD){
         document.getElementById("employeeView").innerHTML = "<h3>No Pay Slip Found</h3>";
@@ -346,7 +624,7 @@ function showPaySlip(){
     let text = pay.DASHBOARD;
 
     let month = (text.match(/PaySlip\s+(.+?)\s+of/i) || [,"-"])[1];
-    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.EMPLOYEE_NAME || "-"])[1];
+    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.EMPLOYEE_NAME || currentEmployee.info.Name_OF_Employee || "-"])[1];
     let gross = (text.match(/G\.Salary=([^;]*)/i) || [,"0"])[1];
     let att = (text.match(/AttBns=([^;]*)/i) || [,"0"])[1];
     let el = (text.match(/EL=([^;]*)/i) || [,"0"])[1];
@@ -361,283 +639,115 @@ function showPaySlip(){
     <div style="background:white;padding:25px;border-radius:12px;">
         <h2 style="text-align:left;margin-bottom:20px;color:#0754a6;">Pay Slip</h2>
         <table style="width:100%;border-collapse:collapse;font-size:18px;">
-            <tr><td style="padding:10px;"><b>Pay Slip Month :</b></td><td style="padding:10px;">${month}</td></tr>
-            <tr><td style="padding:10px;"><b>Name :</b></td><td style="padding:10px;">${name}</td></tr>
-            <tr><td style="padding:10px;"><b>Gross Salary :</b></td><td style="padding:10px;">${gross}</td></tr>
-            <tr><td style="padding:10px;"><b>Attendance Bonus :</b></td><td style="padding:10px;">${att}</td></tr>
-            <tr><td style="padding:10px;"><b>Earn Leave :</b></td><td style="padding:10px;">${el}</td></tr>
-            <tr><td style="padding:10px;"><b>Over Time (OT) :</b></td><td style="padding:10px;">${otHourRate} = ${otAmount}</td></tr>
-            <tr><td style="padding:10px;"><b>Absent Amount :</b></td><td style="padding:10px;">${abs}</td></tr>
-            <tr><td style="padding:10px;"><b>Stamp :</b></td><td style="padding:10px;">${stamp}</td></tr>
-            <tr><td style="padding:10px;"><b>Net Salary :</b></td><td style="padding:10px;"><b>${net}</b></td></tr>
+            <tr><td><b>Pay Slip Month :</b></td><td>${month}</td></tr>
+            <tr><td><b>Name :</b></td><td>${name}</td></tr>
+            <tr><td><b>Gross Salary :</b></td><td>${gross}</td></tr>
+            <tr><td><b>Attendance Bonus :</b></td><td>${att}</td></tr>
+            <tr><td><b>Earn Leave :</b></td><td>${el}</td></tr>
+            <tr><td><b>Over Time OT :</b></td><td>${otHourRate} = ${otAmount}</td></tr>
+            <tr><td><b>Absent Amount :</b></td><td>${abs}</td></tr>
+            <tr><td><b>Stamp :</b></td><td>${stamp}</td></tr>
+            <tr><td><b>Net Salary :</b></td><td><b>${net}</b></td></tr>
         </table>
     </div>`;
 }
+
 function showMore(){
-
     document.getElementById("employeeView").innerHTML = `
-
-    <div style="
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    ">
-
-        <h2 style="
-        color:#0754a6;
-        text-align:center;
-        margin-bottom:25px;
-        ">
-        More
-        </h2>
-
-        <div style="
-        text-align:center;
-        ">
-
-            <button onclick="showEOT()" style="
-            background:#0754a6;
-            color:white;
-            border:none;
-            padding:14px 30px;
-            border-radius:10px;
-            font-size:18px;
-            font-weight:bold;
-            cursor:pointer;
-            ">
-            Excessive OT
-            </button>
-
-        </div>
-
-    </div>
-
-    `;
+    <div style="background:white;padding:25px;border-radius:12px;">
+        <h2 style="color:#0754a6;text-align:center;margin-bottom:25px;">More</h2>
+        <button onclick="showTotalOvertime()">Total Overtime</button>
+    </div>`;
 }
-function showEOT(){
 
-    let id = getId(currentEmployee.info);
+function showTotalOvertime(){
+    let overtime = currentEmployee.totalOvertime;
 
-    let eot = db.eot.find(e =>
-        String(e.JOB_ID_APP || e.JOB_ID || "").toUpperCase() === id
-    );
+    if(overtime && !overtime.DAILY_OT){
+        document.getElementById("employeeView").innerHTML = rowToTable("Total Overtime", overtime);
+        return;
+    }
 
-    if(!eot){
+    if(!overtime){
         document.getElementById("employeeView").innerHTML = `
         <div style="background:white;padding:25px;border-radius:12px;">
-            <h2 style="color:#0754a6;text-align:center;">Overall Point</h2>
+            <h2 style="color:#0754a6;text-align:center;">Total Overtime</h2>
             <h3>No Data Found</h3>
             <button onclick="showMore()">Back</button>
-        </div>
-        `;
+        </div>`;
         return;
     }
 
     let rows = "";
 
-    Object.keys(eot.DAILY_OT).forEach(day => {
-        rows += `
-        <tr>
-            <td style="padding:10px;">${day}</td>
-            <td style="padding:10px;">${eot.DAILY_OT[day]}</td>
-        </tr>
-        `;
+    Object.keys(overtime.DAILY_OT || {}).forEach(day => {
+        rows += `<tr><td>${day}</td><td>${overtime.DAILY_OT[day]}</td></tr>`;
     });
 
     document.getElementById("employeeView").innerHTML = `
     <div style="background:white;padding:25px;border-radius:12px;">
+        <h2 style="color:#0754a6;text-align:center;">Total Overtime</h2>
+        <p><b>ID:</b> ${overtime.JOB_ID || overtime.Employee_ID || "-"}</p>
+        <p><b>OT Rate:</b> ${overtime.OT_RATE || "-"}</p>
 
-        <h2 style="color:#0754a6;text-align:center;">OT Summery</h2>
-
-        <p><b>ID:</b> ${eot.JOB_ID}</p>
-        <p><b>OT Rate:</b> ${eot.OT_RATE || "-"}</p>
-
-        <table style="width:100%;border-collapse:collapse;font-size:17px;">
-            <tr>
-                <th style="padding:10px;">Date</th>
-                <th style="padding:10px;">Hour</th>
-            </tr>
+        <table>
+            <tr><th>Date</th><th>Hour</th></tr>
             ${rows}
-            <tr>
-                <th style="padding:10px;">Total</th>
-                <th style="padding:10px;">${eot.TOTAL_OT || "-"}</th>
-            </tr>
+            <tr><th>Total</th><th>${overtime.TOTAL_OT || "-"}</th></tr>
         </table>
 
         <button onclick="showMore()" style="margin-top:15px;">Back</button>
-    </div>
-    `;
+    </div>`;
 }
-const ATTENDANCE_PASSWORD = "4321";
+
+/* পুরান নাম backup হিসেবে রাখা হলো */
+function showEOT(){
+    showTotalOvertime();
+}
 
 function showAttendancePassword(){
-
     hideAll();
-
-    document
-    .getElementById("attendancePasswordPage")
-    .classList.remove("hidden");
+    document.getElementById("attendancePasswordPage").classList.remove("hidden");
 }
 
 function checkAttendancePassword(){
-
-    let pass = document
-    .getElementById("attendancePassword")
-    .value
-    .trim();
+    let pass = document.getElementById("attendancePassword").value.trim();
 
     if(pass === ATTENDANCE_PASSWORD){
-
-        document
-        .getElementById("attendancePassword")
-        .value = "";
-
+        document.getElementById("attendancePassword").value = "";
         showAttendanceReport();
-
     }else{
-
         alert("Wrong Password");
     }
 }
+
 function showAttendanceReport(){
     hideAll();
     document.getElementById("attendancePage").classList.remove("hidden");
     showAttendanceReportMenu();
 }
+
 function showAttendanceReportMenu(){
-
     document.getElementById("attendancePage").innerHTML = `
-
     <h2>Attendance Report</h2>
-
     <div class="menu">
-
-    <button onclick="window.open('manpower.pdf','_blank')">
-    Manpower Report
-    </button>
-
-    <button onclick="window.open('absent.pdf','_blank')">
-    Absent Report
-    </button>
-
-    <button onclick="window.open('halfday.pdf','_blank')">
-    Half Day Report
-    </button>
-
-</div>
-
-    <button class="gray"
-    onclick="goHome()"
-    style="margin-top:20px;">
-    Back
-    </button>
-
-    `;
-}
-function showManpowerReport(){
-
-    document.getElementById("attendancePage").innerHTML = `
-
-    <h2>Manpower Report</h2>
-
-    <div class="box">
-        <h3>Total Manpower</h3>
-
-        <p style="
-        font-size:25px;
-        font-weight:bold;
-        color:#0754a6;
-        ">
-        827
-        </p>
+        <button onclick="window.open('manpower.pdf','_blank')">Manpower Report</button>
+        <button onclick="window.open('absent.pdf','_blank')">Absent Report</button>
+        <button onclick="window.open('halfday.pdf','_blank')">Half Day Report</button>
     </div>
-
-    <button class="gray"
-    onclick="showAttendanceReportMenu()"
-    style="margin-top:20px;">
-    Back
-    </button>
-
-    `;
+    <button class="gray" onclick="goHome()" style="margin-top:20px;">Back</button>`;
 }
 
-function showAbsentReport(){
-
-    document.getElementById("attendancePage").innerHTML = `
-
-    <h2>Absent Report</h2>
-
-    <div class="box">
-        <h3>Today's Absent</h3>
-
-        <p style="
-        font-size:25px;
-        font-weight:bold;
-        color:#c62828;
-        ">
-        32
-        </p>
-    </div>
-
-    <button class="gray"
-    onclick="showAttendanceReportMenu()"
-    style="margin-top:20px;">
-    Back
-    </button>
-
-    `;
-}
-
-function showHalfDayReport(){
-
-    document.getElementById("attendancePage").innerHTML = `
-
-    <h2>Half Day Report</h2>
-
-    <div class="box">
-        <h3>Today's Half Day</h3>
-
-        <p style="
-        font-size:25px;
-        font-weight:bold;
-        color:#ff9800;
-        ">
-        18
-        </p>
-    </div>
-
-    <button class="gray"
-    onclick="showAttendanceReportMenu()"
-    style="margin-top:20px;">
-    Back
-    </button>
-
-    `;
-}
 function logout(){
     currentEmployee = null;
     goHome();
 }
 
 document.addEventListener("keypress", function(event){
-
     if(event.key === "Enter"){
-
-        let employeePage =
-        !document.getElementById("employeeLoginPage")
-        .classList.contains("hidden");
-
-        let attendancePage =
-        !document.getElementById("attendancePasswordPage")
-        .classList.contains("hidden");
-
-        if(employeePage){
-            employeeLogin();
-        }
-
-        if(attendancePage){
-            checkAttendancePassword();
-        }
+        if(!document.getElementById("employeeLoginPage").classList.contains("hidden")) employeeLogin();
+        if(!document.getElementById("attendancePasswordPage").classList.contains("hidden")) checkAttendancePassword();
+        if(!document.getElementById("adminLoginPage").classList.contains("hidden")) adminLogin();
     }
 });
 
@@ -649,11 +759,5 @@ goHome();
 Developed by Robin
 </p>
 </div>
-
-    <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("service-worker.js");
-}
-</script>
 </body>
 </html>
