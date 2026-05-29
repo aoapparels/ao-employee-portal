@@ -409,10 +409,12 @@ async function removeAllDataFromSupabase(type){
 
 function cleanMobile(num){
     let mobile = String(num || "")
-    .replace(/\s/g,"")
-    .replace(/-/g,"")
-    .replace(".0","")
+    .replace(/\D/g, "")
     .trim();
+
+    if(mobile.startsWith("88") && mobile.length === 13){
+        mobile = mobile.slice(2);
+    }
 
     if(mobile.length === 10){
         mobile = "0" + mobile;
@@ -474,7 +476,12 @@ async function employeeLogin(){
             return;
         }
 
-        if(!info || cleanMobile(info.Mobile_No || "") !== phone){
+        let dbPhone = cleanMobile(info.Mobile_No || "");
+
+        if(
+            !info ||
+            !(dbPhone === phone || dbPhone.slice(-10) === phone.slice(-10))
+        ){
             alert("Wrong User ID or Password");
             return;
         }
