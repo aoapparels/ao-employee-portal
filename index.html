@@ -486,12 +486,11 @@ async function employeeLogin(){
             return;
         }
 
-        let job = await fetchOneByEmployeeId("jobcards", id);
-        let pay = await fetchOneByEmployeeId("payslips", id);
-        let totalOvertime = await fetchOneByEmployeeId("total_overtime", id);
-
+        let job = null;
+        let pay = null;
+        let totalOvertime = null;
         if(!job){
-            job = db.jobCard.find(e => getId(e) === id) || null;
+           job = db.jobCard.find(e => getId(e) === id) || null;
         }
 
         if(!pay){
