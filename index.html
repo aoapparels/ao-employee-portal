@@ -1337,7 +1337,7 @@ async function generateTemporaryId(){
     const { data, error } = await supabaseClient
     .from("New_Join_Applications")
     .select("Temporary_ID")
-    .neq("Approval_Status","Approved")
+    .or("Approval_Status.eq.Pending,Approval_Status.is.null")
     .order("Temporary_ID", { ascending:false })
     .limit(1);
 
@@ -1572,34 +1572,37 @@ function editSubmittedApplication(data){
 async function showNewJoinRequestsPanel(){
     document.getElementById("adminView").innerHTML = `
         <h3>New Joining Requests</h3>
-        <div id="adminStatus" class="status">Loading requests...</div>
+        <div class="status">Loading requests...</div>
     `;
 
     const { data, error } = await supabaseClient
     .from("New_Join_Applications")
     .select("Temporary_ID,Name_English,Employee_Name,Mobile_No,Unit_Name,Applied_Post,Section_Name,Approval_Status,Created_At")
+    .or("Approval_Status.eq.Pending,Approval_Status.is.null")
     .order("Temporary_ID", { ascending:false })
     .limit(200);
 
     if(error){
         console.log(error);
-        setAdminStatus("Load failed: " + error.message, "error");
+        document.getElementById("adminView").innerHTML = `
+            <h3>New Joining Requests</h3>
+            <div class="status error">Load failed: ${error.message}</div>
+        `;
         return;
     }
 
-    if(!data || !data.length){
-        setAdminStatus("No new joining request found.");
+    let pendingData = (data || []).filter(r => String(r.Approval_Status || "Pending") !== "Approved");
+
+    if(!pendingData.length){
+        document.getElementById("adminView").innerHTML = `
+            <h3>New Joining Requests</h3>
+            <div class="status">No new joining request found.</div>
+            <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">Back</button>
+        `;
         return;
     }
 
-    data = (data || []).filter(r => String(r.Approval_Status || "") !== "Approved");
-
-    if(!data.length){
-        setAdminStatus("No new joining request found.");
-        return;
-    }
-
-    let rows = data.map((r, i) => `
+    let rows = pendingData.map((r, i) => `
         <tr>
             <td>${i + 1}</td>
             <td>${r.Temporary_ID || ""}</td>
