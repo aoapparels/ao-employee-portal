@@ -423,6 +423,10 @@ function showNewJoinApplication(){
     document.getElementById("newJoinApplicationPage").classList.remove("hidden");
     document.getElementById("newJoinStatus").className = "status";
     document.getElementById("newJoinStatus").innerHTML = "সব তথ্য লিখে Submit চাপুন।";
+    toggleOtherField("Education","Education_Other");
+    toggleOtherField("Applied_Post","Applied_Post_Other");
+    toggleOtherField("Section_Name","Section_Name_Other");
+    toggleOtherField("Unit_Name","Unit_Name_Other");
 }
 
 function showSubmittedFormSearch(){
@@ -476,29 +480,49 @@ function adminLogout(){
     currentAdminUser = null;
     document.getElementById("adminUser").value = "";
     document.getElementById("adminPass").value = "";
-    
-function toggleOtherField(selectId,inputId){
-    const sel=document.getElementById(selectId);
-    const inp=document.getElementById(inputId);
+    goHome();
+}
+
+function toggleOtherField(selectId, inputId){
+    const sel = document.getElementById(selectId);
+    const inp = document.getElementById(inputId);
+
     if(!sel || !inp) return;
-    if(sel.value==="Other"){
+
+    if(sel.value === "Other"){
         inp.classList.remove("hidden");
     }else{
         inp.classList.add("hidden");
-        inp.value="";
+        inp.value = "";
     }
 }
 
-document.addEventListener("change",function(e){
+function getDropdownValue(selectId, otherInputId){
+    const sel = document.getElementById(selectId);
+    const other = document.getElementById(otherInputId);
+
+    if(!sel) return "";
+
+    if(sel.value === "Other"){
+        return other ? other.value.trim() : "";
+    }
+
+    return sel.value.trim();
+}
+
+document.addEventListener("DOMContentLoaded", function(){
     toggleOtherField("Education","Education_Other");
     toggleOtherField("Applied_Post","Applied_Post_Other");
     toggleOtherField("Section_Name","Section_Name_Other");
     toggleOtherField("Unit_Name","Unit_Name_Other");
 });
 
-
-goHome();
-}
+document.addEventListener("change", function(){
+    toggleOtherField("Education","Education_Other");
+    toggleOtherField("Applied_Post","Applied_Post_Other");
+    toggleOtherField("Section_Name","Section_Name_Other");
+    toggleOtherField("Unit_Name","Unit_Name_Other");
+});
 
 function showChangePasswordPanel(){
     document.getElementById("adminView").innerHTML = `
@@ -1283,15 +1307,16 @@ function getNewJoinFormData(){
         Marital_Status: document.getElementById("Marital_Status").value,
         Son_Children: document.getElementById("Son_Children").value,
         Daughter_Children: document.getElementById("Daughter_Children").value,
-        Education: document.getElementById("Education").value.trim(),
+        Education: getDropdownValue("Education","Education_Other"),
         Identification_Mark: document.getElementById("Identification_Mark").value.trim(),
         Reference_Name: document.getElementById("Reference_Name").value.trim(),
         Reference_Mobile: document.getElementById("Reference_Mobile").value.trim(),
         Reference_Relation: document.getElementById("Reference_Relation").value.trim(),
         Skill_Experience: document.getElementById("Skill_Experience").value,
         Previous_Factory: document.getElementById("Previous_Factory").value.trim(),
-        Applied_Post: document.getElementById("Applied_Post").value.trim(),
-        Section_Name: document.getElementById("Section_Name").value.trim(),
+        Unit_Name: getDropdownValue("Unit_Name","Unit_Name_Other"),
+        Applied_Post: getDropdownValue("Applied_Post","Applied_Post_Other"),
+        Section_Name: getDropdownValue("Section_Name","Section_Name_Other"),
         Machine_Skill: document.getElementById("Machine_Skill").value.trim(),
         Created_At: new Date().toISOString()
     };
@@ -1384,9 +1409,9 @@ function clearNewJoinForm(){
         "Name_English","Employee_Name","Father_Name","Mother_Name","Spouse_Name","Care_Of",
         "Per_Vill","Per_PO","Per_PS","Per_Dist","Pre_Vill","Pre_PO","Pre_PS","Pre_Dist",
         "Date_Of_Birth","Joining_Date","Religion","Mobile_No","NID_Birth","Weight","Height",
-        "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Identification_Mark",
+        "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Education_Other","Identification_Mark",
         "Reference_Name","Reference_Mobile","Reference_Relation","Emergency_Name","Emergency_Relation","Emergency_Mobile",
-        "Skill_Experience","Previous_Factory","Applied_Post","Section_Name","Machine_Skill"
+        "Skill_Experience","Previous_Factory","Unit_Name","Unit_Name_Other","Applied_Post","Applied_Post_Other","Section_Name","Section_Name_Other","Machine_Skill"
     ];
     ids.forEach(id => {
         const el = document.getElementById(id);
@@ -1399,14 +1424,53 @@ function fillNewJoinForm(data){
         "Name_English","Employee_Name","Father_Name","Mother_Name","Spouse_Name","Care_Of",
         "Per_Vill","Per_PO","Per_PS","Per_Dist","Pre_Vill","Pre_PO","Pre_PS","Pre_Dist",
         "Date_Of_Birth","Joining_Date","Religion","Mobile_No","NID_Birth","Weight","Height",
-        "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Identification_Mark",
+        "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Education_Other","Identification_Mark",
         "Reference_Name","Reference_Mobile","Reference_Relation","Emergency_Name","Emergency_Relation","Emergency_Mobile",
-        "Skill_Experience","Previous_Factory","Applied_Post","Section_Name","Machine_Skill"
+        "Skill_Experience","Previous_Factory","Unit_Name","Unit_Name_Other","Applied_Post","Applied_Post_Other","Section_Name","Section_Name_Other","Machine_Skill"
     ];
     ids.forEach(id => {
         const el = document.getElementById(id);
         if(el) el.value = data[id] || "";
     });
+
+    setDropdownOrOther("Education","Education_Other", data.Education || "");
+    setDropdownOrOther("Applied_Post","Applied_Post_Other", data.Applied_Post || "");
+    setDropdownOrOther("Section_Name","Section_Name_Other", data.Section_Name || "");
+    setDropdownOrOther("Unit_Name","Unit_Name_Other", data.Unit_Name || "");
+}
+
+function setDropdownOrOther(selectId, otherInputId, value){
+    const sel = document.getElementById(selectId);
+    const other = document.getElementById(otherInputId);
+    if(!sel) return;
+
+    let found = false;
+    for(let i = 0; i < sel.options.length; i++){
+        if(sel.options[i].value === value){
+            found = true;
+            break;
+        }
+    }
+
+    if(found){
+        sel.value = value || "";
+        if(other){
+            other.classList.add("hidden");
+            other.value = "";
+        }
+    }else if(value){
+        sel.value = "Other";
+        if(other){
+            other.classList.remove("hidden");
+            other.value = value;
+        }
+    }else{
+        sel.value = "";
+        if(other){
+            other.classList.add("hidden");
+            other.value = "";
+        }
+    }
 }
 
 async function loadSubmittedApplication(){
@@ -1450,6 +1514,7 @@ function applicationSummaryHtml(data){
         <tr><th>কর্মীর নাম</th><td>${data.Employee_Name || ""}</td></tr>
         <tr><th>পিতার নাম</th><td>${data.Father_Name || ""}</td></tr>
         <tr><th>মোবাইল</th><td>${data.Mobile_No || ""}</td></tr>
+        <tr><th>Unit</th><td>${data.Unit_Name || ""}</td></tr>
         <tr><th>আবেদিত পদ</th><td>${data.Applied_Post || ""}</td></tr>
         <tr><th>সেকশন</th><td>${data.Section_Name || ""}</td></tr>
     </table>
@@ -1476,7 +1541,7 @@ async function showNewJoinRequestsPanel(){
 
     const { data, error } = await supabaseClient
     .from("New_Join_Applications")
-    .select("Temporary_ID,Name_English,Employee_Name,Mobile_No,Applied_Post,Section_Name,Created_At")
+    .select("Temporary_ID,Name_English,Employee_Name,Mobile_No,Unit_Name,Applied_Post,Section_Name,Created_At")
     .order("Temporary_ID", { ascending:false })
     .limit(200);
 
@@ -1498,6 +1563,7 @@ async function showNewJoinRequestsPanel(){
             <td>${r.Name_English || ""}</td>
             <td>${r.Employee_Name || ""}</td>
             <td>${r.Mobile_No || ""}</td>
+            <td>${r.Unit_Name || ""}</td>
             <td>${r.Applied_Post || ""}</td>
             <td>${r.Section_Name || ""}</td>
             <td>
@@ -1512,7 +1578,7 @@ async function showNewJoinRequestsPanel(){
         <h3>New Joining Requests</h3>
         <table>
             <tr>
-                <th>SL</th><th>Temp ID</th><th>Name English</th><th>কর্মীর নাম</th><th>Mobile</th><th>Post</th><th>Section</th><th>Action</th>
+                <th>SL</th><th>Temp ID</th><th>Name English</th><th>কর্মীর নাম</th><th>Mobile</th><th>Unit</th><th>Post</th><th>Section</th><th>Action</th>
             </tr>
             ${rows}
         </table>
@@ -1611,7 +1677,7 @@ padding-bottom:18px;
 .company{font-size:19px;font-weight:bold;}
 .address{font-size:11.5px;}
 .title{font-size:16px;font-weight:bold;text-decoration:underline;margin-top:3px;}
-.topinfo{display:grid;grid-template-columns:1fr 1.35fr 1fr;gap:14px;margin:8px 0 9px 0;font-size:13px;font-weight:bold;}
+.topinfo{display:grid;grid-template-columns:1fr 1.25fr 0.95fr 0.95fr;gap:14px;margin:8px 0 9px 0;font-size:13px;font-weight:bold;}
 .row{display:flex;gap:5px;margin:3.4px 0;align-items:flex-end;}
 .label{font-weight:bold;white-space:nowrap;}
 .value{border-bottom:1px dotted #000;flex:1;min-height:17px;padding-left:4px;}
@@ -1650,6 +1716,7 @@ font-size:12px;
     <div class="row"><span class="label">যোগদানের তারিখ:</span><span class="value">${formatPrintDate(v(data,"Joining_Date"))}</span></div>
     <div class="row"><span class="label">যে পদের জন্য আবেদন:</span><span class="value">${v(data,"Applied_Post")}</span></div>
     <div class="row"><span class="label">Temporary ID:</span><span class="value">${v(data,"Temporary_ID")}</span></div>
+    <div class="row"><span class="label">Unit:</span><span class="value">${v(data,"Unit_Name")}</span></div>
 </div>
 
 <div class="grid2">
