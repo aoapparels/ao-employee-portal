@@ -319,6 +319,14 @@ th{background:#e7f0ff;}
             New Joining Requests
         </button>
 
+        <button class="green" onclick="showApprovedApplicationsPanel()" style="margin-top:15px;">
+            Approved List
+        </button>
+
+        <button class="red" onclick="removeAllApprovedApplications()" style="margin-top:15px;">
+            Remove All Approved Data
+        </button>
+
         <button class="purple" onclick="showChangePasswordPanel()" style="margin-top:15px;">
             Change Admin Password
         </button>
@@ -1318,6 +1326,7 @@ function getNewJoinFormData(){
         Applied_Post: getDropdownValue("Applied_Post","Applied_Post_Other"),
         Section_Name: getDropdownValue("Section_Name","Section_Name_Other"),
         Machine_Skill: document.getElementById("Machine_Skill").value.trim(),
+        Approval_Status: "Pending",
         Created_At: new Date().toISOString()
     };
 }
@@ -1328,6 +1337,7 @@ async function generateTemporaryId(){
     const { data, error } = await supabaseClient
     .from("New_Join_Applications")
     .select("Temporary_ID")
+    .eq("Approval_Status","Pending")
     .order("Temporary_ID", { ascending:false })
     .limit(1);
 
@@ -1505,9 +1515,32 @@ async function loadSubmittedApplication(){
     result.innerHTML = applicationSummaryHtml(data);
 }
 
+
 function applicationSummaryHtml(data){
+
+    const approved = String(data.Approval_Status || "") === "Approved";
+
+    let statusHtml = `
+    <div class="status ${approved ? 'success' : 'error'}" style="margin-bottom:15px;font-weight:bold;text-align:center;">
+        ${approved ? 'Approved' : 'Pending For Approval'}
+    </div>`;
+
+    if(approved){
+        statusHtml += `
+        <div class="status success" style="margin-bottom:15px;text-align:center;">
+            Congratulations! You are selected for the post of ${data.Applied_Post || ""}
+        </div>
+
+        <div class="status" style="margin-bottom:15px;text-align:center;">
+            This form has been approved by authority. Editing is not allowed.
+        </div>`;
+    }
+
     return `
+    ${statusHtml}
+
     <h3>Submitted Form Found</h3>
+
     <table>
         <tr><th>Temporary ID</th><td>${data.Temporary_ID || ""}</td></tr>
         <tr><th>Name English</th><td>${data.Name_English || ""}</td></tr>
@@ -1518,10 +1551,13 @@ function applicationSummaryHtml(data){
         <tr><th>আবেদিত পদ</th><td>${data.Applied_Post || ""}</td></tr>
         <tr><th>সেকশন</th><td>${data.Section_Name || ""}</td></tr>
     </table>
-    <button onclick="editSubmittedApplication(lastSubmittedApplication)" class="orange">Edit Form</button>
+
+    ${approved ? "" : `<button onclick="editSubmittedApplication(lastSubmittedApplication)" class="orange">Edit Form</button>`}
+
     <button onclick="printBasicForm(lastSubmittedApplication)" class="green">Print / Save PDF Basic Form</button>
     `;
 }
+
 
 function editSubmittedApplication(data){
     if(!data) return;
@@ -1541,7 +1577,7 @@ async function showNewJoinRequestsPanel(){
 
     const { data, error } = await supabaseClient
     .from("New_Join_Applications")
-    .select("Temporary_ID,Name_English,Employee_Name,Mobile_No,Unit_Name,Applied_Post,Section_Name,Created_At")
+    .select("Temporary_ID,Name_English,Employee_Name,Mobile_No,Unit_Name,Applied_Post,Section_Name,Approval_Status,Created_At")
     .order("Temporary_ID", { ascending:false })
     .limit(200);
 
@@ -1606,7 +1642,23 @@ async function adminViewJoinApplication(tempId){
 }
 
 async function approveJoinApplication(tempId){
-    alert("Temporary ID " + tempId + " approved/kept in database.");
+
+    const { error } = await supabaseClient
+    .from("New_Join_Applications")
+    .update({
+        Approval_Status: "Approved",
+        Approved_At: new Date().toISOString()
+    })
+    .eq("Temporary_ID", Number(tempId));
+
+    if(error){
+        console.log(error);
+        alert("Approve failed: " + error.message);
+        return;
+    }
+
+    alert("Temporary ID " + tempId + " approved successfully.");
+    showNewJoinRequestsPanel();
 }
 
 async function removeJoinApplication(tempId){
@@ -1635,6 +1687,99 @@ async function removeJoinApplication(tempId){
     alert("Temporary ID " + tempId + " removed from database.");
     showNewJoinRequestsPanel();
 }
+
+
+async function showApprovedApplicationsPanel(){
+
+    document.getElementById("adminView").innerHTML = `
+        <h3>Approved Applications</h3>
+        <div class="status">Loading approved applications...</div>
+    `;
+
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("Temporary_ID,Name_English,Employee_Name,Mobile_No,Unit_Name,Applied_Post,Section_Name,Approved_At")
+    .eq("Approval_Status","Approved")
+    .order("Approved_At",{ascending:false})
+    .limit(300);
+
+    if(error){
+        console.log(error);
+        document.getElementById("adminView").innerHTML = "Load failed";
+        return;
+    }
+
+    if(!data || !data.length){
+        document.getElementById("adminView").innerHTML = `
+        <h3>Approved Applications</h3>
+        <div class="status">No approved application found.</div>`;
+        return;
+    }
+
+    let rows = data.map((r,i)=>`
+        <tr>
+            <td>${i+1}</td>
+            <td>${r.Temporary_ID || ""}</td>
+            <td>${r.Name_English || ""}</td>
+            <td>${r.Employee_Name || ""}</td>
+            <td>${r.Mobile_No || ""}</td>
+            <td>${r.Unit_Name || ""}</td>
+            <td>${r.Applied_Post || ""}</td>
+            <td>${r.Section_Name || ""}</td>
+            <td>
+                <button onclick="adminViewJoinApplication('${r.Temporary_ID}')" class="green">View</button>
+                <button onclick="removeJoinApplication('${r.Temporary_ID}')" class="red">Remove</button>
+            </td>
+        </tr>
+    `).join("");
+
+    document.getElementById("adminView").innerHTML = `
+        <h3>Approved Applications</h3>
+        <table>
+            <tr>
+                <th>SL</th>
+                <th>Temp ID</th>
+                <th>Name English</th>
+                <th>কর্মীর নাম</th>
+                <th>Mobile</th>
+                <th>Unit</th>
+                <th>Post</th>
+                <th>Section</th>
+                <th>Action</th>
+            </tr>
+            ${rows}
+        </table>
+
+        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+            Back
+        </button>
+    `;
+}
+
+async function removeAllApprovedApplications(){
+
+    let confirmText = prompt("Type DELETE to remove all approved applications");
+
+    if(confirmText !== "DELETE"){
+        alert("Delete cancelled");
+        return;
+    }
+
+    const { error } = await supabaseClient
+    .from("New_Join_Applications")
+    .delete()
+    .eq("Approval_Status","Approved");
+
+    if(error){
+        console.log(error);
+        alert("Remove failed: " + error.message);
+        return;
+    }
+
+    alert("All approved applications removed successfully.");
+    showApprovedApplicationsPanel();
+}
+
 
 function v(data, key){
     return (data && data[key]) ? String(data[key]) : "";
