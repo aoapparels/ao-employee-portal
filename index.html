@@ -1337,7 +1337,7 @@ async function generateTemporaryId(){
     const { data, error } = await supabaseClient
     .from("New_Join_Applications")
     .select("Temporary_ID")
-    .eq("Approval_Status","Pending")
+    .neq("Approval_Status","Approved")
     .order("Temporary_ID", { ascending:false })
     .limit(1);
 
@@ -1588,6 +1588,13 @@ async function showNewJoinRequestsPanel(){
     }
 
     if(!data || !data.length){
+        setAdminStatus("No new joining request found.");
+        return;
+    }
+
+    data = (data || []).filter(r => String(r.Approval_Status || "") !== "Approved");
+
+    if(!data.length){
         setAdminStatus("No new joining request found.");
         return;
     }
