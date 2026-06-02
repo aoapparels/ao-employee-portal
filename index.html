@@ -96,6 +96,10 @@ th{background:#e7f0ff;}
             Out Employee Remove
         </button>
 
+        <button class="green" onclick="showAttendanceUploadPanel()" style="margin-top:15px;">
+            Attendance PDF Upload
+        </button>
+
         <button class="orange" onclick="openSupabaseDashboard()" style="margin-top:15px;">
             Open Supabase Dashboard
         </button>
@@ -264,6 +268,67 @@ function showOutEmployeePanel(){
         </div>
     `;
 }
+
+
+function showAttendanceUploadPanel(){
+    document.getElementById("adminView").innerHTML = `
+        <h3>Attendance PDF Upload</h3>
+
+        <select id="attendanceReportType">
+            <option value="manpower">Manpower Report</option>
+            <option value="absent">Absent Report</option>
+            <option value="halfday">Half Day Report</option>
+        </select>
+
+        <input type="text" id="attendanceReportDate" placeholder="Report Date, example: 19-05-2026">
+        <input type="text" id="attendancePdfUrl" placeholder="PDF URL paste here">
+
+        <button onclick="saveAttendancePdfLink()" class="green">
+            Save Attendance Report
+        </button>
+
+        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+            Back
+        </button>
+
+        <div id="adminStatus" class="status">
+            PDF file GitHub/website folder এ upload করে full link এখানে paste করো।
+        </div>
+    `;
+}
+
+async function saveAttendancePdfLink(){
+    let type = document.getElementById("attendanceReportType").value;
+    let date = document.getElementById("attendanceReportDate").value.trim();
+    let url = document.getElementById("attendancePdfUrl").value.trim();
+
+    if(!date || !url){
+        alert("Report date and PDF URL required");
+        return;
+    }
+
+    setAdminStatus("Saving attendance report...");
+
+    const { error } = await supabaseClient
+    .from("attendance_reports")
+    .insert([{
+        report_type: type,
+        report_date: date,
+        file_url: url,
+        uploaded_at: new Date().toISOString()
+    }]);
+
+    if(error){
+        console.log(error);
+        setAdminStatus("Save failed: " + error.message, "error");
+        return;
+    }
+
+    setAdminStatus("Attendance report saved successfully!", "success");
+    document.getElementById("attendanceReportDate").value = "";
+    document.getElementById("attendancePdfUrl").value = "";
+}
+
 
 function setAdminStatus(msg, type=""){
     let status = document.getElementById("adminStatus");
@@ -755,52 +820,44 @@ function showAttendanceReport(){
 }
 
 async function openAttendanceReport(type){
+    const { data, error } = await supabaseClient
+    .from("attendance_reports")
+    .select("*")
+    .eq("report_type", type)
+    .order("uploaded_at", { ascending:false })
+    .limit(1)
+    .maybeSingle();
 
-```
-const { data, error } = await supabaseClient
-.from("attendance_reports")
-.select("*")
-.eq("report_type", type)
-.order("uploaded_at", { ascending:false })
-.limit(1)
-.maybeSingle();
+    if(error || !data){
+        alert(type + " report not found");
+        return;
+    }
 
-if(error || !data){
-    alert(type + " report not found");
-    return;
-}
-
-window.open(data.file_url, "_blank");
-```
-
+    window.open(data.file_url, "_blank");
 }
 
 function showAttendanceReportMenu(){
+    document.getElementById("attendancePage").innerHTML = `
+    <h2>Attendance Report</h2>
 
-```
-document.getElementById("attendancePage").innerHTML = `
-<h2>Attendance Report</h2>
+    <div class="menu">
+        <button onclick="openAttendanceReport('manpower')">
+            Manpower Report
+        </button>
 
-<div class="menu">
-    <button onclick="openAttendanceReport('manpower')">
-        Manpower Report
+        <button onclick="openAttendanceReport('absent')">
+            Absent Report
+        </button>
+
+        <button onclick="openAttendanceReport('halfday')">
+            Half Day Report
+        </button>
+    </div>
+
+    <button class="gray" onclick="goHome()" style="margin-top:20px;">
+        Back
     </button>
-
-    <button onclick="openAttendanceReport('absent')">
-        Absent Report
-    </button>
-
-    <button onclick="openAttendanceReport('halfday')">
-        Half Day Report
-    </button>
-</div>
-
-<button class="gray" onclick="goHome()" style="margin-top:20px;">
-    Back
-</button>
-`;
-```
-
+    `;
 }
 
 function logout(){
