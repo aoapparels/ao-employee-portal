@@ -57,6 +57,7 @@ th{background:#e7f0ff;}
 <div class="card" id="homePage">
     <button onclick="showEmployeeLogin()">Employee Login</button>
     <button onclick="showAttendancePassword()" style="margin-top:15px;">Attendance Report</button>
+    <button onclick="showNewJoinApplication()" class="green" style="margin-top:15px;">New Join Application</button>
     <button onclick="showAdminLogin()" class="purple" style="margin-top:15px;">Admin Panel</button>
 </div>
 
@@ -66,6 +67,130 @@ th{background:#e7f0ff;}
     <input type="text" id="empLoginPhone" placeholder="Password / Mobile No">
     <button onclick="employeeLogin()">Login</button>
     <button class="gray" onclick="goHome()">Back</button>
+</div>
+
+<div class="card hidden" id="newJoinApplicationPage">
+    <h2>New Join Application</h2>
+    <p class="small-note" style="text-align:center;">প্রাথমিক যাচাই ফরম। Submit করার পর Temporary ID দেখাবে।</p>
+
+    <div class="box">
+        <h3>ব্যক্তিগত তথ্য</h3>
+        <input type="text" id="Name_English" placeholder="1. Name Of Employee (English)">
+        <input type="text" id="Employee_Name" placeholder="2. কর্মীর নাম">
+        <input type="text" id="Father_Name" placeholder="3. পিতার নাম">
+        <input type="text" id="Mother_Name" placeholder="4. মাতার নাম">
+        <input type="text" id="Spouse_Name" placeholder="5. স্বামী/স্ত্রীর নাম">
+        <input type="text" id="Care_Of" placeholder="6. প্রযত্নে / Care Of">
+    </div>
+
+    <div class="box">
+        <h3>স্থায়ী ঠিকানা</h3>
+        <div class="menu">
+            <input type="text" id="Per_Vill" placeholder="Per. Vill / গ্রাম">
+            <input type="text" id="Per_PO" placeholder="Per. PO / পোস্ট">
+            <input type="text" id="Per_PS" placeholder="Per. PS / থানা">
+            <input type="text" id="Per_Dist" placeholder="Per. Dist / জেলা">
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>বর্তমান ঠিকানা</h3>
+        <div class="menu">
+            <input type="text" id="Pre_Vill" placeholder="Pre. Vill / গ্রাম">
+            <input type="text" id="Pre_PO" placeholder="Pre. PO / পোস্ট">
+            <input type="text" id="Pre_PS" placeholder="Pre. PS / থানা">
+            <input type="text" id="Pre_Dist" placeholder="Pre. Dist / জেলা">
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>যোগাযোগ ও পরিচয়</h3>
+        <div class="menu">
+            <div><label>জন্ম তারিখ</label><input type="date" id="Date_Of_Birth"></div>
+            <div><label>যোগদানের তারিখ</label><input type="date" id="Joining_Date"></div>
+        </div>
+        <select id="Religion">
+            <option value="">ধর্ম নির্বাচন করুন</option>
+            <option value="Islam">Islam</option>
+            <option value="Hindu">Hindu</option>
+            <option value="Buddhist">Buddhist</option>
+            <option value="Christian">Christian</option>
+            <option value="Others">Others</option>
+        </select>
+        <input type="text" id="Mobile_No" placeholder="মোবাইল নম্বর (নিজ) - max 12 digit" maxlength="12" oninput="digitsOnly(this,12)">
+        <input type="text" id="Emergency_No" placeholder="জরুরি মোবাইল নম্বর - max 11 digit" maxlength="11" oninput="digitsOnly(this,11)">
+        <input type="text" id="NID_Birth" placeholder="NID / জন্ম নিবন্ধন নম্বর">
+        <div class="menu">
+            <input type="text" id="Weight" placeholder="ওজন (KG)">
+            <input type="text" id="Height" placeholder="উচ্চতা">
+        </div>
+        <select id="Blood_Group">
+            <option value="">Blood Group নির্বাচন করুন</option>
+            <option value="A+">A+</option><option value="A-">A-</option>
+            <option value="B+">B+</option><option value="B-">B-</option>
+            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+            <option value="O+">O+</option><option value="O-">O-</option>
+        </select>
+    </div>
+
+    <div class="box">
+        <h3>পারিবারিক তথ্য</h3>
+        <select id="Marital_Status">
+            <option value="">বৈবাহিক অবস্থা নির্বাচন করুন</option>
+            <option value="Married">বিবাহিত</option>
+            <option value="Unmarried">অবিবাহিত</option>
+            <option value="Divorced">তালাকপ্রাপ্ত</option>
+            <option value="Widow/Widower">বিধবা/বিপত্নীক</option>
+        </select>
+        <div class="menu">
+            <select id="Son_Children">
+                <option value="">ছেলে সংখ্যা</option>
+                <option value="0">0 Male</option><option value="1">1 Male</option><option value="2">2 Male</option>
+                <option value="3">3 Male</option><option value="4">4 Male</option><option value="5">5 Male</option><option value="6">6 Male</option>
+            </select>
+            <select id="Daughter_Children">
+                <option value="">মেয়ে সংখ্যা</option>
+                <option value="0">0 Female</option><option value="1">1 Female</option><option value="2">2 Female</option>
+                <option value="3">3 Female</option><option value="4">4 Female</option><option value="5">5 Female</option><option value="6">6 Female</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>শিক্ষা, শনাক্তকারী ও বিকল্প যোগাযোগ</h3>
+        <input type="text" id="Education" placeholder="শিক্ষাগত যোগ্যতা">
+        <input type="text" id="Identification_Mark" placeholder="শনাক্তকরণ চিহ্ন">
+        <input type="text" id="Reference_Name" placeholder="শনাক্তকারীর নাম">
+        <input type="text" id="Reference_Mobile" placeholder="শনাক্তকারীর মোবাইল" maxlength="11" oninput="digitsOnly(this,11)">
+        <input type="text" id="Reference_Relation" placeholder="শনাক্তকারীর সাথে সম্পর্ক">
+        <div class="menu">
+            <input type="text" id="Alternative_Name" placeholder="Alternative Name">
+            <input type="text" id="Alternative_Relation" placeholder="সম্পর্ক">
+            <input type="text" id="Alternative_Mobile" placeholder="Alternative Mobile" maxlength="11" oninput="digitsOnly(this,11)">
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>কাজের তথ্য</h3>
+        <select id="Skill_Experience">
+            <option value="">Skill Experience নির্বাচন করুন</option>
+            <option value="Fresher">Fresher</option>
+            <option value="1 Year">1 Year</option>
+            <option value="2 Year">2 Year</option>
+            <option value="3 Year">3 Year</option>
+            <option value="4 Year">4 Year</option>
+            <option value="5 Year">5 Year</option>
+            <option value="5 Year Above">5 Year Above</option>
+        </select>
+        <input type="text" id="Previous_Factory" placeholder="পূর্বের কারখানার নাম / Last Working Details">
+        <input type="text" id="Applied_Post" placeholder="যে পদে কাজের আবেদন">
+        <input type="text" id="Section_Name" placeholder="সেকশন">
+        <textarea id="Machine_Skill" placeholder="মেশিন দক্ষতা / কাজের দক্ষতা" rows="4"></textarea>
+    </div>
+
+    <button onclick="submitNewJoinApplication()" class="green">Submit Application</button>
+    <button class="gray" onclick="goHome()">Back</button>
+    <div id="newJoinStatus" class="status">সব তথ্য লিখে Submit চাপুন।</div>
 </div>
 
 <div class="card hidden" id="adminLoginPage">
@@ -181,6 +306,7 @@ function hideAll(){
     document.getElementById("attendancePage").classList.add("hidden");
     document.getElementById("adminLoginPage").classList.add("hidden");
     document.getElementById("adminDashboard").classList.add("hidden");
+    document.getElementById("newJoinApplicationPage").classList.add("hidden");
 }
 
 function goHome(){
@@ -191,6 +317,11 @@ function goHome(){
 function showEmployeeLogin(){
     hideAll();
     document.getElementById("employeeLoginPage").classList.remove("hidden");
+}
+
+function showNewJoinApplication(){
+    hideAll();
+    document.getElementById("newJoinApplicationPage").classList.remove("hidden");
 }
 
 function showAdminLogin(){
@@ -987,6 +1118,114 @@ function showAttendanceReportMenu(){
         Back
     </button>
     `;
+}
+
+
+function digitsOnly(input, maxLen){
+    input.value = input.value.replace(/\D/g, "").slice(0, maxLen);
+}
+
+function getNewJoinFormData(){
+    return {
+        Name_English: document.getElementById("Name_English").value.trim(),
+        Employee_Name: document.getElementById("Employee_Name").value.trim(),
+        Father_Name: document.getElementById("Father_Name").value.trim(),
+        Mother_Name: document.getElementById("Mother_Name").value.trim(),
+        Spouse_Name: document.getElementById("Spouse_Name").value.trim(),
+        Care_Of: document.getElementById("Care_Of").value.trim(),
+        Per_Vill: document.getElementById("Per_Vill").value.trim(),
+        Per_PO: document.getElementById("Per_PO").value.trim(),
+        Per_PS: document.getElementById("Per_PS").value.trim(),
+        Per_Dist: document.getElementById("Per_Dist").value.trim(),
+        Pre_Vill: document.getElementById("Pre_Vill").value.trim(),
+        Pre_PO: document.getElementById("Pre_PO").value.trim(),
+        Pre_PS: document.getElementById("Pre_PS").value.trim(),
+        Pre_Dist: document.getElementById("Pre_Dist").value.trim(),
+        Date_Of_Birth: document.getElementById("Date_Of_Birth").value,
+        Joining_Date: document.getElementById("Joining_Date").value,
+        Religion: document.getElementById("Religion").value,
+        Mobile_No: document.getElementById("Mobile_No").value.trim(),
+        Emergency_No: document.getElementById("Emergency_No").value.trim(),
+        NID_Birth: document.getElementById("NID_Birth").value.trim(),
+        Weight: document.getElementById("Weight").value.trim(),
+        Height: document.getElementById("Height").value.trim(),
+        Blood_Group: document.getElementById("Blood_Group").value,
+        Marital_Status: document.getElementById("Marital_Status").value,
+        Son_Children: document.getElementById("Son_Children").value,
+        Daughter_Children: document.getElementById("Daughter_Children").value,
+        Education: document.getElementById("Education").value.trim(),
+        Identification_Mark: document.getElementById("Identification_Mark").value.trim(),
+        Reference_Name: document.getElementById("Reference_Name").value.trim(),
+        Reference_Mobile: document.getElementById("Reference_Mobile").value.trim(),
+        Reference_Relation: document.getElementById("Reference_Relation").value.trim(),
+        Alternative_Name: document.getElementById("Alternative_Name").value.trim(),
+        Alternative_Relation: document.getElementById("Alternative_Relation").value.trim(),
+        Alternative_Mobile: document.getElementById("Alternative_Mobile").value.trim(),
+        Skill_Experience: document.getElementById("Skill_Experience").value,
+        Previous_Factory: document.getElementById("Previous_Factory").value.trim(),
+        Applied_Post: document.getElementById("Applied_Post").value.trim(),
+        Section_Name: document.getElementById("Section_Name").value.trim(),
+        Machine_Skill: document.getElementById("Machine_Skill").value.trim(),
+        Created_At: new Date().toISOString()
+    };
+}
+
+async function generateTemporaryId(){
+    const baseId = Number(new Date().toISOString().slice(2,10).replace(/-/g, "") + "001");
+
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("Temporary_ID")
+    .order("Temporary_ID", { ascending:false })
+    .limit(1);
+
+    if(error){
+        console.log(error);
+        return Date.now();
+    }
+
+    if(data && data.length && Number(data[0].Temporary_ID) >= baseId){
+        return Number(data[0].Temporary_ID) + 1;
+    }
+
+    return baseId;
+}
+
+async function submitNewJoinApplication(){
+    let status = document.getElementById("newJoinStatus");
+    let formData = getNewJoinFormData();
+
+    if(!formData.Name_English || !formData.Employee_Name || !formData.Father_Name || !formData.Mobile_No){
+        status.className = "status error";
+        status.innerHTML = "Name English, কর্মীর নাম, পিতার নাম এবং Mobile No অবশ্যই দিতে হবে।";
+        return;
+    }
+
+    if(formData.Mobile_No.length > 12 || formData.Emergency_No.length > 11){
+        status.className = "status error";
+        status.innerHTML = "Mobile No max 12 digit এবং Emergency No max 11 digit হতে হবে।";
+        return;
+    }
+
+    status.className = "status";
+    status.innerHTML = "Submitting application...";
+
+    let tempId = await generateTemporaryId();
+    formData.Temporary_ID = tempId;
+
+    const { error } = await supabaseClient
+    .from("New_Join_Applications")
+    .insert([formData]);
+
+    if(error){
+        console.log(error);
+        status.className = "status error";
+        status.innerHTML = "Submit failed: " + error.message + "<br>Supabase table column name check করো।";
+        return;
+    }
+
+    status.className = "status success";
+    status.innerHTML = `<b>Application Submitted Successfully!</b><br>Temporary ID: <b>${tempId}</b><br>এই ID সংরক্ষণ করুন।`;
 }
 
 function logout(){
