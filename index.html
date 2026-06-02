@@ -1677,7 +1677,10 @@ padding-bottom:18px;
 .company{font-size:19px;font-weight:bold;}
 .address{font-size:11.5px;}
 .title{font-size:16px;font-weight:bold;text-decoration:underline;margin-top:3px;}
-.topinfo{display:grid;grid-template-columns:1fr 1.25fr 0.95fr 0.95fr;gap:14px;margin:8px 0 9px 0;font-size:13px;font-weight:bold;}
+.topinfo{display:grid;grid-template-columns:1fr 1.6fr 0.9fr 0.8fr;gap:10px;margin:8px 0 9px 0;font-size:12px;font-weight:bold;align-items:end;}
+.topinfo .row{margin:0;}
+.topinfo .label{font-size:11.5px;}
+.topinfo .value{font-size:11.5px;min-height:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .row{display:flex;gap:5px;margin:3.4px 0;align-items:flex-end;}
 .label{font-weight:bold;white-space:nowrap;}
 .value{border-bottom:1px dotted #000;flex:1;min-height:17px;padding-left:4px;}
@@ -1690,6 +1693,22 @@ margin-top:22px;
 font-size:12px;
 line-height:2.2;
 padding:12px 0 18px 0;
+}
+.salary-line,.post-line{
+display:inline-block;
+border-bottom:1px dotted #000;
+min-width:115px;
+height:16px;
+vertical-align:baseline;
+padding:0 4px;
+text-align:center;
+}
+.post-line{
+min-width:170px;
+font-weight:bold;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
 }
 .sign{
 display:grid;
@@ -1714,7 +1733,7 @@ font-size:12px;
 
 <div class="topinfo">
     <div class="row"><span class="label">যোগদানের তারিখ:</span><span class="value">${formatPrintDate(v(data,"Joining_Date"))}</span></div>
-    <div class="row"><span class="label">যে পদের জন্য আবেদন:</span><span class="value">${v(data,"Applied_Post")}</span></div>
+    <div class="row"><span class="label">পদের আবেদন:</span><span class="value">${v(data,"Applied_Post")}</span></div>
     <div class="row"><span class="label">Temporary ID:</span><span class="value">${v(data,"Temporary_ID")}</span></div>
     <div class="row"><span class="label">Unit:</span><span class="value">${v(data,"Unit_Name")}</span></div>
 </div>
@@ -1791,7 +1810,7 @@ font-size:12px;
 </div>
 
 <div class="recommend">
-    শ্রমিকের সম্পর্ক যোগ্যতা ও দক্ষতা বিবেচনা করিয়া তাহাকে মাসিক ......................... টাকা বেতনে ........................................ পদে নিয়োগ দেওয়ার জন্য সুপারিশ করিলাম।
+    শ্রমিকের সম্পর্ক যোগ্যতা ও দক্ষতা বিবেচনা করিয়া তাহাকে মাসিক <span class="salary-line"></span> টাকা বেতনে <span class="post-line">${v(data,"Applied_Post")}</span> পদে নিয়োগ দেওয়ার জন্য সুপারিশ করিলাম।
 </div>
 
 <div class="sign">
