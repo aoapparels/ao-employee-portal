@@ -1208,6 +1208,29 @@ async function submitNewJoinApplication(){
     }
 
     status.className = "status";
+
+    if(editingTemporaryId){
+        status.innerHTML = "Updating application...";
+        formData.Temporary_ID = editingTemporaryId;
+
+        const { error } = await supabaseClient
+        .from("New_Join_Applications")
+        .update(formData)
+        .eq("Temporary_ID", editingTemporaryId);
+
+        if(error){
+            console.log(error);
+            status.className = "status error";
+            status.innerHTML = "Update failed: " + error.message + "<br>Supabase table column name check করো।";
+            return;
+        }
+
+        lastSubmittedApplication = formData;
+        status.className = "status success";
+        status.innerHTML = `<b>Application Updated Successfully!</b><br>Temporary ID: <b>${editingTemporaryId}</b><br><button onclick="printBasicForm(lastSubmittedApplication)" class="green">Print / Save PDF Basic Form</button>`;
+        return;
+    }
+
     status.innerHTML = "Submitting application...";
 
     let tempId = await generateTemporaryId();
@@ -1224,9 +1247,289 @@ async function submitNewJoinApplication(){
         return;
     }
 
+    lastSubmittedApplication = formData;
     status.className = "status success";
-    status.innerHTML = `<b>Application Submitted Successfully!</b><br>Temporary ID: <b>${tempId}</b><br>এই ID সংরক্ষণ করুন।`;
+    status.innerHTML = `<b>Application Submitted Successfully!</b><br>Temporary ID: <b>${tempId}</b><br>এই ID সংরক্ষণ করুন।<br><button onclick="printBasicForm(lastSubmittedApplication)" class="green">Print / Save PDF Basic Form</button>`;
 }
+
+function clearNewJoinForm(){
+    const ids = [
+        "Name_English","Employee_Name","Father_Name","Mother_Name","Spouse_Name","Care_Of",
+        "Per_Vill","Per_PO","Per_PS","Per_Dist","Pre_Vill","Pre_PO","Pre_PS","Pre_Dist",
+        "Date_Of_Birth","Joining_Date","Religion","Mobile_No","Emergency_No","NID_Birth","Weight","Height",
+        "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Identification_Mark",
+        "Reference_Name","Reference_Mobile","Reference_Relation","Alternative_Name","Alternative_Relation","Alternative_Mobile",
+        "Skill_Experience","Previous_Factory","Applied_Post","Section_Name","Machine_Skill"
+    ];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = "";
+    });
+}
+
+function fillNewJoinForm(data){
+    const ids = [
+        "Name_English","Employee_Name","Father_Name","Mother_Name","Spouse_Name","Care_Of",
+        "Per_Vill","Per_PO","Per_PS","Per_Dist","Pre_Vill","Pre_PO","Pre_PS","Pre_Dist",
+        "Date_Of_Birth","Joining_Date","Religion","Mobile_No","Emergency_No","NID_Birth","Weight","Height",
+        "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Identification_Mark",
+        "Reference_Name","Reference_Mobile","Reference_Relation","Alternative_Name","Alternative_Relation","Alternative_Mobile",
+        "Skill_Experience","Previous_Factory","Applied_Post","Section_Name","Machine_Skill"
+    ];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = data[id] || "";
+    });
+}
+
+async function loadSubmittedApplication(){
+    let tempId = document.getElementById("searchTemporaryId").value.trim();
+    let result = document.getElementById("submittedFormResult");
+
+    if(!tempId){
+        alert("Temporary ID লিখো");
+        return;
+    }
+
+    result.innerHTML = "Loading submitted form...";
+
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("*")
+    .eq("Temporary_ID", Number(tempId))
+    .maybeSingle();
+
+    if(error){
+        console.log(error);
+        result.innerHTML = "Load failed: " + error.message;
+        return;
+    }
+
+    if(!data){
+        result.innerHTML = "এই Temporary ID দিয়ে কোনো form পাওয়া যায়নি।";
+        return;
+    }
+
+    lastSubmittedApplication = data;
+    result.innerHTML = applicationSummaryHtml(data);
+}
+
+function applicationSummaryHtml(data){
+    return `
+    <h3>Submitted Form Found</h3>
+    <table>
+        <tr><th>Temporary ID</th><td>${data.Temporary_ID || ""}</td></tr>
+        <tr><th>Name English</th><td>${data.Name_English || ""}</td></tr>
+        <tr><th>কর্মীর নাম</th><td>${data.Employee_Name || ""}</td></tr>
+        <tr><th>পিতার নাম</th><td>${data.Father_Name || ""}</td></tr>
+        <tr><th>মোবাইল</th><td>${data.Mobile_No || ""}</td></tr>
+        <tr><th>আবেদিত পদ</th><td>${data.Applied_Post || ""}</td></tr>
+        <tr><th>সেকশন</th><td>${data.Section_Name || ""}</td></tr>
+    </table>
+    <button onclick="editSubmittedApplication(lastSubmittedApplication)" class="orange">Edit Form</button>
+    <button onclick="printBasicForm(lastSubmittedApplication)" class="green">Print / Save PDF Basic Form</button>
+    `;
+}
+
+function editSubmittedApplication(data){
+    if(!data) return;
+    editingTemporaryId = Number(data.Temporary_ID);
+    fillNewJoinForm(data);
+    hideAll();
+    document.getElementById("newJoinApplicationPage").classList.remove("hidden");
+    document.getElementById("newJoinStatus").className = "status";
+    document.getElementById("newJoinStatus").innerHTML = `Editing Temporary ID: <b>${editingTemporaryId}</b>. তথ্য edit করে Submit চাপলে update হবে।`;
+}
+
+async function showNewJoinRequestsPanel(){
+    document.getElementById("adminView").innerHTML = `
+        <h3>New Joining Requests</h3>
+        <div id="adminStatus" class="status">Loading requests...</div>
+    `;
+
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("Temporary_ID,Name_English,Employee_Name,Mobile_No,Applied_Post,Section_Name,Created_At")
+    .order("Temporary_ID", { ascending:false })
+    .limit(200);
+
+    if(error){
+        console.log(error);
+        setAdminStatus("Load failed: " + error.message, "error");
+        return;
+    }
+
+    if(!data || !data.length){
+        setAdminStatus("No new joining request found.");
+        return;
+    }
+
+    let rows = data.map((r, i) => `
+        <tr>
+            <td>${i + 1}</td>
+            <td>${r.Temporary_ID || ""}</td>
+            <td>${r.Name_English || ""}</td>
+            <td>${r.Employee_Name || ""}</td>
+            <td>${r.Mobile_No || ""}</td>
+            <td>${r.Applied_Post || ""}</td>
+            <td>${r.Section_Name || ""}</td>
+            <td><button onclick="adminViewJoinApplication('${r.Temporary_ID}')" class="green">View</button></td>
+        </tr>
+    `).join("");
+
+    document.getElementById("adminView").innerHTML = `
+        <h3>New Joining Requests</h3>
+        <table>
+            <tr>
+                <th>SL</th><th>Temp ID</th><th>Name English</th><th>কর্মীর নাম</th><th>Mobile</th><th>Post</th><th>Section</th><th>Action</th>
+            </tr>
+            ${rows}
+        </table>
+        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">Back</button>
+    `;
+}
+
+async function adminViewJoinApplication(tempId){
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("*")
+    .eq("Temporary_ID", Number(tempId))
+    .maybeSingle();
+
+    if(error || !data){
+        alert("Form load failed");
+        return;
+    }
+
+    lastSubmittedApplication = data;
+    document.getElementById("adminView").innerHTML = applicationSummaryHtml(data) + `<button class="gray" onclick="showNewJoinRequestsPanel()">Back to Requests</button>`;
+}
+
+function v(data, key){
+    return (data && data[key]) ? String(data[key]) : "";
+}
+
+function printBasicForm(data){
+    if(!data){
+        alert("No form data found");
+        return;
+    }
+
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Basic Form - ${v(data,"Temporary_ID")}</title>
+<style>
+@page{size:A4;margin:12mm;}
+body{font-family:Arial,'Noto Sans Bengali',sans-serif;color:#000;font-size:14px;line-height:1.45;}
+.header{text-align:center;border-bottom:2px solid #000;padding-bottom:8px;margin-bottom:10px;}
+.company{font-size:22px;font-weight:bold;}
+.address{font-size:13px;}
+.title{font-size:18px;font-weight:bold;text-decoration:underline;margin-top:6px;}
+.row{display:flex;gap:10px;margin:6px 0;}
+.label{font-weight:bold;min-width:150px;}
+.value{border-bottom:1px dotted #000;flex:1;min-height:20px;padding-left:4px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;}
+.boxp{border:1px solid #000;padding:8px;margin-top:10px;}
+.box-title{font-weight:bold;text-align:center;margin-bottom:6px;background:#eee;padding:4px;}
+.sign{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:40px;text-align:center;}
+.sign div{border-top:1px solid #000;padding-top:6px;}
+.printbtn{margin:10px 0;padding:10px 18px;background:#0754a6;color:white;border:0;border-radius:6px;cursor:pointer;}
+@media print{.printbtn{display:none;} body{font-size:13px;}}
+</style>
+</head>
+<body>
+<button class="printbtn" onclick="window.print()">Print / Save PDF</button>
+<div class="header">
+    <div class="company">A&O Apparels (Pvt.) Ltd.</div>
+    <div class="address">256, E.R. Rajapur, Shashongaon, Baktabali Ferryghat Road, Narayanganj</div>
+    <div class="title">প্রাথমিক যাচাই ফরম</div>
+    <div><b>Temporary ID:</b> ${v(data,"Temporary_ID")}</div>
+</div>
+
+<div class="grid2">
+    <div class="row"><span class="label">Name (English):</span><span class="value">${v(data,"Name_English")}</span></div>
+    <div class="row"><span class="label">যে পদে আবেদন:</span><span class="value">${v(data,"Applied_Post")}</span></div>
+    <div class="row"><span class="label">কর্মীর নাম:</span><span class="value">${v(data,"Employee_Name")}</span></div>
+    <div class="row"><span class="label">সেকশন:</span><span class="value">${v(data,"Section_Name")}</span></div>
+    <div class="row"><span class="label">পিতার নাম:</span><span class="value">${v(data,"Father_Name")}</span></div>
+    <div class="row"><span class="label">মাতার নাম:</span><span class="value">${v(data,"Mother_Name")}</span></div>
+    <div class="row"><span class="label">স্বামী/স্ত্রীর নাম:</span><span class="value">${v(data,"Spouse_Name")}</span></div>
+    <div class="row"><span class="label">প্রযত্নে:</span><span class="value">${v(data,"Care_Of")}</span></div>
+</div>
+
+<div class="boxp">
+    <div class="box-title">স্থায়ী ঠিকানা</div>
+    <div class="grid2">
+        <div class="row"><span class="label">গ্রাম:</span><span class="value">${v(data,"Per_Vill")}</span></div>
+        <div class="row"><span class="label">পোস্ট:</span><span class="value">${v(data,"Per_PO")}</span></div>
+        <div class="row"><span class="label">থানা:</span><span class="value">${v(data,"Per_PS")}</span></div>
+        <div class="row"><span class="label">জেলা:</span><span class="value">${v(data,"Per_Dist")}</span></div>
+    </div>
+</div>
+
+<div class="boxp">
+    <div class="box-title">বর্তমান ঠিকানা</div>
+    <div class="grid2">
+        <div class="row"><span class="label">গ্রাম:</span><span class="value">${v(data,"Pre_Vill")}</span></div>
+        <div class="row"><span class="label">পোস্ট:</span><span class="value">${v(data,"Pre_PO")}</span></div>
+        <div class="row"><span class="label">থানা:</span><span class="value">${v(data,"Pre_PS")}</span></div>
+        <div class="row"><span class="label">জেলা:</span><span class="value">${v(data,"Pre_Dist")}</span></div>
+    </div>
+</div>
+
+<div class="grid2">
+    <div class="row"><span class="label">জন্ম তারিখ:</span><span class="value">${v(data,"Date_Of_Birth")}</span></div>
+    <div class="row"><span class="label">যোগদানের তারিখ:</span><span class="value">${v(data,"Joining_Date")}</span></div>
+    <div class="row"><span class="label">ধর্ম:</span><span class="value">${v(data,"Religion")}</span></div>
+    <div class="row"><span class="label">মোবাইল নং:</span><span class="value">${v(data,"Mobile_No")}</span></div>
+    <div class="row"><span class="label">জরুরি মোবাইল:</span><span class="value">${v(data,"Emergency_No")}</span></div>
+    <div class="row"><span class="label">NID/জন্ম নিবন্ধন:</span><span class="value">${v(data,"NID_Birth")}</span></div>
+    <div class="row"><span class="label">ওজন:</span><span class="value">${v(data,"Weight")}</span></div>
+    <div class="row"><span class="label">উচ্চতা:</span><span class="value">${v(data,"Height")}</span></div>
+    <div class="row"><span class="label">রক্তের গ্রুপ:</span><span class="value">${v(data,"Blood_Group")}</span></div>
+    <div class="row"><span class="label">বৈবাহিক অবস্থা:</span><span class="value">${v(data,"Marital_Status")}</span></div>
+    <div class="row"><span class="label">সন্তান ছেলে:</span><span class="value">${v(data,"Son_Children")}</span></div>
+    <div class="row"><span class="label">সন্তান মেয়ে:</span><span class="value">${v(data,"Daughter_Children")}</span></div>
+    <div class="row"><span class="label">শিক্ষাগত যোগ্যতা:</span><span class="value">${v(data,"Education")}</span></div>
+    <div class="row"><span class="label">শনাক্তকরণ চিহ্ন:</span><span class="value">${v(data,"Identification_Mark")}</span></div>
+</div>
+
+<div class="boxp">
+    <div class="box-title">শনাক্তকারী / বিকল্প যোগাযোগ</div>
+    <div class="grid2">
+        <div class="row"><span class="label">শনাক্তকারীর নাম:</span><span class="value">${v(data,"Reference_Name")}</span></div>
+        <div class="row"><span class="label">মোবাইল:</span><span class="value">${v(data,"Reference_Mobile")}</span></div>
+        <div class="row"><span class="label">সম্পর্ক:</span><span class="value">${v(data,"Reference_Relation")}</span></div>
+        <div class="row"><span class="label">Alternative Name:</span><span class="value">${v(data,"Alternative_Name")}</span></div>
+        <div class="row"><span class="label">Alternative Relation:</span><span class="value">${v(data,"Alternative_Relation")}</span></div>
+        <div class="row"><span class="label">Alternative Mobile:</span><span class="value">${v(data,"Alternative_Mobile")}</span></div>
+    </div>
+</div>
+
+<div class="boxp">
+    <div class="box-title">কাজের দক্ষতা যাচাই</div>
+    <div class="row"><span class="label">Skill Experience:</span><span class="value">${v(data,"Skill_Experience")}</span></div>
+    <div class="row"><span class="label">পূর্বের কারখানা:</span><span class="value">${v(data,"Previous_Factory")}</span></div>
+    <div class="row"><span class="label">মেশিন দক্ষতা:</span><span class="value">${v(data,"Machine_Skill")}</span></div>
+</div>
+
+<div class="sign">
+    <div>আবেদনকারীর স্বাক্ষর</div>
+    <div>মানব সম্পদ বিভাগ</div>
+    <div>অনুমোদনকারী</div>
+</div>
+</body>
+</html>`;
+
+    const w = window.open("", "_blank");
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+}
+
 
 function logout(){
     currentEmployee = null;
