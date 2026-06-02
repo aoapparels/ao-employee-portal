@@ -58,6 +58,7 @@ th{background:#e7f0ff;}
     <button onclick="showEmployeeLogin()">Employee Login</button>
     <button onclick="showAttendancePassword()" style="margin-top:15px;">Attendance Report</button>
     <button onclick="showNewJoinApplication()" class="green" style="margin-top:15px;">New Join Application</button>
+    <button onclick="showSubmittedFormSearch()" class="orange" style="margin-top:15px;">Submitted Form</button>
     <button onclick="showAdminLogin()" class="purple" style="margin-top:15px;">Admin Panel</button>
 </div>
 
@@ -193,6 +194,15 @@ th{background:#e7f0ff;}
     <div id="newJoinStatus" class="status">সব তথ্য লিখে Submit চাপুন।</div>
 </div>
 
+<div class="card hidden" id="submittedFormPage">
+    <h2>Submitted Form</h2>
+    <p class="small-note" style="text-align:center;">Temporary ID দিয়ে আপনার submitted form view / edit / print করতে পারবেন।</p>
+    <input type="text" id="searchTemporaryId" placeholder="Enter Temporary ID, example: 260602001" oninput="digitsOnly(this,20)">
+    <button onclick="loadSubmittedApplication()" class="green">View Submitted Form</button>
+    <button class="gray" onclick="goHome()">Back</button>
+    <div id="submittedFormResult" class="box">Temporary ID দিয়ে search করুন।</div>
+</div>
+
 <div class="card hidden" id="adminLoginPage">
     <h2>Admin Login</h2>
     <input type="text" id="adminUser" placeholder="Admin User ID">
@@ -223,6 +233,10 @@ th{background:#e7f0ff;}
 
         <button class="green" onclick="showAttendanceUploadPanel()" style="margin-top:15px;">
             Attendance PDF Upload
+        </button>
+
+        <button class="orange" onclick="showNewJoinRequestsPanel()" style="margin-top:15px;">
+            New Joining Requests
         </button>
 
         <button class="purple" onclick="showChangePasswordPanel()" style="margin-top:15px;">
@@ -271,6 +285,8 @@ th{background:#e7f0ff;}
 <script>
 let currentEmployee = null;
 let currentAdminUser = null;
+let lastSubmittedApplication = null;
+let editingTemporaryId = null;
 const ATTENDANCE_PASSWORD = "4321";
 const SUPABASE_DASHBOARD_URL = "https://supabase.com/dashboard/project/hneomxtzhbeseqlyrszh/editor";
 const ATTENDANCE_BUCKET = "attendance-reports";
@@ -307,6 +323,7 @@ function hideAll(){
     document.getElementById("adminLoginPage").classList.add("hidden");
     document.getElementById("adminDashboard").classList.add("hidden");
     document.getElementById("newJoinApplicationPage").classList.add("hidden");
+    document.getElementById("submittedFormPage").classList.add("hidden");
 }
 
 function goHome(){
@@ -320,8 +337,18 @@ function showEmployeeLogin(){
 }
 
 function showNewJoinApplication(){
+    editingTemporaryId = null;
+    clearNewJoinForm();
     hideAll();
     document.getElementById("newJoinApplicationPage").classList.remove("hidden");
+    document.getElementById("newJoinStatus").className = "status";
+    document.getElementById("newJoinStatus").innerHTML = "সব তথ্য লিখে Submit চাপুন।";
+}
+
+function showSubmittedFormSearch(){
+    hideAll();
+    document.getElementById("submittedFormPage").classList.remove("hidden");
+    document.getElementById("submittedFormResult").innerHTML = "Temporary ID দিয়ে search করুন।";
 }
 
 function showAdminLogin(){
@@ -1373,7 +1400,11 @@ async function showNewJoinRequestsPanel(){
             <td>${r.Mobile_No || ""}</td>
             <td>${r.Applied_Post || ""}</td>
             <td>${r.Section_Name || ""}</td>
-            <td><button onclick="adminViewJoinApplication('${r.Temporary_ID}')" class="green">View</button></td>
+            <td>
+                <button onclick="adminViewJoinApplication('${r.Temporary_ID}')" class="green">View</button>
+                <button onclick="approveJoinApplication('${r.Temporary_ID}')" class="orange">Approve</button>
+                <button onclick="removeJoinApplication('${r.Temporary_ID}')" class="red">Remove</button>
+            </td>
         </tr>
     `).join("");
 
@@ -1402,7 +1433,41 @@ async function adminViewJoinApplication(tempId){
     }
 
     lastSubmittedApplication = data;
-    document.getElementById("adminView").innerHTML = applicationSummaryHtml(data) + `<button class="gray" onclick="showNewJoinRequestsPanel()">Back to Requests</button>`;
+    document.getElementById("adminView").innerHTML = applicationSummaryHtml(data) + `
+        <button onclick="approveJoinApplication('${data.Temporary_ID}')" class="orange">Approve / Keep</button>
+        <button onclick="removeJoinApplication('${data.Temporary_ID}')" class="red">Remove Submission</button>
+        <button class="gray" onclick="showNewJoinRequestsPanel()">Back to Requests</button>`;
+}
+
+async function approveJoinApplication(tempId){
+    alert("Temporary ID " + tempId + " approved/kept in database.");
+}
+
+async function removeJoinApplication(tempId){
+    if(!tempId){
+        alert("Temporary ID not found");
+        return;
+    }
+
+    let confirmText = prompt(`Type DELETE to remove Temporary ID ${tempId}`);
+    if(confirmText !== "DELETE"){
+        alert("Remove cancelled");
+        return;
+    }
+
+    const { error } = await supabaseClient
+    .from("New_Join_Applications")
+    .delete()
+    .eq("Temporary_ID", Number(tempId));
+
+    if(error){
+        console.log(error);
+        alert("Remove failed: " + error.message);
+        return;
+    }
+
+    alert("Temporary ID " + tempId + " removed from database.");
+    showNewJoinRequestsPanel();
 }
 
 function v(data, key){
