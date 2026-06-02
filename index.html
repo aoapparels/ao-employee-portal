@@ -146,6 +146,7 @@ const ADMIN_USER = "admin";
 const ADMIN_PASS = "1234";
 const ATTENDANCE_PASSWORD = "4321";
 const SUPABASE_DASHBOARD_URL = "https://supabase.com/dashboard/project/hneomxtzhbeseqlyrszh/editor";
+const ATTENDANCE_BUCKET = "attendance-reports";
 
 const tableConfig = {
     employee: {
@@ -270,9 +271,16 @@ function showOutEmployeePanel(){
 }
 
 
+function getAttendanceFileName(type){
+    if(type === "manpower") return "manpower.pdf";
+    if(type === "absent") return "absent.pdf";
+    if(type === "halfday") return "halfday.pdf";
+    return "report.pdf";
+}
+
 function showAttendanceUploadPanel(){
     document.getElementById("adminView").innerHTML = `
-        <h3>Attendance PDF Upload</h3>
+        <h3>Attendance PDF Upload / Replace</h3>
 
         <select id="attendanceReportType">
             <option value="manpower">Manpower Report</option>
@@ -280,11 +288,10 @@ function showAttendanceUploadPanel(){
             <option value="halfday">Half Day Report</option>
         </select>
 
-        <input type="text" id="attendanceReportDate" placeholder="Report Date, example: 19-05-2026">
-        <input type="text" id="attendancePdfUrl" placeholder="PDF URL paste here">
+        <input type="file" id="attendancePdfFile" accept="application/pdf,.pdf">
 
-        <button onclick="saveAttendancePdfLink()" class="green">
-            Save Attendance Report
+        <button onclick="uploadAttendancePdf()" class="green">
+            Upload / Replace PDF
         </button>
 
         <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
@@ -292,41 +299,56 @@ function showAttendanceUploadPanel(){
         </button>
 
         <div id="adminStatus" class="status">
-            PDF file GitHub/website folder এ upload করে full link এখানে paste করো।
+            PDF select করে upload চাপো। Same report type দিলে পুরান PDF replace হবে।<br>
+            Bucket: <b>attendance-reports</b>
         </div>
     `;
 }
 
-async function saveAttendancePdfLink(){
+async function uploadAttendancePdf(){
     let type = document.getElementById("attendanceReportType").value;
-    let date = document.getElementById("attendanceReportDate").value.trim();
-    let url = document.getElementById("attendancePdfUrl").value.trim();
+    let fileInput = document.getElementById("attendancePdfFile");
+    let file = fileInput.files[0];
 
-    if(!date || !url){
-        alert("Report date and PDF URL required");
+    if(!file){
+        alert("Please select PDF file first");
         return;
     }
 
-    setAdminStatus("Saving attendance report...");
+    let fileName = getAttendanceFileName(type);
+
+    setAdminStatus(`Uploading ${fileName}...`);
 
     const { error } = await supabaseClient
-    .from("attendance_reports")
-    .insert([{
-        report_type: type,
-        report_date: date,
-        file_url: url,
-        uploaded_at: new Date().toISOString()
-    }]);
+    .storage
+    .from(ATTENDANCE_BUCKET)
+    .upload(fileName, file, {
+        cacheControl: "0",
+        upsert: true,
+        contentType: "application/pdf"
+    });
 
     if(error){
         console.log(error);
-        setAdminStatus("Save failed: " + error.message, "error");
+        setAdminStatus(`
+            <b>PDF upload failed.</b><br>
+            ${error.message}<br><br>
+            Supabase Storage bucket permission/policy check করো।
+        `, "error");
         return;
     }
 
-    setAdminStatus("Attendance report saved successfully!", "success");
-    document.getElementById("attendanceReportDate").value = "";
-    document.getElementById("attendancePdfUrl").value = "";
+    fileInput.value = "";
+
+    const { data } = supabaseClient
+    .storage
+    .from(ATTENDANCE_BUCKET)
+    .getPublicUrl(fileName);
+
+    setAdminStatus(`
+        <b>Success!</b> ${fileName} uploaded/replaced.<br>
+        <a href="${data.publicUrl}?t=${Date.now()}" target="_blank">Open uploaded PDF</a>
+    `, "success");
 }
 
 
@@ -819,21 +841,20 @@ function showAttendanceReport(){
     showAttendanceReportMenu();
 }
 
-async function openAttendanceReport(type){
-    const { data, error } = await supabaseClient
-    .from("attendance_reports")
-    .select("*")
-    .eq("report_type", type)
-    .order("uploaded_at", { ascending:false })
-    .limit(1)
-    .maybeSingle();
+function openAttendanceReport(type){
+    let fileName = getAttendanceFileName(type);
 
-    if(error || !data){
+    const { data } = supabaseClient
+    .storage
+    .from(ATTENDANCE_BUCKET)
+    .getPublicUrl(fileName);
+
+    if(!data || !data.publicUrl){
         alert(type + " report not found");
         return;
     }
 
-    window.open(data.file_url, "_blank");
+    window.open(data.publicUrl + "?t=" + Date.now(), "_blank");
 }
 
 function showAttendanceReportMenu(){
