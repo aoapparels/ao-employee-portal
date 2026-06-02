@@ -100,6 +100,10 @@ th{background:#e7f0ff;}
             Attendance PDF Upload
         </button>
 
+        <button class="purple" onclick="showChangePasswordPanel()" style="margin-top:15px;">
+            Change Admin Password
+        </button>
+
         <button class="orange" onclick="openSupabaseDashboard()" style="margin-top:15px;">
             Open Supabase Dashboard
         </button>
@@ -141,9 +145,7 @@ th{background:#e7f0ff;}
 
 <script>
 let currentEmployee = null;
-
-const ADMIN_USER = "admin";
-const ADMIN_PASS = "1234";
+let currentAdminUser = null;
 const ATTENDANCE_PASSWORD = "4321";
 const SUPABASE_DASHBOARD_URL = "https://supabase.com/dashboard/project/hneomxtzhbeseqlyrszh/editor";
 const ATTENDANCE_BUCKET = "attendance-reports";
@@ -196,23 +198,129 @@ function showAdminLogin(){
     document.getElementById("adminLoginPage").classList.remove("hidden");
 }
 
-function adminLogin(){
+async function adminLogin(){
     let user = document.getElementById("adminUser").value.trim();
     let pass = document.getElementById("adminPass").value.trim();
 
-    if(user === ADMIN_USER && pass === ADMIN_PASS){
-        hideAll();
-        document.getElementById("adminDashboard").classList.remove("hidden");
-        document.getElementById("adminView").innerHTML = "Select data option";
-    }else{
-        alert("Wrong Admin ID or Password");
+    if(!user || !pass){
+        alert("Please enter Admin ID and Password");
+        return;
+    }
+
+    try{
+        const { data, error } = await supabaseClient
+        .from("admin_settings")
+        .select("*")
+        .eq("username", user)
+        .maybeSingle();
+
+        if(error){
+            console.log(error);
+            alert("Admin database connection problem: " + error.message);
+            return;
+        }
+
+        if(data && String(data.password || "") === pass){
+            currentAdminUser = user;
+            hideAll();
+            document.getElementById("adminDashboard").classList.remove("hidden");
+            document.getElementById("adminView").innerHTML = "Select data option";
+        }else{
+            alert("Wrong Admin ID or Password");
+        }
+    }catch(error){
+        console.log(error);
+        alert("Admin login failed: " + error.message);
     }
 }
 
 function adminLogout(){
+    currentAdminUser = null;
     document.getElementById("adminUser").value = "";
     document.getElementById("adminPass").value = "";
     goHome();
+}
+
+function showChangePasswordPanel(){
+    document.getElementById("adminView").innerHTML = `
+        <h3>Change Admin Password</h3>
+
+        <input type="password" id="oldAdminPassword" placeholder="Old Password">
+        <input type="password" id="newAdminPassword" placeholder="New Password">
+        <input type="password" id="confirmAdminPassword" placeholder="Confirm New Password">
+
+        <button onclick="changeAdminPassword()" class="green">
+            Save New Password
+        </button>
+
+        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+            Back
+        </button>
+
+        <div id="adminStatus" class="status">
+            Password change করলে Supabase admin_settings table update হবে। GitHub/HTML edit লাগবে না।
+        </div>
+    `;
+}
+
+async function changeAdminPassword(){
+    let oldPass = document.getElementById("oldAdminPassword").value.trim();
+    let newPass = document.getElementById("newAdminPassword").value.trim();
+    let confirmPass = document.getElementById("confirmAdminPassword").value.trim();
+    let user = currentAdminUser || document.getElementById("adminUser").value.trim();
+
+    if(!oldPass || !newPass || !confirmPass){
+        alert("Please fill all password fields");
+        return;
+    }
+
+    if(newPass !== confirmPass){
+        alert("New password and confirm password not match");
+        return;
+    }
+
+    if(newPass.length < 4){
+        alert("New password minimum 4 characters hote hobe");
+        return;
+    }
+
+    setAdminStatus("Checking old password...");
+
+    const { data, error } = await supabaseClient
+    .from("admin_settings")
+    .select("*")
+    .eq("username", user)
+    .maybeSingle();
+
+    if(error){
+        console.log(error);
+        setAdminStatus("Password check failed: " + error.message, "error");
+        return;
+    }
+
+    if(!data || String(data.password || "") !== oldPass){
+        setAdminStatus("Old password wrong", "error");
+        return;
+    }
+
+    setAdminStatus("Saving new password...");
+
+    const { error: updateError } = await supabaseClient
+    .from("admin_settings")
+    .update({ password: newPass })
+    .eq("username", user);
+
+    if(updateError){
+        console.log(updateError);
+        setAdminStatus("Password save failed: " + updateError.message, "error");
+        return;
+    }
+
+    document.getElementById("oldAdminPassword").value = "";
+    document.getElementById("newAdminPassword").value = "";
+    document.getElementById("confirmAdminPassword").value = "";
+
+    setAdminStatus("Admin password changed successfully!", "success");
 }
 
 function openSupabaseDashboard(){
