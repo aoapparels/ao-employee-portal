@@ -158,7 +158,23 @@ th{background:#e7f0ff;}
 
     <div class="box">
         <h3>শিক্ষা ও শনাক্তকরণ</h3>
-        <input type="text" id="Education" placeholder="শিক্ষাগত যোগ্যতা">
+        
+<select id="Education">
+<option value="">শিক্ষাগত যোগ্যতা নির্বাচন করুন</option>
+<option value="One To Ten">One To Ten</option>
+<option value="SSC">SSC</option>
+<option value="HSC">HSC</option>
+<option value="Masters">Masters</option>
+<option value="Degree">Degree</option>
+<option value="Hons">Hons</option>
+<option value="Alim">Alim</option>
+<option value="Dakhil">Dakhil</option>
+<option value="PhD">PhD</option>
+<option value="Diploma">Diploma</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" id="Education_Other" placeholder="অন্যান্য শিক্ষাগত যোগ্যতা লিখুন" class="hidden">
+
         <input type="text" id="Identification_Mark" placeholder="শনাক্তকরণ চিহ্ন">
     </div>
 
@@ -189,8 +205,67 @@ th{background:#e7f0ff;}
             <option value="5 Year Above">5 Year Above</option>
         </select>
         <input type="text" id="Previous_Factory" placeholder="পূর্বের কারখানার নাম / Last Working Details">
-        <input type="text" id="Applied_Post" placeholder="যে পদে কাজের আবেদন">
-        <input type="text" id="Section_Name" placeholder="সেকশন">
+<select id="Unit_Name">
+<option value="">Unit নির্বাচন করুন</option>
+<option value="Knit Division">Knit Division</option>
+<option value="Woven Division">Woven Division</option>
+<option value="Combine">Combine</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" id="Unit_Name_Other" placeholder="অন্যান্য Unit লিখুন" class="hidden">
+
+        
+<select id="Applied_Post">
+<option value="">যে পদে কাজের আবেদন</option>
+<option value="Jr. S/M Operator">Jr. S/M Operator</option>
+<option value="Finishing Asst.">Finishing Asst.</option>
+<option value="Asstt. M. Operator">Asstt. M. Operator</option>
+<option value="Cutter">Cutter</option>
+<option value="Jr. Quality Inspector">Jr. Quality Inspector</option>
+<option value="Asstt. Quality Inspector">Asstt. Quality Inspector</option>
+<option value="Jr. Officer">Jr. Officer</option>
+<option value="Cleaner">Cleaner</option>
+<option value="Office Peon">Office Peon</option>
+<option value="Manager">Manager</option>
+<option value="Jr. Q.A.O">Jr. Q.A.O</option>
+<option value="Quality Incharge">Quality Incharge</option>
+<option value="Production Manager">Production Manager</option>
+<option value="Line Iron Man">Line Iron Man</option>
+<option value="Jr Ironman">Jr Ironman</option>
+<option value="Jr. Packer">Jr. Packer</option>
+<option value="Jr Folder">Jr Folder</option>
+<option value="Polywoman">Polywoman</option>
+<option value="Asstt. Cutter">Asstt. Cutter</option>
+<option value="Cutterman">Cutterman</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" id="Applied_Post_Other" placeholder="অন্যান্য পদবি লিখুন" class="hidden">
+
+        
+<select id="Section_Name">
+<option value="">সেকশন নির্বাচন করুন</option>
+<option value="Sewing - A">Sewing - A</option>
+<option value="Sewing - B">Sewing - B</option>
+<option value="Sewing - C">Sewing - C</option>
+<option value="Sewing - D">Sewing - D</option>
+<option value="Sewing Knit - A">Sewing Knit - A</option>
+<option value="Sewing Knit - B">Sewing Knit - B</option>
+<option value="Cutting Knit">Cutting Knit</option>
+<option value="Finishing Knit">Finishing Knit</option>
+<option value="Finishing">Finishing</option>
+<option value="Finishing - A">Finishing - A</option>
+<option value="Finishing - B">Finishing - B</option>
+<option value="Maintenance">Maintenance</option>
+<option value="Electric">Electric</option>
+<option value="Farm">Farm</option>
+<option value="Maintenance Knit">Maintenance Knit</option>
+<option value="Embroidery">Embroidery</option>
+<option value="Floor Staff">Floor Staff</option>
+<option value="Floor Staff Knit">Floor Staff Knit</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" id="Section_Name_Other" placeholder="অন্যান্য সেকশন লিখুন" class="hidden">
+
         <textarea id="Machine_Skill" placeholder="মেশিন দক্ষতা / কাজের দক্ষতা" rows="4"></textarea>
     </div>
 
@@ -401,7 +476,28 @@ function adminLogout(){
     currentAdminUser = null;
     document.getElementById("adminUser").value = "";
     document.getElementById("adminPass").value = "";
-    goHome();
+    
+function toggleOtherField(selectId,inputId){
+    const sel=document.getElementById(selectId);
+    const inp=document.getElementById(inputId);
+    if(!sel || !inp) return;
+    if(sel.value==="Other"){
+        inp.classList.remove("hidden");
+    }else{
+        inp.classList.add("hidden");
+        inp.value="";
+    }
+}
+
+document.addEventListener("change",function(e){
+    toggleOtherField("Education","Education_Other");
+    toggleOtherField("Applied_Post","Applied_Post_Other");
+    toggleOtherField("Section_Name","Section_Name_Other");
+    toggleOtherField("Unit_Name","Unit_Name_Other");
+});
+
+
+goHome();
 }
 
 function showChangePasswordPanel(){
