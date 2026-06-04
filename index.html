@@ -96,10 +96,12 @@ th{background:#e7f0ff;}
         <div class="menu">
             <input type="text" id="Per_Vill" placeholder="Per. Vill / গ্রাম">
             <input type="text" id="Per_PO" placeholder="Per. PO / পোস্ট অফিস">
-            <select id="Per_Dist" onchange="updateThanaDropdown('Per_Dist','Per_PS','Per_Dist_Other','Per_PS_Other')"><option value="">Per. Dist / জেলা নির্বাচন করুন</option></select>
-            <input type="text" id="Per_Dist_Other" placeholder="অন্যান্য জেলা লিখুন" class="hidden">
-            <select id="Per_PS" onchange="toggleAddressOther('Per_PS','Per_PS_Other')"><option value="">Per. PS / থানা নির্বাচন করুন</option></select>
-            <input type="text" id="Per_PS_Other" placeholder="অন্যান্য থানা লিখুন" class="hidden">
+            <input type="text" id="Per_Dist" list="Per_Dist_List" placeholder="Per. Dist / জেলা লিখুন বা নির্বাচন করুন" oninput="updateThanaDropdown('Per_Dist','Per_PS','Per_Dist_Other','Per_PS_Other')">
+            <datalist id="Per_Dist_List"></datalist>
+            <input type="text" id="Per_Dist_Other" class="hidden">
+            <input type="text" id="Per_PS" list="Per_PS_List" placeholder="Per. PS / থানা লিখুন বা নির্বাচন করুন">
+            <datalist id="Per_PS_List"></datalist>
+            <input type="text" id="Per_PS_Other" class="hidden">
         </div>
     </div>
 
@@ -108,10 +110,12 @@ th{background:#e7f0ff;}
         <div class="menu">
             <input type="text" id="Pre_Vill" placeholder="Pre. Vill / গ্রাম">
             <input type="text" id="Pre_PO" placeholder="Pre. PO / পোস্ট অফিস">
-            <select id="Pre_Dist" onchange="updateThanaDropdown('Pre_Dist','Pre_PS','Pre_Dist_Other','Pre_PS_Other')"><option value="">Pre. Dist / জেলা নির্বাচন করুন</option></select>
-            <input type="text" id="Pre_Dist_Other" placeholder="অন্যান্য জেলা লিখুন" class="hidden">
-            <select id="Pre_PS" onchange="toggleAddressOther('Pre_PS','Pre_PS_Other')"><option value="">Pre. PS / থানা নির্বাচন করুন</option></select>
-            <input type="text" id="Pre_PS_Other" placeholder="অন্যান্য থানা লিখুন" class="hidden">
+            <input type="text" id="Pre_Dist" list="Pre_Dist_List" placeholder="Pre. Dist / জেলা লিখুন বা নির্বাচন করুন" oninput="updateThanaDropdown('Pre_Dist','Pre_PS','Pre_Dist_Other','Pre_PS_Other')">
+            <datalist id="Pre_Dist_List"></datalist>
+            <input type="text" id="Pre_Dist_Other" class="hidden">
+            <input type="text" id="Pre_PS" list="Pre_PS_List" placeholder="Pre. PS / থানা লিখুন বা নির্বাচন করুন">
+            <datalist id="Pre_PS_List"></datalist>
+            <input type="text" id="Pre_PS_Other" class="hidden">
         </div>
     </div>
 
@@ -554,38 +558,21 @@ async function loadDistrictsFromSupabase(){
     return bdDistrictCache;
 }
 
-async function populateDistrictDropdown(selectId){
-    const sel = document.getElementById(selectId);
-    if(!sel) return;
+async function populateDistrictDropdown(inputId){
+    const input = document.getElementById(inputId);
+    const list = document.getElementById(inputId + "_List");
+    if(!input || !list) return;
 
-    const current = sel.value;
     const districts = await loadDistrictsFromSupabase();
-
-    sel.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
+    list.innerHTML = "";
 
     districts.forEach(d => {
-        sel.innerHTML += `<option value="${d.district_name}" data-id="${d.id}">${d.district_name}</option>`;
+        list.innerHTML += `<option value="${d.district_name}"></option>`;
     });
-
-    sel.innerHTML += '<option value="Other" data-id="">Other</option>';
-
-    if(current){
-        sel.value = current;
-    }
 }
 
 function toggleAddressOther(selectId, otherId){
-    const sel = document.getElementById(selectId);
-    const other = document.getElementById(otherId);
-
-    if(!sel || !other) return;
-
-    if(sel.value === "Other"){
-        other.classList.remove("hidden");
-    }else{
-        other.classList.add("hidden");
-        other.value = "";
-    }
+    return;
 }
 
 async function loadThanasFromSupabase(districtId){
@@ -611,108 +598,48 @@ async function loadThanasFromSupabase(districtId){
 }
 
 async function updateThanaDropdown(distId, psId, distOtherId, psOtherId){
-    const dist = document.getElementById(distId);
-    const ps = document.getElementById(psId);
+    const distInput = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+    const psList = document.getElementById(psId + "_List");
 
-    if(!dist || !ps) return;
+    if(!distInput || !psInput || !psList) return;
 
-    toggleAddressOther(distId, distOtherId);
+    const districtName = distInput.value.trim();
+    const districts = await loadDistrictsFromSupabase();
+    const foundDistrict = districts.find(d => d.district_name === districtName);
 
-    ps.innerHTML = '<option value="">থানা নির্বাচন করুন</option>';
+    psList.innerHTML = "";
+    psInput.value = "";
 
-    if(dist.value === "Other"){
-        ps.innerHTML += '<option value="Other">Other</option>';
-        ps.value = "Other";
-        toggleAddressOther(psId, psOtherId);
-        return;
-    }
+    if(!foundDistrict) return;
 
-    const districtId = dist.selectedOptions[0] ? dist.selectedOptions[0].dataset.id : "";
-    const thanas = await loadThanasFromSupabase(districtId);
+    const thanas = await loadThanasFromSupabase(foundDistrict.id);
 
     thanas.forEach(t => {
-        ps.innerHTML += `<option value="${t.thana_name}">${t.thana_name}</option>`;
+        psList.innerHTML += `<option value="${t.thana_name}"></option>`;
     });
-
-    ps.innerHTML += '<option value="Other">Other</option>';
-
-    toggleAddressOther(psId, psOtherId);
 }
 
-function getAddressValue(selectId, otherId){
-    const sel = document.getElementById(selectId);
-    const other = document.getElementById(otherId);
-
-    if(!sel) return "";
-
-    if(sel.value === "Other"){
-        return other ? other.value.trim() : "";
-    }
-
-    return sel.value.trim();
+function getAddressValue(inputId, otherId){
+    const input = document.getElementById(inputId);
+    if(!input) return "";
+    return input.value.trim();
 }
 
 async function setAddressDropdownValue(distId, psId, distOtherId, psOtherId, distValue, psValue){
     await populateDistrictDropdown(distId);
 
-    const dist = document.getElementById(distId);
-    const ps = document.getElementById(psId);
-    const distOther = document.getElementById(distOtherId);
-    const psOther = document.getElementById(psOtherId);
+    const distInput = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
 
-    if(!dist || !ps) return;
-
-    const districts = await loadDistrictsFromSupabase();
-    const foundDistrict = districts.find(d => d.district_name === distValue);
-
-    if(foundDistrict){
-        dist.value = distValue;
-        if(distOther){
-            distOther.classList.add("hidden");
-            distOther.value = "";
-        }
-    }else if(distValue){
-        dist.value = "Other";
-        if(distOther){
-            distOther.classList.remove("hidden");
-            distOther.value = distValue;
-        }
-    }else{
-        dist.value = "";
-        if(distOther){
-            distOther.classList.add("hidden");
-            distOther.value = "";
-        }
+    if(distInput){
+        distInput.value = distValue || "";
     }
 
     await updateThanaDropdown(distId, psId, distOtherId, psOtherId);
 
-    let thanaFound = false;
-    for(let i = 0; i < ps.options.length; i++){
-        if(ps.options[i].value === psValue){
-            thanaFound = true;
-            break;
-        }
-    }
-
-    if(thanaFound){
-        ps.value = psValue || "";
-        if(psOther){
-            psOther.classList.add("hidden");
-            psOther.value = "";
-        }
-    }else if(psValue){
-        ps.value = "Other";
-        if(psOther){
-            psOther.classList.remove("hidden");
-            psOther.value = psValue;
-        }
-    }else{
-        ps.value = "";
-        if(psOther){
-            psOther.classList.add("hidden");
-            psOther.value = "";
-        }
+    if(psInput){
+        psInput.value = psValue || "";
     }
 }
 
