@@ -534,91 +534,210 @@ function getDropdownValue(selectId, otherInputId){
     return sel.value.trim();
 }
 
-const districtThanaMap = {
-"নারায়ণগঞ্জ":["ফতুল্লা","সিদ্ধিরগঞ্জ","বন্দর","রূপগঞ্জ","সোনারগাঁও","আড়াইহাজার"],
-"ঢাকা":["মিরপুর","মোহাম্মদপুর","ধানমন্ডি","গুলশান","বাড্ডা","উত্তরা","তেজগাঁও","লালবাগ","রমনা","সাভার","কেরানীগঞ্জ","দোহার","নবাবগঞ্জ"],
-"মুন্সীগঞ্জ":["মুন্সীগঞ্জ সদর","টঙ্গীবাড়ী","সিরাজদিখান","লৌহজং","শ্রীনগর","গজারিয়া"],
-"কুমিল্লা":["আদর্শ সদর","সদর দক্ষিণ","দাউদকান্দি","চৌদ্দগ্রাম","লাকসাম","বরুড়া","দেবিদ্বার","মুরাদনগর","হোমনা","তিতাস","মনোহরগঞ্জ","বুড়িচং","নাঙ্গলকোট"],
-"চাঁদপুর":["চাঁদপুর সদর","হাজীগঞ্জ","ফরিদগঞ্জ","কচুয়া","মতলব উত্তর","মতলব দক্ষিণ","শাহরাস্তি","হাইমচর"],
-"নোয়াখালী":["নোয়াখালী সদর","বেগমগঞ্জ","চাটখিল","কোম্পানীগঞ্জ","সেনবাগ","সোনাইমুড়ী","সুবর্ণচর","হাতিয়া","কবিরহাট"],
-"লক্ষ্মীপুর":["লক্ষ্মীপুর সদর","রায়পুর","রামগঞ্জ","রামগতি","কমলনগর"],
-"ব্রাহ্মণবাড়িয়া":["ব্রাহ্মণবাড়িয়া সদর","আখাউড়া","আশুগঞ্জ","বাঞ্ছারামপুর","কসবা","নবীনগর","নাসিরনগর","সরাইল"],
-"নরসিংদী":["নরসিংদী সদর","পলাশ","শিবপুর","মনোহরদী","বেলাবো","রায়পুরা"],
-"কিশোরগঞ্জ":["কিশোরগঞ্জ সদর","ভৈরব","কুলিয়ারচর","হোসেনপুর","পাকুন্দিয়া","কটিয়াদী","করিমগঞ্জ","তাড়াইল","নিকলী","বাজিতপুর"],
-"ময়মনসিংহ":["ময়মনসিংহ সদর","ভালুকা","ত্রিশাল","ফুলবাড়িয়া","গফরগাঁও","গৌরীপুর","ঈশ্বরগঞ্জ","নান্দাইল","ফুলপুর","হালুয়াঘাট","মুক্তাগাছা"],
-"জামালপুর":["জামালপুর সদর","সরিষাবাড়ী","মেলান্দহ","মাদারগঞ্জ","ইসলামপুর","দেওয়ানগঞ্জ","বকশীগঞ্জ"],
-"শেরপুর":["শেরপুর সদর","নালিতাবাড়ী","নকলা","শ্রীবরদী","ঝিনাইগাতী"],
-"রংপুর":["রংপুর সদর","মিঠাপুকুর","পীরগঞ্জ","পীরগাছা","কাউনিয়া","গঙ্গাচড়া","তারাগঞ্জ","বদরগঞ্জ"],
-"দিনাজপুর":["দিনাজপুর সদর","বিরামপুর","বীরগঞ্জ","বোচাগঞ্জ","চিরিরবন্দর","ফুলবাড়ী","ঘোড়াঘাট","হাকিমপুর","পার্বতীপুর"],
-"কুড়িগ্রাম":["কুড়িগ্রাম সদর","উলিপুর","চিলমারী","রৌমারী","নাগেশ্বরী","ভূরুঙ্গামারী","ফুলবাড়ী","রাজারহাট"],
-"গাইবান্ধা":["গাইবান্ধা সদর","সাদুল্লাপুর","সুন্দরগঞ্জ","সাঘাটা","গোবিন্দগঞ্জ","পলাশবাড়ী","ফুলছড়ি"],
-"বগুড়া":["বগুড়া সদর","শেরপুর","শিবগঞ্জ","সোনাতলা","সারিয়াকান্দি","ধুনট","নন্দীগ্রাম","কাহালু","দুপচাঁচিয়া","আদমদীঘি","গাবতলী"],
-"সিরাজগঞ্জ":["সিরাজগঞ্জ সদর","বেলকুচি","চৌহালী","কামারখন্দ","কাজীপুর","রায়গঞ্জ","শাহজাদপুর","তাড়াশ","উল্লাপাড়া"],
-"Other":[]
-};
+let bdDistrictCache = [];
+let bdThanaCache = {};
 
-function populateDistrictDropdown(selectId){
-    const sel=document.getElementById(selectId);
+async function loadDistrictsFromSupabase(){
+    if(bdDistrictCache.length) return bdDistrictCache;
+
+    const { data, error } = await supabaseClient
+    .from("bd_districts")
+    .select("id,district_name")
+    .order("district_name", { ascending:true });
+
+    if(error){
+        console.log("District load failed:", error);
+        return [];
+    }
+
+    bdDistrictCache = data || [];
+    return bdDistrictCache;
+}
+
+async function populateDistrictDropdown(selectId){
+    const sel = document.getElementById(selectId);
     if(!sel) return;
-    const cur=sel.value;
-    sel.innerHTML='<option value="">জেলা নির্বাচন করুন</option>';
-    Object.keys(districtThanaMap).forEach(d=>{sel.innerHTML+=`<option value="${d}">${d}</option>`;});
-    if(cur) sel.value=cur;
+
+    const current = sel.value;
+    const districts = await loadDistrictsFromSupabase();
+
+    sel.innerHTML = '<option value="">জেলা নির্বাচন করুন</option>';
+
+    districts.forEach(d => {
+        sel.innerHTML += `<option value="${d.district_name}" data-id="${d.id}">${d.district_name}</option>`;
+    });
+
+    sel.innerHTML += '<option value="Other" data-id="">Other</option>';
+
+    if(current){
+        sel.value = current;
+    }
 }
 
 function toggleAddressOther(selectId, otherId){
-    const sel=document.getElementById(selectId), other=document.getElementById(otherId);
+    const sel = document.getElementById(selectId);
+    const other = document.getElementById(otherId);
+
     if(!sel || !other) return;
-    if(sel.value==="Other"){other.classList.remove("hidden");}
-    else{other.classList.add("hidden"); other.value="";}
+
+    if(sel.value === "Other"){
+        other.classList.remove("hidden");
+    }else{
+        other.classList.add("hidden");
+        other.value = "";
+    }
 }
 
-function updateThanaDropdown(distId, psId, distOtherId, psOtherId){
-    const dist=document.getElementById(distId), ps=document.getElementById(psId);
+async function loadThanasFromSupabase(districtId){
+    if(!districtId) return [];
+
+    if(bdThanaCache[districtId]){
+        return bdThanaCache[districtId];
+    }
+
+    const { data, error } = await supabaseClient
+    .from("bd_thanas")
+    .select("id,thana_name,district_id")
+    .eq("district_id", Number(districtId))
+    .order("thana_name", { ascending:true });
+
+    if(error){
+        console.log("Thana load failed:", error);
+        return [];
+    }
+
+    bdThanaCache[districtId] = data || [];
+    return bdThanaCache[districtId];
+}
+
+async function updateThanaDropdown(distId, psId, distOtherId, psOtherId){
+    const dist = document.getElementById(distId);
+    const ps = document.getElementById(psId);
+
     if(!dist || !ps) return;
+
     toggleAddressOther(distId, distOtherId);
-    ps.innerHTML='<option value="">থানা নির্বাচন করুন</option>';
-    (districtThanaMap[dist.value] || []).forEach(t=>{ps.innerHTML+=`<option value="${t}">${t}</option>`;});
-    ps.innerHTML+='<option value="Other">Other</option>';
-    if(dist.value==="Other") ps.value="Other";
+
+    ps.innerHTML = '<option value="">থানা নির্বাচন করুন</option>';
+
+    if(dist.value === "Other"){
+        ps.innerHTML += '<option value="Other">Other</option>';
+        ps.value = "Other";
+        toggleAddressOther(psId, psOtherId);
+        return;
+    }
+
+    const districtId = dist.selectedOptions[0] ? dist.selectedOptions[0].dataset.id : "";
+    const thanas = await loadThanasFromSupabase(districtId);
+
+    thanas.forEach(t => {
+        ps.innerHTML += `<option value="${t.thana_name}">${t.thana_name}</option>`;
+    });
+
+    ps.innerHTML += '<option value="Other">Other</option>';
+
     toggleAddressOther(psId, psOtherId);
 }
 
 function getAddressValue(selectId, otherId){
-    const sel=document.getElementById(selectId), other=document.getElementById(otherId);
+    const sel = document.getElementById(selectId);
+    const other = document.getElementById(otherId);
+
     if(!sel) return "";
-    if(sel.value==="Other") return other ? other.value.trim() : "";
+
+    if(sel.value === "Other"){
+        return other ? other.value.trim() : "";
+    }
+
     return sel.value.trim();
 }
 
-function setAddressDropdownValue(distId, psId, distOtherId, psOtherId, distValue, psValue){
-    populateDistrictDropdown(distId);
-    const dist=document.getElementById(distId), ps=document.getElementById(psId);
-    const distOther=document.getElementById(distOtherId), psOther=document.getElementById(psOtherId);
+async function setAddressDropdownValue(distId, psId, distOtherId, psOtherId, distValue, psValue){
+    await populateDistrictDropdown(distId);
+
+    const dist = document.getElementById(distId);
+    const ps = document.getElementById(psId);
+    const distOther = document.getElementById(distOtherId);
+    const psOther = document.getElementById(psOtherId);
+
     if(!dist || !ps) return;
-    if(distValue && districtThanaMap[distValue]) dist.value=distValue;
-    else if(distValue){dist.value="Other"; if(distOther){distOther.classList.remove("hidden"); distOther.value=distValue;}}
-    else dist.value="";
-    updateThanaDropdown(distId, psId, distOtherId, psOtherId);
-    const list=districtThanaMap[dist.value] || [];
-    if(psValue && list.includes(psValue)) ps.value=psValue;
-    else if(psValue){ps.value="Other"; if(psOther){psOther.classList.remove("hidden"); psOther.value=psValue;}}
-    else ps.value="";
+
+    const districts = await loadDistrictsFromSupabase();
+    const foundDistrict = districts.find(d => d.district_name === distValue);
+
+    if(foundDistrict){
+        dist.value = distValue;
+        if(distOther){
+            distOther.classList.add("hidden");
+            distOther.value = "";
+        }
+    }else if(distValue){
+        dist.value = "Other";
+        if(distOther){
+            distOther.classList.remove("hidden");
+            distOther.value = distValue;
+        }
+    }else{
+        dist.value = "";
+        if(distOther){
+            distOther.classList.add("hidden");
+            distOther.value = "";
+        }
+    }
+
+    await updateThanaDropdown(distId, psId, distOtherId, psOtherId);
+
+    let thanaFound = false;
+    for(let i = 0; i < ps.options.length; i++){
+        if(ps.options[i].value === psValue){
+            thanaFound = true;
+            break;
+        }
+    }
+
+    if(thanaFound){
+        ps.value = psValue || "";
+        if(psOther){
+            psOther.classList.add("hidden");
+            psOther.value = "";
+        }
+    }else if(psValue){
+        ps.value = "Other";
+        if(psOther){
+            psOther.classList.remove("hidden");
+            psOther.value = psValue;
+        }
+    }else{
+        ps.value = "";
+        if(psOther){
+            psOther.classList.add("hidden");
+            psOther.value = "";
+        }
+    }
 }
 
 function toggleChildrenFields(){
-    const chk=document.getElementById("Has_Children"), box=document.getElementById("childrenFields");
-    const son=document.getElementById("Son_Children"), daughter=document.getElementById("Daughter_Children");
+    const chk = document.getElementById("Has_Children");
+    const box = document.getElementById("childrenFields");
+    const son = document.getElementById("Son_Children");
+    const daughter = document.getElementById("Daughter_Children");
+
     if(!chk || !box) return;
-    if(chk.checked){box.classList.remove("hidden");}
-    else{box.classList.add("hidden"); if(son) son.value=""; if(daughter) daughter.value="";}
+
+    if(chk.checked){
+        box.classList.remove("hidden");
+    }else{
+        box.classList.add("hidden");
+        if(son) son.value = "";
+        if(daughter) daughter.value = "";
+    }
 }
 
-function initAddressDropdowns(){
-    populateDistrictDropdown("Per_Dist");
-    populateDistrictDropdown("Pre_Dist");
-    updateThanaDropdown("Per_Dist","Per_PS","Per_Dist_Other","Per_PS_Other");
-    updateThanaDropdown("Pre_Dist","Pre_PS","Pre_Dist_Other","Pre_PS_Other");
+async function initAddressDropdowns(){
+    await populateDistrictDropdown("Per_Dist");
+    await populateDistrictDropdown("Pre_Dist");
+    await updateThanaDropdown("Per_Dist","Per_PS","Per_Dist_Other","Per_PS_Other");
+    await updateThanaDropdown("Pre_Dist","Pre_PS","Pre_Dist_Other","Pre_PS_Other");
     toggleChildrenFields();
 }
 
