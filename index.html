@@ -84,6 +84,30 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 .error{background:#ffebee;}
 
 
+
+.address-field{position:relative;width:100%;}
+.address-field input{width:100%;}
+.autocomplete-list{
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
+    background:#fff;
+    border:1px solid #999;
+    border-radius:8px;
+    max-height:220px;
+    overflow-y:auto;
+    z-index:9999;
+    box-shadow:0 5px 14px rgba(0,0,0,.18);
+}
+.autocomplete-item{
+    padding:9px 12px;
+    cursor:pointer;
+    border-bottom:1px solid #eee;
+    font-size:15px;
+}
+.autocomplete-item:hover{background:#e7f0ff;}
+
 </style>
 </head>
 
@@ -138,11 +162,15 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         <div class="menu">
             <input type="text" id="Per_Vill" placeholder="Per. Vill / গ্রাম">
             <input type="text" id="Per_PO" placeholder="Per. PO / পোস্ট অফিস">
-            <input type="text" id="Per_Dist" list="Per_Dist_List" placeholder="Per. Dist / জেলা লিখুন বা নির্বাচন করুন" oninput="updateThanaDropdown('Per_Dist','Per_PS','Per_Dist_Other','Per_PS_Other')">
-            <datalist id="Per_Dist_List"></datalist>
+            <div class="address-field">
+                <input type="text" id="Per_Dist" placeholder="Per. Dist / জেলা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showDistrictSuggestions('Per_Dist','Per_PS')" onfocus="showDistrictSuggestions('Per_Dist','Per_PS')">
+                <div id="Per_Dist_Suggestions" class="autocomplete-list hidden"></div>
+            </div>
             <input type="text" id="Per_Dist_Other" class="hidden">
-            <input type="text" id="Per_PS" list="Per_PS_List" placeholder="Per. PS / থানা লিখুন বা নির্বাচন করুন">
-            <datalist id="Per_PS_List"></datalist>
+            <div class="address-field">
+                <input type="text" id="Per_PS" placeholder="Per. PS / থানা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showThanaSuggestions('Per_Dist','Per_PS')" onfocus="showThanaSuggestions('Per_Dist','Per_PS')">
+                <div id="Per_PS_Suggestions" class="autocomplete-list hidden"></div>
+            </div>
             <input type="text" id="Per_PS_Other" class="hidden">
         </div>
     </div>
@@ -152,11 +180,15 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         <div class="menu">
             <input type="text" id="Pre_Vill" placeholder="Pre. Vill / গ্রাম">
             <input type="text" id="Pre_PO" placeholder="Pre. PO / পোস্ট অফিস">
-            <input type="text" id="Pre_Dist" list="Pre_Dist_List" placeholder="Pre. Dist / জেলা লিখুন বা নির্বাচন করুন" oninput="updateThanaDropdown('Pre_Dist','Pre_PS','Pre_Dist_Other','Pre_PS_Other')">
-            <datalist id="Pre_Dist_List"></datalist>
+            <div class="address-field">
+                <input type="text" id="Pre_Dist" placeholder="Pre. Dist / জেলা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showDistrictSuggestions('Pre_Dist','Pre_PS')" onfocus="showDistrictSuggestions('Pre_Dist','Pre_PS')">
+                <div id="Pre_Dist_Suggestions" class="autocomplete-list hidden"></div>
+            </div>
             <input type="text" id="Pre_Dist_Other" class="hidden">
-            <input type="text" id="Pre_PS" list="Pre_PS_List" placeholder="Pre. PS / থানা লিখুন বা নির্বাচন করুন">
-            <datalist id="Pre_PS_List"></datalist>
+            <div class="address-field">
+                <input type="text" id="Pre_PS" placeholder="Pre. PS / থানা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showThanaSuggestions('Pre_Dist','Pre_PS')" onfocus="showThanaSuggestions('Pre_Dist','Pre_PS')">
+                <div id="Pre_PS_Suggestions" class="autocomplete-list hidden"></div>
+            </div>
             <input type="text" id="Pre_PS_Other" class="hidden">
         </div>
     </div>
@@ -617,16 +649,7 @@ async function loadDistrictsFromSupabase(){
 }
 
 async function populateDistrictDropdown(inputId){
-    const input = document.getElementById(inputId);
-    const list = document.getElementById(inputId + "_List");
-    if(!input || !list) return;
-
-    const districts = await loadDistrictsFromSupabase();
-    list.innerHTML = "";
-
-    districts.forEach(d => {
-        list.innerHTML += `<option value="${d.district_name}"></option>`;
-    });
+    await loadDistrictsFromSupabase();
 }
 
 function toggleAddressOther(selectId, otherId){
@@ -658,25 +681,102 @@ async function loadThanasFromSupabase(districtId){
 async function updateThanaDropdown(distId, psId, distOtherId, psOtherId){
     const distInput = document.getElementById(distId);
     const psInput = document.getElementById(psId);
-    const psList = document.getElementById(psId + "_List");
 
-    if(!distInput || !psInput || !psList) return;
+    if(!distInput || !psInput) return;
 
     const districtName = distInput.value.trim();
     const districts = await loadDistrictsFromSupabase();
     const foundDistrict = districts.find(d => d.district_name === districtName);
 
-    psList.innerHTML = "";
-    psInput.value = "";
+    if(!foundDistrict){
+        psInput.value = "";
+        return;
+    }
 
-    if(!foundDistrict) return;
+    await loadThanasFromSupabase(foundDistrict.id);
+}
 
-    const thanas = await loadThanasFromSupabase(foundDistrict.id);
 
-    thanas.forEach(t => {
-        psList.innerHTML += `<option value="${t.thana_name}"></option>`;
+function hideAutocompleteLists(){
+    document.querySelectorAll(".autocomplete-list").forEach(el => el.classList.add("hidden"));
+}
+
+function renderSuggestionList(listId, items, onPick){
+    const list = document.getElementById(listId);
+    if(!list) return;
+
+    list.innerHTML = "";
+
+    if(!items.length){
+        list.classList.add("hidden");
+        return;
+    }
+
+    items.slice(0, 200).forEach(item => {
+        const div = document.createElement("div");
+        div.className = "autocomplete-item";
+        div.textContent = item.label;
+        div.onclick = function(){
+            onPick(item);
+            list.classList.add("hidden");
+        };
+        list.appendChild(div);
+    });
+
+    list.classList.remove("hidden");
+}
+
+async function showDistrictSuggestions(distId, psId){
+    const input = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+    if(!input) return;
+
+    const districts = await loadDistrictsFromSupabase();
+    const q = input.value.trim().toLowerCase();
+
+    const matched = districts
+    .filter(d => !q || String(d.district_name || "").toLowerCase().includes(q))
+    .map(d => ({label:d.district_name, row:d}));
+
+    renderSuggestionList(distId + "_Suggestions", matched, function(item){
+        input.value = item.label;
+        if(psInput) psInput.value = "";
+        updateThanaDropdown(distId, psId, "", "");
+        setTimeout(() => showThanaSuggestions(distId, psId), 80);
     });
 }
+
+async function showThanaSuggestions(distId, psId){
+    const distInput = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+    if(!distInput || !psInput) return;
+
+    const districts = await loadDistrictsFromSupabase();
+    const foundDistrict = districts.find(d => d.district_name === distInput.value.trim());
+
+    if(!foundDistrict){
+        renderSuggestionList(psId + "_Suggestions", [], function(){});
+        return;
+    }
+
+    const thanas = await loadThanasFromSupabase(foundDistrict.id);
+    const q = psInput.value.trim().toLowerCase();
+
+    const matched = thanas
+    .filter(t => !q || String(t.thana_name || "").toLowerCase().includes(q))
+    .map(t => ({label:t.thana_name, row:t}));
+
+    renderSuggestionList(psId + "_Suggestions", matched, function(item){
+        psInput.value = item.label;
+    });
+}
+
+document.addEventListener("click", function(e){
+    if(!e.target.closest(".address-field")){
+        hideAutocompleteLists();
+    }
+});
+
 
 function getAddressValue(inputId, otherId){
     const input = document.getElementById(inputId);
@@ -1592,6 +1692,24 @@ function syncHiddenDates(){
     if(join) join.value = getDateDropdownValue("JOIN");
 }
 
+
+function normalizePortalDate(value){
+    if(!value) return "";
+    value = String(value).trim();
+
+    if(/^\d{2}-[A-Za-z]{3}-\d{4}$/.test(value)){
+        const p = value.split("-");
+        return `${p[0]}-${p[1].charAt(0).toUpperCase() + p[1].slice(1,3).toLowerCase()}-${p[2]}`;
+    }
+
+    if(/^\d{4}-\d{2}-\d{2}$/.test(value)){
+        const p = value.split("-");
+        return `${p[2]}-${shortMonths[Number(p[1]) - 1] || p[1]}-${p[0]}`;
+    }
+
+    return value;
+}
+
 function getNewJoinFormData(){
     return {
         Name_English: document.getElementById("Name_English").value.trim(),
@@ -1608,8 +1726,8 @@ function getNewJoinFormData(){
         Pre_PO: document.getElementById("Pre_PO").value.trim(),
         Pre_PS: getAddressValue("Pre_PS","Pre_PS_Other"),
         Pre_Dist: getAddressValue("Pre_Dist","Pre_Dist_Other"),
-        Date_Of_Birth: getDateDropdownValue("DOB"),
-        Joining_Date: getDateDropdownValue("JOIN"),
+        Date_Of_Birth: normalizePortalDate(getDateDropdownValue("DOB")),
+        Joining_Date: normalizePortalDate(getDateDropdownValue("JOIN")),
         Religion: document.getElementById("Religion").value,
         Mobile_No: document.getElementById("Mobile_No").value.trim(),
         Emergency_Name: document.getElementById("Emergency_Name").value.trim(),
@@ -2148,8 +2266,8 @@ function printBasicForm(data){
 
     const v = (obj, key) => (obj && obj[key] !== undefined && obj[key] !== null) ? String(obj[key]) : "";
 
-    const joiningDate = v(data,"Joining_Date");
-    const dob = v(data,"Date_Of_Birth");
+    const joiningDate = normalizePortalDate(v(data,"Joining_Date"));
+    const dob = normalizePortalDate(v(data,"Date_Of_Birth"));
     const post = v(data,"Applied_Post");
     const section = v(data,"Section_Name");
 
@@ -2169,13 +2287,13 @@ function printBasicForm(data){
 *{box-sizing:border-box;}
 body{font-family:Arial,sans-serif;margin:0;color:#000;}
 .page{width:100%;min-height:280mm;position:relative;padding:0 8mm 8mm 8mm;}
-.header{text-align:center;border-bottom:1px solid #000;padding-bottom:4px;}
+.header{text-align:center;border-bottom:1px solid #000;padding-bottom:4px;position:relative;}
 .header h2{font-size:17px;margin:0;font-weight:bold;}
 .header p{font-size:10px;margin:2px 0;}
 .form-title{font-size:18px;font-weight:bold;text-decoration:underline;margin-top:2px;}
 .top-info{display:grid;grid-template-columns:1fr 1fr;gap:8mm;margin-top:8px;font-size:12px;font-weight:bold;}
 .top-info div{border-bottom:1px dotted #000;padding-bottom:2px;}
-.section-top{text-align:right;font-size:13px;font-weight:bold;margin-top:4px;}
+.section-top{position:absolute;right:0;bottom:4px;font-size:13px;font-weight:bold;text-align:right;min-width:48mm;}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 8mm;margin-top:6px;}
 .row{display:flex;align-items:flex-end;font-size:11px;min-height:20px;margin-bottom:2px;}
 .label{font-weight:bold;white-space:nowrap;margin-right:4px;}
@@ -2183,11 +2301,11 @@ body{font-family:Arial,sans-serif;margin:0;color:#000;}
 .box{border:1px solid #000;margin-top:4px;padding:4px;}
 .box-title{text-align:center;font-weight:bold;font-size:12px;margin-bottom:2px;}
 .addr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;}
-.salary-line{font-size:11px;margin-top:28px;line-height:1.6;}
+.salary-line{font-size:11px;margin-top:24px;line-height:1.6;}
 .salary-line span{display:inline-block;border-bottom:1px dotted #000;min-width:28mm;text-align:center;font-weight:bold;}
-.signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:8mm;margin-top:34px;text-align:center;font-size:11px;}
+.signatures{display:grid;grid-template-columns:repeat(4,1fr);gap:8mm;margin-top:26px;text-align:center;font-size:11px;}
 .signatures div{border-top:1px solid #000;padding-top:5px;}
-.form-sl{position:absolute;left:8mm;bottom:5mm;font-size:9px;color:#555;}
+.form-sl{position:absolute;left:8mm;bottom:5mm;font-size:8px;color:#555;}
 @media print{button{display:none;}}
 </style>
 </head>
@@ -2197,13 +2315,11 @@ body{font-family:Arial,sans-serif;margin:0;color:#000;}
         <h2>A&O Apparels (Pvt.) Ltd.</h2>
         <p>256, Boktaboli Ferighat Road, Fatulla, Narayanganj</p>
         <div class="form-title">প্রাথমিক যাচাই ফরম</div>
-    </div>
-
-    <div class="top-info">
+        <div class="section-top">সেকশন: ${section}</div>
+    </div>    <div class="top-info">
         <div>যোগদানের তারিখ: ${joiningDate}</div>
         <div>যে পদের জন্য আবেদন: ${post}</div>
     </div>
-    <div class="section-top">সেকশন: ${section}</div>
 
     <div class="grid">
         <div class="row"><span class="label">Name (English):</span><span class="value">${v(data,"Name_English")}</span></div>
