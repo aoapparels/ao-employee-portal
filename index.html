@@ -82,6 +82,132 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 .status{padding:10px;border-radius:8px;background:#eef6ff;margin-top:10px;line-height:1.5;}
 .success{background:#e8f5e9;}
 .error{background:#ffebee;}
+
+/* Staff ID Card Generate */
+.staff-id-row{
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    gap:10px;
+    align-items:end;
+    background:#f7fbff;
+    border:1px solid #d6e6ff;
+    padding:12px;
+    border-radius:12px;
+    margin-top:10px;
+}
+.staff-id-row button{width:auto;padding:10px 14px;}
+.id-preview-list{margin-top:15px;}
+.id-chip{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    padding:10px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    margin-top:8px;
+    background:#fff;
+}
+.id-chip img{width:40px;height:46px;object-fit:cover;border:1px solid #aaa;}
+.id-card-page{
+    width:210mm;
+    min-height:297mm;
+    padding:8mm;
+    background:#fff;
+    margin:0 auto;
+    page-break-after:always;
+}
+.id-card-sheet{
+    display:flex;
+    flex-direction:column;
+    gap:5mm;
+}
+.staff-id-card{
+    width:194mm;
+    height:52mm;
+    border:1.5px solid #111;
+    border-radius:7px;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns:58mm 1fr;
+    background:white;
+    font-family:Arial,sans-serif;
+}
+.staff-id-left{
+    background:#0b5394;
+    color:white;
+    padding:5mm 3mm;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+.staff-id-left img.logo-small{
+    width:18mm;
+    height:18mm;
+    object-fit:contain;
+    background:white;
+    border-radius:50%;
+    padding:1mm;
+    margin-bottom:2mm;
+}
+.staff-id-left .company-name{
+    font-size:14px;
+    font-weight:bold;
+    line-height:1.1;
+}
+.staff-id-left .id-title{
+    font-size:12px;
+    margin-top:2mm;
+    background:white;
+    color:#0b5394;
+    padding:1mm 3mm;
+    border-radius:10px;
+    font-weight:bold;
+}
+.staff-id-right{
+    padding:4mm;
+    display:grid;
+    grid-template-columns:30mm 1fr;
+    gap:4mm;
+    align-items:start;
+}
+.staff-photo{
+    width:29mm;
+    height:35mm;
+    object-fit:cover;
+    border:1.5px solid #222;
+}
+.staff-info h2{
+    margin:0 0 2mm 0;
+    text-align:left;
+    color:#0b5394;
+    font-size:16px;
+    border-bottom:1px solid #0b5394;
+    padding-bottom:1mm;
+}
+.staff-info p{
+    margin:1mm 0;
+    font-size:11px;
+    line-height:1.25;
+}
+.staff-info b{display:inline-block;width:23mm;}
+.staff-sign{
+    margin-top:2mm;
+    display:flex;
+    justify-content:flex-end;
+    font-size:10px;
+}
+@media print{
+    body{background:white!important;padding:0!important;}
+    body *{visibility:hidden;}
+    #staffIdPrintArea, #staffIdPrintArea *{visibility:visible;}
+    #staffIdPrintArea{position:absolute;left:0;top:0;width:100%;}
+    .id-card-page{margin:0;box-shadow:none;page-break-after:always;}
+    @page{size:A4;margin:0;}
+}
+
 </style>
 </head>
 
@@ -380,6 +506,10 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 
         <button class="green" onclick="showApprovedApplicationsPanel()" style="margin-top:15px;">
             Approved List
+        </button>
+
+        <button class="purple" onclick="showStaffIdGeneratePanel()" style="margin-top:15px;">
+            Staff ID Generate
         </button>
 
         <button class="red" onclick="removeAllApprovedApplications()" style="margin-top:15px;">
@@ -2219,6 +2349,224 @@ document.addEventListener("keypress", function(event){
 });
 
 goHome();
+
+let staffIdItems = [];
+
+function getEmployeeField(row, keys){
+    for(const k of keys){
+        if(row && row[k] !== undefined && row[k] !== null && String(row[k]).trim() !== ""){
+            return String(row[k]).trim();
+        }
+    }
+    return "";
+}
+
+function showStaffIdGeneratePanel(){
+    staffIdItems = [];
+    document.getElementById("adminView").innerHTML = `
+        <h3>Staff ID Generate</h3>
+        <p class="small-note">
+            Employee ID লিখে photo upload দাও, তারপর Add New চাপো। একসাথে যতগুলো add করবে, Generate ID Card চাপলে A4 page এ প্রতি page এ maximum 5টা ID card হবে।
+        </p>
+
+        <div class="staff-id-row">
+            <div>
+                <label><b>Employee ID</b></label>
+                <input type="text" id="staffIdEmployeeId" placeholder="Example: OS00002">
+            </div>
+            <div>
+                <label><b>Photo Upload</b></label>
+                <input type="file" id="staffIdPhotoFile" accept="image/*">
+            </div>
+            <button class="green" onclick="addStaffIdItem()">Add New</button>
+        </div>
+
+        <button class="orange" onclick="generateStaffIdCards()" style="margin-top:15px;">
+            Generate ID Card
+        </button>
+
+        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+            Back
+        </button>
+
+        <div id="staffIdStatus" class="status">Employee ID দিয়ে শুরু করুন।</div>
+        <div id="staffIdList" class="id-preview-list"></div>
+        <div id="staffIdPrintArea"></div>
+    `;
+}
+
+function setStaffIdStatus(msg, type=""){
+    const el = document.getElementById("staffIdStatus");
+    if(el){
+        el.className = "status" + (type ? " " + type : "");
+        el.innerHTML = msg;
+    }
+}
+
+function readPhotoAsDataUrl(file){
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
+async function addStaffIdItem(){
+    const empInput = document.getElementById("staffIdEmployeeId");
+    const photoInput = document.getElementById("staffIdPhotoFile");
+
+    const employeeId = (empInput.value || "").trim().toUpperCase();
+    const photoFile = photoInput.files[0];
+
+    if(!employeeId){
+        alert("Employee ID লিখো");
+        return;
+    }
+
+    if(!photoFile){
+        alert("Photo upload দাও");
+        return;
+    }
+
+    if(staffIdItems.length && staffIdItems.some(x => String(x.employeeId).toUpperCase() === employeeId)){
+        alert("এই Employee ID আগে add করা হয়েছে");
+        return;
+    }
+
+    setStaffIdStatus("Employee data loading...");
+
+    const { data, error } = await supabaseClient
+    .from("Employee_Info")
+    .select("*")
+    .eq("Employee_ID", employeeId)
+    .maybeSingle();
+
+    if(error){
+        console.log(error);
+        setStaffIdStatus("Employee data load failed: " + error.message, "error");
+        return;
+    }
+
+    if(!data){
+        setStaffIdStatus("Employee ID পাওয়া যায়নি: " + employeeId, "error");
+        return;
+    }
+
+    const photoDataUrl = await readPhotoAsDataUrl(photoFile);
+
+    staffIdItems.push({
+        employeeId,
+        data,
+        photoDataUrl
+    });
+
+    empInput.value = "";
+    photoInput.value = "";
+
+    renderStaffIdList();
+    setStaffIdStatus(`Added ${employeeId}. Total: ${staffIdItems.length}`, "success");
+}
+
+function renderStaffIdList(){
+    const list = document.getElementById("staffIdList");
+    if(!list) return;
+
+    if(!staffIdItems.length){
+        list.innerHTML = "";
+        return;
+    }
+
+    list.innerHTML = staffIdItems.map((item, index) => {
+        const name = getEmployeeField(item.data, ["Name_OF_Employee","Name_Of_Employee","Name_English","Employee_Name","Name"]);
+        const designation = getEmployeeField(item.data, ["Designation","Designation_Name","Applied_Post","Post","Section"]);
+        return `
+            <div class="id-chip">
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <img src="${item.photoDataUrl}">
+                    <div>
+                        <b>${index + 1}. ${item.employeeId}</b><br>
+                        ${name || "-"}<br>
+                        <small>${designation || ""}</small>
+                    </div>
+                </div>
+                <button class="red" onclick="removeStaffIdItem(${index})">Remove</button>
+            </div>
+        `;
+    }).join("");
+}
+
+function removeStaffIdItem(index){
+    staffIdItems.splice(index, 1);
+    renderStaffIdList();
+    setStaffIdStatus(`Total: ${staffIdItems.length}`);
+}
+
+function buildStaffIdCard(item){
+    const r = item.data || {};
+    const name = getEmployeeField(r, ["Name_OF_Employee","Name_Of_Employee","Name_English","Employee_Name","Name"]);
+    const designation = getEmployeeField(r, ["Designation","Designation_Name","Applied_Post","Post","Job_Title"]);
+    const section = getEmployeeField(r, ["Section","Section_Name","Department","Dept"]);
+    const blood = getEmployeeField(r, ["Blood_Group","Blood_Grp","Blood"]);
+    const joining = getEmployeeField(r, ["Joining_Date","Date_OF_Joining","Date_Of_Joining","DOJ"]);
+    const mobile = getEmployeeField(r, ["Mobile_No","Mobile","Phone"]);
+    const nid = getEmployeeField(r, ["NID_Birth","NID","National_ID"]);
+
+    return `
+        <div class="staff-id-card">
+            <div class="staff-id-left">
+                <img class="logo-small" src="logo.jpeg">
+                <div class="company-name">A&O Apparels<br>(Pvt.) Ltd.</div>
+                <div class="id-title">STAFF ID CARD</div>
+            </div>
+            <div class="staff-id-right">
+                <img class="staff-photo" src="${item.photoDataUrl}">
+                <div class="staff-info">
+                    <h2>${name || "-"}</h2>
+                    <p><b>ID No</b>: ${item.employeeId || "-"}</p>
+                    <p><b>Designation</b>: ${designation || "-"}</p>
+                    <p><b>Section</b>: ${section || "-"}</p>
+                    <p><b>Joining</b>: ${joining || "-"}</p>
+                    <p><b>Blood</b>: ${blood || "-"}</p>
+                    <p><b>Mobile</b>: ${mobile || "-"}</p>
+                    <p><b>NID</b>: ${nid || "-"}</p>
+                    <div class="staff-sign">Authorized Signature</div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function generateStaffIdCards(){
+    if(!staffIdItems.length){
+        alert("আগে Employee ID + Photo add করো");
+        return;
+    }
+
+    let pages = [];
+
+    for(let i = 0; i < staffIdItems.length; i += 5){
+        const group = staffIdItems.slice(i, i + 5);
+        pages.push(`
+            <div class="id-card-page">
+                <div class="id-card-sheet">
+                    ${group.map(buildStaffIdCard).join("")}
+                </div>
+            </div>
+        `);
+    }
+
+    const printArea = document.getElementById("staffIdPrintArea");
+    printArea.innerHTML = pages.join("");
+
+    setStaffIdStatus(`
+        ID Card ready. Total ${staffIdItems.length} card, ${pages.length} page.<br>
+        <button class="green" onclick="window.print()">Print / Save PDF</button>
+    `, "success");
+
+    setTimeout(() => window.print(), 400);
+}
+
 </script>
 
 <div style="text-align:center; margin-top:20px;">
