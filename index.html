@@ -2270,6 +2270,7 @@ function printBasicForm(data){
     const dob = normalizePortalDate(v(data,"Date_Of_Birth"));
     const post = v(data,"Applied_Post");
     const section = v(data,"Section_Name");
+    const mobileNo = v(data,"Mobile_No") || v(data,"Mobile") || v(data,"mobile_no") || v(data,"MobileNo") || v(data,"Contact_No");
 
     const showChildren = (v(data,"Marital_Status") === "Married") && (v(data,"Son_Children") || v(data,"Daughter_Children"));
     const childLine = showChildren ? `
@@ -2295,6 +2296,7 @@ body{font-family:Arial,sans-serif;margin:0;color:#000;}
 .top-info div{border-bottom:1px dotted #000;padding-bottom:2px;}
 .section-top{position:absolute;right:0;bottom:4px;font-size:13px;font-weight:bold;text-align:right;min-width:48mm;}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 8mm;margin-top:6px;}
+.full-row{grid-column:1 / -1;}
 .row{display:flex;align-items:flex-end;font-size:11px;min-height:20px;margin-bottom:2px;}
 .label{font-weight:bold;white-space:nowrap;margin-right:4px;}
 .value{flex:1;border-bottom:1px dotted #000;min-height:14px;padding-left:4px;}
@@ -2328,7 +2330,7 @@ body{font-family:Arial,sans-serif;margin:0;color:#000;}
         <div class="row"><span class="label">মাতার নাম:</span><span class="value">${v(data,"Mother_Name")}</span></div>
         <div class="row"><span class="label">স্বামী/স্ত্রীর নাম:</span><span class="value">${v(data,"Spouse_Name")}</span></div>
         <div class="row"><span class="label">প্রযত্নে:</span><span class="value">${v(data,"Care_Of")}</span></div>
-        <div class="row"><span class="label">মোবাইল নং:</span><span class="value">${v(data,"Mobile_No")}</span></div>
+        <div class="row full-row"><span class="label">মোবাইল নং:</span><span class="value">${mobileNo}</span></div>
     </div>
 
     <div class="box">
