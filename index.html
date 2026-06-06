@@ -290,14 +290,49 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     <div class="box">
         <h3>শনাক্তকারীর বিবরণ</h3>
         <input type="text" id="Reference_Name" placeholder="শনাক্তকারীর নাম">
-        <input type="text" id="Reference_Relation" placeholder="শনাক্তকারীর সাথে সম্পর্ক">
+        <select id="Reference_Relation">
+            <option value="">শনাক্তকারীর সাথে সম্পর্ক নির্বাচন করুন</option>
+            <option value="চাচা">চাচা</option>
+            <option value="মামা">মামা</option>
+            <option value="খালা">খালা</option>
+            <option value="দেবর">দেবর</option>
+            <option value="ভাসুর">ভাসুর</option>
+            <option value="ভাবী">ভাবী</option>
+            <option value="ফুফু">ফুফু</option>
+            <option value="মামি">মামি</option>
+            <option value="দুলাভাই">দুলাভাই</option>
+            <option value="খালাতো বোন">খালাতো বোন</option>
+            <option value="খালাতো ভাই">খালাতো ভাই</option>
+            <option value="চাচাতো ভাই">চাচাতো ভাই</option>
+            <option value="মামাতো ভাই">মামাতো ভাই</option>
+            <option value="বন্ধু">বন্ধু</option>
+            <option value="বাড়িওয়ালা">বাড়িওয়ালা</option>
+            <option value="সহকর্মী">সহকর্মী</option>
+            <option value="ননদ">ননদ</option>
+            <option value="স্থানীয় চেয়ারম্যান">স্থানীয় চেয়ারম্যান</option>
+            <option value="স্থানীয় মেম্বার">স্থানীয় মেম্বার</option>
+            <option value="Other">Other</option>
+        </select>
+        <input type="text" id="Reference_Relation_Other" placeholder="অন্যান্য সম্পর্ক লিখুন" class="hidden">
         <input type="text" id="Reference_Mobile" placeholder="শনাক্তকারীর মোবাইল" maxlength="11" oninput="digitsOnly(this,11)">
     </div>
 
     <div class="box">
         <h3>জরুরী যোগাযোগ</h3>
         <input type="text" id="Emergency_Name" placeholder="জরুরী যোগাযোগের নাম">
-        <input type="text" id="Emergency_Relation" placeholder="সম্পর্ক">
+        <select id="Emergency_Relation">
+            <option value="">সম্পর্ক নির্বাচন করুন</option>
+            <option value="বাবা">বাবা</option>
+            <option value="মা">মা</option>
+            <option value="ভাই">ভাই</option>
+            <option value="বোন">বোন</option>
+            <option value="স্বামী">স্বামী</option>
+            <option value="স্ত্রী">স্ত্রী</option>
+            <option value="ছেলে">ছেলে</option>
+            <option value="মেয়ে">মেয়ে</option>
+            <option value="Other">Other</option>
+        </select>
+        <input type="text" id="Emergency_Relation_Other" placeholder="অন্যান্য সম্পর্ক লিখুন" class="hidden">
         <input type="text" id="Emergency_Mobile" placeholder="মোবাইল নম্বর" maxlength="11" oninput="digitsOnly(this,11)">
     </div>
 
@@ -306,6 +341,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         <select id="Skill_Experience">
             <option value="">Skill Experience নির্বাচন করুন</option>
             <option value="Fresher">Fresher</option>
+            <option value="Below 1 Year">Below 1 Year</option>
             <option value="1 Year">1 Year</option>
             <option value="2 Year">2 Year</option>
             <option value="3 Year">3 Year</option>
@@ -543,8 +579,12 @@ function showNewJoinApplication(){
     toggleOtherField("Applied_Post","Applied_Post_Other");
     toggleOtherField("Section_Name","Section_Name_Other");
     toggleOtherField("Unit_Name","Unit_Name_Other");
+    toggleOtherField("Reference_Relation","Reference_Relation_Other");
+    toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
     initDateDropdowns();
     initAddressDropdowns();
+    toggleOtherField("Reference_Relation","Reference_Relation_Other");
+    toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
 }
 
 function showSubmittedFormSearch(){
@@ -844,6 +884,8 @@ document.addEventListener("DOMContentLoaded", function(){
     toggleOtherField("Applied_Post","Applied_Post_Other");
     toggleOtherField("Section_Name","Section_Name_Other");
     toggleOtherField("Unit_Name","Unit_Name_Other");
+    toggleOtherField("Reference_Relation","Reference_Relation_Other");
+    toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
     toggleChildrenFields();
 });
 
@@ -852,6 +894,8 @@ document.addEventListener("change", function(){
     toggleOtherField("Applied_Post","Applied_Post_Other");
     toggleOtherField("Section_Name","Section_Name_Other");
     toggleOtherField("Unit_Name","Unit_Name_Other");
+    toggleOtherField("Reference_Relation","Reference_Relation_Other");
+    toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
     toggleChildrenFields();
 });
 
@@ -1731,7 +1775,7 @@ function getNewJoinFormData(){
         Religion: document.getElementById("Religion").value,
         Mobile_No: document.getElementById("Mobile_No").value.trim(),
         Emergency_Name: document.getElementById("Emergency_Name").value.trim(),
-        Emergency_Relation: document.getElementById("Emergency_Relation").value.trim(),
+        Emergency_Relation: getDropdownValue("Emergency_Relation","Emergency_Relation_Other"),
         Emergency_Mobile: document.getElementById("Emergency_Mobile").value.trim(),
         NID_Birth: document.getElementById("NID_Birth").value.trim(),
         Weight: document.getElementById("Weight").value.trim(),
@@ -1744,7 +1788,7 @@ function getNewJoinFormData(){
         Identification_Mark: document.getElementById("Identification_Mark").value.trim(),
         Reference_Name: document.getElementById("Reference_Name").value.trim(),
         Reference_Mobile: document.getElementById("Reference_Mobile").value.trim(),
-        Reference_Relation: document.getElementById("Reference_Relation").value.trim(),
+        Reference_Relation: getDropdownValue("Reference_Relation","Reference_Relation_Other"),
         Skill_Experience: document.getElementById("Skill_Experience").value,
         Previous_Factory: document.getElementById("Previous_Factory").value.trim(),
         Unit_Name: getDropdownValue("Unit_Name","Unit_Name_Other"),
@@ -1862,7 +1906,7 @@ function clearNewJoinForm(){
         "Per_Vill","Per_PO","Per_PS","Per_PS_Other","Per_Dist","Per_Dist_Other","Pre_Vill","Pre_PO","Pre_PS","Pre_PS_Other","Pre_Dist","Pre_Dist_Other",
         "Date_Of_Birth","Joining_Date","DOB_Day","DOB_Month","DOB_Year","JOIN_Day","JOIN_Month","JOIN_Year","Religion","Mobile_No","NID_Birth","Weight","Height",
         "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Education_Other","Identification_Mark",
-        "Reference_Name","Reference_Mobile","Reference_Relation","Emergency_Name","Emergency_Relation","Emergency_Mobile",
+        "Reference_Name","Reference_Mobile","Reference_Relation","Reference_Relation_Other","Emergency_Name","Emergency_Relation","Emergency_Relation_Other","Emergency_Mobile",
         "Skill_Experience","Previous_Factory","Unit_Name","Unit_Name_Other","Applied_Post","Applied_Post_Other","Section_Name","Section_Name_Other","Machine_Skill"
     ];
     ids.forEach(id => {
@@ -1881,7 +1925,7 @@ function fillNewJoinForm(data){
         "Per_Vill","Per_PO","Per_PS","Per_PS_Other","Per_Dist","Per_Dist_Other","Pre_Vill","Pre_PO","Pre_PS","Pre_PS_Other","Pre_Dist","Pre_Dist_Other",
         "Date_Of_Birth","Joining_Date","DOB_Day","DOB_Month","DOB_Year","JOIN_Day","JOIN_Month","JOIN_Year","Religion","Mobile_No","NID_Birth","Weight","Height",
         "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Education_Other","Identification_Mark",
-        "Reference_Name","Reference_Mobile","Reference_Relation","Emergency_Name","Emergency_Relation","Emergency_Mobile",
+        "Reference_Name","Reference_Mobile","Reference_Relation","Reference_Relation_Other","Emergency_Name","Emergency_Relation","Emergency_Relation_Other","Emergency_Mobile",
         "Skill_Experience","Previous_Factory","Unit_Name","Unit_Name_Other","Applied_Post","Applied_Post_Other","Section_Name","Section_Name_Other","Machine_Skill"
     ];
     ids.forEach(id => {
@@ -1903,6 +1947,8 @@ function fillNewJoinForm(data){
     setDropdownOrOther("Applied_Post","Applied_Post_Other", data.Applied_Post || "");
     setDropdownOrOther("Section_Name","Section_Name_Other", data.Section_Name || "");
     setDropdownOrOther("Unit_Name","Unit_Name_Other", data.Unit_Name || "");
+    setDropdownOrOther("Reference_Relation","Reference_Relation_Other", data.Reference_Relation || "");
+    setDropdownOrOther("Emergency_Relation","Emergency_Relation_Other", data.Emergency_Relation || "");
 }
 
 function setDropdownOrOther(selectId, otherInputId, value){
