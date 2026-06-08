@@ -2417,6 +2417,10 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 .mobile-account-row{margin-top:5px;font-size:20px;font-weight:900;line-height:1.35;}
 .mobile-account-row .label{font-size:20px;font-weight:900;color:#0b376d;}
 .mobile-account-row .value{font-size:22px;font-weight:900;border-bottom:1.5px dotted #000;letter-spacing:.5px;}
+.big-pdf-value{font-size:22px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;}
+.big-pdf-value.value{border-bottom:1.5px dotted #000!important;letter-spacing:.2px;}
+.applied-post-top{font-size:22px;font-weight:900;color:#000;line-height:1;white-space:nowrap;display:inline-block;max-width:70mm;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;}
+.salary-post-big{font-size:22px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;min-width:42mm!important;}
 .addr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;}
 .salary-line{font-size:11.5px;margin-top:42px;line-height:2.8;background:#fffdf2;border:1px solid #e1c878;border-radius:6px;padding:13px 10px 10px 10px;min-height:24mm;}
 .salary-line span{display:inline-block;border-bottom:1px dotted #000;min-width:42mm;text-align:center;font-weight:bold;min-height:7mm;}
@@ -2438,11 +2442,11 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
         <div class="section-center"><span class="section-label">সেকশন:</span> <span class="section-value">${section}</span></div>
     </div>    <div class="top-info">
         <div><span class="join-label">যোগদানের তারিখ:</span> <span class="join-date-value">${joiningDate}</span></div>
-        <div>যে পদের জন্য আবেদন: ${post}</div>
+        <div><span class="join-label">যে পদের জন্য আবেদন:</span> <span class="applied-post-top">${post}</span></div>
     </div>
 
     <div class="grid">
-        <div class="row"><span class="label">Name (English):</span><span class="value">${v(data,"Name_English")}</span></div>
+        <div class="row"><span class="label">Name (English):</span><span class="value big-pdf-value">${v(data,"Name_English")}</span></div>
         <div class="row"><span class="label">কর্মীর নাম:</span><span class="value">${v(data,"Employee_Name")}</span></div>
         <div class="row"><span class="label">পিতার নাম:</span><span class="value">${v(data,"Father_Name")}</span></div>
         <div class="row"><span class="label">মাতার নাম:</span><span class="value">${v(data,"Mother_Name")}</span></div>
@@ -2515,7 +2519,7 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
     <div class="salary-line">
         শ্রমিকের সম্পূর্ণ যোগ্যতা ও দক্ষতা বিবেচনা করিয়া তাহাকে মাসিক
         <span></span> টাকা বেতনে
-        <span>${post}</span> পদে নিয়োগ দেওয়া জন্য সুপারিশ করিলাম।
+        <span class="salary-post-big">${post}</span> পদে নিয়োগ দেওয়া জন্য সুপারিশ করিলাম।
     </div>
 
     <div class="signatures">
