@@ -877,9 +877,43 @@ async function initAddressDropdowns(){
 }
 
 
+function enableEnterToNextFieldInNewJoinForm(){
+    const formPage = document.getElementById("newJoinApplicationPage");
+    if(!formPage) return;
+
+    formPage.addEventListener("keydown", function(e){
+        if(e.key !== "Enter") return;
+
+        const current = e.target;
+
+        // Textarea তে Enter দিলে new line হবে, next field যাবে না
+        if(current.tagName === "TEXTAREA") return;
+
+        // Button এ Enter দিলে normal button কাজ করবে
+        if(current.tagName === "BUTTON") return;
+
+        const fields = Array.from(
+            formPage.querySelectorAll("input, select, textarea")
+        ).filter(field => {
+            return !field.disabled &&
+                   field.type !== "hidden" &&
+                   !field.classList.contains("hidden") &&
+                   field.offsetParent !== null;
+        });
+
+        const index = fields.indexOf(current);
+
+        if(index > -1 && index < fields.length - 1){
+            e.preventDefault();
+            fields[index + 1].focus();
+        }
+    });
+}
+
 document.addEventListener("DOMContentLoaded", function(){
     initDateDropdowns();
     initAddressDropdowns();
+    enableEnterToNextFieldInNewJoinForm();
     toggleOtherField("Education","Education_Other");
     toggleOtherField("Applied_Post","Applied_Post_Other");
     toggleOtherField("Section_Name","Section_Name_Other");
