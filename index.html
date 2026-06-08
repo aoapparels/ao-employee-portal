@@ -217,11 +217,11 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         </div>
         <select id="Religion">
             <option value="">ধর্ম নির্বাচন করুন</option>
-            <option value="Islam">Islam</option>
-            <option value="Hindu">Hindu</option>
-            <option value="Buddhist">Buddhist</option>
-            <option value="Christian">Christian</option>
-            <option value="Others">Others</option>
+            <option value="ইসলাম">ইসলাম</option>
+            <option value="হিন্দু">হিন্দু</option>
+            <option value="বৌদ্ধ">বৌদ্ধ</option>
+            <option value="খ্রিস্টান">খ্রিস্টান</option>
+            <option value="অন্যান্য">অন্যান্য</option>
         </select>
         <input type="text" id="Mobile_No" placeholder="মোবাইল নম্বর (নিজ) - max 12 digit" maxlength="12" oninput="digitsOnly(this,12)">
         <input type="text" id="NID_Birth" placeholder="NID / জন্ম নিবন্ধন নম্বর">
@@ -1788,6 +1788,31 @@ function normalizePortalDate(value){
     return value;
 }
 
+
+function normalizeReligionText(value){
+    value = String(value || "").trim();
+    const map = {
+        "Islam":"ইসলাম",
+        "Hindu":"হিন্দু",
+        "Buddhist":"বৌদ্ধ",
+        "Christian":"খ্রিস্টান",
+        "Others":"অন্যান্য",
+        "Other":"অন্যান্য",
+        "ইসলাম":"ইসলাম",
+        "হিন্দু":"হিন্দু",
+        "বৌদ্ধ":"বৌদ্ধ",
+        "খ্রিস্টান":"খ্রিস্টান",
+        "অন্যান্য":"অন্যান্য"
+    };
+    return map[value] || value;
+}
+
+function setReligionField(value){
+    const el = document.getElementById("Religion");
+    if(!el) return;
+    el.value = normalizeReligionText(value);
+}
+
 function getNewJoinFormData(){
     return {
         Name_English: document.getElementById("Name_English").value.trim(),
@@ -1806,7 +1831,7 @@ function getNewJoinFormData(){
         Pre_Dist: getAddressValue("Pre_Dist","Pre_Dist_Other"),
         Date_Of_Birth: normalizePortalDate(getDateDropdownValue("DOB")),
         Joining_Date: normalizePortalDate(getDateDropdownValue("JOIN")),
-        Religion: document.getElementById("Religion").value,
+        Religion: normalizeReligionText(document.getElementById("Religion").value),
         Mobile_No: document.getElementById("Mobile_No").value.trim(),
         Emergency_Name: document.getElementById("Emergency_Name").value.trim(),
         Emergency_Relation: getDropdownValue("Emergency_Relation","Emergency_Relation_Other"),
@@ -1966,6 +1991,8 @@ function fillNewJoinForm(data){
         const el = document.getElementById(id);
         if(el) el.value = data[id] || "";
     });
+
+    setReligionField(data.Religion || "");
 
     setDateDropdownValue("DOB", data.Date_Of_Birth || "");
     setDateDropdownValue("JOIN", data.Joining_Date || "");
@@ -2350,6 +2377,7 @@ function printBasicForm(data){
     const dob = normalizePortalDate(v(data,"Date_Of_Birth"));
     const post = v(data,"Applied_Post");
     const section = v(data,"Section_Name");
+    const religion = normalizeReligionText(v(data,"Religion"));
     const mobileNo = v(data,"Mobile_No") || v(data,"Mobile") || v(data,"mobile_no") || v(data,"MobileNo") || v(data,"Contact_No");
 
     const showChildren = (v(data,"Marital_Status") === "Married") && (v(data,"Son_Children") || v(data,"Daughter_Children"));
@@ -2372,11 +2400,13 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 .header h2{font-size:30px;margin:0;font-weight:900;letter-spacing:.4px;color:#0b376d;text-transform:uppercase;line-height:1.05;}
 .header p{font-size:11px;margin:3px 0 4px 0;color:#333;}
 .form-title{display:inline-block;font-size:24px;font-weight:900;color:#000;background:transparent;border:0;border-radius:0;padding:2px 22px;margin-top:2px;line-height:1.12;}
-.section-top{position:absolute;left:70mm;right:7px;bottom:7px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1;}
-.section-top .section-label{font-size:20px;font-weight:900;color:#0b376d;}
-.section-top .section-value{font-size:22px;font-weight:900;color:#000;display:inline-block;max-width:82mm;vertical-align:bottom;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.section-center{text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.15;margin-top:2px;width:100%;}
+.section-center .section-label{font-size:20px;font-weight:900;color:#0b376d;}
+.section-center .section-value{font-size:22px;font-weight:900;color:#000;display:inline-block;max-width:135mm;vertical-align:bottom;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .top-info{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:5px;font-size:12px;font-weight:bold;}
-.top-info div{border:1px solid #9fbad5;background:#f2f8ff;border-radius:5px;padding:4px 6px;min-height:24px;}
+.top-info div{border:1px solid #9fbad5;background:#f2f8ff;border-radius:5px;padding:4px 6px;min-height:24px;display:flex;align-items:center;gap:4px;}
+.join-label{font-size:12px;font-weight:800;white-space:nowrap;}
+.join-date-value{font-size:22px;font-weight:900;color:#000;line-height:1;white-space:nowrap;}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 6mm;margin-top:4px;}
 .full-row{grid-column:1 / -1;}
 .row{display:flex;align-items:flex-end;font-size:11.3px;min-height:19px;margin-bottom:2px;line-height:1.25;}
@@ -2405,9 +2435,9 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
         <h2>A&O Apparels (Pvt.) Ltd.</h2>
         <p>256, Boktaboli Ferighat Road, Fatulla, Narayanganj</p>
         <div class="form-title">প্রাথমিক যাচাই ফরম</div>
-        <div class="section-top"><span class="section-label">সেকশন:</span> <span class="section-value">${section}</span></div>
+        <div class="section-center"><span class="section-label">সেকশন:</span> <span class="section-value">${section}</span></div>
     </div>    <div class="top-info">
-        <div>যোগদানের তারিখ: ${joiningDate}</div>
+        <div><span class="join-label">যোগদানের তারিখ:</span> <span class="join-date-value">${joiningDate}</span></div>
         <div>যে পদের জন্য আবেদন: ${post}</div>
     </div>
 
@@ -2442,7 +2472,7 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 
     <div class="grid">
         <div class="row"><span class="label">জন্ম তারিখ:</span><span class="value">${dob}</span></div>
-        <div class="row"><span class="label">ধর্ম:</span><span class="value">${v(data,"Religion")}</span></div>
+        <div class="row"><span class="label">ধর্ম:</span><span class="value">${religion}</span></div>
         <div class="row"><span class="label">NID/জন্ম নিবন্ধন:</span><span class="value">${v(data,"NID_Birth")}</span></div>
         <div class="row"><span class="label">রক্তের গ্রুপ:</span><span class="value">${v(data,"Blood_Group")}</span></div>
         <div class="row"><span class="label">ওজন:</span><span class="value">${v(data,"Weight")}</span></div>
