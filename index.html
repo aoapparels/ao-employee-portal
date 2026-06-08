@@ -108,6 +108,67 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 }
 .autocomplete-item:hover{background:#e7f0ff;}
 
+
+/* Employee dashboard publish/design update */
+.not-publish-box{
+    background:linear-gradient(135deg,#fff3cd,#ffe0b2);
+    border:2px solid #ff9800;
+    color:#bf360c;
+    padding:25px;
+    border-radius:14px;
+    text-align:center;
+    font-weight:bold;
+    box-shadow:0 0 18px rgba(255,152,0,.35);
+    animation:notPublishBlink 1.1s infinite;
+}
+.not-publish-box h2{margin-bottom:8px;color:#bf360c;}
+.not-publish-box .not-publish-text{font-size:24px;letter-spacing:.5px;}
+@keyframes notPublishBlink{
+    0%{box-shadow:0 0 8px rgba(255,152,0,.25);transform:scale(1);}
+    50%{box-shadow:0 0 24px rgba(255,87,34,.75);transform:scale(1.01);}
+    100%{box-shadow:0 0 8px rgba(255,152,0,.25);transform:scale(1);}
+}
+.dashboard-card{
+    background:linear-gradient(135deg,#ffffff,#eef7ff);
+    padding:25px;
+    border-radius:14px;
+    box-shadow:0 5px 18px rgba(7,84,166,.16);
+    border:1px solid #bbdefb;
+}
+.dashboard-card h2{
+    color:#0754a6;
+    text-align:left;
+    margin-bottom:20px;
+}
+.dashboard-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:18px;
+    overflow:hidden;
+    border-radius:10px;
+}
+.dashboard-table th,
+.dashboard-table td{
+    padding:10px;
+    border:1px solid #90caf9;
+    font-weight:bold;
+}
+.dashboard-table tr:nth-child(odd){background:#e3f2fd;}
+.dashboard-table tr:nth-child(even){background:#f1f8ff;}
+.dashboard-table th,
+.dashboard-table td:first-child{
+    background:#bbdefb;
+    color:#0d47a1;
+}
+.dashboard-table .absent-highlight,
+.dashboard-table tr.absent-row td,
+.dashboard-table tr.absent-row th{
+    background:#ffebee !important;
+    color:#c62828 !important;
+    font-weight:bold;
+    box-shadow:inset 0 0 0 9999px rgba(244,67,54,.06);
+}
+
 </style>
 </head>
 
@@ -1476,16 +1537,25 @@ function showEmployeeInfo(){
     document.getElementById("employeeView").innerHTML = html;
 }
 
+function renderNotPublished(title){
+    return `
+    <div class="not-publish-box">
+        <h2>${title}</h2>
+        <div class="not-publish-text">Not publish yet</div>
+    </div>`;
+}
+
 function rowToTable(title, row){
     if(!row){
-        return `<div style="background:white;padding:25px;border-radius:12px;"><h2>${title}</h2><h3>No Data Found</h3></div>`;
+        return renderNotPublished(title);
     }
 
-    let html = `<div style="background:white;padding:25px;border-radius:12px;"><h2 style="color:#0754a6;">${title}</h2><table>`;
+    let html = `<div class="dashboard-card"><h2>${title}</h2><table class="dashboard-table">`;
 
     Object.keys(row).forEach(key => {
         if(key === "id" || key === "created_at") return;
-        html += `<tr><th>${key}</th><td>${formatValue(row[key])}</td></tr>`;
+        let isAbsent = String(key || "").toLowerCase().includes("abs");
+        html += `<tr class="${isAbsent ? 'absent-row' : ''}"><th>${key}</th><td>${formatValue(row[key])}</td></tr>`;
     });
 
     html += "</table></div>";
@@ -1496,7 +1566,7 @@ function showJobCard(){
     let job = currentEmployee.job;
 
     if(!job){
-        document.getElementById("employeeView").innerHTML = "<h3>No Job Card Found</h3>";
+        document.getElementById("employeeView").innerHTML = renderNotPublished("Job Card");
         return;
     }
 
@@ -1516,16 +1586,16 @@ function showJobCard(){
     let late = (text.match(/Late-(\d+)/i) || [,"0"])[1];
 
     document.getElementById("employeeView").innerHTML = `
-    <div style="background:white;padding:25px;border-radius:12px;">
-        <h2 style="text-align:left;margin-bottom:20px;color:#0754a6;">Job Card</h2>
-        <table style="width:100%;border-collapse:collapse;font-size:18px;">
-            <tr><td><b>Job Card Month :</b></td><td>${month}</td></tr>
-            <tr><td><b>Name :</b></td><td>${name}</td></tr>
-            <tr><td><b>Total Present :</b></td><td>${present} Days</td></tr>
-            <tr><td><b>Absent :</b></td><td>${absent}</td></tr>
-            <tr><td><b>Over Time OT :</b></td><td>${ot}</td></tr>
-            <tr><td><b>Leave :</b></td><td>${leave}</td></tr>
-            <tr><td><b>Late :</b></td><td>${late}</td></tr>
+    <div class="dashboard-card">
+        <h2>Job Card</h2>
+        <table class="dashboard-table">
+            <tr><td>Job Card Month :</td><td>${month}</td></tr>
+            <tr><td>Name :</td><td>${name}</td></tr>
+            <tr><td>Total Present :</td><td>${present} Days</td></tr>
+            <tr class="absent-row"><td>Absent :</td><td class="absent-highlight">${absent}</td></tr>
+            <tr><td>Over Time OT :</td><td>${ot}</td></tr>
+            <tr><td>Leave :</td><td>${leave}</td></tr>
+            <tr><td>Late :</td><td>${late}</td></tr>
         </table>
     </div>`;
 }
@@ -1534,7 +1604,7 @@ function showPaySlip(){
     let pay = currentEmployee.pay;
 
     if(!pay){
-        document.getElementById("employeeView").innerHTML = "<h3>No Pay Slip Found</h3>";
+        document.getElementById("employeeView").innerHTML = renderNotPublished("Pay Slip");
         return;
     }
 
@@ -1558,18 +1628,18 @@ function showPaySlip(){
     let net = (text.match(/NetSalary=([^ ]*)/i) || [,"0"])[1];
 
     document.getElementById("employeeView").innerHTML = `
-    <div style="background:white;padding:25px;border-radius:12px;">
-        <h2 style="text-align:left;margin-bottom:20px;color:#0754a6;">Pay Slip</h2>
-        <table style="width:100%;border-collapse:collapse;font-size:18px;">
-            <tr><td><b>Pay Slip Month :</b></td><td>${month}</td></tr>
-            <tr><td><b>Name :</b></td><td>${name}</td></tr>
-            <tr><td><b>Gross Salary :</b></td><td>${gross}</td></tr>
-            <tr><td><b>Attendance Bonus :</b></td><td>${att}</td></tr>
-            <tr><td><b>Earn Leave :</b></td><td>${el}</td></tr>
-            <tr><td><b>Over Time OT :</b></td><td>${otHourRate} = ${otAmount}</td></tr>
-            <tr><td><b>Absent Amount :</b></td><td>${abs}</td></tr>
-            <tr><td><b>Stamp :</b></td><td>${stamp}</td></tr>
-            <tr><td><b>Net Salary :</b></td><td><b>${net}</b></td></tr>
+    <div class="dashboard-card">
+        <h2>Pay Slip</h2>
+        <table class="dashboard-table">
+            <tr><td>Pay Slip Month :</td><td>${month}</td></tr>
+            <tr><td>Name :</td><td>${name}</td></tr>
+            <tr><td>Gross Salary :</td><td>${gross}</td></tr>
+            <tr><td>Attendance Bonus :</td><td>${att}</td></tr>
+            <tr><td>Earn Leave :</td><td>${el}</td></tr>
+            <tr><td>Over Time OT :</td><td>${otHourRate} = ${otAmount}</td></tr>
+            <tr class="absent-row"><td>Absent Amount :</td><td class="absent-highlight">${abs}</td></tr>
+            <tr><td>Stamp :</td><td>${stamp}</td></tr>
+            <tr><td>Net Salary :</td><td>${net}</td></tr>
         </table>
     </div>`;
 }
@@ -1587,11 +1657,8 @@ function showTotalOvertime(){
 
     if(!overtime){
         document.getElementById("employeeView").innerHTML = `
-        <div style="background:white;padding:25px;border-radius:12px;">
-            <h2 style="color:#0754a6;text-align:center;">Total Overtime</h2>
-            <h3>No Data Found</h3>
-            <button onclick="showMore()">Back</button>
-        </div>`;
+        ${renderNotPublished("Total Overtime")}
+        <button onclick="showMore()" style="margin-top:15px;">Back</button>`;
         return;
     }
 
@@ -1603,13 +1670,17 @@ function showTotalOvertime(){
         }
     }
 
+    if(!rows){
+        rows = `<tr><td colspan="2">No daily overtime published</td></tr>`;
+    }
+
     document.getElementById("employeeView").innerHTML = `
-    <div style="background:white;padding:25px;border-radius:12px;">
-        <h2 style="color:#0754a6;text-align:center;">Total Overtime</h2>
+    <div class="dashboard-card">
+        <h2 style="text-align:center;">Total Overtime</h2>
         <p><b>Employee ID:</b> ${overtime.Employee_ID || "-"}</p>
         <p><b>OT Rate:</b> ${overtime.OT_RATE || "-"}</p>
 
-        <table>
+        <table class="dashboard-table">
             <tr><th>Day</th><th>Hour</th></tr>
             ${rows}
             <tr><th>Total OT</th><th>${overtime.TOTAL_OT || "-"}</th></tr>
@@ -1902,9 +1973,9 @@ async function submitNewJoinApplication(){
     let status = document.getElementById("newJoinStatus");
     let formData = getNewJoinFormData();
 
-    if(!formData.Name_English || !formData.Employee_Name || !formData.Father_Name || !formData.Mobile_No){
+    if(!formData.Name_English || !formData.Joining_Date){
         status.className = "status error";
-        status.innerHTML = "Name English, কর্মীর নাম, পিতার নাম এবং Mobile No অবশ্যই দিতে হবে।";
+        status.innerHTML = "Name English এবং যোগদানের তারিখ অবশ্যই দিতে হবে।";
         return;
     }
 
