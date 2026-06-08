@@ -2372,7 +2372,9 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 .header h2{font-size:30px;margin:0;font-weight:900;letter-spacing:.4px;color:#0b376d;text-transform:uppercase;line-height:1.05;}
 .header p{font-size:11px;margin:3px 0 4px 0;color:#333;}
 .form-title{display:inline-block;font-size:24px;font-weight:900;color:#000;background:transparent;border:0;border-radius:0;padding:2px 22px;margin-top:2px;line-height:1.12;}
-.section-top{position:absolute;left:96mm;right:7px;bottom:9px;font-size:12.8px;font-weight:900;text-align:right;color:#0b376d;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.1;}
+.section-top{position:absolute;left:70mm;right:7px;bottom:7px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1;}
+.section-top .section-label{font-size:20px;font-weight:900;color:#0b376d;}
+.section-top .section-value{font-size:22px;font-weight:900;color:#000;display:inline-block;max-width:82mm;vertical-align:bottom;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .top-info{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:5px;font-size:12px;font-weight:bold;}
 .top-info div{border:1px solid #9fbad5;background:#f2f8ff;border-radius:5px;padding:4px 6px;min-height:24px;}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 6mm;margin-top:4px;}
@@ -2382,8 +2384,9 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 .value{flex:1;border-bottom:1px dotted #333;min-height:14px;padding-left:4px;color:#000;font-weight:500;}
 .box{border:1px solid #9fbad5;margin-top:4px;padding:4px 5px;border-radius:6px;background:#fbfdff;}
 .box-title{text-align:left;font-weight:800;font-size:12.2px;margin:-4px -5px 3px -5px;padding:3px 8px;background:#dceeff;color:#0b376d;border-radius:5px 5px 0 0;border-bottom:1px solid #9fbad5;}
-.mobile-account-row{margin-top:4px;font-size:11.8px;font-weight:bold;}
-.mobile-account-row .value{font-size:12.8px;font-weight:800;}
+.mobile-account-row{margin-top:5px;font-size:20px;font-weight:900;line-height:1.35;}
+.mobile-account-row .label{font-size:20px;font-weight:900;color:#0b376d;}
+.mobile-account-row .value{font-size:22px;font-weight:900;border-bottom:1.5px dotted #000;letter-spacing:.5px;}
 .addr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;}
 .salary-line{font-size:11.5px;margin-top:42px;line-height:2.8;background:#fffdf2;border:1px solid #e1c878;border-radius:6px;padding:13px 10px 10px 10px;min-height:24mm;}
 .salary-line span{display:inline-block;border-bottom:1px dotted #000;min-width:42mm;text-align:center;font-weight:bold;min-height:7mm;}
@@ -2402,7 +2405,7 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
         <h2>A&O Apparels (Pvt.) Ltd.</h2>
         <p>256, Boktaboli Ferighat Road, Fatulla, Narayanganj</p>
         <div class="form-title">প্রাথমিক যাচাই ফরম</div>
-        <div class="section-top">সেকশন: ${section}</div>
+        <div class="section-top"><span class="section-label">সেকশন:</span> <span class="section-value">${section}</span></div>
     </div>    <div class="top-info">
         <div>যোগদানের তারিখ: ${joiningDate}</div>
         <div>যে পদের জন্য আবেদন: ${post}</div>
