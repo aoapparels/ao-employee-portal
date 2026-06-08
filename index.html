@@ -2417,10 +2417,11 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 .mobile-account-row{margin-top:5px;font-size:20px;font-weight:900;line-height:1.35;}
 .mobile-account-row .label{font-size:20px;font-weight:900;color:#0b376d;}
 .mobile-account-row .value{font-size:22px;font-weight:900;border-bottom:1.5px dotted #000;letter-spacing:.5px;}
-.big-pdf-value{font-size:22px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;}
-.big-pdf-value.value{border-bottom:1.5px dotted #000!important;letter-spacing:.2px;}
-.applied-post-top{font-size:22px;font-weight:900;color:#000;line-height:1;white-space:nowrap;display:inline-block;max-width:70mm;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;}
-.salary-post-big{font-size:22px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;min-width:42mm!important;}
+.big-pdf-value{font-size:17px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;overflow:visible!important;text-overflow:clip!important;}
+.big-pdf-value.value{border-bottom:1.5px dotted #000!important;letter-spacing:0!important;}
+.name-fit-value{font-size:17px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;overflow:visible!important;text-overflow:clip!important;border-bottom:1.5px dotted #000!important;}
+.applied-post-top{font-size:16.5px;font-weight:900;color:#000;line-height:1;white-space:nowrap;display:inline-block;max-width:76mm;overflow:visible;text-overflow:clip;vertical-align:bottom;}
+.salary-post-big{font-size:15.5px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;min-width:48mm!important;max-width:none!important;overflow:visible!important;text-overflow:clip!important;}
 .addr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;}
 .salary-line{font-size:11.5px;margin-top:42px;line-height:2.8;background:#fffdf2;border:1px solid #e1c878;border-radius:6px;padding:13px 10px 10px 10px;min-height:24mm;}
 .salary-line span{display:inline-block;border-bottom:1px dotted #000;min-width:42mm;text-align:center;font-weight:bold;min-height:7mm;}
@@ -2447,7 +2448,7 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 
     <div class="grid">
         <div class="row"><span class="label">Name (English):</span><span class="value big-pdf-value">${v(data,"Name_English")}</span></div>
-        <div class="row"><span class="label">কর্মীর নাম:</span><span class="value">${v(data,"Employee_Name")}</span></div>
+        <div class="row"><span class="label">কর্মীর নাম:</span><span class="value name-fit-value">${v(data,"Employee_Name")}</span></div>
         <div class="row"><span class="label">পিতার নাম:</span><span class="value">${v(data,"Father_Name")}</span></div>
         <div class="row"><span class="label">মাতার নাম:</span><span class="value">${v(data,"Mother_Name")}</span></div>
         <div class="row"><span class="label">স্বামী/স্ত্রীর নাম:</span><span class="value">${v(data,"Spouse_Name")}</span></div>
