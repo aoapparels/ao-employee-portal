@@ -642,6 +642,24 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     body.print-admin-primary .admin-primary-print-hidden{display:block !important;}
 }
 
+
+/* Admin Primary Bijoy address save buttons */
+.admin-address-save-row{
+    display:flex;
+    gap:6px;
+    margin-top:5px;
+}
+.admin-address-save-row button{
+    width:auto;
+    padding:7px 10px;
+    font-size:12px;
+    border-radius:8px;
+    margin-top:0;
+    background:#00695c;
+    color:#fff;
+}
+.admin-address-save-row button:hover{background:#004d40;}
+
 </style>
 </head>
 
@@ -1053,12 +1071,14 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
             <input type="text" id="AP_Per_Vill" placeholder="Per. Vill / গ্রাম">
             <input type="text" id="AP_Per_PO" placeholder="Per. PO / পোস্ট অফিস">
             <div class="address-field">
-                <input type="text" id="AP_Per_Dist" placeholder="Per. Dist / জেলা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showDistrictSuggestions('AP_Per_Dist','AP_Per_PS')" onfocus="showDistrictSuggestions('AP_Per_Dist','AP_Per_PS')">
+                <input type="text" id="AP_Per_Dist" placeholder="Per. Dist / জেলা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showAdminBijoyDistrictSuggestions('AP_Per_Dist','AP_Per_PS')" onfocus="showAdminBijoyDistrictSuggestions('AP_Per_Dist','AP_Per_PS')">
                 <div id="AP_Per_Dist_Suggestions" class="autocomplete-list hidden"></div>
+                <div class="admin-address-save-row"><button type="button" onclick="saveAdminBijoyDistrict('AP_Per_Dist','AP_Per_PS')">Save District</button></div>
             </div>
             <div class="address-field">
-                <input type="text" id="AP_Per_PS" placeholder="Per. PS / থানা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showThanaSuggestions('AP_Per_Dist','AP_Per_PS')" onfocus="showThanaSuggestions('AP_Per_Dist','AP_Per_PS')">
+                <input type="text" id="AP_Per_PS" placeholder="Per. PS / থানা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showAdminBijoyThanaSuggestions('AP_Per_Dist','AP_Per_PS')" onfocus="showAdminBijoyThanaSuggestions('AP_Per_Dist','AP_Per_PS')">
                 <div id="AP_Per_PS_Suggestions" class="autocomplete-list hidden"></div>
+                <div class="admin-address-save-row"><button type="button" onclick="saveAdminBijoyThana('AP_Per_Dist','AP_Per_PS')">Save Thana</button></div>
             </div>
         </div>
     </div>
@@ -1069,12 +1089,14 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
             <input type="text" id="AP_Pre_Vill" placeholder="Pre. Vill / গ্রাম">
             <input type="text" id="AP_Pre_PO" placeholder="Pre. PO / পোস্ট অফিস">
             <div class="address-field">
-                <input type="text" id="AP_Pre_Dist" placeholder="Pre. Dist / জেলা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showDistrictSuggestions('AP_Pre_Dist','AP_Pre_PS')" onfocus="showDistrictSuggestions('AP_Pre_Dist','AP_Pre_PS')">
+                <input type="text" id="AP_Pre_Dist" placeholder="Pre. Dist / জেলা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showAdminBijoyDistrictSuggestions('AP_Pre_Dist','AP_Pre_PS')" onfocus="showAdminBijoyDistrictSuggestions('AP_Pre_Dist','AP_Pre_PS')">
                 <div id="AP_Pre_Dist_Suggestions" class="autocomplete-list hidden"></div>
+                <div class="admin-address-save-row"><button type="button" onclick="saveAdminBijoyDistrict('AP_Pre_Dist','AP_Pre_PS')">Save District</button></div>
             </div>
             <div class="address-field">
-                <input type="text" id="AP_Pre_PS" placeholder="Pre. PS / থানা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showThanaSuggestions('AP_Pre_Dist','AP_Pre_PS')" onfocus="showThanaSuggestions('AP_Pre_Dist','AP_Pre_PS')">
+                <input type="text" id="AP_Pre_PS" placeholder="Pre. PS / থানা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showAdminBijoyThanaSuggestions('AP_Pre_Dist','AP_Pre_PS')" onfocus="showAdminBijoyThanaSuggestions('AP_Pre_Dist','AP_Pre_PS')">
                 <div id="AP_Pre_PS_Suggestions" class="autocomplete-list hidden"></div>
+                <div class="admin-address-save-row"><button type="button" onclick="saveAdminBijoyThana('AP_Pre_Dist','AP_Pre_PS')">Save Thana</button></div>
             </div>
         </div>
     </div>
@@ -1721,6 +1743,7 @@ document.addEventListener("DOMContentLoaded", function(){
     toggleOtherField("Reference_Relation","Reference_Relation_Other");
     toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
     toggleChildrenFields();
+    enableEnterToNextFieldInAdminPrimaryForm();
 });
 
 document.addEventListener("change", function(){
@@ -1735,6 +1758,181 @@ document.addEventListener("change", function(){
 
 
 
+let adminBijoyDistrictCache = [];
+let adminBijoyThanaCache = {};
+
+async function loadAdminBijoyDistrictsFromSupabase(){
+    if(adminBijoyDistrictCache.length) return adminBijoyDistrictCache;
+    const { data, error } = await supabaseClient
+    .from("bijoy_districts")
+    .select("id,district_name")
+    .order("district_name", { ascending:true });
+    if(error){
+        console.log("Bijoy district load failed:", error);
+        return [];
+    }
+    adminBijoyDistrictCache = data || [];
+    return adminBijoyDistrictCache;
+}
+
+async function loadAdminBijoyThanasFromSupabase(districtId){
+    if(!districtId) return [];
+    if(adminBijoyThanaCache[districtId]) return adminBijoyThanaCache[districtId];
+    const { data, error } = await supabaseClient
+    .from("bijoy_thanas")
+    .select("id,thana_name,district_id")
+    .eq("district_id", Number(districtId))
+    .order("thana_name", { ascending:true });
+    if(error){
+        console.log("Bijoy thana load failed:", error);
+        return [];
+    }
+    adminBijoyThanaCache[districtId] = data || [];
+    return adminBijoyThanaCache[districtId];
+}
+
+async function showAdminBijoyDistrictSuggestions(distId, psId){
+    const input = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+    if(!input) return;
+    const districts = await loadAdminBijoyDistrictsFromSupabase();
+    const q = input.value.trim().toLowerCase();
+    const matched = districts
+    .filter(d => !q || String(d.district_name || "").toLowerCase().includes(q))
+    .map(d => ({ label:d.district_name, row:d }));
+    renderSuggestionList(distId + "_Suggestions", matched, function(item){
+        input.value = item.label;
+        if(psInput) psInput.value = "";
+        setTimeout(() => showAdminBijoyThanaSuggestions(distId, psId), 80);
+        syncAdminPrimaryPrintPreview();
+    });
+}
+
+async function showAdminBijoyThanaSuggestions(distId, psId){
+    const distInput = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+    if(!distInput || !psInput) return;
+    const districts = await loadAdminBijoyDistrictsFromSupabase();
+    const foundDistrict = districts.find(d => String(d.district_name || "").trim() === distInput.value.trim());
+    if(!foundDistrict){
+        renderSuggestionList(psId + "_Suggestions", [], function(){});
+        return;
+    }
+    const thanas = await loadAdminBijoyThanasFromSupabase(foundDistrict.id);
+    const q = psInput.value.trim().toLowerCase();
+    const matched = thanas
+    .filter(t => !q || String(t.thana_name || "").toLowerCase().includes(q))
+    .map(t => ({ label:t.thana_name, row:t }));
+    renderSuggestionList(psId + "_Suggestions", matched, function(item){
+        psInput.value = item.label;
+        syncAdminPrimaryPrintPreview();
+    });
+}
+
+function setAdminPrimaryStatusMessage(msg, type=""){
+    const status = document.getElementById("adminPrimaryStatus");
+    if(status){
+        status.className = "status" + (type ? " " + type : "");
+        status.innerHTML = msg;
+    }
+}
+
+async function saveAdminBijoyDistrict(distId, psId){
+    const input = document.getElementById(distId);
+    if(!input) return;
+    const districtName = input.value.trim();
+    if(!districtName){
+        setAdminPrimaryStatusMessage("জেলা আগে লিখুন, তারপর Save District চাপুন।", "error");
+        return;
+    }
+    const districts = await loadAdminBijoyDistrictsFromSupabase();
+    const existing = districts.find(d => String(d.district_name || "").trim() === districtName);
+    if(existing){
+        setAdminPrimaryStatusMessage("এই জেলা dropdown-এ আগেই আছে।", "success");
+        return existing;
+    }
+    const { data, error } = await supabaseClient
+    .from("bijoy_districts")
+    .insert([{ district_name: districtName }])
+    .select("id,district_name")
+    .single();
+    if(error){
+        console.log(error);
+        setAdminPrimaryStatusMessage("District save failed: " + error.message, "error");
+        return null;
+    }
+    adminBijoyDistrictCache.push(data);
+    setAdminPrimaryStatusMessage("District saved to Bijoy dropdown: <b>" + districtName + "</b>", "success");
+    showAdminBijoyDistrictSuggestions(distId, psId);
+    return data;
+}
+
+async function saveAdminBijoyThana(distId, psId){
+    const distInput = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+    if(!distInput || !psInput) return;
+    const districtName = distInput.value.trim();
+    const thanaName = psInput.value.trim();
+    if(!districtName){
+        setAdminPrimaryStatusMessage("থানা save করার আগে জেলা লিখুন/নির্বাচন করুন।", "error");
+        return;
+    }
+    if(!thanaName){
+        setAdminPrimaryStatusMessage("থানা আগে লিখুন, তারপর Save Thana চাপুন।", "error");
+        return;
+    }
+    let districts = await loadAdminBijoyDistrictsFromSupabase();
+    let district = districts.find(d => String(d.district_name || "").trim() === districtName);
+    if(!district){
+        district = await saveAdminBijoyDistrict(distId, psId);
+        if(!district) return;
+    }
+    const thanas = await loadAdminBijoyThanasFromSupabase(district.id);
+    const existing = thanas.find(t => String(t.thana_name || "").trim() === thanaName);
+    if(existing){
+        setAdminPrimaryStatusMessage("এই থানা এই জেলার dropdown-এ আগেই আছে।", "success");
+        return existing;
+    }
+    const { data, error } = await supabaseClient
+    .from("bijoy_thanas")
+    .insert([{ district_id: district.id, thana_name: thanaName }])
+    .select("id,district_id,thana_name")
+    .single();
+    if(error){
+        console.log(error);
+        setAdminPrimaryStatusMessage("Thana save failed: " + error.message, "error");
+        return null;
+    }
+    if(!adminBijoyThanaCache[district.id]) adminBijoyThanaCache[district.id] = [];
+    adminBijoyThanaCache[district.id].push(data);
+    setAdminPrimaryStatusMessage("Thana saved to Bijoy dropdown: <b>" + thanaName + "</b>", "success");
+    showAdminBijoyThanaSuggestions(distId, psId);
+    return data;
+}
+
+function enableEnterToNextFieldInAdminPrimaryForm(){
+    const formPage = document.getElementById("adminPrimaryCheckPage");
+    if(!formPage || formPage.dataset.enterNextEnabled === "1") return;
+    formPage.dataset.enterNextEnabled = "1";
+    formPage.addEventListener("keydown", function(e){
+        if(e.key !== "Enter") return;
+        const current = e.target;
+        if(!current || current.tagName === "TEXTAREA" || current.tagName === "BUTTON") return;
+        const fields = Array.from(formPage.querySelectorAll("input, select, textarea"))
+        .filter(field => {
+            return !field.disabled &&
+                   field.type !== "hidden" &&
+                   !field.classList.contains("hidden") &&
+                   field.offsetParent !== null;
+        });
+        const index = fields.indexOf(current);
+        if(index > -1 && index < fields.length - 1){
+            e.preventDefault();
+            fields[index + 1].focus();
+        }
+    });
+}
+
 function showAdminPrimaryCheckForm(){
     hideAll();
     document.getElementById("adminPrimaryCheckPage").classList.remove("hidden");
@@ -1742,7 +1940,8 @@ function showAdminPrimaryCheckForm(){
     document.getElementById("adminPrimaryStatus").innerHTML = "সব তথ্য লিখে Save / Print করুন।";
     initAdminPrimaryDateDropdowns();
     initAdminPrimaryDOBDropdowns();
-    initAddressDropdowns();
+    loadAdminBijoyDistrictsFromSupabase();
+    enableEnterToNextFieldInAdminPrimaryForm();
     toggleAdminPrimaryChildren();
     syncAdminPrimaryPrintPreview();
 }
