@@ -169,6 +169,321 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     box-shadow:inset 0 0 0 9999px rgba(244,67,54,.06);
 }
 
+/* Admin Primary Check Form (A4 print/design) */
+#adminPrimaryCheckPage{
+    background:#f4f6fb;
+}
+.admin-primary-wrap{
+    max-width:900px;
+    margin:auto;
+}
+.admin-primary-toolbar{
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+    margin-bottom:12px;
+    flex-wrap:wrap;
+}
+.admin-primary-toolbar button{
+    width:auto;
+    padding:10px 16px;
+}
+.admin-primary-a4{
+    width:794px;
+    min-height:1123px;
+    margin:0 auto;
+    background:#fff;
+    padding:14px 20px;
+    border:1px solid #b8c2cf;
+    box-shadow:0 8px 28px rgba(0,0,0,.16);
+    position:relative;
+    font-family:"SutonnyMJ","SolaimanLipi","Noto Sans Bengali",Arial,sans-serif;
+    color:#111;
+}
+.ap-header{
+    border:2px solid #133c6d;
+    border-radius:8px;
+    padding:7px 10px;
+    text-align:center;
+    background:#f8fbff;
+}
+.ap-header h1{
+    margin:0;
+    font-size:25px;
+    letter-spacing:.5px;
+    color:#082f5f;
+    line-height:1.05;
+    font-family:Arial,sans-serif;
+}
+.ap-header .sub{
+    font-size:10.5px;
+    margin-top:2px;
+    font-family:Arial,sans-serif;
+}
+.ap-title-line{
+    display:grid;
+    grid-template-columns:1fr 230px;
+    gap:8px;
+    align-items:center;
+    margin-top:6px;
+}
+.ap-form-title{
+    text-align:center;
+    font-size:23px;
+    font-weight:bold;
+    text-decoration:underline;
+}
+.ap-join-date-box{
+    display:grid;
+    grid-template-columns:86px 1fr;
+    align-items:center;
+    border:1.4px solid #2c6fae;
+    border-radius:5px;
+    min-height:26px;
+    padding:2px 5px;
+}
+.ap-top-post-section{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:5px;
+}
+.ap-top-item{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    align-items:center;
+    min-height:24px;
+    border:1.2px solid #7da9d2;
+    border-radius:5px;
+    padding:2px 5px;
+}
+.ap-block{
+    border:1.4px solid #2c6fae;
+    border-radius:7px;
+    overflow:hidden;
+    margin-top:6px;
+    background:#fff;
+}
+.ap-block-title{
+    background:#eef6ff;
+    color:#083b6f;
+    font-weight:bold;
+    padding:3px 7px;
+    font-size:13.5px;
+    border-bottom:1px solid #9bc1e6;
+}
+.ap-block-body{
+    padding:6px 7px;
+}
+.ap-label{
+    font-weight:bold;
+    font-size:12.5px;
+    white-space:nowrap;
+}
+.ap-input,.ap-select{
+    width:100%;
+    border:0;
+    border-bottom:1.15px dotted #111;
+    min-height:19px;
+    padding:0 4px;
+    font-size:14px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    background:transparent;
+    border-radius:0;
+    margin:0;
+    font-family:"SutonnyMJ","SolaimanLipi","Noto Sans Bengali",Arial,sans-serif;
+}
+.ap-input.big,.ap-select.big{
+    font-size:17px;
+}
+.ap-select{
+    border:1px solid #111;
+    border-radius:4px;
+    min-height:20px;
+    padding:1px 5px;
+    background:#fdfdfd;
+}
+.ap-person-line{
+    display:grid;
+    align-items:center;
+    gap:5px;
+    min-height:23px;
+    margin-bottom:3px;
+}
+.ap-person-line.name{
+    grid-template-columns:116px 1fr 76px 1fr;
+}
+.ap-person-line.full{
+    grid-template-columns:108px 1fr;
+}
+.ap-person-line.three{
+    grid-template-columns:90px 1fr 60px 1fr 72px 80px;
+}
+.ap-person-line.nid{
+    grid-template-columns:92px 1fr 48px 80px 48px 80px;
+}
+.ap-person-line.marital{
+    grid-template-columns:104px 145px 42px 74px 42px 74px 1fr;
+}
+.ap-address-grid,.ap-details-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+.ap-addr-row{
+    display:grid;
+    grid-template-columns:62px 1fr 56px 1fr;
+    gap:4px;
+    align-items:center;
+    min-height:22px;
+    margin-bottom:3px;
+}
+.ap-detail-row{
+    display:grid;
+    grid-template-columns:70px 1fr 65px 1fr;
+    gap:5px;
+    align-items:center;
+    min-height:23px;
+    margin-bottom:3px;
+}
+.ap-mobile-box{
+    border:2px solid #123d6c;
+    border-radius:8px;
+    margin:7px auto 6px;
+    width:520px;
+    min-height:34px;
+    display:grid;
+    grid-template-columns:170px 1fr;
+    align-items:center;
+    padding:4px 10px;
+    background:#f4faff;
+}
+.ap-mobile-box .ap-label{
+    font-size:17px;
+    color:#083b6f;
+}
+.ap-mobile-box .ap-input{
+    font-size:22px;
+    border-bottom:1.4px dotted #111;
+    letter-spacing:.5px;
+}
+.ap-skill-top{
+    display:grid;
+    grid-template-columns:105px 160px 92px 1fr;
+    gap:5px;
+    align-items:center;
+    margin-bottom:5px;
+}
+.ap-skill-box{
+    height:72px;
+    border:1.5px solid #111;
+    border-radius:6px;
+    background:repeating-linear-gradient(to bottom,#fff 0,#fff 23px,#e3e3e3 24px);
+    width:100%;
+    padding:6px;
+    resize:none;
+    font-weight:bold;
+    font-size:14px;
+    font-family:"SutonnyMJ","SolaimanLipi","Noto Sans Bengali",Arial,sans-serif;
+}
+.ap-salary-section{
+    border:1.4px solid #d0a832;
+    border-radius:7px;
+    padding:8px 9px;
+    margin-top:7px;
+    background:#fffdf2;
+    font-size:13px;
+    line-height:1.9;
+}
+.ap-inline-input{
+    display:inline-block;
+    width:120px;
+    border:0;
+    border-bottom:1px dotted #111;
+    font-weight:bold;
+    background:transparent;
+    margin:0 3px;
+    padding:0 3px;
+    border-radius:0;
+    font-size:13px;
+}
+.ap-inline-post{
+    display:inline-block;
+    min-width:155px;
+    border-bottom:1px dotted #111;
+    font-weight:bold;
+    font-size:14px;
+}
+.ap-signature-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    gap:22px;
+    margin-top:82px;
+    padding:0 18px;
+}
+.ap-sign{
+    text-align:center;
+    border-top:1.6px solid #111;
+    padding-top:6px;
+    font-size:12.5px;
+    font-weight:bold;
+}
+.ap-form-sl{
+    position:absolute;
+    left:20px;
+    bottom:7px;
+    font-size:9px;
+    color:#333;
+}
+.ap-page-no{
+    position:absolute;
+    right:20px;
+    bottom:7px;
+    font-size:10px;
+}
+@media print{
+    body.print-admin-primary *{
+        visibility:hidden;
+    }
+    body.print-admin-primary #adminPrimaryPrintArea,
+    body.print-admin-primary #adminPrimaryPrintArea *{
+        visibility:visible;
+    }
+    body.print-admin-primary #adminPrimaryPrintArea{
+        position:absolute;
+        left:0;
+        top:0;
+        width:210mm;
+    }
+    body.print-admin-primary .admin-primary-toolbar,
+    body.print-admin-primary .ap-no-print{
+        display:none !important;
+    }
+    body.print-admin-primary .admin-primary-a4{
+        width:210mm;
+        height:297mm;
+        min-height:auto;
+        margin:0;
+        border:0;
+        box-shadow:none;
+        padding:8mm 8mm 6mm;
+        page-break-after:avoid;
+    }
+    body.print-admin-primary .ap-input,
+    body.print-admin-primary .ap-select,
+    body.print-admin-primary .ap-skill-box,
+    body.print-admin-primary .ap-inline-input{
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+    }
+    @page{
+        size:A4;
+        margin:0;
+    }
+}
+
 </style>
 </head>
 
@@ -532,6 +847,11 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
             Remove All Approved Data
         </button>
 
+        <button class="green" onclick="showAdminPrimaryCheckForm()" style="margin-top:15px;">
+            প্রাথমিক যাচাই ফরম
+        </button>
+
+
         <button class="purple" onclick="showChangePasswordPanel()" style="margin-top:15px;">
             Change Admin Password
         </button>
@@ -546,6 +866,233 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     </div>
 
     <div id="adminView" class="box">Select data option</div>
+
+</div>
+
+<div class="card hidden" id="adminPrimaryCheckPage">
+    <div class="admin-primary-wrap">
+        <div class="topbar ap-no-print">
+            <h2>প্রাথমিক যাচাই ফরম</h2>
+            <button class="gray" onclick="backToAdminDashboardFromPrimary()">Back</button>
+        </div>
+
+        <div class="admin-primary-toolbar ap-no-print">
+            <button class="green" onclick="submitAdminPrimaryCheckForm()">Save To Supabase</button>
+            <button class="orange" onclick="printAdminPrimaryCheckForm()">Print / Save PDF</button>
+            <button class="red" onclick="clearAdminPrimaryCheckForm()">Clear</button>
+        </div>
+
+        <div id="adminPrimaryStatus" class="status ap-no-print">এই ফরমটি Admin data entry এবং print/PDF করার জন্য।</div>
+
+        <div class="admin-primary-a4" id="adminPrimaryPrintArea">
+            <div class="ap-header">
+                <h1>A&O APPARELS (PVT.) LTD.</h1>
+                <div class="sub">256, Boktaboli Ferighat Road, Fatulla, Narayanganj</div>
+            </div>
+
+            <div class="ap-title-line">
+                <div class="ap-form-title">প্রাথমিক যাচাই ফরম</div>
+                <div class="ap-join-date-box">
+                    <div class="ap-label">যোগদানের তারিখ:</div>
+                    <input class="ap-input big" id="AP_Joining_Date" placeholder="01-Jan-2026">
+                </div>
+            </div>
+
+            <div class="ap-top-post-section">
+                <div class="ap-top-item">
+                    <div class="ap-label">আবেদনকৃত পদ:</div>
+                    <select class="ap-select big" id="AP_Applied_Post" onchange="toggleAdminPrimaryOther('AP_Applied_Post','AP_Applied_Post_Other')">
+                        <option value="">পদ নির্বাচন করুন</option>
+                        <option value="Jr. S/M Operator">Jr. S/M Operator</option>
+                        <option value="Finishing Asst.">Finishing Asst.</option>
+                        <option value="Asstt. M. Operator">Asstt. M. Operator</option>
+                        <option value="Cutter">Cutter</option>
+                        <option value="Jr. Quality Inspector">Jr. Quality Inspector</option>
+                        <option value="Asstt. Quality Inspector">Asstt. Quality Inspector</option>
+                        <option value="Jr. Officer">Jr. Officer</option>
+                        <option value="Cleaner">Cleaner</option>
+                        <option value="Office Peon">Office Peon</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Jr. Q.A.O">Jr. Q.A.O</option>
+                        <option value="Quality Incharge">Quality Incharge</option>
+                        <option value="Production Manager">Production Manager</option>
+                        <option value="Line Iron Man">Line Iron Man</option>
+                        <option value="Jr Ironman">Jr Ironman</option>
+                        <option value="Jr. Packer">Jr. Packer</option>
+                        <option value="Jr Folder">Jr Folder</option>
+                        <option value="Polywoman">Polywoman</option>
+                        <option value="Asstt. Cutter">Asstt. Cutter</option>
+                        <option value="Cutterman">Cutterman</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input class="ap-input hidden ap-no-print" id="AP_Applied_Post_Other" placeholder="অন্যান্য পদবি">
+                </div>
+                <div class="ap-top-item">
+                    <div class="ap-label">সেকশন:</div>
+                    <select class="ap-select big" id="AP_Section_Name" onchange="toggleAdminPrimaryOther('AP_Section_Name','AP_Section_Name_Other')">
+                        <option value="">সেকশন নির্বাচন করুন</option>
+                        <option value="Sewing - A">Sewing - A</option>
+                        <option value="Sewing - B">Sewing - B</option>
+                        <option value="Sewing - C">Sewing - C</option>
+                        <option value="Sewing - D">Sewing - D</option>
+                        <option value="Sewing Knit - A">Sewing Knit - A</option>
+                        <option value="Sewing Knit - B">Sewing Knit - B</option>
+                        <option value="Cutting Knit">Cutting Knit</option>
+                        <option value="Finishing Knit">Finishing Knit</option>
+                        <option value="Finishing">Finishing</option>
+                        <option value="Finishing - A">Finishing - A</option>
+                        <option value="Finishing - B">Finishing - B</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Electric">Electric</option>
+                        <option value="Farm">Farm</option>
+                        <option value="Maintenance Knit">Maintenance Knit</option>
+                        <option value="Embroidery">Embroidery</option>
+                        <option value="Floor Staff">Floor Staff</option>
+                        <option value="Floor Staff Knit">Floor Staff Knit</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input class="ap-input hidden ap-no-print" id="AP_Section_Name_Other" placeholder="অন্যান্য সেকশন">
+                </div>
+            </div>
+
+            <div class="ap-block">
+                <div class="ap-block-title">১. ব্যক্তিগত তথ্য</div>
+                <div class="ap-block-body">
+                    <div class="ap-person-line name">
+                        <div class="ap-label">Name Of Employee</div><input class="ap-input big" id="AP_Name_English">
+                        <div class="ap-label">কর্মীর নাম:</div><input class="ap-input big" id="AP_Employee_Name">
+                    </div>
+                    <div class="ap-person-line full"><div class="ap-label">পিতার নাম:</div><input class="ap-input" id="AP_Father_Name"></div>
+                    <div class="ap-person-line full"><div class="ap-label">মাতার নাম:</div><input class="ap-input" id="AP_Mother_Name"></div>
+                    <div class="ap-person-line full"><div class="ap-label">স্বামী/স্ত্রীর নাম:</div><input class="ap-input" id="AP_Spouse_Name"></div>
+                    <div class="ap-person-line full"><div class="ap-label">Care Of / প্রযত্নে:</div><input class="ap-input" id="AP_Care_Of"></div>
+                    <div class="ap-person-line three">
+                        <div class="ap-label">Date of Birth:</div><input class="ap-input" id="AP_Date_Of_Birth" placeholder="01-Jan-1990">
+                        <div class="ap-label">Religion:</div>
+                        <select class="ap-select" id="AP_Religion">
+                            <option value=""></option>
+                            <option value="ইসলাম">ইসলাম</option>
+                            <option value="হিন্দু">হিন্দু</option>
+                            <option value="বৌদ্ধ">বৌদ্ধ</option>
+                            <option value="খ্রিস্টান">খ্রিস্টান</option>
+                            <option value="অন্যান্য">অন্যান্য</option>
+                        </select>
+                        <div class="ap-label">Blood Grp:</div>
+                        <select class="ap-select" id="AP_Blood_Group">
+                            <option value=""></option><option value="A+">A+</option><option value="A-">A-</option>
+                            <option value="B+">B+</option><option value="B-">B-</option>
+                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                            <option value="O+">O+</option><option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="ap-person-line nid">
+                        <div class="ap-label">NID/Birth No.</div><input class="ap-input" id="AP_NID_Birth">
+                        <div class="ap-label">Height</div><input class="ap-input" id="AP_Height">
+                        <div class="ap-label">Weight</div><input class="ap-input" id="AP_Weight">
+                    </div>
+                    <div class="ap-person-line marital">
+                        <div class="ap-label">বৈবাহিক অবস্থা:</div>
+                        <select class="ap-select" id="AP_Marital_Status" onchange="toggleAdminPrimaryChildren()">
+                            <option value=""></option>
+                            <option value="Married">বিবাহিত</option>
+                            <option value="Unmarried">অবিবাহিত</option>
+                            <option value="Divorced">তালাকপ্রাপ্ত</option>
+                            <option value="Widow/Widower">বিধবা/বিপত্নীক</option>
+                        </select>
+                        <div class="ap-label ap-child-field">ছেলে</div>
+                        <select class="ap-select ap-child-field" id="AP_Son_Children">
+                            <option value=""></option><option value="0">0</option><option value="1">1</option><option value="2">2</option>
+                            <option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                        </select>
+                        <div class="ap-label ap-child-field">মেয়ে</div>
+                        <select class="ap-select ap-child-field" id="AP_Daughter_Children">
+                            <option value=""></option><option value="0">0</option><option value="1">1</option><option value="2">2</option>
+                            <option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                        </select>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ap-address-grid">
+                <div class="ap-block">
+                    <div class="ap-block-title">২. বর্তমান ঠিকানা</div>
+                    <div class="ap-block-body">
+                        <div class="ap-addr-row"><div class="ap-label">গ্রাম:</div><input class="ap-input" id="AP_Pre_Vill"><div class="ap-label">পোস্ট:</div><input class="ap-input" id="AP_Pre_PO"></div>
+                        <div class="ap-addr-row"><div class="ap-label">থানা:</div><input class="ap-input" id="AP_Pre_PS"><div class="ap-label">জেলা:</div><input class="ap-input" id="AP_Pre_Dist"></div>
+                    </div>
+                </div>
+                <div class="ap-block">
+                    <div class="ap-block-title">৩. স্থায়ী ঠিকানা</div>
+                    <div class="ap-block-body">
+                        <div class="ap-addr-row"><div class="ap-label">গ্রাম:</div><input class="ap-input" id="AP_Per_Vill"><div class="ap-label">পোস্ট:</div><input class="ap-input" id="AP_Per_PO"></div>
+                        <div class="ap-addr-row"><div class="ap-label">থানা:</div><input class="ap-input" id="AP_Per_PS"><div class="ap-label">জেলা:</div><input class="ap-input" id="AP_Per_Dist"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ap-details-grid">
+                <div class="ap-block">
+                    <div class="ap-block-title">৪. শনাক্তকারীর বিবরণ</div>
+                    <div class="ap-block-body">
+                        <div class="ap-detail-row"><div class="ap-label">নাম:</div><input class="ap-input" id="AP_Reference_Name"><div class="ap-label">সম্পর্ক:</div><input class="ap-input" id="AP_Reference_Relation"></div>
+                        <div class="ap-detail-row"><div class="ap-label">মোবাইল:</div><input class="ap-input" id="AP_Reference_Mobile" maxlength="11" oninput="digitsOnly(this,11)"><div></div><div></div></div>
+                    </div>
+                </div>
+                <div class="ap-block">
+                    <div class="ap-block-title">৫. জরুরী যোগাযোগ</div>
+                    <div class="ap-block-body">
+                        <div class="ap-detail-row"><div class="ap-label">নাম:</div><input class="ap-input" id="AP_Emergency_Name"><div class="ap-label">সম্পর্ক:</div><input class="ap-input" id="AP_Emergency_Relation"></div>
+                        <div class="ap-detail-row"><div class="ap-label">মোবাইল:</div><input class="ap-input" id="AP_Emergency_Mobile" maxlength="11" oninput="digitsOnly(this,11)"><div></div><div></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ap-mobile-box">
+                <div class="ap-label">মোবাইল একাউন্ট নং:</div>
+                <input class="ap-input" id="AP_Mobile_No" maxlength="12" oninput="digitsOnly(this,12)">
+            </div>
+
+            <div class="ap-block">
+                <div class="ap-block-title">৬. কাজের দক্ষতা যাচাই</div>
+                <div class="ap-block-body">
+                    <div class="ap-skill-top">
+                        <div class="ap-label">Skill Experience:</div>
+                        <select class="ap-select" id="AP_Skill_Experience">
+                            <option value=""></option>
+                            <option value="Fresher">Fresher</option>
+                            <option value="Below 1 Year">Below 1 Year</option>
+                            <option value="1 Year">1 Year</option>
+                            <option value="2 Year">2 Year</option>
+                            <option value="3 Year">3 Year</option>
+                            <option value="4 Year">4 Year</option>
+                            <option value="5 Year">5 Year</option>
+                            <option value="5 Year Above">5 Year Above</option>
+                        </select>
+                        <div class="ap-label">পূর্বের কারখানা:</div>
+                        <input class="ap-input" id="AP_Previous_Factory">
+                    </div>
+                    <textarea class="ap-skill-box" id="AP_Machine_Skill"></textarea>
+                </div>
+            </div>
+
+            <div class="ap-salary-section">
+                শ্রমিকের সম্পূর্ণ যোগ্যতা ও দক্ষতা বিবেচনা করিয়া তাহাকে মাসিক <input class="ap-inline-input" id="AP_Salary"> টাকা বেতনে
+                <br>
+                <span class="ap-inline-post" id="AP_Print_Post">Applied_Post</span> পদে নিয়োগ দেওয়ার জন্য সুপারিশ করিলাম।
+            </div>
+
+            <div class="ap-signature-grid">
+                <div class="ap-sign">মানব সম্পদ বিভাগ</div>
+                <div class="ap-sign">সুপারিশকারীর সাক্ষর</div>
+                <div class="ap-sign">বিভাগীয় প্রধান</div>
+                <div class="ap-sign">অনুমোদনকারী</div>
+            </div>
+
+            <div class="ap-form-sl">Form SL No: <span id="AP_Temporary_ID_Show"></span></div>
+            <div class="ap-page-no">1/1</div>
+        </div>
+    </div>
 </div>
 
 <div class="card hidden" id="attendancePasswordPage">
@@ -617,6 +1164,7 @@ function hideAll(){
     document.getElementById("adminDashboard").classList.add("hidden");
     document.getElementById("newJoinApplicationPage").classList.add("hidden");
     document.getElementById("submittedFormPage").classList.add("hidden");
+    document.getElementById("adminPrimaryCheckPage").classList.add("hidden");
 }
 
 function goHome(){
@@ -993,6 +1541,191 @@ document.addEventListener("change", function(){
     toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
     toggleChildrenFields();
 });
+
+
+function showAdminPrimaryCheckForm(){
+    hideAll();
+    document.getElementById("adminPrimaryCheckPage").classList.remove("hidden");
+    document.getElementById("adminPrimaryStatus").className = "status";
+    document.getElementById("adminPrimaryStatus").innerHTML = "Admin data entry করে Save / Print করতে পারবেন।";
+    toggleAdminPrimaryChildren();
+    syncAdminPrimaryPostText();
+}
+
+function backToAdminDashboardFromPrimary(){
+    hideAll();
+    document.getElementById("adminDashboard").classList.remove("hidden");
+}
+
+function toggleAdminPrimaryOther(selectId, inputId){
+    const sel = document.getElementById(selectId);
+    const inp = document.getElementById(inputId);
+    if(!sel || !inp) return;
+    if(sel.value === "Other"){
+        inp.classList.remove("hidden");
+    }else{
+        inp.classList.add("hidden");
+        inp.value = "";
+    }
+    syncAdminPrimaryPostText();
+}
+
+function getAdminPrimaryDropdownValue(selectId, otherId){
+    const sel = document.getElementById(selectId);
+    const other = document.getElementById(otherId);
+    if(!sel) return "";
+    if(sel.value === "Other"){
+        return other ? other.value.trim() : "";
+    }
+    return sel.value.trim();
+}
+
+function toggleAdminPrimaryChildren(){
+    const marital = document.getElementById("AP_Marital_Status");
+    const show = marital && marital.value === "Married";
+    document.querySelectorAll(".ap-child-field").forEach(el => {
+        el.style.display = show ? "" : "none";
+    });
+    if(!show){
+        const son = document.getElementById("AP_Son_Children");
+        const daughter = document.getElementById("AP_Daughter_Children");
+        if(son) son.value = "";
+        if(daughter) daughter.value = "";
+    }
+}
+
+function syncAdminPrimaryPostText(){
+    const post = getAdminPrimaryDropdownValue("AP_Applied_Post","AP_Applied_Post_Other") || "Applied_Post";
+    const el = document.getElementById("AP_Print_Post");
+    if(el) el.textContent = post;
+}
+
+document.addEventListener("input", function(e){
+    if(e.target && (e.target.id === "AP_Applied_Post_Other")){
+        syncAdminPrimaryPostText();
+    }
+});
+
+document.addEventListener("change", function(e){
+    if(e.target && (e.target.id === "AP_Applied_Post" || e.target.id === "AP_Section_Name")){
+        syncAdminPrimaryPostText();
+    }
+});
+
+function clearAdminPrimaryCheckForm(){
+    const ids = [
+        "AP_Joining_Date","AP_Applied_Post","AP_Applied_Post_Other","AP_Section_Name","AP_Section_Name_Other",
+        "AP_Name_English","AP_Employee_Name","AP_Father_Name","AP_Mother_Name","AP_Spouse_Name","AP_Care_Of",
+        "AP_Date_Of_Birth","AP_Religion","AP_Blood_Group","AP_NID_Birth","AP_Height","AP_Weight",
+        "AP_Marital_Status","AP_Son_Children","AP_Daughter_Children",
+        "AP_Pre_Vill","AP_Pre_PO","AP_Pre_PS","AP_Pre_Dist","AP_Per_Vill","AP_Per_PO","AP_Per_PS","AP_Per_Dist",
+        "AP_Reference_Name","AP_Reference_Relation","AP_Reference_Mobile",
+        "AP_Emergency_Name","AP_Emergency_Relation","AP_Emergency_Mobile",
+        "AP_Mobile_No","AP_Skill_Experience","AP_Previous_Factory","AP_Machine_Skill","AP_Salary"
+    ];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = "";
+    });
+    document.getElementById("AP_Temporary_ID_Show").textContent = "";
+    toggleAdminPrimaryChildren();
+    syncAdminPrimaryPostText();
+    document.getElementById("adminPrimaryStatus").className = "status";
+    document.getElementById("adminPrimaryStatus").innerHTML = "Form cleared.";
+}
+
+function getAdminPrimaryFormData(){
+    const marital = document.getElementById("AP_Marital_Status").value;
+    return {
+        Name_English: document.getElementById("AP_Name_English").value.trim(),
+        Employee_Name: document.getElementById("AP_Employee_Name").value.trim(),
+        Father_Name: document.getElementById("AP_Father_Name").value.trim(),
+        Mother_Name: document.getElementById("AP_Mother_Name").value.trim(),
+        Spouse_Name: document.getElementById("AP_Spouse_Name").value.trim(),
+        Care_Of: document.getElementById("AP_Care_Of").value.trim(),
+        Per_Vill: document.getElementById("AP_Per_Vill").value.trim(),
+        Per_PO: document.getElementById("AP_Per_PO").value.trim(),
+        Per_PS: document.getElementById("AP_Per_PS").value.trim(),
+        Per_Dist: document.getElementById("AP_Per_Dist").value.trim(),
+        Pre_Vill: document.getElementById("AP_Pre_Vill").value.trim(),
+        Pre_PO: document.getElementById("AP_Pre_PO").value.trim(),
+        Pre_PS: document.getElementById("AP_Pre_PS").value.trim(),
+        Pre_Dist: document.getElementById("AP_Pre_Dist").value.trim(),
+        Date_Of_Birth: normalizePortalDate(document.getElementById("AP_Date_Of_Birth").value.trim()),
+        Joining_Date: normalizePortalDate(document.getElementById("AP_Joining_Date").value.trim()),
+        Religion: normalizeReligionText(document.getElementById("AP_Religion").value),
+        Mobile_No: document.getElementById("AP_Mobile_No").value.trim(),
+        Emergency_Name: document.getElementById("AP_Emergency_Name").value.trim(),
+        Emergency_Relation: document.getElementById("AP_Emergency_Relation").value.trim(),
+        Emergency_Mobile: document.getElementById("AP_Emergency_Mobile").value.trim(),
+        NID_Birth: document.getElementById("AP_NID_Birth").value.trim(),
+        Weight: document.getElementById("AP_Weight").value.trim(),
+        Height: document.getElementById("AP_Height").value.trim(),
+        Blood_Group: document.getElementById("AP_Blood_Group").value,
+        Marital_Status: marital,
+        Son_Children: marital === "Married" ? document.getElementById("AP_Son_Children").value : "",
+        Daughter_Children: marital === "Married" ? document.getElementById("AP_Daughter_Children").value : "",
+        Education: "",
+        Identification_Mark: "",
+        Reference_Name: document.getElementById("AP_Reference_Name").value.trim(),
+        Reference_Mobile: document.getElementById("AP_Reference_Mobile").value.trim(),
+        Reference_Relation: document.getElementById("AP_Reference_Relation").value.trim(),
+        Skill_Experience: document.getElementById("AP_Skill_Experience").value,
+        Previous_Factory: document.getElementById("AP_Previous_Factory").value.trim(),
+        Unit_Name: "",
+        Applied_Post: getAdminPrimaryDropdownValue("AP_Applied_Post","AP_Applied_Post_Other"),
+        Section_Name: getAdminPrimaryDropdownValue("AP_Section_Name","AP_Section_Name_Other"),
+        Machine_Skill: document.getElementById("AP_Machine_Skill").value.trim(),
+        Approval_Status: "Pending",
+        Created_At: new Date().toISOString()
+    };
+}
+
+async function submitAdminPrimaryCheckForm(){
+    const status = document.getElementById("adminPrimaryStatus");
+    const formData = getAdminPrimaryFormData();
+
+    if(!formData.Name_English || !formData.Joining_Date){
+        status.className = "status error";
+        status.innerHTML = "Name Of Employee এবং যোগদানের তারিখ অবশ্যই দিতে হবে।";
+        return;
+    }
+
+    if(formData.Mobile_No.length > 12 || formData.Emergency_Mobile.length > 11 || formData.Reference_Mobile.length > 11){
+        status.className = "status error";
+        status.innerHTML = "Mobile Account max 12 digit, Reference/Emergency Mobile max 11 digit হতে হবে।";
+        return;
+    }
+
+    status.className = "status";
+    status.innerHTML = "Saving admin primary form...";
+
+    const temporaryId = await generateTemporaryId();
+    formData.Temporary_ID = temporaryId;
+
+    const { error } = await supabaseClient
+    .from("New_Join_Applications")
+    .insert([formData]);
+
+    if(error){
+        console.log(error);
+        status.className = "status error";
+        status.innerHTML = "Save failed: " + error.message;
+        return;
+    }
+
+    document.getElementById("AP_Temporary_ID_Show").textContent = temporaryId;
+    status.className = "status success";
+    status.innerHTML = "Saved successfully! Temporary ID: <b>" + temporaryId + "</b>";
+}
+
+function printAdminPrimaryCheckForm(){
+    syncAdminPrimaryPostText();
+    document.body.classList.add("print-admin-primary");
+    window.print();
+    setTimeout(() => document.body.classList.remove("print-admin-primary"), 500);
+}
+
 
 function showChangePasswordPanel(){
     document.getElementById("adminView").innerHTML = `
@@ -2502,6 +3235,321 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 .print-actions{text-align:center;margin:10px;}
 .print-actions button{width:auto;padding:8px 18px;margin:0 4px;border-radius:6px;border:0;background:#0754a6;color:#fff;font-weight:bold;cursor:pointer;}
 @media print{.print-actions{display:none;}body{background:#fff;}.page{min-height:283mm;}}
+/* Admin Primary Check Form (A4 print/design) */
+#adminPrimaryCheckPage{
+    background:#f4f6fb;
+}
+.admin-primary-wrap{
+    max-width:900px;
+    margin:auto;
+}
+.admin-primary-toolbar{
+    display:flex;
+    gap:10px;
+    justify-content:flex-end;
+    margin-bottom:12px;
+    flex-wrap:wrap;
+}
+.admin-primary-toolbar button{
+    width:auto;
+    padding:10px 16px;
+}
+.admin-primary-a4{
+    width:794px;
+    min-height:1123px;
+    margin:0 auto;
+    background:#fff;
+    padding:14px 20px;
+    border:1px solid #b8c2cf;
+    box-shadow:0 8px 28px rgba(0,0,0,.16);
+    position:relative;
+    font-family:"SutonnyMJ","SolaimanLipi","Noto Sans Bengali",Arial,sans-serif;
+    color:#111;
+}
+.ap-header{
+    border:2px solid #133c6d;
+    border-radius:8px;
+    padding:7px 10px;
+    text-align:center;
+    background:#f8fbff;
+}
+.ap-header h1{
+    margin:0;
+    font-size:25px;
+    letter-spacing:.5px;
+    color:#082f5f;
+    line-height:1.05;
+    font-family:Arial,sans-serif;
+}
+.ap-header .sub{
+    font-size:10.5px;
+    margin-top:2px;
+    font-family:Arial,sans-serif;
+}
+.ap-title-line{
+    display:grid;
+    grid-template-columns:1fr 230px;
+    gap:8px;
+    align-items:center;
+    margin-top:6px;
+}
+.ap-form-title{
+    text-align:center;
+    font-size:23px;
+    font-weight:bold;
+    text-decoration:underline;
+}
+.ap-join-date-box{
+    display:grid;
+    grid-template-columns:86px 1fr;
+    align-items:center;
+    border:1.4px solid #2c6fae;
+    border-radius:5px;
+    min-height:26px;
+    padding:2px 5px;
+}
+.ap-top-post-section{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:5px;
+}
+.ap-top-item{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    align-items:center;
+    min-height:24px;
+    border:1.2px solid #7da9d2;
+    border-radius:5px;
+    padding:2px 5px;
+}
+.ap-block{
+    border:1.4px solid #2c6fae;
+    border-radius:7px;
+    overflow:hidden;
+    margin-top:6px;
+    background:#fff;
+}
+.ap-block-title{
+    background:#eef6ff;
+    color:#083b6f;
+    font-weight:bold;
+    padding:3px 7px;
+    font-size:13.5px;
+    border-bottom:1px solid #9bc1e6;
+}
+.ap-block-body{
+    padding:6px 7px;
+}
+.ap-label{
+    font-weight:bold;
+    font-size:12.5px;
+    white-space:nowrap;
+}
+.ap-input,.ap-select{
+    width:100%;
+    border:0;
+    border-bottom:1.15px dotted #111;
+    min-height:19px;
+    padding:0 4px;
+    font-size:14px;
+    font-weight:bold;
+    white-space:nowrap;
+    overflow:hidden;
+    background:transparent;
+    border-radius:0;
+    margin:0;
+    font-family:"SutonnyMJ","SolaimanLipi","Noto Sans Bengali",Arial,sans-serif;
+}
+.ap-input.big,.ap-select.big{
+    font-size:17px;
+}
+.ap-select{
+    border:1px solid #111;
+    border-radius:4px;
+    min-height:20px;
+    padding:1px 5px;
+    background:#fdfdfd;
+}
+.ap-person-line{
+    display:grid;
+    align-items:center;
+    gap:5px;
+    min-height:23px;
+    margin-bottom:3px;
+}
+.ap-person-line.name{
+    grid-template-columns:116px 1fr 76px 1fr;
+}
+.ap-person-line.full{
+    grid-template-columns:108px 1fr;
+}
+.ap-person-line.three{
+    grid-template-columns:90px 1fr 60px 1fr 72px 80px;
+}
+.ap-person-line.nid{
+    grid-template-columns:92px 1fr 48px 80px 48px 80px;
+}
+.ap-person-line.marital{
+    grid-template-columns:104px 145px 42px 74px 42px 74px 1fr;
+}
+.ap-address-grid,.ap-details-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+.ap-addr-row{
+    display:grid;
+    grid-template-columns:62px 1fr 56px 1fr;
+    gap:4px;
+    align-items:center;
+    min-height:22px;
+    margin-bottom:3px;
+}
+.ap-detail-row{
+    display:grid;
+    grid-template-columns:70px 1fr 65px 1fr;
+    gap:5px;
+    align-items:center;
+    min-height:23px;
+    margin-bottom:3px;
+}
+.ap-mobile-box{
+    border:2px solid #123d6c;
+    border-radius:8px;
+    margin:7px auto 6px;
+    width:520px;
+    min-height:34px;
+    display:grid;
+    grid-template-columns:170px 1fr;
+    align-items:center;
+    padding:4px 10px;
+    background:#f4faff;
+}
+.ap-mobile-box .ap-label{
+    font-size:17px;
+    color:#083b6f;
+}
+.ap-mobile-box .ap-input{
+    font-size:22px;
+    border-bottom:1.4px dotted #111;
+    letter-spacing:.5px;
+}
+.ap-skill-top{
+    display:grid;
+    grid-template-columns:105px 160px 92px 1fr;
+    gap:5px;
+    align-items:center;
+    margin-bottom:5px;
+}
+.ap-skill-box{
+    height:72px;
+    border:1.5px solid #111;
+    border-radius:6px;
+    background:repeating-linear-gradient(to bottom,#fff 0,#fff 23px,#e3e3e3 24px);
+    width:100%;
+    padding:6px;
+    resize:none;
+    font-weight:bold;
+    font-size:14px;
+    font-family:"SutonnyMJ","SolaimanLipi","Noto Sans Bengali",Arial,sans-serif;
+}
+.ap-salary-section{
+    border:1.4px solid #d0a832;
+    border-radius:7px;
+    padding:8px 9px;
+    margin-top:7px;
+    background:#fffdf2;
+    font-size:13px;
+    line-height:1.9;
+}
+.ap-inline-input{
+    display:inline-block;
+    width:120px;
+    border:0;
+    border-bottom:1px dotted #111;
+    font-weight:bold;
+    background:transparent;
+    margin:0 3px;
+    padding:0 3px;
+    border-radius:0;
+    font-size:13px;
+}
+.ap-inline-post{
+    display:inline-block;
+    min-width:155px;
+    border-bottom:1px dotted #111;
+    font-weight:bold;
+    font-size:14px;
+}
+.ap-signature-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    gap:22px;
+    margin-top:82px;
+    padding:0 18px;
+}
+.ap-sign{
+    text-align:center;
+    border-top:1.6px solid #111;
+    padding-top:6px;
+    font-size:12.5px;
+    font-weight:bold;
+}
+.ap-form-sl{
+    position:absolute;
+    left:20px;
+    bottom:7px;
+    font-size:9px;
+    color:#333;
+}
+.ap-page-no{
+    position:absolute;
+    right:20px;
+    bottom:7px;
+    font-size:10px;
+}
+@media print{
+    body.print-admin-primary *{
+        visibility:hidden;
+    }
+    body.print-admin-primary #adminPrimaryPrintArea,
+    body.print-admin-primary #adminPrimaryPrintArea *{
+        visibility:visible;
+    }
+    body.print-admin-primary #adminPrimaryPrintArea{
+        position:absolute;
+        left:0;
+        top:0;
+        width:210mm;
+    }
+    body.print-admin-primary .admin-primary-toolbar,
+    body.print-admin-primary .ap-no-print{
+        display:none !important;
+    }
+    body.print-admin-primary .admin-primary-a4{
+        width:210mm;
+        height:297mm;
+        min-height:auto;
+        margin:0;
+        border:0;
+        box-shadow:none;
+        padding:8mm 8mm 6mm;
+        page-break-after:avoid;
+    }
+    body.print-admin-primary .ap-input,
+    body.print-admin-primary .ap-select,
+    body.print-admin-primary .ap-skill-box,
+    body.print-admin-primary .ap-inline-input{
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+    }
+    @page{
+        size:A4;
+        margin:0;
+    }
+}
+
 </style>
 </head>
 <body>
