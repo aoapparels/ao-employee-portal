@@ -660,6 +660,21 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 }
 .admin-address-save-row button:hover{background:#004d40;}
 
+
+/* Admin Primary Bijoy/SutonnyMJ typing support */
+#adminPrimaryCheckPage input:not([type="checkbox"]),
+#adminPrimaryCheckPage textarea,
+#adminPrimaryCheckPage select,
+#adminPrimaryCheckPage .autocomplete-item,
+#adminPrimaryPrintArea span,
+#adminPrimaryPrintArea div{
+    font-family:"SutonnyMJ","SolaimanLipi","Noto Sans Bengali",Arial,sans-serif !important;
+}
+#adminPrimaryCheckPage input:not([type="checkbox"]),
+#adminPrimaryCheckPage textarea{
+    ime-mode:inactive;
+}
+
 </style>
 </head>
 
@@ -1270,11 +1285,11 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         <input type="text" id="AP_Salary" placeholder="নির্ধারিত বেতন / মজুরি (Manual/PDF use)">
     </div>
 
-    <button onclick="submitAdminPrimaryCheckForm()" class="green">Save To Supabase</button>
+    <button onclick="submitAdminPrimaryCheckForm()" class="green">Save To Bijoy Table</button>
     <button onclick="printAdminPrimaryCheckForm()" class="orange">Print / Save PDF</button>
     <button onclick="clearAdminPrimaryCheckForm()" class="red">Clear</button>
     <button class="gray" onclick="backToAdminDashboardFromPrimary()">Back</button>
-    <div id="adminPrimaryStatus" class="status">সব তথ্য লিখে Save / Print করুন।</div>
+    <div id="adminPrimaryStatus" class="status">সব তথ্য লিখে Save / Print করুন। Data যাবে Bijoy table-এ। Data যাবে Bijoy table-এ।</div>
 
     <div class="admin-primary-print-hidden">
         <div class="admin-primary-a4" id="adminPrimaryPrintArea">
@@ -1937,7 +1952,7 @@ function showAdminPrimaryCheckForm(){
     hideAll();
     document.getElementById("adminPrimaryCheckPage").classList.remove("hidden");
     document.getElementById("adminPrimaryStatus").className = "status";
-    document.getElementById("adminPrimaryStatus").innerHTML = "সব তথ্য লিখে Save / Print করুন।";
+    document.getElementById("adminPrimaryStatus").innerHTML = "সব তথ্য লিখে Save / Print করুন। Data যাবে Bijoy table-এ।";
     initAdminPrimaryDateDropdowns();
     initAdminPrimaryDOBDropdowns();
     loadAdminBijoyDistrictsFromSupabase();
@@ -2127,7 +2142,7 @@ function getAdminPrimaryFormData(){
         Pre_Dist: getAdminPrimaryValue("AP_Pre_Dist"),
         Date_Of_Birth: normalizePortalDate(getAdminPrimaryValue("AP_Date_Of_Birth")),
         Joining_Date: normalizePortalDate(getAdminPrimaryValue("AP_Joining_Date")),
-        Religion: normalizeReligionText(getAdminPrimaryValue("AP_Religion")),
+        Religion: getAdminPrimaryValue("AP_Religion"),
         Mobile_No: getAdminPrimaryValue("AP_Mobile_No"),
         NID_Birth: getAdminPrimaryValue("AP_NID_Birth"),
         Weight: getAdminPrimaryValue("AP_Weight"),
@@ -2154,6 +2169,37 @@ function getAdminPrimaryFormData(){
     };
 }
 
+
+async function generateAdminPrimaryTemporaryId(){
+    const today = new Date();
+    const yy = String(today.getFullYear()).slice(2);
+    const mm = String(today.getMonth() + 1).padStart(2,"0");
+    const dd = String(today.getDate()).padStart(2,"0");
+    const prefix = yy + mm + dd;
+
+    const { data, error } = await supabaseClient
+    .from("bijoy_new_join_applications")
+    .select("Temporary_ID")
+    .order("Temporary_ID", { ascending:false })
+    .limit(1);
+
+    if(error){
+        console.log(error);
+        return Number(prefix + "001");
+    }
+
+    if(data && data.length){
+        let lastId = String(data[0].Temporary_ID || "");
+        if(lastId.startsWith(prefix)){
+            let lastSerial = Number(lastId.slice(6)) || 0;
+            let newSerial = String(lastSerial + 1).padStart(3,"0");
+            return Number(prefix + newSerial);
+        }
+    }
+
+    return Number(prefix + "001");
+}
+
 async function submitAdminPrimaryCheckForm(){
     const status = document.getElementById("adminPrimaryStatus");
     const formData = getAdminPrimaryFormData();
@@ -2168,10 +2214,10 @@ async function submitAdminPrimaryCheckForm(){
         return;
     }
     status.className = "status";
-    status.innerHTML = "Saving admin primary form...";
-    const temporaryId = await generateTemporaryId();
+    status.innerHTML = "Saving admin primary form to Bijoy table...";
+    const temporaryId = await generateAdminPrimaryTemporaryId();
     formData.Temporary_ID = temporaryId;
-    const { error } = await supabaseClient.from("New_Join_Applications").insert([formData]);
+    const { error } = await supabaseClient.from("bijoy_new_join_applications").insert([formData]);
     if(error){
         console.log(error);
         status.className = "status error";
