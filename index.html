@@ -221,26 +221,31 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     font-family:Arial,sans-serif;
 }
 .ap-title-line{
-    display:grid;
-    grid-template-columns:1fr 230px;
-    gap:8px;
-    align-items:center;
+    position:relative;
+    min-height:32px;
     margin-top:6px;
+    display:block;
 }
 .ap-form-title{
     text-align:center;
     font-size:23px;
     font-weight:bold;
     text-decoration:underline;
+    line-height:32px;
 }
 .ap-join-date-box{
+    position:absolute;
+    right:0;
+    top:2px;
+    width:238px;
     display:grid;
-    grid-template-columns:86px 1fr;
+    grid-template-columns:45px 1fr;
     align-items:center;
     border:1.4px solid #2c6fae;
     border-radius:5px;
-    min-height:26px;
+    min-height:28px;
     padding:2px 5px;
+    background:#fff;
 }
 .ap-top-post-section{
     display:grid;
@@ -304,6 +309,23 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     min-height:20px;
     padding:1px 5px;
     background:#fdfdfd;
+}
+.ap-date-selects{
+    display:grid;
+    grid-template-columns:1fr 1fr 1.35fr;
+    gap:3px;
+}
+.ap-date-selects select{
+    width:100%;
+    min-height:22px;
+    margin:0;
+    padding:1px 2px;
+    border:1px solid #111;
+    border-radius:4px;
+    font-size:12px;
+    font-weight:bold;
+    font-family:Arial,sans-serif;
+    background:#fff;
 }
 .ap-person-line{
     display:grid;
@@ -482,6 +504,115 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         size:A4;
         margin:0;
     }
+}
+
+
+/* Admin Primary Check data entry colorful UI only */
+#adminPrimaryCheckPage{
+    background:linear-gradient(135deg,#f7fbff,#eef7ff);
+}
+.admin-primary-form-ui{
+    background:linear-gradient(135deg,#ffffff,#f4fbff);
+    border:2px solid #90caf9;
+    border-radius:18px;
+    box-shadow:0 8px 28px rgba(7,84,166,.18);
+    padding:22px;
+}
+.admin-primary-form-ui h2{
+    display:none;
+}
+.admin-primary-form-ui .small-note{
+    display:none;
+}
+.admin-primary-form-ui .box{
+    border:2px solid #bbdefb;
+    border-radius:16px;
+    padding:18px;
+    margin-top:16px;
+    box-shadow:0 4px 16px rgba(0,0,0,.08);
+}
+.admin-primary-form-ui .box:nth-of-type(1){background:#e3f2fd;}
+.admin-primary-form-ui .box:nth-of-type(1) h3{background:#1976d2;}
+.admin-primary-form-ui .box:nth-of-type(2){background:#e8f5e9;}
+.admin-primary-form-ui .box:nth-of-type(2) h3{background:#2e7d32;}
+.admin-primary-form-ui .box:nth-of-type(3){background:#fff8e1;}
+.admin-primary-form-ui .box:nth-of-type(3) h3{background:#f9a825;}
+.admin-primary-form-ui .box:nth-of-type(4){background:#f3e5f5;}
+.admin-primary-form-ui .box:nth-of-type(4) h3{background:#8e24aa;}
+.admin-primary-form-ui .box:nth-of-type(5){background:#fff3e0;}
+.admin-primary-form-ui .box:nth-of-type(5) h3{background:#ef6c00;}
+.admin-primary-form-ui .box:nth-of-type(6){background:#e0f7fa;}
+.admin-primary-form-ui .box:nth-of-type(6) h3{background:#00838f;}
+.admin-primary-form-ui .box h3{
+    color:#fff;
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:14px;
+    font-size:20px;
+    letter-spacing:.3px;
+}
+.admin-primary-form-ui label{
+    font-weight:bold;
+    color:#083b6f;
+    font-size:16px;
+    margin-top:8px;
+    display:block;
+}
+.admin-primary-form-ui input,
+.admin-primary-form-ui select,
+.admin-primary-form-ui textarea{
+    background:#fff;
+    border:2px solid #90caf9;
+    border-radius:12px;
+    padding:14px;
+    font-size:18px;
+    font-weight:bold;
+    color:#111;
+    box-shadow:0 2px 8px rgba(25,118,210,.08);
+}
+.admin-primary-form-ui textarea{
+    min-height:110px;
+}
+.admin-primary-form-ui input:focus,
+.admin-primary-form-ui select:focus,
+.admin-primary-form-ui textarea:focus{
+    border-color:#0d47a1;
+    box-shadow:0 0 12px rgba(13,71,161,.25);
+}
+.admin-primary-form-ui .menu{
+    gap:14px;
+}
+.admin-primary-form-ui .admin-primary-title{
+    display:block;
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:#fff;
+    text-align:center;
+    padding:15px;
+    border-radius:14px;
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:12px;
+    box-shadow:0 5px 18px rgba(7,84,166,.28);
+}
+.admin-primary-form-ui .admin-primary-subtitle{
+    display:block;
+    text-align:center;
+    background:#fffde7;
+    border:2px solid #fbc02d;
+    border-radius:12px;
+    padding:10px;
+    font-weight:bold;
+    color:#6d4c00;
+    margin-bottom:12px;
+}
+.admin-primary-form-ui .status{
+    font-size:17px;
+    font-weight:bold;
+}
+.admin-primary-form-ui button{
+    font-size:18px;
+    border-radius:12px;
+    padding:14px;
 }
 
 </style>
@@ -869,10 +1000,11 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 
 </div>
 
-<div class="card hidden" id="adminPrimaryCheckPage">
+<div class="card hidden admin-primary-form-ui" id="adminPrimaryCheckPage">
     <div class="admin-primary-wrap">
         <div class="topbar ap-no-print">
-            <h2>প্রাথমিক যাচাই ফরম</h2>
+            <div class="admin-primary-title">Admin প্রাথমিক যাচাই Data Entry</div>
+    <div class="admin-primary-subtitle">Data entry এখানে হবে, Print/PDF আগের professional form design অনুযায়ী বের হবে।</div>
             <button class="gray" onclick="backToAdminDashboardFromPrimary()">Back</button>
         </div>
 
@@ -893,8 +1025,13 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
             <div class="ap-title-line">
                 <div class="ap-form-title">প্রাথমিক যাচাই ফরম</div>
                 <div class="ap-join-date-box">
-                    <div class="ap-label">যোগদানের তারিখ:</div>
-                    <input class="ap-input big" id="AP_Joining_Date" placeholder="01-Jan-2026">
+                    <div class="ap-label">তারিখ:</div>
+                    <div class="ap-date-selects">
+                        <select id="AP_JOIN_Day" onchange="syncAdminPrimaryJoiningDate()"></select>
+                        <select id="AP_JOIN_Month" onchange="syncAdminPrimaryJoiningDate()"></select>
+                        <select id="AP_JOIN_Year" onchange="syncAdminPrimaryJoiningDate()"></select>
+                    </div>
+                    <input type="hidden" id="AP_Joining_Date">
                 </div>
             </div>
 
@@ -967,7 +1104,12 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
                     <div class="ap-person-line full"><div class="ap-label">স্বামী/স্ত্রীর নাম:</div><input class="ap-input" id="AP_Spouse_Name"></div>
                     <div class="ap-person-line full"><div class="ap-label">Care Of / প্রযত্নে:</div><input class="ap-input" id="AP_Care_Of"></div>
                     <div class="ap-person-line three">
-                        <div class="ap-label">Date of Birth:</div><input class="ap-input" id="AP_Date_Of_Birth" placeholder="01-Jan-1990">
+                        <div class="ap-label">Date of Birth:</div><div class="menu" style="grid-template-columns:1fr 1fr 1.35fr;margin-top:0;">
+            <select id="AP_DOB_Day" onchange="syncAdminPrimaryDOB()"></select>
+            <select id="AP_DOB_Month" onchange="syncAdminPrimaryDOB()"></select>
+            <select id="AP_DOB_Year" onchange="syncAdminPrimaryDOB()"></select>
+        </div>
+        <input type="hidden" id="AP_Date_Of_Birth","AP_DOB_Day","AP_DOB_Month","AP_DOB_Year">
                         <div class="ap-label">Religion:</div>
                         <select class="ap-select" id="AP_Religion">
                             <option value=""></option>
@@ -1548,6 +1690,8 @@ function showAdminPrimaryCheckForm(){
     document.getElementById("adminPrimaryCheckPage").classList.remove("hidden");
     document.getElementById("adminPrimaryStatus").className = "status";
     document.getElementById("adminPrimaryStatus").innerHTML = "Admin data entry করে Save / Print করতে পারবেন।";
+    initAdminPrimaryDateDropdowns();
+    initAdminPrimaryDOBDropdowns();
     toggleAdminPrimaryChildren();
     syncAdminPrimaryPostText();
 }
@@ -1612,9 +1756,70 @@ document.addEventListener("change", function(e){
     }
 });
 
+function populateAdminPrimaryNumericDateDropdowns(dayId, monthId, yearId, startYear){
+    const day = document.getElementById(dayId);
+    const month = document.getElementById(monthId);
+    const year = document.getElementById(yearId);
+    if(!day || !month || !year) return;
+
+    if(day.options.length === 0){
+        day.innerHTML = '<option value="">DD</option>';
+        for(let i = 1; i <= 31; i++){
+            const v = String(i).padStart(2,"0");
+            day.innerHTML += `<option value="${v}">${v}</option>`;
+        }
+    }
+
+    if(month.options.length === 0){
+        month.innerHTML = '<option value="">MM</option>';
+        for(let i = 1; i <= 12; i++){
+            const v = String(i).padStart(2,"0");
+            month.innerHTML += `<option value="${v}">${v}</option>`;
+        }
+    }
+
+    if(year.options.length === 0){
+        const currentYear = new Date().getFullYear() + 1;
+        year.innerHTML = '<option value="">YYYY</option>';
+        for(let y = startYear; y <= currentYear; y++){
+            year.innerHTML += `<option value="${y}">${y}</option>`;
+        }
+    }
+}
+
+function initAdminPrimaryDOBDropdowns(){
+    populateAdminPrimaryNumericDateDropdowns("AP_DOB_Day","AP_DOB_Month","AP_DOB_Year",1960);
+    syncAdminPrimaryDOB();
+}
+
+function syncAdminPrimaryDOB(){
+    const d = document.getElementById("AP_DOB_Day")?.value || "";
+    const m = document.getElementById("AP_DOB_Month")?.value || "";
+    const y = document.getElementById("AP_DOB_Year")?.value || "";
+    const hidden = document.getElementById("AP_Date_Of_Birth");
+    if(hidden){
+        hidden.value = (d && m && y) ? `${d}-${m}-${y}` : "";
+    }
+}
+
+function initAdminPrimaryDateDropdowns(){
+    populateAdminPrimaryNumericDateDropdowns("AP_JOIN_Day","AP_JOIN_Month","AP_JOIN_Year",2021);
+    syncAdminPrimaryJoiningDate();
+}
+
+function syncAdminPrimaryJoiningDate(){
+    const d = document.getElementById("AP_JOIN_Day")?.value || "";
+    const m = document.getElementById("AP_JOIN_Month")?.value || "";
+    const y = document.getElementById("AP_JOIN_Year")?.value || "";
+    const hidden = document.getElementById("AP_Joining_Date");
+    if(hidden){
+        hidden.value = (d && m && y) ? `${d}-${m}-${y}` : "";
+    }
+}
+
 function clearAdminPrimaryCheckForm(){
     const ids = [
-        "AP_Joining_Date","AP_Applied_Post","AP_Applied_Post_Other","AP_Section_Name","AP_Section_Name_Other",
+        "AP_Joining_Date","AP_JOIN_Day","AP_JOIN_Month","AP_JOIN_Year","AP_Applied_Post","AP_Applied_Post_Other","AP_Section_Name","AP_Section_Name_Other",
         "AP_Name_English","AP_Employee_Name","AP_Father_Name","AP_Mother_Name","AP_Spouse_Name","AP_Care_Of",
         "AP_Date_Of_Birth","AP_Religion","AP_Blood_Group","AP_NID_Birth","AP_Height","AP_Weight",
         "AP_Marital_Status","AP_Son_Children","AP_Daughter_Children",
@@ -1628,6 +1833,8 @@ function clearAdminPrimaryCheckForm(){
         if(el) el.value = "";
     });
     document.getElementById("AP_Temporary_ID_Show").textContent = "";
+    syncAdminPrimaryJoiningDate();
+    syncAdminPrimaryDOB();
     toggleAdminPrimaryChildren();
     syncAdminPrimaryPostText();
     document.getElementById("adminPrimaryStatus").className = "status";
@@ -1635,6 +1842,8 @@ function clearAdminPrimaryCheckForm(){
 }
 
 function getAdminPrimaryFormData(){
+    syncAdminPrimaryJoiningDate();
+    syncAdminPrimaryDOB();
     const marital = document.getElementById("AP_Marital_Status").value;
     return {
         Name_English: document.getElementById("AP_Name_English").value.trim(),
@@ -2589,6 +2798,11 @@ function normalizePortalDate(value){
         return `${p[2]}-${shortMonths[Number(p[1]) - 1] || p[1]}-${p[0]}`;
     }
 
+    if(/^\d{2}-\d{2}-\d{4}$/.test(value)){
+        const p = value.split("-");
+        return `${p[0]}-${shortMonths[Number(p[1]) - 1] || p[1]}-${p[2]}`;
+    }
+
     return value;
 }
 
@@ -3287,26 +3501,31 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
     font-family:Arial,sans-serif;
 }
 .ap-title-line{
-    display:grid;
-    grid-template-columns:1fr 230px;
-    gap:8px;
-    align-items:center;
+    position:relative;
+    min-height:32px;
     margin-top:6px;
+    display:block;
 }
 .ap-form-title{
     text-align:center;
     font-size:23px;
     font-weight:bold;
     text-decoration:underline;
+    line-height:32px;
 }
 .ap-join-date-box{
+    position:absolute;
+    right:0;
+    top:2px;
+    width:238px;
     display:grid;
-    grid-template-columns:86px 1fr;
+    grid-template-columns:45px 1fr;
     align-items:center;
     border:1.4px solid #2c6fae;
     border-radius:5px;
-    min-height:26px;
+    min-height:28px;
     padding:2px 5px;
+    background:#fff;
 }
 .ap-top-post-section{
     display:grid;
@@ -3370,6 +3589,23 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
     min-height:20px;
     padding:1px 5px;
     background:#fdfdfd;
+}
+.ap-date-selects{
+    display:grid;
+    grid-template-columns:1fr 1fr 1.35fr;
+    gap:3px;
+}
+.ap-date-selects select{
+    width:100%;
+    min-height:22px;
+    margin:0;
+    padding:1px 2px;
+    border:1px solid #111;
+    border-radius:4px;
+    font-size:12px;
+    font-weight:bold;
+    font-family:Arial,sans-serif;
+    background:#fff;
 }
 .ap-person-line{
     display:grid;
