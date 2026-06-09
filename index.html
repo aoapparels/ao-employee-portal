@@ -705,6 +705,151 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     font-family:Arial,sans-serif !important;
 }
 
+
+/* Admin Primary final font fix: entry normal, print Sutonny */
+#adminPrimaryCheckPage,
+#adminPrimaryCheckPage input,
+#adminPrimaryCheckPage select,
+#adminPrimaryCheckPage textarea,
+#adminPrimaryCheckPage button,
+#adminPrimaryCheckPage label,
+#adminPrimaryCheckPage .box,
+#adminPrimaryCheckPage .menu,
+#adminPrimaryCheckPage .status{
+    font-family:Arial,"SolaimanLipi","Noto Sans Bengali",sans-serif !important;
+}
+#adminPrimaryCheckPage input::placeholder,
+#adminPrimaryCheckPage textarea::placeholder{
+    font-family:Arial,"SolaimanLipi","Noto Sans Bengali",sans-serif !important;
+    color:#666;
+    opacity:1;
+}
+#adminPrimaryPrintArea,
+#adminPrimaryPrintArea *{
+    font-family:"SutonnyMJ","SolaimanLipi","Noto Sans Bengali",Arial,sans-serif !important;
+}
+#adminPrimaryPrintArea .ap-header h1,
+#adminPrimaryPrintArea .ap-header .sub{
+    font-family:Arial,sans-serif !important;
+}
+
+
+/* Admin Primary: force English/number font for English name and mobile/number fields */
+#AP_Name_English,
+#AP_Mobile_No,
+#AP_Reference_Mobile,
+#AP_Emergency_Mobile,
+#AP_NID_Birth,
+#AP_Weight,
+#AP_Height,
+#AP_Salary,
+#AP_PRINT_Name_English,
+#AP_PRINT_Mobile_No,
+#AP_PRINT_Reference_Mobile,
+#AP_PRINT_Emergency_Mobile,
+#AP_PRINT_NID_Birth,
+#AP_PRINT_Weight,
+#AP_PRINT_Height,
+#AP_PRINT_Salary{
+    font-family:Arial, Helvetica, sans-serif !important;
+}
+#AP_Name_English::placeholder,
+#AP_Mobile_No::placeholder,
+#AP_Reference_Mobile::placeholder,
+#AP_Emergency_Mobile::placeholder,
+#AP_NID_Birth::placeholder,
+#AP_Weight::placeholder,
+#AP_Height::placeholder,
+#AP_Salary::placeholder{
+    font-family:Arial, Helvetica, sans-serif !important;
+}
+
+
+/* Admin Primary: bigger readable Bijoy/Sutonny text in entry + PDF */
+#adminPrimaryCheckPage input,
+#adminPrimaryCheckPage select,
+#adminPrimaryCheckPage textarea{
+    font-size:20px !important;
+    font-weight:bold !important;
+}
+#adminPrimaryCheckPage input::placeholder,
+#adminPrimaryCheckPage textarea::placeholder{
+    font-size:18px !important;
+}
+#adminPrimaryCheckPage label{
+    font-size:17px !important;
+    font-weight:bold !important;
+}
+#adminPrimaryCheckPage .box h3{
+    font-size:22px !important;
+}
+#adminPrimaryPrintArea .ap-input,
+#adminPrimaryPrintArea .ap-select,
+#adminPrimaryPrintArea .ap-skill-box,
+#adminPrimaryPrintArea .ap-inline-input,
+#adminPrimaryPrintArea .ap-inline-post{
+    font-size:16px !important;
+    font-weight:bold !important;
+}
+#adminPrimaryPrintArea .ap-input.big,
+#adminPrimaryPrintArea .ap-select.big{
+    font-size:19px !important;
+    font-weight:bold !important;
+}
+#adminPrimaryPrintArea .ap-label{
+    font-size:13.5px !important;
+    font-weight:bold !important;
+}
+#adminPrimaryPrintArea .ap-mobile-box .ap-input{
+    font-size:23px !important;
+    font-weight:bold !important;
+}
+#adminPrimaryPrintArea .ap-form-title{
+    font-size:24px !important;
+    font-weight:bold !important;
+}
+#adminPrimaryPrintArea .ap-block-title{
+    font-size:14.5px !important;
+    font-weight:bold !important;
+}
+
+
+/* Admin Primary: keep English/number fields readable */
+#AP_Name_English,
+#AP_Mobile_No,
+#AP_Reference_Mobile,
+#AP_Emergency_Mobile,
+#AP_NID_Birth,
+#AP_Weight,
+#AP_Height,
+#AP_Salary{
+    font-size:20px !important;
+    font-weight:bold !important;
+}
+#AP_PRINT_Name_English,
+#AP_PRINT_Mobile_No,
+#AP_PRINT_Reference_Mobile,
+#AP_PRINT_Emergency_Mobile,
+#AP_PRINT_NID_Birth,
+#AP_PRINT_Weight,
+#AP_PRINT_Height,
+#AP_PRINT_Salary{
+    font-size:17px !important;
+    font-weight:bold !important;
+}
+
+
+/* Admin Primary: English-only entry fields */
+#AP_Name_English,
+#AP_Mobile_No,
+#AP_Reference_Mobile,
+#AP_Emergency_Mobile{
+    font-family:Arial, Helvetica, sans-serif !important;
+    direction:ltr !important;
+    unicode-bidi:plaintext !important;
+    ime-mode:disabled;
+}
+
 </style>
 </head>
 
@@ -1096,7 +1241,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 
     <div class="box">
         <h3>ব্যক্তিগত তথ্য</h3>
-        <input type="text" id="AP_Name_English" placeholder="1. Name Of Employee (English)">
+        <input type="text" id="AP_Name_English" placeholder="1. Name Of Employee (English)" lang="en" inputmode="text" autocomplete="off" oninput="englishNameOnly(this)">
         <input type="text" id="AP_Employee_Name" placeholder="2. কর্মীর নাম">
         <input type="text" id="AP_Father_Name" placeholder="3. পিতার নাম">
         <input type="text" id="AP_Mother_Name" placeholder="4. মাতার নাম">
@@ -1170,7 +1315,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
             <option value="খ্রিস্টান">খ্রিস্টান</option>
             <option value="অন্যান্য">অন্যান্য</option>
         </select>
-        <input type="text" id="AP_Mobile_No" placeholder="মোবাইল একাউন্ট নম্বর - max 12 digit" maxlength="12" oninput="digitsOnly(this,12)">
+        <input type="text" id="AP_Mobile_No" lang="en" inputmode="numeric" pattern="[0-9]*" lang="en" inputmode="numeric" pattern="[0-9]*" placeholder="মোবাইল একাউন্ট নম্বর - max 12 digit" maxlength="12" oninput="digitsOnly(this,12)">
         <input type="text" id="AP_NID_Birth" placeholder="NID / জন্ম নিবন্ধন নম্বর">
         <div class="menu">
             <input type="text" id="AP_Weight" placeholder="ওজন (KG)">
@@ -1244,7 +1389,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
             <option value="Other">Other</option>
         </select>
         <input type="text" id="AP_Reference_Relation_Other" placeholder="অন্যান্য সম্পর্ক লিখুন" class="hidden">
-        <input type="text" id="AP_Reference_Mobile" placeholder="শনাক্তকারীর মোবাইল" maxlength="11" oninput="digitsOnly(this,11)">
+        <input type="text" id="AP_Reference_Mobile" lang="en" inputmode="numeric" pattern="[0-9]*" lang="en" inputmode="numeric" pattern="[0-9]*" placeholder="শনাক্তকারীর মোবাইল" maxlength="11" oninput="digitsOnly(this,11)">
     </div>
 
     <div class="box">
@@ -1257,7 +1402,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
             <option value="Other">Other</option>
         </select>
         <input type="text" id="AP_Emergency_Relation_Other" placeholder="অন্যান্য সম্পর্ক লিখুন" class="hidden">
-        <input type="text" id="AP_Emergency_Mobile" placeholder="মোবাইল নম্বর" maxlength="11" oninput="digitsOnly(this,11)">
+        <input type="text" id="AP_Emergency_Mobile" lang="en" inputmode="numeric" pattern="[0-9]*" lang="en" inputmode="numeric" pattern="[0-9]*" placeholder="মোবাইল নম্বর" maxlength="11" oninput="digitsOnly(this,11)">
     </div>
 
     <div class="box">
@@ -2150,46 +2295,46 @@ function getAdminPrimaryFormData(){
     syncAdminPrimaryDOB();
     const marital = getAdminPrimaryValue("AP_Marital_Status");
     return {
-        Name_English: getAdminPrimaryValue("AP_Name_English"),
-        Employee_Name: getAdminPrimaryValue("AP_Employee_Name"),
-        Father_Name: getAdminPrimaryValue("AP_Father_Name"),
-        Mother_Name: getAdminPrimaryValue("AP_Mother_Name"),
-        Spouse_Name: getAdminPrimaryValue("AP_Spouse_Name"),
-        Care_Of: getAdminPrimaryValue("AP_Care_Of"),
-        Per_Vill: getAdminPrimaryValue("AP_Per_Vill"),
-        Per_PO: getAdminPrimaryValue("AP_Per_PO"),
-        Per_PS: getAdminPrimaryValue("AP_Per_PS"),
-        Per_Dist: getAdminPrimaryValue("AP_Per_Dist"),
-        Pre_Vill: getAdminPrimaryValue("AP_Pre_Vill"),
-        Pre_PO: getAdminPrimaryValue("AP_Pre_PO"),
-        Pre_PS: getAdminPrimaryValue("AP_Pre_PS"),
-        Pre_Dist: getAdminPrimaryValue("AP_Pre_Dist"),
-        Date_Of_Birth: normalizePortalDate(getAdminPrimaryValue("AP_Date_Of_Birth")),
-        Joining_Date: normalizePortalDate(getAdminPrimaryValue("AP_Joining_Date")),
-        Religion: getAdminPrimaryValue("AP_Religion"),
-        Mobile_No: getAdminPrimaryValue("AP_Mobile_No"),
-        NID_Birth: getAdminPrimaryValue("AP_NID_Birth"),
-        Weight: getAdminPrimaryValue("AP_Weight"),
-        Height: getAdminPrimaryValue("AP_Height"),
-        Blood_Group: getAdminPrimaryValue("AP_Blood_Group"),
-        Marital_Status: marital,
-        Son_Children: marital === "Married" ? getAdminPrimaryValue("AP_Son_Children") : "",
-        Daughter_Children: marital === "Married" ? getAdminPrimaryValue("AP_Daughter_Children") : "",
-        Education: getAdminPrimaryDropdownValue("AP_Education","AP_Education_Other"),
-        Identification_Mark: getAdminPrimaryValue("AP_Identification_Mark"),
-        Reference_Name: getAdminPrimaryValue("AP_Reference_Name"),
-        Reference_Mobile: getAdminPrimaryValue("AP_Reference_Mobile"),
-        Reference_Relation: getAdminPrimaryDropdownValue("AP_Reference_Relation","AP_Reference_Relation_Other"),
-        Skill_Experience: getAdminPrimaryValue("AP_Skill_Experience"),
-        Previous_Factory: getAdminPrimaryValue("AP_Previous_Factory"),
-        Applied_Post: getAdminPrimaryDropdownValue("AP_Applied_Post","AP_Applied_Post_Other"),
-        Section_Name: getAdminPrimaryDropdownValue("AP_Section_Name","AP_Section_Name_Other"),
-        Machine_Skill: getAdminPrimaryValue("AP_Machine_Skill"),
-        Emergency_Name: getAdminPrimaryValue("AP_Emergency_Name"),
-        Emergency_Relation: getAdminPrimaryDropdownValue("AP_Emergency_Relation","AP_Emergency_Relation_Other"),
-        Emergency_Mobile: getAdminPrimaryValue("AP_Emergency_Mobile"),
-        Unit_Name: getAdminPrimaryDropdownValue("AP_Unit_Name","AP_Unit_Name_Other"),
-        Approval_Status: "Pending"
+        name_english: getAdminPrimaryValue("AP_Name_English"),
+        employee_name: getAdminPrimaryValue("AP_Employee_Name"),
+        father_name: getAdminPrimaryValue("AP_Father_Name"),
+        mother_name: getAdminPrimaryValue("AP_Mother_Name"),
+        spouse_name: getAdminPrimaryValue("AP_Spouse_Name"),
+        care_of: getAdminPrimaryValue("AP_Care_Of"),
+        per_vill: getAdminPrimaryValue("AP_Per_Vill"),
+        per_po: getAdminPrimaryValue("AP_Per_PO"),
+        per_ps: getAdminPrimaryValue("AP_Per_PS"),
+        per_dist: getAdminPrimaryValue("AP_Per_Dist"),
+        pre_vill: getAdminPrimaryValue("AP_Pre_Vill"),
+        pre_po: getAdminPrimaryValue("AP_Pre_PO"),
+        pre_ps: getAdminPrimaryValue("AP_Pre_PS"),
+        pre_dist: getAdminPrimaryValue("AP_Pre_Dist"),
+        date_of_birth: normalizePortalDate(getAdminPrimaryValue("AP_Date_Of_Birth")),
+        joining_date: normalizePortalDate(getAdminPrimaryValue("AP_Joining_Date")),
+        religion: getAdminPrimaryValue("AP_Religion"),
+        mobile_no: getAdminPrimaryValue("AP_Mobile_No"),
+        nid_birth: getAdminPrimaryValue("AP_NID_Birth"),
+        weight: getAdminPrimaryValue("AP_Weight"),
+        height: getAdminPrimaryValue("AP_Height"),
+        blood_group: getAdminPrimaryValue("AP_Blood_Group"),
+        marital_status: marital,
+        son_children: marital === "Married" ? getAdminPrimaryValue("AP_Son_Children") : "",
+        daughter_children: marital === "Married" ? getAdminPrimaryValue("AP_Daughter_Children") : "",
+        education: getAdminPrimaryDropdownValue("AP_Education","AP_Education_Other"),
+        identification_mark: getAdminPrimaryValue("AP_Identification_Mark"),
+        reference_name: getAdminPrimaryValue("AP_Reference_Name"),
+        reference_mobile: getAdminPrimaryValue("AP_Reference_Mobile"),
+        reference_relation: getAdminPrimaryDropdownValue("AP_Reference_Relation","AP_Reference_Relation_Other"),
+        skill_experience: getAdminPrimaryValue("AP_Skill_Experience"),
+        previous_factory: getAdminPrimaryValue("AP_Previous_Factory"),
+        applied_post: getAdminPrimaryDropdownValue("AP_Applied_Post","AP_Applied_Post_Other"),
+        section_name: getAdminPrimaryDropdownValue("AP_Section_Name","AP_Section_Name_Other"),
+        machine_skill: getAdminPrimaryValue("AP_Machine_Skill"),
+        emergency_name: getAdminPrimaryValue("AP_Emergency_Name"),
+        emergency_relation: getAdminPrimaryDropdownValue("AP_Emergency_Relation","AP_Emergency_Relation_Other"),
+        emergency_mobile: getAdminPrimaryValue("AP_Emergency_Mobile"),
+        unit_name: getAdminPrimaryDropdownValue("AP_Unit_Name","AP_Unit_Name_Other"),
+        approval_status: "Pending"
     };
 }
 
@@ -2203,8 +2348,8 @@ async function generateAdminPrimaryTemporaryId(){
 
     const { data, error } = await supabaseClient
     .from("bijoy_new_join_applications")
-    .select("Temporary_ID")
-    .order("Temporary_ID", { ascending:false })
+    .select("temporary_id")
+    .order("temporary_id", { ascending:false })
     .limit(1);
 
     if(error){
@@ -2213,7 +2358,7 @@ async function generateAdminPrimaryTemporaryId(){
     }
 
     if(data && data.length){
-        let lastId = String(data[0].Temporary_ID || "");
+        let lastId = String(data[0].temporary_id || "");
         if(lastId.startsWith(prefix)){
             let lastSerial = Number(lastId.slice(6)) || 0;
             let newSerial = String(lastSerial + 1).padStart(3,"0");
@@ -2227,20 +2372,20 @@ async function generateAdminPrimaryTemporaryId(){
 async function submitAdminPrimaryCheckForm(){
     const status = document.getElementById("adminPrimaryStatus");
     const formData = getAdminPrimaryFormData();
-    if(!formData.Name_English || !formData.Joining_Date){
+    if(!formData.name_english || !formData.joining_date){
         status.className = "status error";
         status.innerHTML = "Name Of Employee এবং যোগদানের তারিখ অবশ্যই দিতে হবে।";
         return;
     }
-    if(formData.Mobile_No.length > 12 || formData.Emergency_Mobile.length > 11 || formData.Reference_Mobile.length > 11){
+    if(formData.mobile_no.length > 12 || formData.emergency_mobile.length > 11 || formData.reference_mobile.length > 11){
         status.className = "status error";
         status.innerHTML = "Mobile Account max 12 digit, Reference/Emergency Mobile max 11 digit হতে হবে।";
         return;
     }
     status.className = "status";
-    status.innerHTML = "Saving admin primary form to Bijoy table...";
+    status.innerHTML = "Saving form...";
     const temporaryId = await generateAdminPrimaryTemporaryId();
-    formData.Temporary_ID = temporaryId;
+    formData.temporary_id = temporaryId;
     const { error } = await supabaseClient.from("bijoy_new_join_applications").insert([formData]);
     if(error){
         console.log(error);
@@ -3022,6 +3167,11 @@ function showAttendanceReportMenu(){
 }
 
 
+
+function englishNameOnly(input){
+    input.value = input.value.replace(/[^A-Za-z .'-]/g, "");
+}
+
 function digitsOnly(input, maxLen){
     input.value = input.value.replace(/\D/g, "").slice(0, maxLen);
 }
@@ -3216,8 +3366,8 @@ async function generateTemporaryId(){
 
     const { data, error } = await supabaseClient
     .from("New_Join_Applications")
-    .select("Temporary_ID")
-    .order("Temporary_ID", { ascending:false })
+    .select("temporary_id")
+    .order("temporary_id", { ascending:false })
     .limit(1);
 
     if(error){
@@ -3227,7 +3377,7 @@ async function generateTemporaryId(){
 
     if(data && data.length){
 
-        let lastId = String(data[0].Temporary_ID || "");
+        let lastId = String(data[0].temporary_id || "");
 
         if(lastId.startsWith(prefix)){
 
@@ -3247,7 +3397,7 @@ async function submitNewJoinApplication(){
     let status = document.getElementById("newJoinStatus");
     let formData = getNewJoinFormData();
 
-    if(!formData.Name_English || !formData.Joining_Date){
+    if(!formData.name_english || !formData.joining_date){
         status.className = "status error";
         status.innerHTML = "Name English এবং যোগদানের তারিখ অবশ্যই দিতে হবে।";
         return;
