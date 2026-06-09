@@ -675,6 +675,36 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     ime-mode:inactive;
 }
 
+
+/* Admin Primary: data-entry page Unicode font, print/PDF SutonnyMJ */
+#adminPrimaryCheckPage,
+#adminPrimaryCheckPage input,
+#adminPrimaryCheckPage select,
+#adminPrimaryCheckPage textarea,
+#adminPrimaryCheckPage button,
+#adminPrimaryCheckPage label,
+#adminPrimaryCheckPage .box,
+#adminPrimaryCheckPage .menu,
+#adminPrimaryCheckPage .status{
+    font-family:Arial,"SolaimanLipi","Noto Sans Bengali",sans-serif !important;
+}
+#adminPrimaryCheckPage input::placeholder,
+#adminPrimaryCheckPage textarea::placeholder{
+    font-family:Arial,"SolaimanLipi","Noto Sans Bengali",sans-serif !important;
+    color:#666;
+    opacity:1;
+}
+#adminPrimaryCheckPage .admin-primary-print-hidden,
+#adminPrimaryCheckPage .admin-primary-print-hidden *,
+#adminPrimaryPrintArea,
+#adminPrimaryPrintArea *{
+    font-family:"SutonnyMJ","SolaimanLipi","Noto Sans Bengali",Arial,sans-serif !important;
+}
+#adminPrimaryPrintArea .ap-header h1,
+#adminPrimaryPrintArea .ap-header .sub{
+    font-family:Arial,sans-serif !important;
+}
+
 </style>
 </head>
 
@@ -1062,13 +1092,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 
 
 <div class="card hidden" id="adminPrimaryCheckPage">
-    <div class="topbar">
-        <h2>প্রাথমিক যাচাই ফরম</h2>
-        <button class="gray" onclick="backToAdminDashboardFromPrimary()">Back</button>
-    </div>
-
-    <div class="admin-primary-entry-title">Admin প্রাথমিক যাচাই Data Entry</div>
-    <div class="admin-primary-entry-note">এই entry form টি New Join Application design-এর মতো। Print/PDF আলাদা professional প্রাথমিক যাচাই format-এ বের হবে।</div>
+    
 
     <div class="box">
         <h3>ব্যক্তিগত তথ্য</h3>
@@ -1285,7 +1309,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         <input type="text" id="AP_Salary" placeholder="নির্ধারিত বেতন / মজুরি (Manual/PDF use)">
     </div>
 
-    <button onclick="submitAdminPrimaryCheckForm()" class="green">Save To Bijoy Table</button>
+    <button onclick="submitAdminPrimaryCheckForm()" class="green">Save Form</button>
     <button onclick="printAdminPrimaryCheckForm()" class="orange">Print / Save PDF</button>
     <button onclick="clearAdminPrimaryCheckForm()" class="red">Clear</button>
     <button class="gray" onclick="backToAdminDashboardFromPrimary()">Back</button>
