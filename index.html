@@ -1217,7 +1217,7 @@ function showSupabaseUpload(type){
     document.getElementById("adminView").innerHTML = `
         <h3>${cfg.title} Upload / Update</h3>
 
-        <input type="file" id="adminCsvFile" accept=".csv">
+        <input type="file" id="adminCsvFile" accept="${type === 'jobCardTotalHistory' ? '.csv,.txt' : '.csv'}">
 
         <button onclick="uploadCsvToSupabase('${type}')" class="green">
             Upload / Update CSV To Database
@@ -1236,7 +1236,7 @@ function showSupabaseUpload(type){
         </button>
 
         <div id="adminStatus" class="status">
-            CSV file select করে Upload / Update চাপো।<br>
+            ${type === 'jobCardTotalHistory' ? 'Toad থেকে export করা .txt বা CSV file select করে Upload / Update চাপো।<br>' : 'CSV file select করে Upload / Update চাপো।<br>'}
             Table: <b>${cfg.table}</b> | Primary Key: <b>${cfg.conflict || cfg.key}</b>
         </div>
 
@@ -1354,6 +1354,12 @@ function setAdminStatus(msg, type=""){
 }
 
 function parseCSV(text){
+    let firstLine = String(text || "").split(/\r?\n/).find(line => line.trim() !== "") || "";
+    let candidates = [",", "|", "\t", ";"];
+    let delimiter = candidates
+    .map(d => ({delimiter:d, count:firstLine.split(d).length}))
+    .sort((a,b) => b.count - a.count)[0].delimiter;
+
     let rows = [];
     let row = [];
     let value = "";
@@ -1368,7 +1374,7 @@ function parseCSV(text){
             i++;
         }else if(char === '"'){
             insideQuotes = !insideQuotes;
-        }else if(char === "," && !insideQuotes){
+        }else if(char === delimiter && !insideQuotes){
             row.push(value.trim());
             value = "";
         }else if((char === "\n" || char === "\r") && !insideQuotes){
@@ -1919,11 +1925,21 @@ function getJobHistoryDayName(dateValue){
     let formatted = excelSerialToDate(dateValue);
     if(!formatted) return "";
 
-    let parts = formatted.split(/[\/-]/);
+    let parts = String(formatted).split(/[\/-]/);
     if(parts.length < 3) return "";
 
     let d = Number(parts[0]);
-    let m = Number(parts[1]) - 1;
+    let monthPart = parts[1];
+    let m = Number(monthPart) - 1;
+
+    if(isNaN(m)){
+        const monthMap = {
+            jan:0, feb:1, mar:2, apr:3, may:4, jun:5,
+            jul:6, aug:7, sep:8, oct:9, nov:10, dec:11
+        };
+        m = monthMap[String(monthPart).slice(0,3).toLowerCase()];
+    }
+
     let y = Number(parts[2]);
     if(y < 100) y += 2000;
 
@@ -1934,31 +1950,27 @@ function getJobHistoryDayName(dateValue){
 }
 
 function calcJobHistorySummary(rows){
+    rows = rows || [];
+    let first = rows[0] || {};
+
     let summary = {
-        present: 0,
-        absent: 0,
-        late: 0,
-        leave: 0,
+        present: Number(first.PRESENT_CNT || 0),
+        absent: Number(first.ABSENT_CNT || 0),
+        late: Number(first.LATE_CNT || 0),
+        leave: Number(first.LEAVE_CNT || 0),
         otMinutes: 0
     };
 
     rows.forEach(row => {
-        summary.present += Number(row.PRESENT_CNT || 0);
-        summary.absent += Number(row.ABSENT_CNT || 0);
-        summary.late += Number(row.LATE_CNT || 0);
-        summary.leave += Number(row.LEAVE_CNT || 0);
-
-        // OVER_TIME is the display-safe value like 04:00.
-        // OT_MIN in this ERP export is actually hour quantity in many rows,
-        // so using it directly as minutes makes Total OT wrong.
         let parsedOtMinutes = parseJobHistoryMinutes(row.OVER_TIME);
         if(parsedOtMinutes > 0){
             summary.otMinutes += parsedOtMinutes;
-        }else{
-            let otHourQty = Number(row.OT_MIN || 0);
-            if(!isNaN(otHourQty) && otHourQty > 0){
-                summary.otMinutes += otHourQty * 60;
-            }
+            return;
+        }
+
+        let otMin = Number(row.OT_MIN || 0);
+        if(!isNaN(otMin) && otMin > 0){
+            summary.otMinutes += otMin;
         }
     });
 
