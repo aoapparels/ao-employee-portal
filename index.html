@@ -1854,12 +1854,23 @@ function excelSerialToTime(value){
     let text = String(value).trim();
     if(!text || text === ":" || text === "0") return "";
 
+    // If Excel converted a blank/time field into a date-only value like 02-May-26,
+    // do not show that date inside In Time / Out Time.
+    const dateOnlyPatterns = [
+        /^\d{4}-\d{1,2}-\d{1,2}$/,
+        /^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}$/,
+        /^\d{1,2}-[A-Za-z]{3}-\d{2,4}$/
+    ];
+    if(dateOnlyPatterns.some(p => p.test(text))){
+        return "";
+    }
+
     if(/[AP]M/i.test(text) || /^\d{1,2}\s*:\s*\d{2}/.test(text)){
         return text.replace(/\s+/g, " ");
     }
 
     let num = Number(text);
-    if(isNaN(num)) return text;
+    if(isNaN(num)) return "";
 
     let fraction = num - Math.floor(num);
     if(fraction <= 0) return "";
@@ -1937,11 +1948,17 @@ function calcJobHistorySummary(rows){
         summary.late += Number(row.LATE_CNT || 0);
         summary.leave += Number(row.LEAVE_CNT || 0);
 
-        let otMin = Number(row.OT_MIN || 0);
-        if(!isNaN(otMin) && otMin > 0){
-            summary.otMinutes += otMin;
+        // OVER_TIME is the display-safe value like 04:00.
+        // OT_MIN in this ERP export is actually hour quantity in many rows,
+        // so using it directly as minutes makes Total OT wrong.
+        let parsedOtMinutes = parseJobHistoryMinutes(row.OVER_TIME);
+        if(parsedOtMinutes > 0){
+            summary.otMinutes += parsedOtMinutes;
         }else{
-            summary.otMinutes += parseJobHistoryMinutes(row.OVER_TIME);
+            let otHourQty = Number(row.OT_MIN || 0);
+            if(!isNaN(otHourQty) && otHourQty > 0){
+                summary.otMinutes += otHourQty * 60;
+            }
         }
     });
 
