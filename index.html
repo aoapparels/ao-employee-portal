@@ -1021,7 +1021,7 @@ const tableConfig = {
     },
     overtime: {
         title: "Accessive OT",
-        table: "Accessive_OT",
+        table: "Total_Overtime",
         key: "Employee_ID"
     },
     jobCardTotalHistory: {
@@ -1556,7 +1556,7 @@ function showOutEmployeePanel(){
             Back
         </button>
         <div id="adminStatus" class="status">
-            Employee_ID দিলে Employee_Info, Jobcard, Payslip, Accessive_OT — ৪টা table থেকেই remove হবে।
+            Employee_ID দিলে Employee_Info, Jobcard, Payslip, Total_Overtime — ৪টা table থেকেই remove হবে।
         </div>
     `;
 }
@@ -1878,34 +1878,6 @@ async function fetchOneByEmployeeId(table, employeeId){
     }
 }
 
-
-async function fetchAccessiveOvertimeByEmployeeId(employeeId){
-    const possibleTables = ["Accessive_OT", "accessive_ot", "Total_Overtime"];
-
-    for(const tableName of possibleTables){
-        try{
-            const { data, error } = await supabaseClient
-            .from(tableName)
-            .select("*")
-            .eq("Employee_ID", employeeId)
-            .maybeSingle();
-
-            if(error){
-                console.log(tableName, error);
-                continue;
-            }
-
-            if(data){
-                return data;
-            }
-        }catch(error){
-            console.log(tableName, error);
-        }
-    }
-
-    return null;
-}
-
 async function employeeLogin(){
     let id = document.getElementById("empLoginId").value.trim().toUpperCase();
     let phone = cleanMobile(document.getElementById("empLoginPhone").value);
@@ -1942,7 +1914,7 @@ async function employeeLogin(){
 
         let job = await fetchOneByEmployeeId("Jobcard", id);
         let pay = await fetchOneByEmployeeId("Payslip", id);
-        let totalOvertime = await fetchAccessiveOvertimeByEmployeeId(id);
+        let totalOvertime = await fetchOneByEmployeeId("Total_Overtime", id);
 
         currentEmployee = { info, job, pay, totalOvertime };
 
