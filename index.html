@@ -1878,6 +1878,34 @@ async function fetchOneByEmployeeId(table, employeeId){
     }
 }
 
+
+async function fetchAccessiveOvertimeByEmployeeId(employeeId){
+    const possibleTables = ["Accessive_OT", "accessive_ot", "Total_Overtime"];
+
+    for(const tableName of possibleTables){
+        try{
+            const { data, error } = await supabaseClient
+            .from(tableName)
+            .select("*")
+            .eq("Employee_ID", employeeId)
+            .maybeSingle();
+
+            if(error){
+                console.log(tableName, error);
+                continue;
+            }
+
+            if(data){
+                return data;
+            }
+        }catch(error){
+            console.log(tableName, error);
+        }
+    }
+
+    return null;
+}
+
 async function employeeLogin(){
     let id = document.getElementById("empLoginId").value.trim().toUpperCase();
     let phone = cleanMobile(document.getElementById("empLoginPhone").value);
@@ -1914,7 +1942,7 @@ async function employeeLogin(){
 
         let job = await fetchOneByEmployeeId("Jobcard", id);
         let pay = await fetchOneByEmployeeId("Payslip", id);
-        let totalOvertime = await fetchOneByEmployeeId("Accessive_OT", id);
+        let totalOvertime = await fetchAccessiveOvertimeByEmployeeId(id);
 
         currentEmployee = { info, job, pay, totalOvertime };
 
