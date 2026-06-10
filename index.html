@@ -725,6 +725,12 @@ const tableConfig = {
         title: "Total Overtime",
         table: "Total_Overtime",
         key: "Employee_ID"
+    },
+    jobCardTotalHistory: {
+        title: "Job Card Total History",
+        table: "Job_Card_Total_History",
+        key: "EMP_CODE",
+        conflict: "EMP_CODE,TRANS_DATE"
     }
 };
 
@@ -1231,11 +1237,12 @@ function showSupabaseUpload(type){
 
         <div id="adminStatus" class="status">
             CSV file select করে Upload / Update চাপো।<br>
-            Table: <b>${cfg.table}</b> | Primary Key: <b>${cfg.key}</b>
+            Table: <b>${cfg.table}</b> | Primary Key: <b>${cfg.conflict || cfg.key}</b>
         </div>
 
         <p class="small-note">
-            CSV header exactly Supabase column name এর মতো হতে হবে। Same Employee_ID থাকলে update হবে, new Employee_ID থাকলে add হবে।
+            CSV header exactly Supabase column name এর মতো হতে হবে।
+            ${type === 'jobCardTotalHistory' ? 'এই upload-এর key EMP_CODE + TRANS_DATE। Same employee/date থাকলে update হবে।' : 'Same Employee_ID থাকলে update হবে, new Employee_ID থাকলে add হবে।'}
         </p>
     `;
 }
