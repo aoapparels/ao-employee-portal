@@ -172,105 +172,209 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 
 /* Job Card Total History report */
 .job-history-wrap{
-    background:white;
+    background:linear-gradient(135deg,#f8fbff,#eef7ff);
     padding:18px;
-    border-radius:12px;
-    box-shadow:0 4px 16px rgba(0,0,0,.12);
+    border-radius:16px;
+    box-shadow:0 6px 22px rgba(7,84,166,.18);
     overflow-x:auto;
 }
 .job-history-report{
     background:white;
     color:#111;
-    max-width:980px;
+    max-width:1020px;
     margin:0 auto;
-    padding:12px 14px 28px;
-    font-family:"Times New Roman", Arial, sans-serif;
+    padding:16px 16px 24px;
+    font-family:Arial, sans-serif;
+    border-radius:14px;
+    box-shadow:0 0 0 1px rgba(25,118,210,.08);
 }
-.job-history-report h2,
-.job-history-report h3{
+.job-history-report h2{
     margin:0;
     text-align:center;
     line-height:1.25;
+    font-size:24px;
+    font-weight:800;
+    color:#063b78;
 }
-.job-history-report h2{font-size:22px;font-weight:bold;}
-.job-history-report h3{font-size:18px;font-weight:bold;}
 .job-history-report .reporting-date{
     text-align:center;
     font-size:14px;
-    margin:8px 0 22px;
+    margin:10px 0 16px;
+    font-weight:700;
+    color:#263238;
 }
 .job-history-info{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:18px;
-    margin-bottom:14px;
-    font-size:14px;
+    gap:14px;
+    margin:14px 0 16px;
 }
-.job-history-info table{margin:0;border-collapse:collapse;width:100%;}
-.job-history-info td{
-    border:none;
-    padding:2px 4px;
-    font-size:14px;
+.job-history-info-card{
+    border-radius:14px;
+    padding:12px;
+    box-shadow:0 4px 14px rgba(0,0,0,.12);
+    border:1px solid rgba(255,255,255,.85);
 }
-.job-history-info td:first-child{font-weight:bold;width:120px;}
+.job-history-info-left{
+    background:linear-gradient(135deg,#e3f2fd,#bbdefb);
+}
+.job-history-info-right{
+    background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+}
+.job-history-info-row{
+    display:grid;
+    grid-template-columns:145px 1fr;
+    gap:8px;
+    align-items:center;
+    padding:6px 8px;
+    border-radius:9px;
+    margin-bottom:6px;
+    background:rgba(255,255,255,.62);
+}
+.job-history-info-row:last-child{margin-bottom:0;}
+.job-history-label{
+    font-size:14px;
+    font-weight:800;
+    color:#0d47a1;
+}
+.job-history-info-right .job-history-label{color:#1b5e20;}
+.job-history-value{
+    font-size:14px;
+    font-weight:800;
+    color:#111;
+    text-align:right;
+    word-break:break-word;
+}
+.job-history-table-title{
+    width:max-content;
+    max-width:100%;
+    margin:8px auto 10px;
+    padding:8px 30px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#6a1b9a,#1976d2);
+    color:white;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:.4px;
+    box-shadow:0 5px 14px rgba(25,118,210,.30);
+}
+.job-history-table-box{
+    width:100%;
+    overflow-x:auto;
+    border-radius:12px;
+    border:1px solid #90caf9;
+    box-shadow:0 4px 14px rgba(0,0,0,.10);
+}
 .job-history-table{
     width:100%;
+    min-width:760px;
     border-collapse:collapse;
-    font-size:13px;
-    margin-top:6px;
+    font-size:12px;
+    margin-top:0;
+    table-layout:fixed;
 }
 .job-history-table th,
 .job-history-table td{
-    border:1px solid #777;
-    padding:3px 5px;
+    border:1px solid #90caf9;
+    padding:5px 4px;
     text-align:center;
     vertical-align:middle;
-    line-height:1.15;
+    line-height:1.18;
+    font-weight:700;
 }
 .job-history-table th{
-    background:#f2f2f2;
-    font-weight:bold;
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:#fff;
+    font-weight:900;
+    font-size:12px;
 }
+.job-history-table tbody tr:nth-child(odd){background:#f8fbff;}
+.job-history-table tbody tr:nth-child(even){background:#eaf4ff;}
+.job-history-table tbody tr:hover{background:#fff8e1;}
+.job-history-table th:nth-child(1), .job-history-table td:nth-child(1){width:42px;}
+.job-history-table th:nth-child(2), .job-history-table td:nth-child(2){width:86px;}
+.job-history-table th:nth-child(3), .job-history-table td:nth-child(3){width:56px;}
+.job-history-table th:nth-child(4), .job-history-table td:nth-child(4){width:78px;}
+.job-history-table th:nth-child(5), .job-history-table td:nth-child(5){width:78px;}
+.job-history-table th:nth-child(6), .job-history-table td:nth-child(6){width:58px;}
+.job-history-table th:nth-child(7), .job-history-table td:nth-child(7){width:58px;}
+.job-history-table th:nth-child(8), .job-history-table td:nth-child(8){width:82px;}
+.job-history-table th:nth-child(9), .job-history-table td:nth-child(9){width:92px;}
 .job-history-table td.status-cell{
-    text-align:left;
-    min-width:130px;
-}
-.job-history-summary{
-    width:310px;
-    margin:10px auto 0;
-    border:1px dotted #333;
-    padding:8px 14px;
-    font-size:14px;
-}
-.job-history-summary table{width:100%;border-collapse:collapse;margin:0;}
-.job-history-summary td{
-    border:none;
-    padding:3px 5px;
-}
-.job-history-summary td:last-child{text-align:right;}
-.job-history-footer{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    align-items:end;
-    margin-top:70px;
-    font-size:13px;
-}
-.job-history-signature{
     text-align:center;
+    font-size:11px;
+    padding:4px 3px;
+    white-space:normal;
+    word-break:break-word;
 }
-.job-history-signature span{
+.job-history-row-weekend td{background:#fff3e0 !important;}
+.job-history-row-holiday td{background:#ede7f6 !important;}
+.job-history-row-absent td{background:#ffebee !important;color:#b71c1c !important;}
+.job-history-row-leave td{background:#e8f5e9 !important;color:#1b5e20 !important;}
+.job-history-row-late td{background:#fff8e1 !important;color:#e65100 !important;}
+.status-pill{
     display:inline-block;
-    min-width:230px;
-    border-top:1px solid #333;
-    padding-top:4px;
+    border-radius:999px;
+    padding:3px 7px;
+    font-size:10px;
+    font-weight:900;
+    color:#263238;
+    background:#eceff1;
 }
+.job-history-row-weekend .status-pill{background:#ffcc80;color:#e65100;}
+.job-history-row-holiday .status-pill{background:#d1c4e9;color:#4a148c;}
+.job-history-row-absent .status-pill{background:#ffcdd2;color:#b71c1c;}
+.job-history-row-leave .status-pill{background:#c8e6c9;color:#1b5e20;}
+.job-history-row-late .status-pill{background:#ffe082;color:#e65100;}
 .job-history-actions{
-    max-width:980px;
+    max-width:1020px;
     margin:12px auto 0;
     display:flex;
     gap:10px;
 }
 .job-history-actions button{width:auto;min-width:130px;}
+@media(max-width:700px){
+    .job-history-wrap{
+        padding:10px;
+        margin-left:-10px;
+        margin-right:-10px;
+        border-radius:12px;
+    }
+    .job-history-report{
+        padding:12px 8px 18px;
+        border-radius:12px;
+    }
+    .job-history-report h2{font-size:20px;}
+    .job-history-report .reporting-date{font-size:12px;margin:8px 0 12px;}
+    .job-history-info{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+    .job-history-info-row{
+        grid-template-columns:120px 1fr;
+        padding:5px 7px;
+    }
+    .job-history-label,
+    .job-history-value{
+        font-size:13px;
+    }
+    .job-history-table-title{
+        font-size:15px;
+        padding:7px 22px;
+    }
+    .job-history-table{
+        min-width:690px;
+        font-size:10px;
+    }
+    .job-history-table th,
+    .job-history-table td{
+        padding:4px 2px;
+        font-size:10px;
+    }
+    .job-history-table td.status-cell{font-size:9px;}
+    .status-pill{font-size:9px;padding:2px 5px;}
+}
 @media print{
     body *{visibility:hidden !important;}
     #jobCardTotalHistoryReport,
@@ -282,11 +386,16 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         width:100%;
         box-shadow:none;
         border-radius:0;
-        padding:0;
+        padding:8px;
     }
     .job-history-actions{display:none !important;}
-    .job-history-report{max-width:none;padding:10px 14px;}
+    .job-history-wrap{box-shadow:none;padding:0;background:white;}
+    .job-history-report{max-width:none;box-shadow:none;}
+    .job-history-table{min-width:0;font-size:10px;}
+    .job-history-table th,
+    .job-history-table td{padding:3px 2px;font-size:10px;}
 }
+
 
 </style>
 </head>
@@ -2040,6 +2149,50 @@ async function showJobCardTotalHistory(){
     }
 }
 
+
+function getJobHistoryReportingMonth(startDate, endDate){
+    const value = String(startDate || endDate || "").trim();
+    if(!value) return "-";
+
+    const monthMap = {
+        jan:"Jan", feb:"Feb", mar:"Mar", apr:"Apr", may:"May", jun:"Jun",
+        jul:"Jul", aug:"Aug", sep:"Sep", oct:"Oct", nov:"Nov", dec:"Dec"
+    };
+
+    let parts = value.split(/[\/-]/);
+    if(parts.length >= 3){
+        let monthPart = parts[1];
+        let yearPart = parts[2];
+
+        if(/^\d+$/.test(monthPart)){
+            const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            monthPart = months[Number(monthPart) - 1] || monthPart;
+        }else{
+            monthPart = monthMap[String(monthPart).slice(0,3).toLowerCase()] || monthPart;
+        }
+
+        if(String(yearPart).length === 4) yearPart = String(yearPart).slice(-2);
+
+        return `${monthPart}-${yearPart}`;
+    }
+
+    return value;
+}
+
+function getJobHistoryStatusClass(status){
+    let s = String(status || "").toLowerCase();
+
+    if(s.includes("absent")) return "job-history-row-absent";
+    if(s.includes("leave")) return "job-history-row-leave";
+    if(s.includes("late")) return "job-history-row-late";
+    if(s.includes("weekend")) return "job-history-row-weekend";
+    if(s.includes("holiday") || s.includes("replacement") || s.includes("eid") || s.includes("off day")){
+        return "job-history-row-holiday";
+    }
+
+    return "";
+}
+
 function renderJobCardTotalHistory(rows){
     rows = (rows || []).slice().sort((a,b) => {
         let as = Number(a.CS_SL || 0);
@@ -2052,15 +2205,8 @@ function renderJobCardTotalHistory(rows){
     const startDate = excelSerialToDate(rows[0]?.TRANS_DATE || "");
     const endDate = excelSerialToDate(rows[rows.length - 1]?.TRANS_DATE || "");
     const reportingDate = startDate && endDate ? `${startDate} to ${endDate}` : "-";
+    const reportingMonth = getJobHistoryReportingMonth(startDate, endDate);
     const summary = calcJobHistorySummary(rows);
-    const printTime = new Date().toLocaleString("en-GB", {
-        day:"2-digit",
-        month:"2-digit",
-        year:"2-digit",
-        hour:"2-digit",
-        minute:"2-digit",
-        hour12:true
-    }).replace(",", "");
 
     let tableRows = rows.map((row, index) => {
         const serial = cleanJobHistoryValue(row.CS_SL) || (index + 1);
@@ -2072,9 +2218,10 @@ function renderJobCardTotalHistory(rows){
         const early = cleanJobHistoryValue(row.EARLY);
         const overtime = cleanJobHistoryValue(row.OVER_TIME);
         const status = cleanJobHistoryValue(row.STATUS);
+        const statusClass = getJobHistoryStatusClass(status);
 
         return `
-        <tr>
+        <tr class="${statusClass}">
             <td>${serial}</td>
             <td>${date}</td>
             <td>${day}</td>
@@ -2083,7 +2230,7 @@ function renderJobCardTotalHistory(rows){
             <td>${late}</td>
             <td>${early}</td>
             <td>${overtime}</td>
-            <td class="status-cell">${status}</td>
+            <td class="status-cell">${status ? `<span class="status-pill">${status}</span>` : ""}</td>
         </tr>`;
     }).join("");
 
@@ -2091,53 +2238,71 @@ function renderJobCardTotalHistory(rows){
     <div class="job-history-wrap">
         <div id="jobCardTotalHistoryReport" class="job-history-report">
             <h2>A&amp;O Apparels (Pvt.) Ltd.</h2>
-            <h3>Job Card Total History</h3>
             <div class="reporting-date">Reporting Date : ${reportingDate}</div>
 
             <div class="job-history-info">
-                <table>
-                    <tr><td>Card No.</td><td>${cleanJobHistoryValue(first.EMP_CODE)}</td></tr>
-                    <tr><td>Name</td><td>${cleanJobHistoryValue(first.EMP_NAME)}</td></tr>
-                    <tr><td>Designation</td><td>${cleanJobHistoryValue(first.DESIGNATION)}</td></tr>
-                </table>
-                <table>
-                    <tr><td>Joining Date</td><td>${excelSerialToDate(first.JOINING_DATE) || ""}</td></tr>
-                    <tr><td>Section</td><td>${cleanJobHistoryValue(first.SEC || first.DEPT_NAME)}</td></tr>
-                    <tr><td>Line</td><td>${cleanJobHistoryValue(first.LINE)}</td></tr>
-                </table>
+                <div class="job-history-info-card job-history-info-left">
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Employee id :</div>
+                        <div class="job-history-value">${cleanJobHistoryValue(first.EMP_CODE)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Name :</div>
+                        <div class="job-history-value">${cleanJobHistoryValue(first.EMP_NAME)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Reporting Month:</div>
+                        <div class="job-history-value">${reportingMonth}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Joining Date:</div>
+                        <div class="job-history-value">${excelSerialToDate(first.JOINING_DATE) || ""}</div>
+                    </div>
+                </div>
+
+                <div class="job-history-info-card job-history-info-right">
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total Present :</div>
+                        <div class="job-history-value">${summary.present.toFixed(2)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total Absent:</div>
+                        <div class="job-history-value">${summary.absent.toFixed(2)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total Late:</div>
+                        <div class="job-history-value">${summary.late.toFixed(2)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total OT Hour:</div>
+                        <div class="job-history-value">${minutesToHourDecimal(summary.otMinutes)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total Leave :</div>
+                        <div class="job-history-value">${summary.leave.toFixed(2)}</div>
+                    </div>
+                </div>
             </div>
 
-            <table class="job-history-table">
-                <thead>
-                    <tr>
-                        <th>SL</th>
-                        <th>Date</th>
-                        <th>Day</th>
-                        <th>In Time</th>
-                        <th>Out Time</th>
-                        <th>Late</th>
-                        <th>Early</th>
-                        <th>Over Time</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>${tableRows}</tbody>
-            </table>
+            <div class="job-history-table-title">Job Card History</div>
 
-            <div class="job-history-summary">
-                <table>
-                    <tr><td>Total Present :</td><td>${summary.present.toFixed(2)}</td></tr>
-                    <tr><td>Total Absent :</td><td>${summary.absent.toFixed(2)}</td></tr>
-                    <tr><td>Total Late :</td><td>${summary.late.toFixed(2)}</td></tr>
-                    <tr><td>Total OT Hour :</td><td>${minutesToHourDecimal(summary.otMinutes)}</td></tr>
-                    <tr><td>Total Leave :</td><td>${summary.leave.toFixed(2)}</td></tr>
+            <div class="job-history-table-box">
+                <table class="job-history-table">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Date</th>
+                            <th>Day</th>
+                            <th>In Time</th>
+                            <th>Out Time</th>
+                            <th>Late</th>
+                            <th>Early</th>
+                            <th>Over Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>${tableRows}</tbody>
                 </table>
-            </div>
-
-            <div class="job-history-footer">
-                <div>Print Time&nbsp;&nbsp;&nbsp;&nbsp;${printTime}</div>
-                <div class="job-history-signature"><span>Signature of Employee</span></div>
-                <div style="text-align:right;">Page 1 of 1</div>
             </div>
         </div>
 
