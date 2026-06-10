@@ -170,6 +170,195 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 }
 
 
+/* Employee Info colorful design */
+.employee-info-card{
+    background:linear-gradient(135deg,#f8fbff,#eef7ff);
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 6px 22px rgba(7,84,166,.18);
+    border:1px solid #bbdefb;
+}
+.employee-info-title{
+    text-align:center !important;
+    color:#063b78;
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:18px;
+    letter-spacing:.3px;
+}
+.employee-photo-frame{
+    width:150px;
+    margin:0 auto 22px;
+    padding:10px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#e3f2fd,#bbdefb);
+    box-shadow:0 5px 16px rgba(7,84,166,.24);
+    text-align:center;
+}
+.employee-photo-frame img{
+    width:130px;
+    height:150px;
+    object-fit:cover;
+    border:3px solid #0754a6;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    background:white;
+}
+.employee-info-table-wrap{
+    width:100%;
+    overflow-x:auto;
+    border-radius:14px;
+    box-shadow:0 4px 14px rgba(0,0,0,.10);
+    border:1px solid #90caf9;
+}
+.employee-info-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:15px;
+    margin-top:0;
+    background:white;
+}
+.employee-info-table th,
+.employee-info-table td{
+    padding:10px 12px;
+    border:1px solid #90caf9;
+    font-weight:700;
+    vertical-align:middle;
+}
+.employee-info-table th{
+    width:34%;
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:white;
+    text-align:left;
+}
+.employee-info-table td{
+    color:#111;
+    background:#f8fbff;
+}
+.employee-info-table tr:nth-child(even) td{background:#eaf4ff;}
+.employee-info-table tr.employee-money-highlight th{
+    background:linear-gradient(135deg,#ef6c00,#f9a825);
+    color:#fff;
+}
+.employee-info-table tr.employee-money-highlight td{
+    background:#fff3e0 !important;
+    color:#bf360c;
+    font-size:16px;
+    font-weight:900;
+}
+@media(max-width:700px){
+    .employee-info-card{padding:14px;border-radius:14px;}
+    .employee-info-title{font-size:20px;}
+    .employee-info-table{font-size:13px;}
+    .employee-info-table th,
+    .employee-info-table td{padding:8px 7px;}
+    .employee-info-table th{width:42%;}
+}
+
+/* Accessive OT colorful design */
+.accessive-ot-card{
+    background:linear-gradient(135deg,#f8fbff,#eef7ff);
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 6px 22px rgba(7,84,166,.18);
+    border:1px solid #bbdefb;
+}
+.accessive-ot-title{
+    text-align:center !important;
+    color:#063b78;
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:16px;
+}
+.accessive-ot-info{
+    max-width:620px;
+    margin:0 auto 16px;
+    border-radius:14px;
+    padding:12px;
+    background:linear-gradient(135deg,#e3f2fd,#bbdefb);
+    box-shadow:0 5px 16px rgba(7,84,166,.22);
+}
+.accessive-ot-row{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:8px;
+    align-items:center;
+    padding:8px 10px;
+    border-radius:10px;
+    margin-bottom:7px;
+    background:rgba(255,255,255,.70);
+}
+.accessive-ot-row:last-child{margin-bottom:0;}
+.accessive-ot-label{
+    font-weight:900;
+    color:#0d47a1;
+}
+.accessive-ot-value{
+    font-weight:900;
+    color:#111;
+    text-align:right;
+    word-break:break-word;
+}
+.accessive-ot-amount .accessive-ot-label{color:#bf360c;}
+.accessive-ot-amount .accessive-ot-value{
+    color:#bf360c;
+    font-size:18px;
+}
+.accessive-ot-table-title{
+    width:max-content;
+    max-width:100%;
+    margin:8px auto 10px;
+    padding:8px 30px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#6a1b9a,#1976d2);
+    color:white;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:.4px;
+    box-shadow:0 5px 14px rgba(25,118,210,.30);
+}
+.accessive-ot-table-wrap{
+    width:100%;
+    overflow-x:auto;
+    border-radius:14px;
+    border:1px solid #90caf9;
+    box-shadow:0 4px 14px rgba(0,0,0,.10);
+}
+.accessive-ot-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:15px;
+    margin-top:0;
+    min-width:420px;
+}
+.accessive-ot-table th,
+.accessive-ot-table td{
+    border:1px solid #90caf9;
+    padding:9px 10px;
+    text-align:center;
+    font-weight:800;
+}
+.accessive-ot-table th{
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:white;
+    font-weight:900;
+}
+.accessive-ot-table tbody tr:nth-child(odd){background:#f8fbff;}
+.accessive-ot-table tbody tr:nth-child(even){background:#eaf4ff;}
+.accessive-ot-table tbody tr:hover{background:#fff8e1;}
+@media(max-width:700px){
+    .accessive-ot-card{padding:14px;border-radius:14px;}
+    .accessive-ot-title{font-size:20px;}
+    .accessive-ot-row{grid-template-columns:1fr;gap:3px;}
+    .accessive-ot-value{text-align:left;}
+    .accessive-ot-table-title{font-size:15px;padding:7px 22px;}
+    .accessive-ot-table{font-size:13px;min-width:360px;}
+    .accessive-ot-table th,
+    .accessive-ot-table td{padding:8px 7px;}
+}
+
+
 /* Job Card Total History report */
 .job-history-wrap{
     background:linear-gradient(135deg,#f8fbff,#eef7ff);
@@ -738,7 +927,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
             <button onclick="showSupabaseUpload('employee')">Employee Info</button>
             <button onclick="showSupabaseUpload('jobcard')">Job Card</button>
             <button onclick="showSupabaseUpload('payslip')">Pay Slip</button>
-            <button onclick="showSupabaseUpload('overtime')">Total Overtime</button>
+            <button onclick="showSupabaseUpload('overtime')">Accessive OT</button>
             <button onclick="showSupabaseUpload('jobCardTotalHistory')">Job Card Total History</button>
         </div>
 
@@ -831,8 +1020,8 @@ const tableConfig = {
         key: "Employee_ID"
     },
     overtime: {
-        title: "Total Overtime",
-        table: "Total_Overtime",
+        title: "Accessive OT",
+        table: "Accessive_OT",
         key: "Employee_ID"
     },
     jobCardTotalHistory: {
@@ -1367,7 +1556,7 @@ function showOutEmployeePanel(){
             Back
         </button>
         <div id="adminStatus" class="status">
-            Employee_ID দিলে Employee_Info, Jobcard, Payslip, Total_Overtime — ৪টা table থেকেই remove হবে।
+            Employee_ID দিলে Employee_Info, Jobcard, Payslip, Accessive_OT — ৪টা table থেকেই remove হবে।
         </div>
     `;
 }
@@ -1725,7 +1914,7 @@ async function employeeLogin(){
 
         let job = await fetchOneByEmployeeId("Jobcard", id);
         let pay = await fetchOneByEmployeeId("Payslip", id);
-        let totalOvertime = await fetchOneByEmployeeId("Total_Overtime", id);
+        let totalOvertime = await fetchOneByEmployeeId("Accessive_OT", id);
 
         currentEmployee = { info, job, pay, totalOvertime };
 
@@ -1759,30 +1948,33 @@ function showEmployeeInfo(){
     }
 
     let html = `
-    <div style="background:white;padding:25px;border-radius:12px;">
-    <h2 style="color:#0754a6;margin-bottom:20px;">Employee Information</h2>
+    <div class="employee-info-card">
+        <h2 class="employee-info-title">Employee Information</h2>
 
-    <div style="text-align:center; margin-bottom:25px;">
-        <img src="photos/${photoId}.jpg"
-        onerror="this.src='photos/no-photo.jpg'"
-        style="width:130px;height:150px;object-fit:cover;border:3px solid #0754a6;border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.25);">
-    </div>
+        <div class="employee-photo-frame">
+            <img src="photos/${photoId}.jpg"
+            onerror="this.src='photos/no-photo.jpg'">
+        </div>
 
-    <table style="width:100%;border-collapse:collapse;font-size:16px;">
+        <div class="employee-info-table-wrap">
+        <table class="employee-info-table">
     `;
 
     Object.keys(info).forEach(key => {
         if(key === "id" || key === "created_at") return;
 
+        const cleanKey = String(key || "").toLowerCase().replace(/\s+/g,"_");
+        const isHighlight = cleanKey === "salary_account_no" || cleanKey === "current_salary";
+
         html += `
-        <tr>
-            <td style="padding:10px;"><b>${key}</b></td>
-            <td style="padding:10px;">${formatValue(info[key])}</td>
+        <tr class="${isHighlight ? 'employee-money-highlight' : ''}">
+            <th>${key}</th>
+            <td>${formatValue(info[key])}</td>
         </tr>
         `;
     });
 
-    html += "</table></div>";
+    html += "</table></div></div>";
     document.getElementById("employeeView").innerHTML = html;
 }
 
@@ -1897,9 +2089,21 @@ function showMore(){
     document.getElementById("employeeView").innerHTML = `
     <div style="background:white;padding:25px;border-radius:12px;">
         <h2 style="color:#0754a6;text-align:center;margin-bottom:25px;">More</h2>
-        <button onclick="showTotalOvertime()">Total Overtime</button>
+        <button onclick="showTotalOvertime()">Accessive OT</button>
         <button onclick="showJobCardTotalHistory()" class="green" style="margin-top:12px;">Job Card Total History</button>
     </div>`;
+}
+
+function numberFromValue(value){
+    if(value === null || value === undefined) return 0;
+    let text = String(value).replace(/,/g,"").trim();
+    let match = text.match(/-?\d+(\.\d+)?/);
+    return match ? Number(match[0]) : 0;
+}
+
+function formatAmount(value){
+    if(!isFinite(value)) return "-";
+    return Number(value).toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2});
 }
 
 function showTotalOvertime(){
@@ -1907,7 +2111,7 @@ function showTotalOvertime(){
 
     if(!overtime){
         document.getElementById("employeeView").innerHTML = `
-        ${renderNotPublished("Total Overtime")}
+        ${renderNotPublished("Accessive OT")}
         <button onclick="showMore()" style="margin-top:15px;">Back</button>`;
         return;
     }
@@ -1921,20 +2125,45 @@ function showTotalOvertime(){
     }
 
     if(!rows){
-        rows = `<tr><td colspan="2">No daily overtime published</td></tr>`;
+        rows = `<tr><td colspan="2">No daily accessive OT published</td></tr>`;
     }
 
-    document.getElementById("employeeView").innerHTML = `
-    <div class="dashboard-card">
-        <h2 style="text-align:center;">Total Overtime</h2>
-        <p><b>Employee ID:</b> ${overtime.Employee_ID || "-"}</p>
-        <p><b>OT Rate:</b> ${overtime.OT_RATE || "-"}</p>
+    const employeeId = overtime.Employee_ID || currentEmployee.info.Employee_ID || "-";
+    const otRate = overtime.OT_RATE || "-";
+    const totalOT = overtime.TOTAL_OT || "-";
+    const totalAmount = formatAmount(numberFromValue(otRate) * numberFromValue(totalOT));
 
-        <table class="dashboard-table">
-            <tr><th>Day</th><th>Hour</th></tr>
-            ${rows}
-            <tr><th>Total OT</th><th>${overtime.TOTAL_OT || "-"}</th></tr>
-        </table>
+    document.getElementById("employeeView").innerHTML = `
+    <div class="accessive-ot-card">
+        <h2 class="accessive-ot-title">Accessive OT</h2>
+
+        <div class="accessive-ot-info">
+            <div class="accessive-ot-row">
+                <div class="accessive-ot-label">Employee Id:</div>
+                <div class="accessive-ot-value">${employeeId}</div>
+            </div>
+            <div class="accessive-ot-row">
+                <div class="accessive-ot-label">OT Rate:</div>
+                <div class="accessive-ot-value">${formatValue(otRate)}</div>
+            </div>
+            <div class="accessive-ot-row">
+                <div class="accessive-ot-label">Total OT:</div>
+                <div class="accessive-ot-value">${formatValue(totalOT)}</div>
+            </div>
+            <div class="accessive-ot-row accessive-ot-amount">
+                <div class="accessive-ot-label">Total Accessive OT Amount:</div>
+                <div class="accessive-ot-value">${totalAmount}</div>
+            </div>
+        </div>
+
+        <div class="accessive-ot-table-title">Accessive OT Summary</div>
+
+        <div class="accessive-ot-table-wrap">
+            <table class="accessive-ot-table">
+                <thead><tr><th>Day</th><th>Hour</th></tr></thead>
+                <tbody>${rows}</tbody>
+            </table>
+        </div>
 
         <button onclick="showMore()" style="margin-top:15px;">Back</button>
     </div>`;
