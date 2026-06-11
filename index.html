@@ -109,6 +109,64 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 .autocomplete-item:hover{background:#e7f0ff;}
 
 
+/* Admin sub page view system */
+.admin-subpage{
+    background:linear-gradient(135deg,#ffffff,#eef7ff);
+    border:1px solid #bbdefb;
+    box-shadow:0 6px 22px rgba(7,84,166,.18);
+    border-radius:16px;
+    padding:22px;
+    animation:adminSubPageFade .22s ease-in-out;
+}
+@keyframes adminSubPageFade{
+    from{opacity:0;transform:translateY(8px);}
+    to{opacity:1;transform:translateY(0);}
+}
+.admin-subpage h3{
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:#fff !important;
+    padding:12px 16px;
+    border-radius:12px;
+    margin-bottom:16px;
+    box-shadow:0 5px 14px rgba(25,118,210,.25);
+}
+.admin-subpage .subpage-hint{
+    background:#e3f2fd;
+    color:#0d47a1;
+    padding:10px 12px;
+    border-radius:10px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+.admin-subpage table{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+}
+.admin-subpage th{
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:white;
+}
+.admin-subpage td{background:#f8fbff;font-weight:600;}
+.admin-subpage tr:nth-child(even) td{background:#eaf4ff;}
+.admin-page-back-top{
+    width:auto;
+    display:inline-block;
+    margin:0 0 12px 0;
+    padding:10px 16px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#555,#333) !important;
+    color:#fff;
+}
+@media(max-width:700px){
+    .admin-subpage{padding:14px;border-radius:14px;margin-left:-6px;margin-right:-6px;}
+    .admin-subpage h3{font-size:18px;padding:10px 12px;}
+    .admin-subpage table{font-size:12px;}
+    .admin-subpage th,.admin-subpage td{padding:6px 5px;}
+}
+
+
 /* Employee dashboard publish/design update */
 .not-publish-box{
     background:linear-gradient(135deg,#fff3cd,#ffe0b2);
@@ -920,7 +978,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         <button class="red" onclick="adminLogout()">Logout</button>
     </div>
 
-    <div class="box">
+    <div class="box" id="adminControlPanel">
         <h3>Database Control Panel</h3>
 
         <div class="menu">
@@ -962,7 +1020,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         </p>
     </div>
 
-    <div id="adminView" class="box">Select data option</div>
+    <div id="adminView" class="box hidden"></div>
 
 </div>
 
@@ -1110,7 +1168,7 @@ async function adminLogin(){
             currentAdminUser = user;
             hideAll();
             document.getElementById("adminDashboard").classList.remove("hidden");
-            document.getElementById("adminView").innerHTML = "Select data option";
+            showAdminMainPanel();
         }else{
             alert("Wrong Admin ID or Password");
         }
@@ -1125,6 +1183,36 @@ function adminLogout(){
     document.getElementById("adminUser").value = "";
     document.getElementById("adminPass").value = "";
     goHome();
+}
+
+
+function showAdminMainPanel(){
+    const controlPanel = document.getElementById("adminControlPanel");
+    const adminView = document.getElementById("adminView");
+    if(controlPanel) controlPanel.classList.remove("hidden");
+    if(adminView){
+        adminView.className = "box hidden";
+        adminView.innerHTML = "";
+    }
+}
+
+function activateAdminSubPage(){
+    const controlPanel = document.getElementById("adminControlPanel");
+    const adminView = document.getElementById("adminView");
+    if(controlPanel) controlPanel.classList.add("hidden");
+    if(adminView){
+        adminView.className = "box admin-subpage";
+        adminView.classList.remove("hidden");
+    }
+    setTimeout(() => window.scrollTo({top:0, behavior:"smooth"}), 30);
+}
+
+function backToAdminPanel(){
+    showAdminMainPanel();
+}
+
+function adminBackButtonHtml(){
+    return `<button class="admin-page-back-top" onclick="backToAdminPanel()">← Back to Admin Panel</button>`;
 }
 
 function toggleOtherField(selectId, inputId){
@@ -1424,7 +1512,9 @@ document.addEventListener("change", function(){
 
 
 function showChangePasswordPanel(){
+    activateAdminSubPage();
     document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
         <h3>Change Admin Password</h3>
 
         <input type="password" id="oldAdminPassword" placeholder="Old Password">
@@ -1435,7 +1525,7 @@ function showChangePasswordPanel(){
             Save New Password
         </button>
 
-        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+        <button class="gray" onclick="backToAdminPanel()">
             Back
         </button>
 
@@ -1511,8 +1601,10 @@ function openSupabaseDashboard(){
 
 function showSupabaseUpload(type){
     const cfg = tableConfig[type];
+    activateAdminSubPage();
 
     document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
         <h3>${cfg.title} Upload / Update</h3>
 
         <input type="file" id="adminCsvFile" accept="${type === 'jobCardTotalHistory' ? '.csv,.txt' : '.csv'}">
@@ -1529,7 +1621,7 @@ function showSupabaseUpload(type){
             Open Supabase Table
         </button>
 
-        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+        <button class="gray" onclick="backToAdminPanel()">
             Back
         </button>
 
@@ -1546,13 +1638,15 @@ function showSupabaseUpload(type){
 }
 
 function showOutEmployeePanel(){
+    activateAdminSubPage();
     document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
         <h3>Out Employee Remove</h3>
         <input type="text" id="outEmployeeId" placeholder="Enter Employee_ID, example: OS00002">
         <button onclick="removeOutEmployee()" class="red">
             Remove Employee From All Tables
         </button>
-        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+        <button class="gray" onclick="backToAdminPanel()">
             Back
         </button>
         <div id="adminStatus" class="status">
@@ -1570,7 +1664,9 @@ function getAttendanceFileName(type){
 }
 
 function showAttendanceUploadPanel(){
+    activateAdminSubPage();
     document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
         <h3>Attendance PDF Upload / Replace</h3>
 
         <select id="attendanceReportType">
@@ -1585,7 +1681,7 @@ function showAttendanceUploadPanel(){
             Upload / Replace PDF
         </button>
 
-        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+        <button class="gray" onclick="backToAdminPanel()">
             Back
         </button>
 
@@ -3066,7 +3162,9 @@ function editSubmittedApplication(data){
 }
 
 async function showNewJoinRequestsPanel(){
+    activateAdminSubPage();
     document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
         <h3>New Joining Requests</h3>
         <div class="status">Loading requests...</div>
     `;
@@ -3093,7 +3191,7 @@ async function showNewJoinRequestsPanel(){
         document.getElementById("adminView").innerHTML = `
             <h3>New Joining Requests</h3>
             <div class="status">No new joining request found.</div>
-            <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">Back</button>
+            <button class="gray" onclick="backToAdminPanel()">Back</button>
         `;
         return;
     }
@@ -3124,7 +3222,7 @@ async function showNewJoinRequestsPanel(){
             </tr>
             ${rows}
         </table>
-        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">Back</button>
+        <button class="gray" onclick="backToAdminPanel()">Back</button>
     `;
 }
 
@@ -3198,7 +3296,9 @@ async function removeJoinApplication(tempId){
 
 async function showApprovedApplicationsPanel(){
 
+    activateAdminSubPage();
     document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
         <h3>Approved Applications</h3>
         <div class="status">Loading approved applications...</div>
     `;
@@ -3257,7 +3357,7 @@ async function showApprovedApplicationsPanel(){
             ${rows}
         </table>
 
-        <button class="gray" onclick="document.getElementById('adminView').innerHTML='Select data option'">
+        <button class="gray" onclick="backToAdminPanel()">
             Back
         </button>
     `;
