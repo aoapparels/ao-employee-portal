@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salary & Overtime Summary - Clean Home List Entry View</title>
+  <title>Salary & Overtime Summary - Category Added</title>
 
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -129,7 +129,7 @@
 
     .top-inputs {
       display: grid;
-      grid-template-columns: 1.2fr 1.1fr 1.5fr 1.1fr 0.8fr 0.8fr 0.8fr;
+      grid-template-columns: 1.15fr 1.05fr 1.45fr 1fr 0.8fr 0.7fr 0.8fr 0.8fr;
       gap: 8px;
       margin-bottom: 10px;
       align-items: end;
@@ -150,7 +150,8 @@
       margin-bottom: 5px;
     }
 
-    input {
+    input,
+    select {
       width: 100%;
       border: 1px solid #cbd5e1;
       border-radius: 7px;
@@ -160,7 +161,8 @@
       background: #ffffff;
     }
 
-    input:focus {
+    input:focus,
+    select:focus {
       border-color: #2563eb;
       box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
     }
@@ -281,6 +283,21 @@
       padding: 5px 8px;
       margin-top: 3px;
       background: #f1f5f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .division-text {
+      text-align: left;
+    }
+
+    .category-print {
+      text-align: right;
+      font-style: normal;
+      font-weight: 900;
+      white-space: nowrap;
     }
 
     .table-wrap {
@@ -789,6 +806,14 @@
         font-size: 11.5px;
         padding: 4px 6px;
         background: #e5e7eb !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+      }
+
+      .category-print {
+        font-size: 11.5px !important;
+        font-weight: 900 !important;
       }
 
       .table-wrap {
@@ -830,7 +855,8 @@
         font-weight: 900 !important;
       }
 
-      input {
+      input,
+      select {
         border: none !important;
         background: transparent !important;
         box-shadow: none !important;
@@ -1001,6 +1027,7 @@
       body.print-compact .company-address { font-size: 10px !important; }
       body.print-compact .report-subject { font-size: 11.5px !important; }
       body.print-compact .division-title { font-size: 10px !important; padding: 2px 5px !important; }
+      body.print-compact .category-print { font-size: 10px !important; }
       body.print-compact .payment-summary-area { margin-top: 1.8mm !important; }
       body.print-compact .signature-box { min-height: 22mm !important; font-size: 9.5px !important; }
       body.print-compact .signature-footer { bottom: 3mm !important; }
@@ -1018,6 +1045,7 @@
       body.print-super-compact .left-meta { font-size: 9px !important; }
       body.print-super-compact .right-meta { font-size: 10.5px !important; }
       body.print-super-compact .division-title { font-size: 9px !important; padding: 1.5px 4px !important; }
+      body.print-super-compact .category-print { font-size: 9px !important; }
       body.print-super-compact .payment-summary-area { margin-top: 1mm !important; }
       body.print-super-compact .payment-mini-title { font-size: 7.6px !important; padding: 1.5px 3px !important; }
       body.print-super-compact .payment-right-row { min-height: 5.5mm !important; }
@@ -1065,6 +1093,14 @@
         <div class="input-card">
           <label>Division Name</label>
           <input id="divisionName" type="text" value="Woven Division">
+        </div>
+
+        <div class="input-card">
+          <label>Category</label>
+          <select id="categoryName">
+            <option value="Staff">Staff</option>
+            <option value="Worker" selected>Worker</option>
+          </select>
         </div>
 
         <div class="input-card">
@@ -1117,7 +1153,10 @@
         </div>
       </div>
 
-      <div class="division-title" id="printDivisionName">Woven Division</div>
+      <div class="division-title">
+        <span class="division-text" id="printDivisionName">Woven Division</span>
+        <span class="category-print">Category: <span id="printCategoryName">Worker</span></span>
+      </div>
 
       <div class="table-wrap">
         <table>
@@ -1520,6 +1559,7 @@
       document.getElementById("printCompanyAddress").innerText = document.getElementById("companyAddress").value || "";
       document.getElementById("printSubject").innerText = document.getElementById("subjectText").value || "Salary & Overtime Summary";
       document.getElementById("printDivisionName").innerText = document.getElementById("divisionName").value || "";
+      document.getElementById("printCategoryName").innerText = document.getElementById("categoryName").value || "";
       document.getElementById("printDate").innerText = formatDate(document.getElementById("reportDate").value);
       document.getElementById("printSalaryMonth").innerText = formatMonth(document.getElementById("salaryMonth").value);
       calculatePaymentTotal();
@@ -1584,6 +1624,7 @@
         document.getElementById("companyAddress").value = "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
         document.getElementById("subjectText").value = "Salary & Overtime Summary";
         document.getElementById("divisionName").value = "Woven Division";
+        document.getElementById("categoryName").value = "Worker";
         document.getElementById("salaryMonth").value = "";
         document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
         resetRowsToDefault();
@@ -1614,7 +1655,7 @@
       const badge = document.getElementById("viewModeBadge");
 
       document.querySelectorAll(
-        "#fileName, #companyName, #companyAddress, #subjectText, #divisionName, #salaryMonth, #reportDate, #entryBody input, #paymentRows input"
+        "#fileName, #companyName, #companyAddress, #subjectText, #divisionName, #categoryName, #salaryMonth, #reportDate, #entryBody input, #paymentRows input"
       ).forEach(input => {
         input.readOnly = isViewMode;
       });
@@ -1649,6 +1690,7 @@
         company_address: document.getElementById("companyAddress").value,
         subject_text: document.getElementById("subjectText").value,
         division_name: document.getElementById("divisionName").value,
+        category_name: document.getElementById("categoryName").value,
         salary_month: document.getElementById("salaryMonth").value,
         report_date: document.getElementById("reportDate").value || null,
         main_rows: rows,
@@ -1674,6 +1716,7 @@
       document.getElementById("companyAddress").value = data.company_address || "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
       document.getElementById("subjectText").value = data.subject_text || "Salary & Overtime Summary";
       document.getElementById("divisionName").value = data.division_name || "Woven Division";
+      document.getElementById("categoryName").value = data.category_name || "Worker";
       document.getElementById("salaryMonth").value = data.salary_month || "";
       document.getElementById("reportDate").value = data.report_date || "";
 
@@ -1739,7 +1782,7 @@
 
       const { data, error } = await supabaseClient
         .from(SALARY_TABLE_NAME)
-        .select("id,file_name,salary_month,division_name,updated_at,created_at")
+        .select("id,file_name,salary_month,division_name,category_name,updated_at,created_at")
         .order("updated_at", { ascending: false });
 
       if (error) {
@@ -1971,7 +2014,10 @@
               <td colspan="7" class="meta-left">Date: ${escapeHtml(formatDate(data.report_date || ""))}</td>
               <td colspan="7" class="meta-right">Salary Month: ${escapeHtml(formatMonth(data.salary_month || ""))}</td>
             </tr>
-            <tr><td colspan="14" class="division">${escapeHtml(data.division_name || "")}</td></tr>
+            <tr>
+              <td colspan="7" class="division">${escapeHtml(data.division_name || "")}</td>
+              <td colspan="7" class="division" style="text-align:right;">Category: ${escapeHtml(data.category_name || "")}</td>
+            </tr>
             <tr>
               <th rowspan="2">Serial No</th>
               <th rowspan="2">Name of Section</th>
@@ -2113,6 +2159,7 @@
       document.getElementById("companyAddress").value = "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
       document.getElementById("subjectText").value = "Salary & Overtime Summary";
       document.getElementById("divisionName").value = "Woven Division";
+      document.getElementById("categoryName").value = "Worker";
       document.getElementById("salaryMonth").value = "";
       document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
 
@@ -2127,6 +2174,7 @@
       "companyAddress",
       "subjectText",
       "divisionName",
+      "categoryName",
       "salaryMonth",
       "reportDate"
     ].forEach(id => {
