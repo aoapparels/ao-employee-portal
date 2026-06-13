@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salary & Overtime Summary - Supabase Month Save</title>
+  <title>Salary & Overtime Summary - Supabase File List Save</title>
 
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -61,7 +61,7 @@
 
     .top-inputs {
       display: grid;
-      grid-template-columns: 1.1fr 1.6fr 1.1fr 0.8fr 0.8fr;
+      grid-template-columns: 1.2fr 1.1fr 1.5fr 1.1fr 0.8fr 0.8fr 0.8fr;
       gap: 8px;
       margin-bottom: 10px;
       align-items: end;
@@ -442,6 +442,80 @@
     }
 
 
+
+    .saved-list-panel {
+      margin-top: 10px;
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 4px 14px rgba(30, 64, 175, 0.10);
+    }
+
+    .saved-list-title {
+      font-weight: 900;
+      color: #1e3a8a;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .saved-list-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      margin-top: 0;
+    }
+
+    .saved-list-table th,
+    .saved-list-table td {
+      border: 1px solid #bfdbfe;
+      padding: 7px 6px;
+      font-size: 12px;
+      vertical-align: middle;
+    }
+
+    .saved-list-table th {
+      background: #dbeafe;
+      color: #0f172a;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .saved-list-table td {
+      background: #f8fbff;
+      font-weight: 800;
+    }
+
+    .saved-list-actions {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .saved-list-actions button {
+      width: auto;
+      margin-top: 0;
+      padding: 6px 9px;
+      font-size: 11px;
+      border-radius: 7px;
+    }
+
+    .btn-view { background: #0f766e; color: #ffffff; }
+    .btn-edit { background: #1d4ed8; color: #ffffff; }
+    .btn-list-print { background: #7c3aed; color: #ffffff; }
+
+    .view-mode-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 11px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
     .salary-status {
       margin-top: 8px;
       padding: 9px 11px;
@@ -573,6 +647,7 @@
 
       .screen-panel,
       .action-buttons,
+      .saved-list-panel,
       .no-print,
       .saved-note {
         display: none !important;
@@ -835,6 +910,11 @@
 
       <div class="top-inputs">
         <div class="input-card">
+          <label>File Name <span style="color:#dc2626;">*</span></label>
+          <input id="fileName" type="text" value="" placeholder="Example: April-2026 Woven Salary">
+        </div>
+
+        <div class="input-card">
           <label>Company Name</label>
           <input id="companyName" type="text" value="A&O Apparels (Pvt) Ltd.">
         </div>
@@ -867,18 +947,27 @@
 
       <div class="action-buttons">
         <button class="btn-add" onclick="addNewRow()">Add New Entry</button>
-        <button class="btn-save" onclick="saveData()">Save / Update Month Data</button>
-        <button class="btn-add" onclick="loadMonthData()">Load Month Data</button>
+        <button class="btn-save" onclick="saveData()">Save / Update File</button>
+        <button class="btn-add" onclick="showSavedFileList()">Saved File List</button>
         <button class="btn-print" onclick="window.print()">Print / Save PDF</button>
         <button class="btn-clear" onclick="clearAll()">Clear Form</button>
       </div>
 
       <div id="salaryStatus" class="salary-status">
-        Salary Month select করে Load Month Data চাপো। Save দিলে ওই মাসের data Supabase এ update হবে।
+        File Name এবং Salary Month দিয়ে Save করো। পুরান data দেখতে <b>Saved File List</b> চাপো।
+      </div>
+
+      <div id="viewModeBadge" class="view-mode-badge hidden">
+        View Mode: Edit করতে চাইলে Saved File List থেকে Edit চাপো।
+      </div>
+
+      <div id="savedListPanel" class="saved-list-panel hidden">
+        <div class="saved-list-title">Saved Salary Summary File List</div>
+        <div id="savedListContent">Saved file list loading...</div>
       </div>
 
       <div class="saved-note">
-        Data Supabase table <b>salary_reconciliation</b> এ Salary Month অনুযায়ী save/load হবে। Payment amount আর Net Payable না মিললে screen এ status দেখাবে।
+        Data Supabase table <b>salary_reconciliation</b> এ File Name অনুযায়ী save/load হবে। File Name blank থাকলে save হবে না।
       </div>
     </div>
 
@@ -1305,12 +1394,38 @@
       calculatePaymentTotal();
     }
 
+    let currentLoadedFileName = "";
+    let currentViewMode = false;
+
     function setSalaryStatus(message, type = "") {
       const status = document.getElementById("salaryStatus");
       if (!status) return;
 
       status.className = "salary-status" + (type ? " " + type : "");
       status.innerHTML = message;
+    }
+
+    function setFormViewMode(isViewMode) {
+      currentViewMode = isViewMode;
+      const badge = document.getElementById("viewModeBadge");
+
+      document.querySelectorAll(
+        "#companyName, #companyAddress, #subjectText, #divisionName, #salaryMonth, #reportDate, #entryBody input, #paymentRows input"
+      ).forEach(input => {
+        input.readOnly = isViewMode;
+      });
+
+      document.querySelectorAll(
+        "button[onclick='addNewRow()'], .btn-mini-add, .btn-remove, button[onclick='saveData()']"
+      ).forEach(button => {
+        button.disabled = isViewMode;
+        button.style.opacity = isViewMode ? "0.45" : "";
+        button.style.cursor = isViewMode ? "not-allowed" : "";
+      });
+
+      if (badge) {
+        badge.classList.toggle("hidden", !isViewMode);
+      }
     }
 
     function getAllSalaryData() {
@@ -1325,6 +1440,7 @@
       });
 
       return {
+        file_name: document.getElementById("fileName").value.trim(),
         company_name: document.getElementById("companyName").value,
         company_address: document.getElementById("companyAddress").value,
         subject_text: document.getElementById("subjectText").value,
@@ -1346,7 +1462,10 @@
       calculateTotal();
     }
 
-    function applySalaryData(data) {
+    function applySalaryData(data, mode = "edit") {
+      document.getElementById("fileName").value = data.file_name || "";
+      currentLoadedFileName = data.file_name || "";
+
       document.getElementById("companyName").value = data.company_name || "A&O Apparels (Pvt) Ltd.";
       document.getElementById("companyAddress").value = data.company_address || "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
       document.getElementById("subjectText").value = data.subject_text || "Salary & Overtime Summary";
@@ -1363,24 +1482,34 @@
       paymentRows.forEach(row => addPaymentRow(row));
 
       calculateTotal();
+      setFormViewMode(mode === "view");
     }
 
     async function saveData() {
+      setFormViewMode(false);
+
+      const fileName = document.getElementById("fileName").value.trim();
       const month = document.getElementById("salaryMonth").value;
 
+      if (!fileName) {
+        setSalaryStatus("আগে File Name লিখো। File Name ছাড়া summary save হবে না।", "error");
+        document.getElementById("fileName").focus();
+        return;
+      }
+
       if (!month) {
-        setSalaryStatus("আগে Salary Month select করো, তারপর Save / Update করো।", "error");
+        setSalaryStatus("Salary Month select করো। Supabase table এ salary_month required আছে।", "error");
         document.getElementById("salaryMonth").focus();
         return;
       }
 
       const payload = getAllSalaryData();
 
-      setSalaryStatus("Saving salary summary to Supabase...", "warning");
+      setSalaryStatus("Saving file: <b>" + escapeHtml(fileName) + "</b> ...", "warning");
 
       const { error } = await supabaseClient
         .from(SALARY_TABLE_NAME)
-        .upsert(payload, { onConflict: "salary_month" });
+        .upsert(payload, { onConflict: "file_name" });
 
       if (error) {
         console.error(error);
@@ -1391,64 +1520,135 @@
         return;
       }
 
-      setSalaryStatus("✅ " + formatMonth(month) + " salary summary saved/updated successfully.", "success");
+      currentLoadedFileName = fileName;
+      setSalaryStatus("✅ File saved/updated successfully: <b>" + escapeHtml(fileName) + "</b>", "success");
+      showSavedFileList(false);
     }
 
-    async function loadMonthData() {
-      const month = document.getElementById("salaryMonth").value;
+    async function showSavedFileList(scrollToList = true) {
+      const panel = document.getElementById("savedListPanel");
+      const content = document.getElementById("savedListContent");
 
-      if (!month) {
-        setSalaryStatus("Load করার আগে Salary Month select করো।", "error");
-        document.getElementById("salaryMonth").focus();
+      panel.classList.remove("hidden");
+      content.innerHTML = "Loading saved files...";
+      setSalaryStatus("Saved file list loading...", "warning");
+
+      const { data, error } = await supabaseClient
+        .from(SALARY_TABLE_NAME)
+        .select("id,file_name,salary_month,division_name,updated_at,created_at")
+        .order("updated_at", { ascending: false });
+
+      if (error) {
+        console.error(error);
+        content.innerHTML = "<b style='color:#991b1b;'>List load failed:</b> " + error.message;
+        setSalaryStatus("Saved file list load failed: " + error.message, "error");
         return;
       }
 
-      setSalaryStatus("Loading " + formatMonth(month) + " data from Supabase...", "warning");
+      if (!data || !data.length) {
+        content.innerHTML = "No saved salary summary file found.";
+        setSalaryStatus("কোনো saved file পাওয়া যায়নি। নতুন summary করে Save করো।", "warning");
+        return;
+      }
+
+      let htmlText = `
+        <table class="saved-list-table">
+          <thead>
+            <tr>
+              <th style="width: 6%;">SL</th>
+              <th style="width: 34%;">File Name</th>
+              <th style="width: 16%;">Salary Month</th>
+              <th style="width: 16%;">Division</th>
+              <th style="width: 28%;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      data.forEach((item, index) => {
+        const file = escapeHtml(item.file_name || "");
+        htmlText += `
+          <tr>
+            <td style="text-align:center;">${index + 1}</td>
+            <td>${file}</td>
+            <td style="text-align:center;">${escapeHtml(formatMonth(item.salary_month || "") || item.salary_month || "")}</td>
+            <td style="text-align:center;">${escapeHtml(item.division_name || "")}</td>
+            <td>
+              <div class="saved-list-actions">
+                <button class="btn-view" onclick="openSavedFile('${file}', 'view')">View</button>
+                <button class="btn-list-print" onclick="openSavedFile('${file}', 'print')">Print</button>
+                <button class="btn-edit" onclick="openSavedFile('${file}', 'edit')">Edit</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+
+      htmlText += "</tbody></table>";
+      content.innerHTML = htmlText;
+      setSalaryStatus("✅ Saved file list loaded. View / Print / Edit select করো।", "success");
+
+      if (scrollToList) {
+        panel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+
+    async function openSavedFile(fileName, mode) {
+      if (!fileName) return;
+
+      setSalaryStatus("Opening file: <b>" + escapeHtml(fileName) + "</b> ...", "warning");
 
       const { data, error } = await supabaseClient
         .from(SALARY_TABLE_NAME)
         .select("*")
-        .eq("salary_month", month)
+        .eq("file_name", fileName)
         .maybeSingle();
 
       if (error) {
         console.error(error);
-        setSalaryStatus(
-          "Load failed: " + error.message + "<br>Supabase table/RLS policy check করো।",
-          "error"
-        );
+        setSalaryStatus("File open failed: " + error.message, "error");
         return;
       }
 
       if (!data) {
-        const selectedMonth = month;
-        resetRowsToDefault();
-        document.getElementById("salaryMonth").value = selectedMonth;
-        calculateTotal();
-        setSalaryStatus("⚠️ " + formatMonth(selectedMonth) + " মাসের saved data পাওয়া যায়নি। নতুন summary entry করে Save করো।", "warning");
+        setSalaryStatus("File not found: " + escapeHtml(fileName), "error");
         return;
       }
 
-      applySalaryData(data);
-      setSalaryStatus("✅ " + formatMonth(month) + " salary summary loaded. এখন edit/print করতে পারবা।", "success");
+      if (mode === "view") {
+        applySalaryData(data, "view");
+        setSalaryStatus("✅ View mode opened: <b>" + escapeHtml(fileName) + "</b>", "success");
+      } else if (mode === "print") {
+        applySalaryData(data, "view");
+        setSalaryStatus("✅ Print ready: <b>" + escapeHtml(fileName) + "</b>", "success");
+        setTimeout(() => window.print(), 450);
+      } else {
+        applySalaryData(data, "edit");
+        setSalaryStatus("✅ Edit mode opened: <b>" + escapeHtml(fileName) + "</b>. Edit করে Save / Update File চাপো।", "success");
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function loadData() {
       document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
       resetRowsToDefault();
-      setSalaryStatus("Salary Month select করলে ওই মাসের saved data load করা যাবে।", "");
+      setFormViewMode(false);
+      setSalaryStatus("File Name লিখে নতুন summary save করো অথবা Saved File List থেকে পুরান file open করো।", "");
     }
 
     function clearAll() {
       if (!confirm("Clear form only? Supabase saved data delete হবে না.")) return;
 
-      const selectedMonth = document.getElementById("salaryMonth").value;
+      setFormViewMode(false);
+      currentLoadedFileName = "";
 
+      document.getElementById("fileName").value = "";
       document.getElementById("companyName").value = "A&O Apparels (Pvt) Ltd.";
       document.getElementById("companyAddress").value = "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
       document.getElementById("subjectText").value = "Salary & Overtime Summary";
       document.getElementById("divisionName").value = "Woven Division";
-      document.getElementById("salaryMonth").value = selectedMonth || "";
+      document.getElementById("salaryMonth").value = "";
       document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
 
       resetRowsToDefault();
@@ -1456,18 +1656,15 @@
     }
 
     [
+      "fileName",
       "companyName",
       "companyAddress",
       "subjectText",
       "divisionName",
+      "salaryMonth",
       "reportDate"
     ].forEach(id => {
       document.getElementById(id).addEventListener("input", calculateTotal);
-    });
-
-    document.getElementById("salaryMonth").addEventListener("change", function() {
-      calculateTotal();
-      loadMonthData();
     });
 
     document.querySelectorAll("input[type='number']").forEach(addSelectAllBehavior);
