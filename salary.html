@@ -1,0 +1,1360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salary & Overtime Summary - A4 Landscape Clear Report V6</title>
+
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 6mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #eef2f7;
+      color: #111827;
+      padding: 10px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 100vw;
+      margin: auto;
+      background: #ffffff;
+      padding: 10px;
+      border-radius: 14px;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+    }
+
+    .screen-panel {
+      background: #f8fafc;
+      border: 1px solid #d1d5db;
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .screen-panel-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 10px;
+    }
+
+    .top-inputs {
+      display: grid;
+      grid-template-columns: 1.1fr 1.6fr 1.1fr 0.8fr 0.8fr;
+      gap: 8px;
+      margin-bottom: 10px;
+      align-items: end;
+    }
+
+    .input-card {
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      padding: 8px;
+      background: #ffffff;
+    }
+
+    .input-card label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #374151;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 7px;
+      padding: 6px;
+      outline: none;
+      font-size: 12px;
+      background: #ffffff;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 9px 12px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.15s;
+      font-size: 13px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    .btn-add {
+      background: #166534;
+      color: #ffffff;
+    }
+
+    .btn-save {
+      background: #1d4ed8;
+      color: #ffffff;
+    }
+
+    .btn-print {
+      background: #7c3aed;
+      color: #ffffff;
+    }
+
+    .btn-clear {
+      background: #dc2626;
+      color: #ffffff;
+    }
+
+    .btn-remove {
+      background: #ef4444;
+      color: #ffffff;
+      padding: 5px 7px;
+      border-radius: 6px;
+      font-size: 11px;
+    }
+
+    .report-sheet {
+      background: #ffffff;
+      padding: 4px;
+    }
+
+    .report-header {
+      text-align: center;
+      position: relative;
+      margin-bottom: 7px;
+      padding-bottom: 4px;
+    }
+
+    .company-name {
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.12;
+    }
+
+    .company-address {
+      font-size: 13px;
+      margin-top: 3px;
+      line-height: 1.25;
+    }
+
+    .report-subject {
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: underline;
+      margin-top: 4px;
+    }
+
+    .left-meta {
+      position: absolute;
+      left: 0;
+      top: 6px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.8;
+    }
+
+    .right-meta {
+      position: absolute;
+      right: 0;
+      top: 6px;
+      text-align: right;
+      font-size: 15px;
+      font-weight: 900;
+      line-height: 1.8;
+    }
+
+    .division-title {
+      font-size: 14px;
+      font-weight: 800;
+      font-style: italic;
+      border: 1.2px solid #111827;
+      border-bottom: none;
+      padding: 5px 8px;
+      margin-top: 3px;
+      background: #f1f5f9;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow: hidden;
+      border: 1.2px solid #111827;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #ffffff;
+      table-layout: fixed;
+    }
+
+    th, td {
+      border: 1.2px solid #111827;
+      padding: 6px 4px;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.25;
+      vertical-align: middle;
+      word-break: normal;
+    }
+
+    th {
+      background: #dbeafe;
+      font-weight: 900;
+      color: #111827;
+    }
+
+    .deduct-head {
+      background: #e5e7eb;
+      font-size: 11.5px;
+    }
+
+    .sl-cell {
+      font-weight: 800;
+      background: #f9fafb;
+    }
+
+    .section-input {
+      font-weight: 900;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .num-input {
+      text-align: right;
+      font-size: 12.5px;
+      font-weight: 800;
+    }
+
+    .readonly-value {
+      background: #f8fafc;
+      border: 1px solid #94a3b8;
+      border-radius: 6px;
+      padding: 5px 3px;
+      font-weight: 900;
+      text-align: right;
+      color: #0f172a;
+      min-height: 26px;
+    }
+
+    .total-row td {
+      background: #d1fae5;
+      font-weight: 900;
+      color: #111827;
+      font-size: 11.5px;
+    }
+
+    .total-label {
+      text-align: center !important;
+      font-size: 12px !important;
+    }
+
+
+    .payment-summary-area {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-top: 10px;
+      max-width: 780px;
+    }
+
+    .payment-mini-box {
+      width: 520px;
+      max-width: 100%;
+      border: 1.2px solid #111827;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .payment-mini-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 6px 8px;
+      font-size: 13px;
+      font-weight: 900;
+      background: #e5e7eb;
+      border-bottom: 1.2px solid #111827;
+    }
+
+    .btn-mini-add {
+      background: #166534;
+      color: #ffffff;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      line-height: 28px;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .payment-mini-table {
+      width: 100%;
+      table-layout: fixed;
+      min-width: 0;
+    }
+
+    .payment-mini-table th,
+    .payment-mini-table td {
+      font-size: 10.5px;
+      padding: 5px 3px;
+    }
+
+    .payment-type-input {
+      text-align: left;
+      font-weight: 800;
+    }
+
+    .payment-amount-input {
+      text-align: right;
+      font-weight: 800;
+    }
+
+    .payment-action-cell {
+      width: 56px;
+    }
+
+    .payment-action-cell .btn-remove {
+      width: 48px;
+      padding: 4px 3px;
+      font-size: 9px;
+      line-height: 1;
+      border-radius: 5px;
+    }
+
+    .payment-right-box {
+      width: 245px;
+      border: 1.2px solid #111827;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .payment-right-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1.2px solid #111827;
+      min-height: 34px;
+    }
+
+    .payment-right-row:last-child {
+      border-bottom: none;
+    }
+
+    .payment-right-label {
+      background: #e5e7eb;
+      font-weight: 900;
+      padding: 8px;
+      border-right: 1.2px solid #111827;
+      font-size: 12px;
+    }
+
+    .payment-right-value {
+      font-weight: 900;
+      padding: 8px;
+      text-align: right;
+      font-size: 12px;
+    }
+
+    .match-status-screen {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-weight: 900;
+      font-size: 13px;
+      border: 2px solid transparent;
+    }
+
+    .status-match {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #22c55e;
+    }
+
+    .status-mismatch {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #ef4444;
+    }
+
+    .payment-total-row td {
+      background: #d1fae5;
+      font-weight: 900;
+    }
+
+    .signature-footer {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 90px;
+      margin-top: 88px;
+      padding: 0 48px;
+    }
+
+    .signature-box {
+      text-align: center;
+      font-weight: 800;
+      font-size: 14px;
+      min-height: 45px;
+    }
+
+    .signature-line {
+      border-top: 1.5px solid #111827;
+      padding-top: 8px;
+    }
+
+    .saved-note {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 8px;
+    }
+
+    .print-hide-col {
+      width: 4%;
+    }
+
+    .col-sl { width: 4.5%; }
+    .col-section { width: 15%; }
+    .col-emp { width: 6%; }
+    .col-money { width: 7.4%; }
+    .col-deduct { width: 5.4%; }
+    .col-action { width: 4%; }
+
+    @media (max-width: 1200px) {
+      body {
+        padding: 8px;
+      }
+
+      .page {
+        padding: 8px;
+      }
+
+      .top-inputs {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      th, td {
+        font-size: 10px;
+        padding: 4px 2px;
+      }
+
+      input {
+        font-size: 11px;
+        padding: 5px 3px;
+      }
+
+      .readonly-value {
+        padding: 4px 2px;
+      }
+
+      button {
+        font-size: 12px;
+        padding: 8px 10px;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .top-inputs {
+        grid-template-columns: 1fr;
+      }
+
+      .company-name {
+        font-size: 20px;
+      }
+
+      .left-meta,
+      .right-meta {
+        position: static;
+        text-align: center;
+        margin-top: 6px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 1200px;
+      }
+    }
+
+    @media print {
+      html, body {
+        width: 297mm;
+        height: 210mm;
+        max-height: 210mm;
+        overflow: hidden !important;
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        width: 285mm;
+        height: 198mm;
+        max-height: 198mm;
+        overflow: hidden !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        margin: 0 auto !important;
+      }
+
+      .screen-panel,
+      .action-buttons,
+      .no-print,
+      .saved-note {
+        display: none !important;
+      }
+
+      .report-sheet {
+        height: 198mm;
+        max-height: 198mm;
+        padding: 0 !important;
+        position: relative;
+        overflow: hidden !important;
+      }
+
+      .report-header {
+        margin-bottom: 5px;
+        padding-bottom: 2px;
+      }
+
+      .company-name {
+        font-size: 20px;
+      }
+
+      .company-address {
+        font-size: 11px;
+      }
+
+      .report-subject {
+        font-size: 13px;
+      }
+
+      .left-meta {
+        top: 0;
+        left: 0;
+        font-size: 11px;
+        font-weight: 800;
+        line-height: 1.55;
+      }
+
+      .right-meta {
+        top: 0;
+        right: 0;
+        font-size: 13.2px;
+        font-weight: 900;
+        line-height: 1.55;
+      }
+
+      .division-title {
+        font-size: 11.5px;
+        padding: 4px 6px;
+        background: #e5e7eb !important;
+      }
+
+      .table-wrap {
+        overflow: visible !important;
+        border: 1.2px solid #111827;
+      }
+
+      table {
+        width: 100%;
+        min-width: 0 !important;
+        table-layout: fixed;
+        page-break-inside: avoid !important;
+      }
+
+      thead {
+        display: table-header-group;
+      }
+
+      tr {
+        page-break-inside: avoid !important;
+        page-break-after: avoid !important;
+      }
+
+      th, td {
+        font-size: 9.1px;
+        padding: 4.2px 2px;
+        line-height: 1.18;
+        overflow: hidden;
+        border: 1.2px solid #111827 !important;
+      }
+
+      th {
+        background: #d9d9d9 !important;
+        font-weight: 900 !important;
+      }
+
+      .deduct-head {
+        background: #cfcfcf !important;
+        font-weight: 900 !important;
+      }
+
+      input {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        font-size: inherit !important;
+        font-weight: inherit !important;
+        color: #000000 !important;
+        text-align: inherit;
+      }
+
+      .num-input {
+        text-align: right !important;
+        font-size: 9.3px !important;
+        font-weight: 800 !important;
+      }
+
+      .section-input {
+        text-align: left !important;
+        font-size: 10.2px !important;
+        font-weight: 900 !important;
+      }
+
+      .readonly-value {
+        border: none !important;
+        background: transparent !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        min-height: 0 !important;
+        font-size: 9.3px !important;
+        color: #000000 !important;
+        font-weight: 900 !important;
+      }
+
+      .print-hide-col {
+        display: none !important;
+      }
+
+      .total-row td {
+        background: #d9d9d9 !important;
+        font-size: 9.2px;
+        font-weight: 900 !important;
+      }
+
+      .total-label {
+        font-size: 9.5px !important;
+      }
+
+
+      .payment-summary-area {
+        display: flex;
+        align-items: flex-start;
+        gap: 5mm;
+        margin-top: 3mm;
+        max-width: 130mm;
+        page-break-inside: avoid !important;
+      }
+
+      .payment-mini-box {
+        width: 86mm;
+        margin-top: 0;
+        border: 1.2px solid #111827;
+        page-break-inside: avoid !important;
+      }
+
+      .payment-mini-title {
+        padding: 3px 5px;
+        font-size: 9px;
+        background: #d9d9d9 !important;
+        border-bottom: 1.2px solid #111827;
+      }
+
+      .payment-mini-table {
+        width: 100%;
+        min-width: 0 !important;
+        table-layout: fixed;
+      }
+
+      .payment-mini-table th,
+      .payment-mini-table td {
+        font-size: 8.5px;
+        padding: 2.8px 1.5px;
+        line-height: 1.08;
+      }
+
+      .payment-type-input {
+        text-align: left !important;
+        font-size: 9px !important;
+        font-weight: 900 !important;
+      }
+
+      .payment-amount-input {
+        text-align: right !important;
+        font-size: 9px !important;
+        font-weight: 900 !important;
+      }
+
+      .payment-total-row td {
+        background: #d9d9d9 !important;
+        font-weight: 900 !important;
+      }
+
+      .payment-right-box {
+        width: 42mm;
+        border: 1.2px solid #111827;
+        background: #ffffff;
+        page-break-inside: avoid !important;
+      }
+
+      .payment-right-row {
+        min-height: 8mm;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-bottom: 1.2px solid #111827;
+      }
+
+      .payment-right-row:last-child {
+        border-bottom: none;
+      }
+
+      .payment-right-label {
+        background: #d9d9d9 !important;
+        font-size: 8.8px;
+        font-weight: 900;
+        padding: 2.5px;
+        border-right: 1.2px solid #111827;
+      }
+
+      .payment-right-value {
+        font-size: 8.8px;
+        font-weight: 900;
+        padding: 2.5px;
+        text-align: right;
+      }
+
+      .signature-footer {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 4mm;
+        margin-top: 0 !important;
+        padding: 0 18mm;
+        gap: 35mm;
+        page-break-inside: avoid !important;
+      }
+
+      .signature-box {
+        font-size: 10.8px;
+        min-height: 32mm;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .signature-line {
+        width: 100%;
+        padding-top: 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <div class="screen-panel">
+      <div class="screen-panel-title">Entry Panel</div>
+
+      <div class="top-inputs">
+        <div class="input-card">
+          <label>Company Name</label>
+          <input id="companyName" type="text" value="A&O Apparels (Pvt) Ltd.">
+        </div>
+
+        <div class="input-card">
+          <label>Company Address</label>
+          <input id="companyAddress" type="text" value="256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj">
+        </div>
+
+        <div class="input-card">
+          <label>Subject</label>
+          <input id="subjectText" type="text" value="Salary & Overtime Summary">
+        </div>
+
+        <div class="input-card">
+          <label>Division Name</label>
+          <input id="divisionName" type="text" value="Woven Division">
+        </div>
+
+        <div class="input-card">
+          <label>Salary Month</label>
+          <input id="salaryMonth" type="month">
+        </div>
+
+        <div class="input-card">
+          <label>Report Date</label>
+          <input id="reportDate" type="date">
+        </div>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn-add" onclick="addNewRow()">Add New Entry</button>
+        <button class="btn-save" onclick="saveData()">Save</button>
+        <button class="btn-print" onclick="window.print()">Print / Save PDF</button>
+        <button class="btn-clear" onclick="clearAll()">Clear All</button>
+      </div>
+
+      <div class="saved-note">
+        Main table এর নিচে ছোট Payment Type Summary box যোগ করা হয়েছে। + চাপলে payment row বাড়বে। Amount ঘরে click করলে value auto select হবে।
+      </div>
+    </div>
+
+    <div class="report-sheet">
+      <div class="report-header">
+        <div class="company-name" id="printCompanyName">A&O Apparels (Pvt) Ltd.</div>
+        <div class="company-address" id="printCompanyAddress">256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj</div>
+        <div class="report-subject" id="printSubject">Salary &amp; Overtime Summary</div>
+
+        <div class="left-meta">
+          Date: <span id="printDate"></span>
+        </div>
+
+        <div class="right-meta">
+          Salary Month: <span id="printSalaryMonth"></span>
+        </div>
+      </div>
+
+      <div class="division-title" id="printDivisionName">Woven Division</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th rowspan="2" class="col-sl">Serial No</th>
+              <th rowspan="2" class="col-section">Name of Section</th>
+              <th rowspan="2" class="col-emp">Total Employee</th>
+              <th rowspan="2" class="col-money">Gross Salary</th>
+              <th rowspan="2" class="col-money">Attendance Bonus</th>
+              <th rowspan="2" class="col-money">Earn Leave Amount</th>
+              <th rowspan="2" class="col-money">Overtime Amount</th>
+              <th rowspan="2" class="col-money">Total Gross Pay</th>
+              <th colspan="4" class="deduct-head">Deduct</th>
+              <th rowspan="2" class="col-money">Total Deduct</th>
+              <th rowspan="2" class="col-money">Net Payable</th>
+              <th rowspan="2" class="print-hide-col no-print col-action">Action</th>
+            </tr>
+            <tr>
+              <th class="col-deduct">Absent</th>
+              <th class="col-deduct">Stamp</th>
+              <th class="col-deduct">Advance</th>
+              <th class="col-deduct">Other</th>
+            </tr>
+          </thead>
+
+          <tbody id="entryBody"></tbody>
+
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="2" class="total-label">Total</td>
+              <td id="totalEmployee">0</td>
+              <td id="totalGrossSalary">0</td>
+              <td id="totalAttendanceBonus">0</td>
+              <td id="totalEarnLeaveAmount">0</td>
+              <td id="totalOvertimeAmount">0</td>
+              <td id="totalGrossPay">0</td>
+              <td id="totalAbsent">0</td>
+              <td id="totalStamp">0</td>
+              <td id="totalAdvance">0</td>
+              <td id="totalOther">0</td>
+              <td id="totalDeduct">0</td>
+              <td id="totalNetPayable">0</td>
+              <td class="print-hide-col no-print"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+
+      <div class="payment-summary-area">
+        <div class="payment-mini-box">
+          <div class="payment-mini-title">
+            <span>Payment Type Summary</span>
+            <button class="btn-mini-add no-print" onclick="addPaymentRow()" title="Add payment row">+</button>
+          </div>
+
+          <table class="payment-mini-table">
+            <thead>
+              <tr>
+                <th style="width: 13%;">SL</th>
+                <th style="width: 48%;">Payment Type</th>
+                <th style="width: 25%;">Amount</th>
+                <th class="no-print payment-action-cell" style="width: 14%;">Action</th>
+              </tr>
+            </thead>
+
+            <tbody id="paymentRows"></tbody>
+
+            <tfoot>
+              <tr class="payment-total-row">
+                <td colspan="2">Total</td>
+                <td id="paymentTotalAmount">0</td>
+                <td class="no-print payment-action-cell"></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div>
+          <div class="payment-right-box">
+            <div class="payment-right-row">
+              <div class="payment-right-label">Total Salary</div>
+              <div class="payment-right-value" id="quickTotalSalary">0</div>
+            </div>
+
+            <div class="payment-right-row">
+              <div class="payment-right-label">Total Net Pay</div>
+              <div class="payment-right-value" id="quickTotalNetPay">0</div>
+            </div>
+          </div>
+
+          <div class="match-status-screen no-print status-mismatch" id="paymentMatchStatus">
+            ❌ Not Matched
+          </div>
+        </div>
+      </div>
+
+      <div class="signature-footer">
+        <div class="signature-box">
+          <div class="signature-line">Prepared By</div>
+        </div>
+
+        <div class="signature-box">
+          <div class="signature-line">Checked By</div>
+        </div>
+
+        <div class="signature-box">
+          <div class="signature-line">Approved By</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const defaultRows = [
+      { sectionName: "Sewing - A" },
+      { sectionName: "Sewing - B" },
+      { sectionName: "Quality" },
+      { sectionName: "Cutting" },
+      { sectionName: "Finishing" }
+    ];
+
+    const defaultPaymentRows = [
+      { paymentType: "Bank" },
+      { paymentType: "Rocket" },
+      { paymentType: "Cash" }
+    ];
+
+    function numberValue(value) {
+      return Number(value) || 0;
+    }
+
+    function money(value) {
+      return Math.round(numberValue(value)).toLocaleString("en-IN");
+    }
+
+    function formatDate(value) {
+      if (!value) return "";
+      const date = new Date(value + "T00:00:00");
+      if (Number.isNaN(date.getTime())) return value;
+
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = date.toLocaleString("en-US", { month: "short" });
+      const year = date.getFullYear();
+
+      return `${day} ${month}-${year}`;
+    }
+
+    function formatMonth(value) {
+      if (!value) return "";
+      const date = new Date(value + "-01T00:00:00");
+      if (Number.isNaN(date.getTime())) return value;
+
+      const month = date.toLocaleString("en-US", { month: "long" });
+      const year = date.getFullYear();
+
+      return `${month}-${year}`;
+    }
+
+    function setText(id, value) {
+      document.getElementById(id).innerText = money(value);
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function getRowData(row) {
+      const absent = numberValue(row.querySelector("[data-field='absent']").value);
+      const stamp = numberValue(row.querySelector("[data-field='stamp']").value);
+      const advance = numberValue(row.querySelector("[data-field='advance']").value);
+      const other = numberValue(row.querySelector("[data-field='other']").value);
+      const totalGrossPay = numberValue(row.querySelector("[data-field='totalGrossPay']").value);
+
+      const totalDeduct = absent + stamp + advance + other;
+      const netPayable = totalGrossPay - totalDeduct;
+
+      return {
+        sectionName: row.querySelector("[data-field='sectionName']").value || "",
+        totalEmployee: numberValue(row.querySelector("[data-field='totalEmployee']").value),
+        grossSalary: numberValue(row.querySelector("[data-field='grossSalary']").value),
+        attendanceBonus: numberValue(row.querySelector("[data-field='attendanceBonus']").value),
+        earnLeaveAmount: numberValue(row.querySelector("[data-field='earnLeaveAmount']").value),
+        overtimeAmount: numberValue(row.querySelector("[data-field='overtimeAmount']").value),
+        totalGrossPay,
+        absent,
+        stamp,
+        advance,
+        other,
+        totalDeduct,
+        netPayable
+      };
+    }
+
+    function renumberRows() {
+      document.querySelectorAll("#entryBody tr").forEach((row, index) => {
+        row.querySelector(".sl-cell").innerText = index + 1;
+      });
+    }
+
+    function addSelectAllBehavior(input) {
+      if (!input || input.type !== "number") return;
+
+      input.addEventListener("focus", function() {
+        setTimeout(() => this.select(), 0);
+      });
+
+      input.addEventListener("click", function() {
+        this.select();
+      });
+    }
+
+    function addEnterNextBehavior(input) {
+      input.addEventListener("keydown", function(event) {
+        if (event.key !== "Enter") return;
+
+        event.preventDefault();
+
+        const focusable = Array.from(document.querySelectorAll(
+          "#entryBody input, #paymentRows input"
+        )).filter(el => !el.disabled && el.offsetParent !== null);
+
+        const currentIndex = focusable.indexOf(this);
+        if (currentIndex >= 0 && currentIndex < focusable.length - 1) {
+          focusable[currentIndex + 1].focus();
+        }
+      });
+    }
+
+    function addNewRow(data = {}) {
+      const tbody = document.getElementById("entryBody");
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td class="sl-cell">1</td>
+        <td><input class="section-input" data-field="sectionName" type="text" value="${escapeHtml(data.sectionName || "")}" placeholder="Section name"></td>
+        <td><input class="num-input" data-field="totalEmployee" type="number" value="${data.totalEmployee || 0}"></td>
+        <td><input class="num-input" data-field="grossSalary" type="number" value="${data.grossSalary || 0}"></td>
+        <td><input class="num-input" data-field="attendanceBonus" type="number" value="${data.attendanceBonus || 0}"></td>
+        <td><input class="num-input" data-field="earnLeaveAmount" type="number" value="${data.earnLeaveAmount || 0}"></td>
+        <td><input class="num-input" data-field="overtimeAmount" type="number" value="${data.overtimeAmount || 0}"></td>
+        <td><input class="num-input" data-field="totalGrossPay" type="number" value="${data.totalGrossPay || 0}"></td>
+        <td><input class="num-input" data-field="absent" type="number" value="${data.absent || 0}"></td>
+        <td><input class="num-input" data-field="stamp" type="number" value="${data.stamp || 0}"></td>
+        <td><input class="num-input" data-field="advance" type="number" value="${data.advance || 0}"></td>
+        <td><input class="num-input" data-field="other" type="number" value="${data.other || 0}"></td>
+        <td><div class="readonly-value" data-calc="totalDeduct">0</div></td>
+        <td><div class="readonly-value" data-calc="netPayable">0</div></td>
+        <td class="print-hide-col no-print"><button class="btn-remove" onclick="removeRow(this)">Remove</button></td>
+      `;
+
+      tbody.appendChild(row);
+
+      row.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", calculateTotal);
+        addSelectAllBehavior(input);
+        addEnterNextBehavior(input);
+      });
+
+      renumberRows();
+      calculateTotal();
+    }
+
+    function removeRow(button) {
+      button.closest("tr").remove();
+      renumberRows();
+      calculateTotal();
+    }
+
+
+    function renumberPaymentRows() {
+      document.querySelectorAll("#paymentRows tr").forEach((row, index) => {
+        row.querySelector(".payment-sl-cell").innerText = index + 1;
+      });
+    }
+
+    function getPaymentRowData(row) {
+      return {
+        paymentType: row.querySelector("[data-payment-field='paymentType']").value || "",
+        amount: numberValue(row.querySelector("[data-payment-field='amount']").value)
+      };
+    }
+
+    function addPaymentRow(data = {}) {
+      const tbody = document.getElementById("paymentRows");
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td class="payment-sl-cell">1</td>
+        <td><input class="payment-type-input" data-payment-field="paymentType" type="text" value="${escapeHtml(data.paymentType || "")}" placeholder="Payment type"></td>
+        <td><input class="payment-amount-input" data-payment-field="amount" type="number" value="${data.amount || 0}"></td>
+        <td class="no-print print-hide-col"><button class="btn-remove" onclick="removePaymentRow(this)">Remove</button></td>
+      `;
+
+      tbody.appendChild(row);
+
+      row.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", calculateTotal);
+        addSelectAllBehavior(input);
+        addEnterNextBehavior(input);
+      });
+
+      renumberPaymentRows();
+      calculateTotal();
+    }
+
+    function removePaymentRow(button) {
+      button.closest("tr").remove();
+      renumberPaymentRows();
+      calculateTotal();
+    }
+
+    function calculatePaymentTotal() {
+      let paymentTotal = 0;
+      let totalGrossSalary = 0;
+      let totalNetPay = 0;
+
+      document.querySelectorAll("#paymentRows tr").forEach(row => {
+        const data = getPaymentRowData(row);
+        paymentTotal += data.amount;
+      });
+
+      document.querySelectorAll("#entryBody tr").forEach(row => {
+        const data = getRowData(row);
+        totalGrossSalary += data.grossSalary;
+        totalNetPay += data.netPayable;
+      });
+
+      setText("paymentTotalAmount", paymentTotal);
+      setText("quickTotalSalary", totalGrossSalary);
+      setText("quickTotalNetPay", totalNetPay);
+
+      const status = document.getElementById("paymentMatchStatus");
+      if (Math.round(paymentTotal) === Math.round(totalNetPay)) {
+        status.innerText = "✅ Matched";
+        status.className = "match-status-screen no-print status-match";
+      } else {
+        status.innerText = "❌ Not Matched";
+        status.className = "match-status-screen no-print status-mismatch";
+      }
+    }
+
+    function calculateTotal() {
+      const rows = document.querySelectorAll("#entryBody tr");
+
+      let totals = {
+        totalEmployee: 0,
+        grossSalary: 0,
+        attendanceBonus: 0,
+        earnLeaveAmount: 0,
+        overtimeAmount: 0,
+        totalGrossPay: 0,
+        absent: 0,
+        stamp: 0,
+        advance: 0,
+        other: 0,
+        totalDeduct: 0,
+        netPayable: 0
+      };
+
+      rows.forEach(row => {
+        const data = getRowData(row);
+
+        row.querySelector("[data-calc='totalDeduct']").innerText = money(data.totalDeduct);
+        row.querySelector("[data-calc='netPayable']").innerText = money(data.netPayable);
+
+        totals.totalEmployee += data.totalEmployee;
+        totals.grossSalary += data.grossSalary;
+        totals.attendanceBonus += data.attendanceBonus;
+        totals.earnLeaveAmount += data.earnLeaveAmount;
+        totals.overtimeAmount += data.overtimeAmount;
+        totals.totalGrossPay += data.totalGrossPay;
+        totals.absent += data.absent;
+        totals.stamp += data.stamp;
+        totals.advance += data.advance;
+        totals.other += data.other;
+        totals.totalDeduct += data.totalDeduct;
+        totals.netPayable += data.netPayable;
+      });
+
+      setText("totalEmployee", totals.totalEmployee);
+      setText("totalGrossSalary", totals.grossSalary);
+      setText("totalAttendanceBonus", totals.attendanceBonus);
+      setText("totalEarnLeaveAmount", totals.earnLeaveAmount);
+      setText("totalOvertimeAmount", totals.overtimeAmount);
+      setText("totalGrossPay", totals.totalGrossPay);
+      setText("totalAbsent", totals.absent);
+      setText("totalStamp", totals.stamp);
+      setText("totalAdvance", totals.advance);
+      setText("totalOther", totals.other);
+      setText("totalDeduct", totals.totalDeduct);
+      setText("totalNetPayable", totals.netPayable);
+
+      document.getElementById("printCompanyName").innerText = document.getElementById("companyName").value || "A&O Apparels (Pvt) Ltd.";
+      document.getElementById("printCompanyAddress").innerText = document.getElementById("companyAddress").value || "";
+      document.getElementById("printSubject").innerText = document.getElementById("subjectText").value || "Salary & Overtime Summary";
+      document.getElementById("printDivisionName").innerText = document.getElementById("divisionName").value || "";
+      document.getElementById("printDate").innerText = formatDate(document.getElementById("reportDate").value);
+      document.getElementById("printSalaryMonth").innerText = formatMonth(document.getElementById("salaryMonth").value);
+      calculatePaymentTotal();
+    }
+
+    function saveData() {
+      const rows = [];
+
+      document.querySelectorAll("#entryBody tr").forEach(row => {
+        rows.push(getRowData(row));
+      });
+
+      const paymentRows = [];
+      document.querySelectorAll("#paymentRows tr").forEach(row => {
+        paymentRows.push(getPaymentRowData(row));
+      });
+
+      const data = {
+        companyName: document.getElementById("companyName").value,
+        companyAddress: document.getElementById("companyAddress").value,
+        subjectText: document.getElementById("subjectText").value,
+        divisionName: document.getElementById("divisionName").value,
+        salaryMonth: document.getElementById("salaryMonth").value,
+        reportDate: document.getElementById("reportDate").value,
+        rows,
+        paymentRows
+      };
+
+      localStorage.setItem("salarySummaryPrintReportA4LandscapeV6", JSON.stringify(data));
+      alert("Saved in browser.");
+    }
+
+    function loadData() {
+      const saved = localStorage.getItem("salarySummaryPrintReportA4LandscapeV6");
+
+      if (saved) {
+        const data = JSON.parse(saved);
+
+        document.getElementById("companyName").value = data.companyName || "A&O Apparels (Pvt) Ltd.";
+        document.getElementById("companyAddress").value = data.companyAddress || "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
+        document.getElementById("subjectText").value = data.subjectText || "Salary & Overtime Summary";
+        document.getElementById("divisionName").value = data.divisionName || "Woven Division";
+        document.getElementById("salaryMonth").value = data.salaryMonth || "";
+        document.getElementById("reportDate").value = data.reportDate || "";
+
+        document.getElementById("entryBody").innerHTML = "";
+        if (data.rows && data.rows.length) {
+          data.rows.forEach(row => addNewRow(row));
+        } else {
+          defaultRows.forEach(row => addNewRow(row));
+        }
+
+        document.getElementById("paymentRows").innerHTML = "";
+        if (data.paymentRows && data.paymentRows.length) {
+          data.paymentRows.forEach(row => addPaymentRow(row));
+        } else {
+          defaultPaymentRows.forEach(row => addPaymentRow(row));
+        }
+      } else {
+        document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
+        defaultRows.forEach(row => addNewRow(row));
+        defaultPaymentRows.forEach(row => addPaymentRow(row));
+      }
+
+      calculateTotal();
+    }
+
+    function clearAll() {
+      if (!confirm("Are you sure you want to clear all data?")) return;
+
+      localStorage.removeItem("salarySummaryPrintReportA4LandscapeV6");
+
+      document.getElementById("companyName").value = "A&O Apparels (Pvt) Ltd.";
+      document.getElementById("companyAddress").value = "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
+      document.getElementById("subjectText").value = "Salary & Overtime Summary";
+      document.getElementById("divisionName").value = "Woven Division";
+      document.getElementById("salaryMonth").value = "";
+      document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
+      document.getElementById("entryBody").innerHTML = "";
+      document.getElementById("paymentRows").innerHTML = "";
+
+      defaultRows.forEach(row => addNewRow(row));
+      defaultPaymentRows.forEach(row => addPaymentRow(row));
+      calculateTotal();
+    }
+
+    [
+      "companyName",
+      "companyAddress",
+      "subjectText",
+      "divisionName",
+      "salaryMonth",
+      "reportDate"
+    ].forEach(id => {
+      document.getElementById(id).addEventListener("input", calculateTotal);
+    });
+
+    document.querySelectorAll("input[type='number']").forEach(addSelectAllBehavior);
+
+    loadData();
+  </script>
+</body>
+</html>
