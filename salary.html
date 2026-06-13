@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salary & Overtime Summary - Supabase File List Save</title>
+  <title>Salary & Overtime Summary - Clean Home List Entry View</title>
 
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -50,6 +50,74 @@
       border-radius: 14px;
       padding: 12px;
       margin-bottom: 10px;
+    }
+
+
+    .hidden {
+      display: none !important;
+    }
+
+    .main-menu-panel {
+      background: linear-gradient(135deg, #ffffff, #eff6ff);
+      border: 1px solid #bfdbfe;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 18px rgba(30, 64, 175, 0.12);
+      text-align: center;
+    }
+
+    .main-menu-panel h2 {
+      color: #1e3a8a;
+      margin-bottom: 12px;
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .main-menu-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 12px;
+      max-width: 680px;
+      margin: auto;
+    }
+
+    .main-menu-buttons button {
+      min-height: 56px;
+      font-size: 16px;
+      border-radius: 14px;
+    }
+
+    .report-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      background: #f8fafc;
+      border: 1px solid #dbeafe;
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .report-toolbar button {
+      width: auto;
+      margin-top: 0;
+      padding: 9px 13px;
+      font-size: 13px;
+    }
+
+    .btn-home {
+      background: #475569;
+      color: #ffffff;
+    }
+
+    .list-only-panel {
+      background: #ffffff;
+      border: 1px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 6px 18px rgba(30, 64, 175, 0.10);
     }
 
     .screen-panel-title {
@@ -179,24 +247,29 @@
       margin-top: 4px;
     }
 
+    .report-meta-row {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      padding: 0 4px;
+    }
+
     .left-meta {
-      position: absolute;
-      left: 0;
-      top: 6px;
       text-align: left;
-      font-size: 13px;
-      font-weight: 800;
-      line-height: 1.8;
+      font-size: 14px;
+      font-weight: 900;
+      line-height: 1.4;
+      width: 45%;
     }
 
     .right-meta {
-      position: absolute;
-      right: 0;
-      top: 6px;
       text-align: right;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 900;
-      line-height: 1.8;
+      line-height: 1.4;
+      width: 45%;
     }
 
     .division-title {
@@ -605,11 +678,16 @@
         font-size: 20px;
       }
 
-      .left-meta,
+      .report-meta-row {
+        gap: 10px;
+      }
+
+      .left-meta {
+        text-align: left;
+      }
+
       .right-meta {
-        position: static;
-        text-align: center;
-        margin-top: 6px;
+        text-align: right;
       }
 
       .table-wrap {
@@ -646,8 +724,11 @@
       }
 
       .screen-panel,
+      .main-menu-panel,
+      .report-toolbar,
       .action-buttons,
       .saved-list-panel,
+      .list-only-panel,
       .no-print,
       .saved-note {
         display: none !important;
@@ -678,20 +759,29 @@
         font-size: 13px;
       }
 
+      .report-meta-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        margin-top: 2mm !important;
+        padding: 0 !important;
+      }
+
       .left-meta {
-        top: 0;
-        left: 0;
-        font-size: 11px;
-        font-weight: 800;
-        line-height: 1.55;
+        text-align: left !important;
+        font-size: 11.5px;
+        font-weight: 900;
+        line-height: 1.3;
+        width: 45%;
       }
 
       .right-meta {
-        top: 0;
-        right: 0;
-        font-size: 13.2px;
+        text-align: right !important;
+        font-size: 13.8px;
         font-weight: 900;
-        line-height: 1.55;
+        line-height: 1.3;
+        width: 45%;
       }
 
       .division-title {
@@ -898,6 +988,40 @@
         width: 100%;
         padding-top: 6px;
       }
+
+      body.print-compact th,
+      body.print-compact td {
+        font-size: 7.8px !important;
+        padding: 2.4px 1px !important;
+        line-height: 1.02 !important;
+      }
+
+      body.print-compact .company-name { font-size: 18px !important; }
+      body.print-compact .company-address { font-size: 10px !important; }
+      body.print-compact .report-subject { font-size: 11.5px !important; }
+      body.print-compact .division-title { font-size: 10px !important; padding: 2px 5px !important; }
+      body.print-compact .payment-summary-area { margin-top: 1.8mm !important; }
+      body.print-compact .signature-box { min-height: 22mm !important; font-size: 9.5px !important; }
+      body.print-compact .signature-footer { bottom: 3mm !important; }
+
+      body.print-super-compact th,
+      body.print-super-compact td {
+        font-size: 6.6px !important;
+        padding: 1.6px 0.7px !important;
+        line-height: 0.98 !important;
+      }
+
+      body.print-super-compact .company-name { font-size: 16px !important; }
+      body.print-super-compact .company-address { font-size: 9px !important; }
+      body.print-super-compact .report-subject { font-size: 10px !important; }
+      body.print-super-compact .left-meta { font-size: 9px !important; }
+      body.print-super-compact .right-meta { font-size: 10.5px !important; }
+      body.print-super-compact .division-title { font-size: 9px !important; padding: 1.5px 4px !important; }
+      body.print-super-compact .payment-summary-area { margin-top: 1mm !important; }
+      body.print-super-compact .payment-mini-title { font-size: 7.6px !important; padding: 1.5px 3px !important; }
+      body.print-super-compact .payment-right-row { min-height: 5.5mm !important; }
+      body.print-super-compact .signature-box { min-height: 17mm !important; font-size: 8.5px !important; }
+      body.print-super-compact .signature-footer { bottom: 2mm !important; }
     }
   </style>
 </head>
@@ -905,7 +1029,15 @@
 <body>
   <div class="page">
 
-    <div class="screen-panel">
+    <div class="main-menu-panel" id="homeChooser">
+      <h2>Salary Reconciliation</h2>
+      <div class="main-menu-buttons">
+        <button class="btn-add" onclick="newSummary()">Add New Summary</button>
+        <button class="btn-save" onclick="showSavedFileList()">Saved File List</button>
+      </div>
+    </div>
+
+    <div class="screen-panel hidden" id="entryPanel">
       <div class="screen-panel-title">Entry Panel</div>
 
       <div class="top-inputs">
@@ -953,36 +1085,34 @@
         <button class="btn-clear" onclick="clearAll()">Clear Form</button>
       </div>
 
-      <div id="salaryStatus" class="salary-status">
-        File Name এবং Salary Month দিয়ে Save করো। পুরান data দেখতে <b>Saved File List</b> চাপো।
-      </div>
+      <div id="salaryStatus" class="salary-status hidden"></div>
 
       <div id="viewModeBadge" class="view-mode-badge hidden">
-        View Mode: Edit করতে চাইলে Saved File List থেকে Edit চাপো।
-      </div>
-
-      <div id="savedListPanel" class="saved-list-panel hidden">
-        <div class="saved-list-title">Saved Salary Summary File List</div>
-        <div id="savedListContent">Saved file list loading...</div>
-      </div>
-
-      <div class="saved-note">
-        Data Supabase table <b>salary_reconciliation</b> এ File Name অনুযায়ী save/load হবে। File Name blank থাকলে save হবে না।
+        View Mode
       </div>
     </div>
 
-    <div class="report-sheet">
+    <div id="savedListPanel" class="saved-list-panel list-only-panel hidden">
+      <div class="saved-list-title">Saved Salary Summary File List</div>
+      <div id="savedListContent"></div>
+    </div>
+
+    <div class="report-toolbar hidden no-print" id="reportToolbar">
+      <button class="btn-home" onclick="showHome()">Home</button>
+      <button class="btn-add" onclick="showSavedFileList()">Saved File List</button>
+      <button class="btn-save" onclick="editCurrentFile()">Edit</button>
+      <button class="btn-print" onclick="window.print()">Print / Save PDF</button>
+    </div>
+
+    <div class="report-sheet hidden" id="reportSheet">
       <div class="report-header">
         <div class="company-name" id="printCompanyName">A&O Apparels (Pvt) Ltd.</div>
         <div class="company-address" id="printCompanyAddress">256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj</div>
         <div class="report-subject" id="printSubject">Salary &amp; Overtime Summary</div>
 
-        <div class="left-meta">
-          Date: <span id="printDate"></span>
-        </div>
-
-        <div class="right-meta">
-          Salary Month: <span id="printSalaryMonth"></span>
+        <div class="report-meta-row">
+          <div class="left-meta">Date: <span id="printDate"></span></div>
+          <div class="right-meta">Salary Month: <span id="printSalaryMonth"></span></div>
         </div>
       </div>
 
@@ -1392,6 +1522,19 @@
       document.getElementById("printDate").innerText = formatDate(document.getElementById("reportDate").value);
       document.getElementById("printSalaryMonth").innerText = formatMonth(document.getElementById("salaryMonth").value);
       calculatePaymentTotal();
+      updatePrintCompactMode();
+    }
+
+    function updatePrintCompactMode() {
+      const rowCount = document.querySelectorAll("#entryBody tr").length;
+
+      document.body.classList.remove("print-compact", "print-super-compact");
+
+      if (rowCount > 16) {
+        document.body.classList.add("print-super-compact");
+      } else if (rowCount > 10) {
+        document.body.classList.add("print-compact");
+      }
     }
 
     let currentLoadedFileName = "";
@@ -1401,16 +1544,76 @@
       const status = document.getElementById("salaryStatus");
       if (!status) return;
 
+      if (!message) {
+        status.className = "salary-status hidden";
+        status.innerHTML = "";
+        return;
+      }
+
       status.className = "salary-status" + (type ? " " + type : "");
       status.innerHTML = message;
     }
+
+    function hideAllSections() {
+      document.getElementById("homeChooser").classList.add("hidden");
+      document.getElementById("entryPanel").classList.add("hidden");
+      document.getElementById("savedListPanel").classList.add("hidden");
+      document.getElementById("reportSheet").classList.add("hidden");
+      document.getElementById("reportToolbar").classList.add("hidden");
+    }
+
+    function showHome() {
+      hideAllSections();
+      document.getElementById("homeChooser").classList.remove("hidden");
+      setFormViewMode(false);
+      setSalaryStatus("");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function showEditor(resetForm = false) {
+      hideAllSections();
+      document.getElementById("entryPanel").classList.remove("hidden");
+      document.getElementById("reportSheet").classList.remove("hidden");
+      setFormViewMode(false);
+
+      if (resetForm) {
+        currentLoadedFileName = "";
+        document.getElementById("fileName").value = "";
+        document.getElementById("companyName").value = "A&O Apparels (Pvt) Ltd.";
+        document.getElementById("companyAddress").value = "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
+        document.getElementById("subjectText").value = "Salary & Overtime Summary";
+        document.getElementById("divisionName").value = "Woven Division";
+        document.getElementById("salaryMonth").value = "";
+        document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
+        resetRowsToDefault();
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function newSummary() {
+      showEditor(true);
+    }
+
+    function showReportOnly() {
+      hideAllSections();
+      document.getElementById("reportToolbar").classList.remove("hidden");
+      document.getElementById("reportSheet").classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function editCurrentFile() {
+      showEditor(false);
+      setSalaryStatus("");
+    }
+
 
     function setFormViewMode(isViewMode) {
       currentViewMode = isViewMode;
       const badge = document.getElementById("viewModeBadge");
 
       document.querySelectorAll(
-        "#companyName, #companyAddress, #subjectText, #divisionName, #salaryMonth, #reportDate, #entryBody input, #paymentRows input"
+        "#fileName, #companyName, #companyAddress, #subjectText, #divisionName, #salaryMonth, #reportDate, #entryBody input, #paymentRows input"
       ).forEach(input => {
         input.readOnly = isViewMode;
       });
@@ -1522,16 +1725,16 @@
 
       currentLoadedFileName = fileName;
       setSalaryStatus("✅ File saved/updated successfully: <b>" + escapeHtml(fileName) + "</b>", "success");
-      showSavedFileList(false);
     }
 
     async function showSavedFileList(scrollToList = true) {
+      hideAllSections();
       const panel = document.getElementById("savedListPanel");
       const content = document.getElementById("savedListContent");
 
       panel.classList.remove("hidden");
-      content.innerHTML = "Loading saved files...";
-      setSalaryStatus("Saved file list loading...", "warning");
+      content.innerHTML = "Loading...";
+      setSalaryStatus("");
 
       const { data, error } = await supabaseClient
         .from(SALARY_TABLE_NAME)
@@ -1546,8 +1749,8 @@
       }
 
       if (!data || !data.length) {
-        content.innerHTML = "No saved salary summary file found.";
-        setSalaryStatus("কোনো saved file পাওয়া যায়নি। নতুন summary করে Save করো।", "warning");
+        content.innerHTML = "No saved file found.";
+        return;
         return;
       }
 
@@ -1586,7 +1789,7 @@
 
       htmlText += "</tbody></table>";
       content.innerHTML = htmlText;
-      setSalaryStatus("✅ Saved file list loaded. View / Print / Edit select করো।", "success");
+      setSalaryStatus("");
 
       if (scrollToList) {
         panel.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1617,24 +1820,24 @@
 
       if (mode === "view") {
         applySalaryData(data, "view");
-        setSalaryStatus("✅ View mode opened: <b>" + escapeHtml(fileName) + "</b>", "success");
+        showReportOnly();
+        setSalaryStatus("");
       } else if (mode === "print") {
         applySalaryData(data, "view");
-        setSalaryStatus("✅ Print ready: <b>" + escapeHtml(fileName) + "</b>", "success");
+        showReportOnly();
         setTimeout(() => window.print(), 450);
       } else {
         applySalaryData(data, "edit");
-        setSalaryStatus("✅ Edit mode opened: <b>" + escapeHtml(fileName) + "</b>. Edit করে Save / Update File চাপো।", "success");
+        showEditor(false);
+        setSalaryStatus("");
       }
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function loadData() {
       document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
       resetRowsToDefault();
       setFormViewMode(false);
-      setSalaryStatus("File Name লিখে নতুন summary save করো অথবা Saved File List থেকে পুরান file open করো।", "");
+      showHome();
     }
 
     function clearAll() {
@@ -1652,7 +1855,8 @@
       document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
 
       resetRowsToDefault();
-      setSalaryStatus("Form cleared. Saved Supabase data delete হয়নি।", "warning");
+      showEditor(false);
+      setSalaryStatus("");
     }
 
     [
