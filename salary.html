@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salary & Overtime Summary - Category Added</title>
+  <title>Salary & Overtime Summary - Import TXT System Added</title>
 
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1116,6 +1116,8 @@
 
       <div class="action-buttons">
         <button class="btn-add" onclick="addNewRow()">Add New Entry</button>
+        <button class="btn-export" onclick="document.getElementById('summaryImportFile').click()">Import TXT</button>
+        <input id="summaryImportFile" class="hidden" type="file" accept=".txt,.csv" onchange="importSummaryTxt(this.files[0]); this.value='';">
         <button class="btn-save" onclick="saveData()">Save / Update File</button>
         <button class="btn-add" onclick="showSavedFileList()">Saved File List</button>
         <button class="btn-print" onclick="window.print()">Print / Save PDF</button>
@@ -1731,6 +1733,174 @@
       calculateTotal();
       setFormViewMode(mode === "view");
     }
+
+
+    function normalizeImportHeader(value) {
+      return String(value || "")
+        .trim()
+        .toUpperCase()
+        .replace(/\s+/g, "_")
+        .replace(/[^A-Z0-9_]/g, "");
+    }
+
+    function parseImportNumber(value) {
+      if (value === null || value === undefined) return 0;
+      const cleaned = String(value)
+        .replace(/,/g, "")
+        .replace(/[^\d.-]/g, "")
+        .trim();
+      return Number(cleaned) || 0;
+    }
+
+    function splitImportLine(line, delimiter) {
+      if (delimiter === "|") {
+        return line.split("|").map(cell => cell.trim());
+      }
+
+      const result = [];
+      let current = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+
+        if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === delimiter && !inQuotes) {
+          result.push(current.trim().replace(/^"|"$/g, ""));
+          current = "";
+        } else {
+          current += char;
+        }
+      }
+
+      result.push(current.trim().replace(/^"|"$/g, ""));
+      return result;
+    }
+
+    function detectImportDelimiter(firstLine) {
+      if ((firstLine.match(/\|/g) || []).length >= 3) return "|";
+      if ((firstLine.match(/\t/g) || []).length >= 3) return "\t";
+      return ",";
+    }
+
+    function getImportValue(item, names) {
+      for (const name of names) {
+        if (item[name] !== undefined && item[name] !== null && String(item[name]).trim() !== "") {
+          return item[name];
+        }
+      }
+      return "";
+    }
+
+    function importRowsToTable(rows) {
+      const tbody = document.getElementById("entryBody");
+      tbody.innerHTML = "";
+
+      rows.forEach(item => {
+        const sectionName = getImportValue(item, ["SECTION_NAME", "SEC_NAME", "LINE_NAME"]);
+        const totalEmployee = getImportValue(item, ["TOTAL_EMPLOYEE"]);
+        const grossSalary = getImportValue(item, ["GROSS_SALARY"]);
+        const attendanceBonus = getImportValue(item, ["ATTENDANCE_BONUS"]);
+        const earnLeaveAmount = getImportValue(item, ["EARN_LEAVE_AMOUNT"]);
+        const overtimeAmount = getImportValue(item, ["OVERTIME_AMOUNT"]);
+        const totalGrossPay = getImportValue(item, ["TOTAL_GROSS_PAY"]);
+        const absent = getImportValue(item, ["ABSENT"]);
+        const stamp = getImportValue(item, ["STAMP"]);
+        const advance = getImportValue(item, ["ADVANCE"]);
+        const other = getImportValue(item, ["OTHER"]);
+
+        addNewRow({
+          sectionName: sectionName || "",
+          totalEmployee: parseImportNumber(totalEmployee),
+          grossSalary: parseImportNumber(grossSalary),
+          attendanceBonus: parseImportNumber(attendanceBonus),
+          earnLeaveAmount: parseImportNumber(earnLeaveAmount),
+          overtimeAmount: parseImportNumber(overtimeAmount),
+          totalGrossPay: parseImportNumber(totalGrossPay),
+          absent: parseImportNumber(absent),
+          stamp: parseImportNumber(stamp),
+          advance: parseImportNumber(advance),
+          other: parseImportNumber(other)
+        });
+      });
+
+      calculateTotal();
+    }
+
+    async function importSummaryTxt(file) {
+      if (!file) return;
+
+      try {
+        const text = await file.text();
+        const lines = text
+          .replace(/\r/g, "")
+          .split("\n")
+          .map(line => line.trim())
+          .filter(line => line);
+
+        if (lines.length < 2) {
+          setSalaryStatus("Import failed: file empty অথবা data row নাই।", "error");
+          return;
+        }
+
+        const delimiter = detectImportDelimiter(lines[0]);
+        const headers = splitImportLine(lines[0], delimiter).map(normalizeImportHeader);
+
+        const requiredHeaders = [
+          "TOTAL_EMPLOYEE",
+          "GROSS_SALARY",
+          "ATTENDANCE_BONUS",
+          "EARN_LEAVE_AMOUNT",
+          "OVERTIME_AMOUNT",
+          "TOTAL_GROSS_PAY",
+          "ABSENT",
+          "STAMP",
+          "ADVANCE",
+          "OTHER"
+        ];
+
+        const hasSectionHeader = headers.includes("SECTION_NAME") || headers.includes("SEC_NAME") || headers.includes("LINE_NAME");
+        const missing = requiredHeaders.filter(header => !headers.includes(header));
+
+        if (!hasSectionHeader) {
+          missing.unshift("SECTION_NAME / SEC_NAME / LINE_NAME");
+        }
+
+        if (missing.length) {
+          setSalaryStatus("Import failed. Missing column: " + missing.join(", "), "error");
+          return;
+        }
+
+        const importedRows = [];
+
+        for (let i = 1; i < lines.length; i++) {
+          const cells = splitImportLine(lines[i], delimiter);
+          const obj = {};
+
+          headers.forEach((header, index) => {
+            obj[header] = cells[index] || "";
+          });
+
+          const sectionName = getImportValue(obj, ["SECTION_NAME", "SEC_NAME", "LINE_NAME"]);
+          if (String(sectionName || "").trim()) {
+            importedRows.push(obj);
+          }
+        }
+
+        if (!importedRows.length) {
+          setSalaryStatus("Import failed: valid section row পাওয়া যায়নি।", "error");
+          return;
+        }
+
+        importRowsToTable(importedRows);
+        setSalaryStatus("✅ Import done: " + importedRows.length + " section loaded.", "success");
+      } catch (error) {
+        console.error(error);
+        setSalaryStatus("Import failed: " + error.message, "error");
+      }
+    }
+
 
     async function saveData() {
       setFormViewMode(false);
