@@ -3,7 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Salary & Overtime Summary - A4 Landscape Clear Report V6</title>
+  <title>Salary & Overtime Summary - Supabase Month Save</title>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = "https://hneomxtzhbeseqlyrszh.supabase.co";
+    const supabaseKey = "sb_publishable_oT6uhXtknOi9PfP6QIu9gw_6hdgrb7Z";
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+    const SALARY_TABLE_NAME = "salary_reconciliation";
+  </script>
 
   <style>
     @page {
@@ -432,6 +441,37 @@
       padding-top: 8px;
     }
 
+
+    .salary-status {
+      margin-top: 8px;
+      padding: 9px 11px;
+      border-radius: 10px;
+      background: #e0f2fe;
+      color: #075985;
+      font-weight: 800;
+      font-size: 13px;
+      line-height: 1.45;
+      border: 1px solid #7dd3fc;
+    }
+
+    .salary-status.success {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #86efac;
+    }
+
+    .salary-status.error {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #fecaca;
+    }
+
+    .salary-status.warning {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fcd34d;
+    }
+
     .saved-note {
       font-size: 12px;
       color: #6b7280;
@@ -827,13 +867,18 @@
 
       <div class="action-buttons">
         <button class="btn-add" onclick="addNewRow()">Add New Entry</button>
-        <button class="btn-save" onclick="saveData()">Save</button>
+        <button class="btn-save" onclick="saveData()">Save / Update Month Data</button>
+        <button class="btn-add" onclick="loadMonthData()">Load Month Data</button>
         <button class="btn-print" onclick="window.print()">Print / Save PDF</button>
-        <button class="btn-clear" onclick="clearAll()">Clear All</button>
+        <button class="btn-clear" onclick="clearAll()">Clear Form</button>
+      </div>
+
+      <div id="salaryStatus" class="salary-status">
+        Salary Month select করে Load Month Data চাপো। Save দিলে ওই মাসের data Supabase এ update হবে।
       </div>
 
       <div class="saved-note">
-        Main table এর নিচে ছোট Payment Type Summary box যোগ করা হয়েছে। + চাপলে payment row বাড়বে। Amount ঘরে click করলে value auto select হবে।
+        Data Supabase table <b>salary_reconciliation</b> এ Salary Month অনুযায়ী save/load হবে। Payment amount আর Net Payable না মিললে screen এ status দেখাবে।
       </div>
     </div>
 
@@ -1260,9 +1305,16 @@
       calculatePaymentTotal();
     }
 
-    function saveData() {
-      const rows = [];
+    function setSalaryStatus(message, type = "") {
+      const status = document.getElementById("salaryStatus");
+      if (!status) return;
 
+      status.className = "salary-status" + (type ? " " + type : "");
+      status.innerHTML = message;
+    }
+
+    function getAllSalaryData() {
+      const rows = [];
       document.querySelectorAll("#entryBody tr").forEach(row => {
         rows.push(getRowData(row));
       });
@@ -1272,67 +1324,20 @@
         paymentRows.push(getPaymentRowData(row));
       });
 
-      const data = {
-        companyName: document.getElementById("companyName").value,
-        companyAddress: document.getElementById("companyAddress").value,
-        subjectText: document.getElementById("subjectText").value,
-        divisionName: document.getElementById("divisionName").value,
-        salaryMonth: document.getElementById("salaryMonth").value,
-        reportDate: document.getElementById("reportDate").value,
-        rows,
-        paymentRows
+      return {
+        company_name: document.getElementById("companyName").value,
+        company_address: document.getElementById("companyAddress").value,
+        subject_text: document.getElementById("subjectText").value,
+        division_name: document.getElementById("divisionName").value,
+        salary_month: document.getElementById("salaryMonth").value,
+        report_date: document.getElementById("reportDate").value || null,
+        main_rows: rows,
+        payment_rows: paymentRows,
+        updated_at: new Date().toISOString()
       };
-
-      localStorage.setItem("salarySummaryPrintReportA4LandscapeV6", JSON.stringify(data));
-      alert("Saved in browser.");
     }
 
-    function loadData() {
-      const saved = localStorage.getItem("salarySummaryPrintReportA4LandscapeV6");
-
-      if (saved) {
-        const data = JSON.parse(saved);
-
-        document.getElementById("companyName").value = data.companyName || "A&O Apparels (Pvt) Ltd.";
-        document.getElementById("companyAddress").value = data.companyAddress || "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
-        document.getElementById("subjectText").value = data.subjectText || "Salary & Overtime Summary";
-        document.getElementById("divisionName").value = data.divisionName || "Woven Division";
-        document.getElementById("salaryMonth").value = data.salaryMonth || "";
-        document.getElementById("reportDate").value = data.reportDate || "";
-
-        document.getElementById("entryBody").innerHTML = "";
-        if (data.rows && data.rows.length) {
-          data.rows.forEach(row => addNewRow(row));
-        } else {
-          defaultRows.forEach(row => addNewRow(row));
-        }
-
-        document.getElementById("paymentRows").innerHTML = "";
-        if (data.paymentRows && data.paymentRows.length) {
-          data.paymentRows.forEach(row => addPaymentRow(row));
-        } else {
-          defaultPaymentRows.forEach(row => addPaymentRow(row));
-        }
-      } else {
-        document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
-        defaultRows.forEach(row => addNewRow(row));
-        defaultPaymentRows.forEach(row => addPaymentRow(row));
-      }
-
-      calculateTotal();
-    }
-
-    function clearAll() {
-      if (!confirm("Are you sure you want to clear all data?")) return;
-
-      localStorage.removeItem("salarySummaryPrintReportA4LandscapeV6");
-
-      document.getElementById("companyName").value = "A&O Apparels (Pvt) Ltd.";
-      document.getElementById("companyAddress").value = "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
-      document.getElementById("subjectText").value = "Salary & Overtime Summary";
-      document.getElementById("divisionName").value = "Woven Division";
-      document.getElementById("salaryMonth").value = "";
-      document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
+    function resetRowsToDefault() {
       document.getElementById("entryBody").innerHTML = "";
       document.getElementById("paymentRows").innerHTML = "";
 
@@ -1341,15 +1346,128 @@
       calculateTotal();
     }
 
+    function applySalaryData(data) {
+      document.getElementById("companyName").value = data.company_name || "A&O Apparels (Pvt) Ltd.";
+      document.getElementById("companyAddress").value = data.company_address || "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
+      document.getElementById("subjectText").value = data.subject_text || "Salary & Overtime Summary";
+      document.getElementById("divisionName").value = data.division_name || "Woven Division";
+      document.getElementById("salaryMonth").value = data.salary_month || "";
+      document.getElementById("reportDate").value = data.report_date || "";
+
+      document.getElementById("entryBody").innerHTML = "";
+      const mainRows = Array.isArray(data.main_rows) && data.main_rows.length ? data.main_rows : defaultRows;
+      mainRows.forEach(row => addNewRow(row));
+
+      document.getElementById("paymentRows").innerHTML = "";
+      const paymentRows = Array.isArray(data.payment_rows) && data.payment_rows.length ? data.payment_rows : defaultPaymentRows;
+      paymentRows.forEach(row => addPaymentRow(row));
+
+      calculateTotal();
+    }
+
+    async function saveData() {
+      const month = document.getElementById("salaryMonth").value;
+
+      if (!month) {
+        setSalaryStatus("আগে Salary Month select করো, তারপর Save / Update করো।", "error");
+        document.getElementById("salaryMonth").focus();
+        return;
+      }
+
+      const payload = getAllSalaryData();
+
+      setSalaryStatus("Saving salary summary to Supabase...", "warning");
+
+      const { error } = await supabaseClient
+        .from(SALARY_TABLE_NAME)
+        .upsert(payload, { onConflict: "salary_month" });
+
+      if (error) {
+        console.error(error);
+        setSalaryStatus(
+          "Save failed: " + error.message + "<br>Supabase table/RLS policy check করো।",
+          "error"
+        );
+        return;
+      }
+
+      setSalaryStatus("✅ " + formatMonth(month) + " salary summary saved/updated successfully.", "success");
+    }
+
+    async function loadMonthData() {
+      const month = document.getElementById("salaryMonth").value;
+
+      if (!month) {
+        setSalaryStatus("Load করার আগে Salary Month select করো।", "error");
+        document.getElementById("salaryMonth").focus();
+        return;
+      }
+
+      setSalaryStatus("Loading " + formatMonth(month) + " data from Supabase...", "warning");
+
+      const { data, error } = await supabaseClient
+        .from(SALARY_TABLE_NAME)
+        .select("*")
+        .eq("salary_month", month)
+        .maybeSingle();
+
+      if (error) {
+        console.error(error);
+        setSalaryStatus(
+          "Load failed: " + error.message + "<br>Supabase table/RLS policy check করো।",
+          "error"
+        );
+        return;
+      }
+
+      if (!data) {
+        const selectedMonth = month;
+        resetRowsToDefault();
+        document.getElementById("salaryMonth").value = selectedMonth;
+        calculateTotal();
+        setSalaryStatus("⚠️ " + formatMonth(selectedMonth) + " মাসের saved data পাওয়া যায়নি। নতুন summary entry করে Save করো।", "warning");
+        return;
+      }
+
+      applySalaryData(data);
+      setSalaryStatus("✅ " + formatMonth(month) + " salary summary loaded. এখন edit/print করতে পারবা।", "success");
+    }
+
+    function loadData() {
+      document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
+      resetRowsToDefault();
+      setSalaryStatus("Salary Month select করলে ওই মাসের saved data load করা যাবে।", "");
+    }
+
+    function clearAll() {
+      if (!confirm("Clear form only? Supabase saved data delete হবে না.")) return;
+
+      const selectedMonth = document.getElementById("salaryMonth").value;
+
+      document.getElementById("companyName").value = "A&O Apparels (Pvt) Ltd.";
+      document.getElementById("companyAddress").value = "256, Char Rajapur, Shashongaon, Boktabol, Fatullah Narayanganj";
+      document.getElementById("subjectText").value = "Salary & Overtime Summary";
+      document.getElementById("divisionName").value = "Woven Division";
+      document.getElementById("salaryMonth").value = selectedMonth || "";
+      document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
+
+      resetRowsToDefault();
+      setSalaryStatus("Form cleared. Saved Supabase data delete হয়নি।", "warning");
+    }
+
     [
       "companyName",
       "companyAddress",
       "subjectText",
       "divisionName",
-      "salaryMonth",
       "reportDate"
     ].forEach(id => {
       document.getElementById(id).addEventListener("input", calculateTotal);
+    });
+
+    document.getElementById("salaryMonth").addEventListener("change", function() {
+      calculateTotal();
+      loadMonthData();
     });
 
     document.querySelectorAll("input[type='number']").forEach(addSelectAllBehavior);
