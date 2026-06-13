@@ -577,6 +577,7 @@
     .btn-view { background: #0f766e; color: #ffffff; }
     .btn-edit { background: #1d4ed8; color: #ffffff; }
     .btn-list-print { background: #7c3aed; color: #ffffff; }
+    .btn-export { background: #0f9f6e; color: #ffffff; }
 
     .view-mode-badge {
       display: inline-block;
@@ -1759,10 +1760,10 @@
           <thead>
             <tr>
               <th style="width: 6%;">SL</th>
-              <th style="width: 34%;">File Name</th>
+              <th style="width: 30%;">File Name</th>
               <th style="width: 16%;">Salary Month</th>
-              <th style="width: 16%;">Division</th>
-              <th style="width: 28%;">Action</th>
+              <th style="width: 14%;">Division</th>
+              <th style="width: 34%;">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -1781,6 +1782,7 @@
                 <button class="btn-view" onclick="openSavedFile('${file}', 'view')">View</button>
                 <button class="btn-list-print" onclick="openSavedFile('${file}', 'print')">Print</button>
                 <button class="btn-edit" onclick="openSavedFile('${file}', 'edit')">Edit</button>
+                <button class="btn-export" onclick="exportSavedFile('${file}')">Export</button>
               </div>
             </td>
           </tr>
@@ -1832,6 +1834,266 @@
         setSalaryStatus("");
       }
     }
+
+
+    function excelMoney(value) {
+      return Math.round(numberValue(value));
+    }
+
+    function safeExcelFileName(value) {
+      return String(value || "salary-summary")
+        .replace(/[\\/:*?"<>|]+/g, "-")
+        .replace(/\s+/g, " ")
+        .trim()
+        .slice(0, 120) || "salary-summary";
+    }
+
+    function buildExcelHtml(data) {
+      const mainRows = Array.isArray(data.main_rows) ? data.main_rows : [];
+      const paymentRows = Array.isArray(data.payment_rows) ? data.payment_rows : [];
+
+      let totals = {
+        totalEmployee: 0,
+        grossSalary: 0,
+        attendanceBonus: 0,
+        earnLeaveAmount: 0,
+        overtimeAmount: 0,
+        totalGrossPay: 0,
+        absent: 0,
+        stamp: 0,
+        advance: 0,
+        other: 0,
+        totalDeduct: 0,
+        netPayable: 0
+      };
+
+      mainRows.forEach(row => {
+        const absent = numberValue(row.absent);
+        const stamp = numberValue(row.stamp);
+        const advance = numberValue(row.advance);
+        const other = numberValue(row.other);
+        const totalGrossPay = numberValue(row.totalGrossPay);
+        const totalDeduct = absent + stamp + advance + other;
+        const netPayable = totalGrossPay - totalDeduct;
+
+        totals.totalEmployee += numberValue(row.totalEmployee);
+        totals.grossSalary += numberValue(row.grossSalary);
+        totals.attendanceBonus += numberValue(row.attendanceBonus);
+        totals.earnLeaveAmount += numberValue(row.earnLeaveAmount);
+        totals.overtimeAmount += numberValue(row.overtimeAmount);
+        totals.totalGrossPay += totalGrossPay;
+        totals.absent += absent;
+        totals.stamp += stamp;
+        totals.advance += advance;
+        totals.other += other;
+        totals.totalDeduct += totalDeduct;
+        totals.netPayable += netPayable;
+      });
+
+      let paymentTotal = 0;
+      paymentRows.forEach(row => paymentTotal += numberValue(row.amount));
+
+      const css = `
+        <style>
+          body { font-family: Arial, sans-serif; }
+          table { border-collapse: collapse; width: 100%; }
+          .company { font-size: 20px; font-weight: 900; text-align: center; }
+          .address { font-size: 12px; text-align: center; }
+          .subject { font-size: 14px; font-weight: 900; text-align: center; text-decoration: underline; }
+          .meta-left { text-align: left; font-weight: 900; }
+          .meta-right { text-align: right; font-weight: 900; font-size: 14px; }
+          .division { font-size: 13px; font-weight: 900; font-style: italic; background: #d9d9d9; border: 1px solid #111; }
+          th { background: #d9d9d9; font-weight: 900; text-align: center; border: 1px solid #111; }
+          td { border: 1px solid #111; font-size: 11px; }
+          .num { text-align: right; }
+          .center { text-align: center; }
+          .section { font-weight: 900; }
+          .total td { background: #d9d9d9; font-weight: 900; }
+          .mini-title { background: #d9d9d9; font-weight: 900; border: 1px solid #111; }
+          .sign td { border: none; height: 55px; vertical-align: bottom; text-align: center; font-weight: 900; }
+          .sign-line { border-top: 1px solid #111; }
+        </style>
+      `;
+
+      let mainTableRows = "";
+      mainRows.forEach((row, index) => {
+        const absent = numberValue(row.absent);
+        const stamp = numberValue(row.stamp);
+        const advance = numberValue(row.advance);
+        const other = numberValue(row.other);
+        const totalGrossPay = numberValue(row.totalGrossPay);
+        const totalDeduct = absent + stamp + advance + other;
+        const netPayable = totalGrossPay - totalDeduct;
+
+        mainTableRows += `
+          <tr>
+            <td class="center">${index + 1}</td>
+            <td class="section">${escapeHtml(row.sectionName || "")}</td>
+            <td class="num">${excelMoney(row.totalEmployee)}</td>
+            <td class="num">${excelMoney(row.grossSalary)}</td>
+            <td class="num">${excelMoney(row.attendanceBonus)}</td>
+            <td class="num">${excelMoney(row.earnLeaveAmount)}</td>
+            <td class="num">${excelMoney(row.overtimeAmount)}</td>
+            <td class="num">${excelMoney(row.totalGrossPay)}</td>
+            <td class="num">${excelMoney(row.absent)}</td>
+            <td class="num">${excelMoney(row.stamp)}</td>
+            <td class="num">${excelMoney(row.advance)}</td>
+            <td class="num">${excelMoney(row.other)}</td>
+            <td class="num">${excelMoney(totalDeduct)}</td>
+            <td class="num">${excelMoney(netPayable)}</td>
+          </tr>
+        `;
+      });
+
+      let paymentTableRows = "";
+      paymentRows.forEach((row, index) => {
+        paymentTableRows += `
+          <tr>
+            <td class="center">${index + 1}</td>
+            <td>${escapeHtml(row.paymentType || "")}</td>
+            <td class="num">${excelMoney(row.amount)}</td>
+          </tr>
+        `;
+      });
+
+      return `
+        <html>
+        <head>
+          <meta charset="UTF-8">
+          ${css}
+        </head>
+        <body>
+          <table>
+            <tr><td colspan="14" class="company">${escapeHtml(data.company_name || "A&O Apparels (Pvt) Ltd.")}</td></tr>
+            <tr><td colspan="14" class="address">${escapeHtml(data.company_address || "")}</td></tr>
+            <tr><td colspan="14" class="subject">${escapeHtml(data.subject_text || "Salary & Overtime Summary")}</td></tr>
+            <tr>
+              <td colspan="7" class="meta-left">Date: ${escapeHtml(formatDate(data.report_date || ""))}</td>
+              <td colspan="7" class="meta-right">Salary Month: ${escapeHtml(formatMonth(data.salary_month || ""))}</td>
+            </tr>
+            <tr><td colspan="14" class="division">${escapeHtml(data.division_name || "")}</td></tr>
+            <tr>
+              <th rowspan="2">Serial No</th>
+              <th rowspan="2">Name of Section</th>
+              <th rowspan="2">Total Employee</th>
+              <th rowspan="2">Gross Salary</th>
+              <th rowspan="2">Attendance Bonus</th>
+              <th rowspan="2">Earn Leave Amount</th>
+              <th rowspan="2">Overtime Amount</th>
+              <th rowspan="2">Total Gross Pay</th>
+              <th colspan="4">Deduct</th>
+              <th rowspan="2">Total Deduct</th>
+              <th rowspan="2">Net Payable</th>
+            </tr>
+            <tr>
+              <th>Absent</th>
+              <th>Stamp</th>
+              <th>Advance</th>
+              <th>Other</th>
+            </tr>
+            ${mainTableRows}
+            <tr class="total">
+              <td colspan="2" class="center">Total</td>
+              <td class="num">${excelMoney(totals.totalEmployee)}</td>
+              <td class="num">${excelMoney(totals.grossSalary)}</td>
+              <td class="num">${excelMoney(totals.attendanceBonus)}</td>
+              <td class="num">${excelMoney(totals.earnLeaveAmount)}</td>
+              <td class="num">${excelMoney(totals.overtimeAmount)}</td>
+              <td class="num">${excelMoney(totals.totalGrossPay)}</td>
+              <td class="num">${excelMoney(totals.absent)}</td>
+              <td class="num">${excelMoney(totals.stamp)}</td>
+              <td class="num">${excelMoney(totals.advance)}</td>
+              <td class="num">${excelMoney(totals.other)}</td>
+              <td class="num">${excelMoney(totals.totalDeduct)}</td>
+              <td class="num">${excelMoney(totals.netPayable)}</td>
+            </tr>
+          </table>
+
+          <br>
+
+          <table style="width: 55%;">
+            <tr><td colspan="3" class="mini-title">Payment Type Summary</td></tr>
+            <tr>
+              <th>SL</th>
+              <th>Payment Type</th>
+              <th>Amount</th>
+            </tr>
+            ${paymentTableRows}
+            <tr class="total">
+              <td colspan="2" class="center">Total</td>
+              <td class="num">${excelMoney(paymentTotal)}</td>
+            </tr>
+          </table>
+
+          <br>
+
+          <table style="width: 35%;">
+            <tr>
+              <td class="mini-title">Total Salary</td>
+              <td class="num">${excelMoney(totals.grossSalary)}</td>
+            </tr>
+            <tr>
+              <td class="mini-title">Total Net Pay</td>
+              <td class="num">${excelMoney(totals.netPayable)}</td>
+            </tr>
+          </table>
+
+          <br><br>
+
+          <table class="sign">
+            <tr>
+              <td style="width:33%;"><span class="sign-line">Prepared By</span></td>
+              <td style="width:33%;"><span class="sign-line">Checked By</span></td>
+              <td style="width:33%;"><span class="sign-line">Approved By</span></td>
+            </tr>
+          </table>
+        </body>
+        </html>
+      `;
+    }
+
+    function downloadExcelFile(data) {
+      const excelHtml = buildExcelHtml(data);
+      const blob = new Blob(["\ufeff" + excelHtml], {
+        type: "application/vnd.ms-excel;charset=utf-8;"
+      });
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = safeExcelFileName(data.file_name || data.salary_month || "salary-summary") + ".xls";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    async function exportSavedFile(fileName) {
+      if (!fileName) return;
+
+      setSalaryStatus("Exporting Excel: <b>" + escapeHtml(fileName) + "</b> ...", "warning");
+
+      const { data, error } = await supabaseClient
+        .from(SALARY_TABLE_NAME)
+        .select("*")
+        .eq("file_name", fileName)
+        .maybeSingle();
+
+      if (error) {
+        console.error(error);
+        setSalaryStatus("Export failed: " + error.message, "error");
+        return;
+      }
+
+      if (!data) {
+        setSalaryStatus("File not found: " + escapeHtml(fileName), "error");
+        return;
+      }
+
+      downloadExcelFile(data);
+      setSalaryStatus("✅ Excel exported: <b>" + escapeHtml(fileName) + "</b>", "success");
+    }
+
 
     function loadData() {
       document.getElementById("reportDate").value = new Date().toISOString().split("T")[0];
