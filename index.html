@@ -987,6 +987,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
             <button onclick="showSupabaseUpload('payslip')">Pay Slip</button>
             <button onclick="showSupabaseUpload('overtime')">Accessive OT</button>
             <button onclick="showSupabaseUpload('jobCardTotalHistory')">Job Card Total History</button>
+            <button class="green" onclick="openSalaryReconciliation()">Salary Reconciliation</button>
         </div>
 
         <button class="red" onclick="showOutEmployeePanel()" style="margin-top:15px;">
@@ -1593,6 +1594,10 @@ async function changeAdminPassword(){
     document.getElementById("confirmAdminPassword").value = "";
 
     setAdminStatus("Admin password changed successfully!", "success");
+}
+
+function openSalaryReconciliation(){
+    window.open("salary.html", "_blank");
 }
 
 function openSupabaseDashboard(){
