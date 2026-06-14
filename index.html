@@ -982,39 +982,21 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
         <h3>Database Control Panel</h3>
 
         <div class="menu">
-            <button onclick="showSupabaseUpload('employee')">Employee Info</button>
-            <button onclick="showSupabaseUpload('jobcard')">Job Card</button>
-            <button onclick="showSupabaseUpload('payslip')">Pay Slip</button>
-            <button onclick="showSupabaseUpload('overtime')">Accessive OT</button>
-            <button onclick="showSupabaseUpload('jobCardTotalHistory')">Job Card Total History</button>
-            <button class="green" onclick="openSalaryReconciliation()">Salary Reconciliation</button>
+            <button onclick="showSupabaseUpload('employee')">01. Employee Info</button>
+            <button onclick="showSupabaseUpload('jobcard')">02. Job Card</button>
+            <button onclick="showSupabaseUpload('payslip')">03. Pay Slip</button>
+            <button onclick="showSupabaseUpload('overtime')">04. Accessive OT</button>
+            <button onclick="showSupabaseUpload('jobCardTotalHistory')">05. Job Card Total History</button>
+            <button class="green" onclick="openSalaryReconciliation()">06. Salary Reconciliation</button>
+            <button class="red" onclick="showOutEmployeePanel()">07. Out Employee Remove</button>
+            <button class="green" onclick="showAttendanceUploadPanel()">08. Attendance PDF Upload</button>
+            <button class="orange" onclick="showNewJoinRequestsPanel()">09. New Joining Requests</button>
+            <button class="green" onclick="showApprovedApplicationsPanel()">10. Approved List</button>
+            <button class="green" onclick="openAllFormate()">11. All Formate</button>
+            <button class="red" onclick="removeAllApprovedApplications()">12. Remove All Approved Data</button>
+            <button class="purple" onclick="showChangePasswordPanel()">13. Change Admin Password</button>
+            <button class="orange" onclick="openSupabaseDashboard()">14. Open Supabase Dashboard</button>
         </div>
-
-        <button class="red" onclick="showOutEmployeePanel()" style="margin-top:15px;">
-            Out Employee Remove
-        </button>
-
-        <button class="green" onclick="showAttendanceUploadPanel()" style="margin-top:15px;">
-            Attendance PDF Upload
-        </button>
-
-        <button class="orange" onclick="showNewJoinRequestsPanel()" style="margin-top:15px;">
-            New Joining Requests
-        </button>
-
-        <button class="green" onclick="showApprovedApplicationsPanel()" style="margin-top:15px;">
-            Approved List
-        </button>
-<button class="red" onclick="removeAllApprovedApplications()" style="margin-top:15px;">
-            Remove All Approved Data
-        </button>
-        <button class="purple" onclick="showChangePasswordPanel()" style="margin-top:15px;">
-            Change Admin Password
-        </button>
-
-        <button class="orange" onclick="openSupabaseDashboard()" style="margin-top:15px;">
-            Open Supabase Dashboard
-        </button>
 
         <p class="small-note">
             CSV upload দিলে Supabase database এ data update হবে। Excel heading আর Supabase column name একই রাখতে হবে।
@@ -1598,6 +1580,10 @@ async function changeAdminPassword(){
 
 function openSalaryReconciliation(){
     window.open("salary.html", "_blank");
+}
+
+function openAllFormate(){
+    window.open("format.html", "_blank");
 }
 
 function openSupabaseDashboard(){
