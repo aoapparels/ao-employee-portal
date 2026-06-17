@@ -5,378 +5,63 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A&O All Formate</title>
 <meta name="robots" content="noindex,nofollow">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseUrl = "https://hneomxtzhbeseqlyrszh.supabase.co";
+const supabaseKey = "sb_publishable_oT6uhXtknOi9PfP6QIu9gw_6hdgrb7Z";
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+const PICTORIAL_BUCKET = "pictorial-evidence";
+</script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 body{background:linear-gradient(rgba(255,255,255,.35),rgba(255,255,255,.35)),url('background.jpg');background-size:cover;background-position:center;background-attachment:fixed;padding:20px;}
 .container{max-width:980px;margin:auto;}
 .card{background:#fff;padding:22px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,.12);margin-bottom:20px;}
-.logo-box{text-align:center;margin-bottom:18px;}
-.logo-box img{width:95px;height:95px;object-fit:contain;margin-bottom:10px;}
-h1{text-align:center;color:#0754a6;margin-bottom:8px;font-size:28px;}
-.subtitle{text-align:center;color:#555;font-weight:bold;margin-bottom:18px;}
+.logo-box{text-align:center;margin-bottom:18px;}.logo-box img{width:95px;height:95px;object-fit:contain;margin-bottom:10px;}
+h1{text-align:center;color:#0754a6;margin-bottom:8px;font-size:28px;}.subtitle{text-align:center;color:#555;font-weight:bold;margin-bottom:18px;}
 .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:15px;}
-button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0754a6;color:#fff;font-size:16px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(7,84,166,.22);}
-button:hover{background:#003f7f;}.gray{background:#555;}.gray:hover{background:#333;}.green{background:#2e7d32;}.green:hover{background:#1b5e20;}.orange{background:#ef6c00;}.orange:hover{background:#bf360c;}.red{background:#c62828;}.red:hover{background:#8e0000;}.hidden{display:none!important;}
-.box{margin-top:18px;padding:18px;border-radius:14px;background:#f8fbff;border:1px solid #bbdefb;}
-.box h2{text-align:center;color:#0754a6;margin-bottom:12px;}.small-note{font-size:14px;color:#555;text-align:center;line-height:1.5;}.form-control{width:100%;padding:11px 12px;margin-top:8px;border:1px solid #bbb;border-radius:8px;font-size:15px;background:#fff;}.control-label{font-weight:bold;color:#0d47a1;}.control-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:end;}.manual-list{margin-top:10px;padding:10px;border-radius:8px;background:#eef7ff;font-size:14px;line-height:1.6;}
-.print-sheet{background:#fff;color:#000;width:100%;max-width:790px;margin:18px auto 0;padding:8px 8px 0;border:1px solid #ddd;box-shadow:0 4px 14px rgba(0,0,0,.10);}
-.company-title{text-align:center;font-size:22px;font-weight:900;margin-bottom:24px;}.report-title{text-align:center;font-size:18px;font-weight:400;line-height:1.35;margin-bottom:3px;}.report-month{text-align:center;font-size:14px;margin-bottom:2px;}.area-row{font-size:16px;font-weight:900;margin-bottom:0;background:#d9d9d9;padding:3px 6px;border:1px solid #000;border-bottom:none;}.area-row span{font-weight:900;}
+button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0754a6;color:#fff;font-size:16px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(7,84,166,.22);}button:hover{background:#003f7f;}.gray{background:#555;}.gray:hover{background:#333;}.green{background:#2e7d32;}.green:hover{background:#1b5e20;}.orange{background:#ef6c00;}.orange:hover{background:#bf360c;}.red{background:#c62828;}.red:hover{background:#8e0000;}.hidden{display:none!important;}
+.box{margin-top:18px;padding:18px;border-radius:14px;background:#f8fbff;border:1px solid #bbdefb;}.box h2{text-align:center;color:#0754a6;margin-bottom:12px;}.small-note{font-size:14px;color:#555;text-align:center;line-height:1.5;}.form-control{width:100%;padding:11px 12px;margin-top:8px;border:1px solid #bbb;border-radius:8px;font-size:15px;background:#fff;}.control-label{font-weight:bold;color:#0d47a1;}.control-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;align-items:end;}.manual-list{margin-top:10px;padding:10px;border-radius:8px;background:#eef7ff;font-size:14px;line-height:1.6;}
+.print-sheet{background:#fff;color:#000;width:100%;max-width:790px;margin:18px auto 0;padding:8px 8px 0;border:1px solid #ddd;box-shadow:0 4px 14px rgba(0,0,0,.10);}.company-title{text-align:center;font-size:22px;font-weight:900;margin-bottom:24px;}.report-title{text-align:center;font-size:18px;font-weight:400;line-height:1.35;margin-bottom:3px;}.report-month{text-align:center;font-size:14px;margin-bottom:2px;}.area-row{font-size:16px;font-weight:900;margin-bottom:0;background:#d9d9d9;padding:3px 6px;border:1px solid #000;border-bottom:none;}.area-row span{font-weight:900;}
 .check-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:12px;}.check-table th,.check-table td{border:1px solid #000;padding:4px 3px;text-align:center;vertical-align:middle;height:24px;}.check-table th{font-weight:900;background:#d9d9d9;}.check-table .date-cell{font-weight:900;}.weekend-cell{font-size:18px;font-weight:900;letter-spacing:.2px;}.blank-merged-cell{height:28px;background:#fff;}.signature-row{display:flex;justify-content:space-between;gap:20px;margin-top:50px;font-weight:bold;font-size:13px;padding-bottom:4px;}.signature-row div{width:45%;border-top:1px solid #000;padding-top:5px;text-align:center;}
 .temperature-table th:nth-child(1),.temperature-table td:nth-child(1){width:16%;}.temperature-table th:nth-child(2),.temperature-table td:nth-child(2){width:17%;}.temperature-table th:nth-child(3),.temperature-table td:nth-child(3){width:14%;}.temperature-table th:nth-child(4),.temperature-table td:nth-child(4){width:17%;}.temperature-table th:nth-child(5),.temperature-table td:nth-child(5){width:14%;}.temperature-table th:nth-child(6),.temperature-table td:nth-child(6){width:22%;}
 .humidity-table th:nth-child(1),.humidity-table td:nth-child(1){width:12%;}.humidity-table th:nth-child(2),.humidity-table td:nth-child(2){width:13%;}.humidity-table th:nth-child(3),.humidity-table td:nth-child(3){width:10%;}.humidity-table th:nth-child(4),.humidity-table td:nth-child(4){width:15%;}.humidity-table th:nth-child(5),.humidity-table td:nth-child(5){width:13%;}.humidity-table th:nth-child(6),.humidity-table td:nth-child(6){width:10%;}.humidity-table th:nth-child(7),.humidity-table td:nth-child(7){width:15%;}.humidity-table th:nth-child(8),.humidity-table td:nth-child(8){width:12%;}
-
-.firstaid-sheet{max-width:1120px;padding:10px 8px 0;}
-.firstaid-company-title{text-align:center;font-size:21px;font-weight:900;margin-bottom:6px;}
-.firstaid-title{display:grid;grid-template-columns:32% 36% 32%;align-items:center;text-align:center;font-size:17px;font-weight:900;margin-bottom:6px;min-height:24px;line-height:24px;}
-.firstaid-box-label{grid-column:1;text-align:left;font-weight:900;}
-.firstaid-main-title{grid-column:2;text-align:center;font-weight:900;white-space:nowrap;}
-.firstaid-month{text-align:center;font-size:14px;font-weight:900;margin:5px 0 6px;}
-.firstaid-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9.2px;}
-.firstaid-table th,.firstaid-table td{border:1px solid #000;text-align:center;vertical-align:middle;padding:2px 1px;height:24px;line-height:1.08;word-break:normal;}
-.firstaid-table th{font-weight:900;background:#fff;}
-.firstaid-table .firstaid-date{width:8%;font-weight:900;}
-.firstaid-table .firstaid-item{width:5.4%;height:88px;padding:2px 1px;position:relative;overflow:hidden;vertical-align:middle;}
-.firstaid-table .firstaid-item .vtxt{display:flex;align-items:center;justify-content:center;width:100%;height:100%;text-align:center;white-space:normal;font-size:8.2px;font-weight:900;line-height:1.05;letter-spacing:-.2px;word-break:break-word;overflow:hidden;}
-.firstaid-table .firstaid-sign{width:6.8%;font-weight:900;}
-.firstaid-table .firstaid-hr{width:5.8%;font-weight:900;}
-.firstaid-table .firstaid-weekend{font-size:16px;font-weight:900;letter-spacing:.2px;}
-.firstaid-note{border:1px solid #000;border-top:none;padding:6px 7px;font-size:10px;font-weight:700;min-height:26px;}
-.firstaid-bottom-sign{display:flex;justify-content:flex-end;margin-top:46px;font-size:12px;font-weight:700;}
-.firstaid-bottom-sign div{width:190px;border-top:1px solid #000;text-align:center;padding-top:5px;}
-@page firstaidPage{size:A4 landscape;margin:5mm;}
-#firstaidPrintArea{page:firstaidPage;}
-@media print{.firstaid-sheet{max-width:none!important;width:100%!important;padding:2mm!important;}.firstaid-table{font-size:8.6px;}.firstaid-table th,.firstaid-table td{height:23px;padding:1px;line-height:1.08;}.firstaid-table .firstaid-item{height:88px;padding:2px 1px;position:relative;overflow:hidden;}.firstaid-table .firstaid-item .vtxt{font-size:7.8px;line-height:1.05;white-space:normal;word-break:break-word;overflow:hidden;}.firstaid-table .firstaid-weekend{font-size:15px;}.firstaid-company-title{font-size:19px;margin-bottom:4px;}.firstaid-title{font-size:15px;min-height:22px;line-height:22px;margin-bottom:4px;}.firstaid-month{margin:3px 0 4px;font-weight:900;font-size:13px;}.firstaid-note{font-size:9px;min-height:22px;padding:4px 6px;}.firstaid-bottom-sign{margin-top:38px;}}
-
-@media(max-width:700px){body{padding:10px;}.card{padding:14px;}.print-sheet{padding:4px;}.check-table{font-size:10px;}.check-table th,.check-table td{padding:3px 2px;height:22px;}.company-title{font-size:18px;}.report-title{font-size:14px;}.weekend-cell{font-size:15px;}}
-@page{size:A4 portrait;margin:8mm;}
-@media print{
-    html,body{background:#fff!important;padding:0!important;margin:0!important;}
-    body *{visibility:hidden!important;}
-    .format-page:not(.hidden) .print-area,
-    .format-page:not(.hidden) .print-area *{visibility:visible!important;}
-    .format-page:not(.hidden) .print-area{position:absolute;left:0;top:0;width:100%;max-width:none;background:#fff!important;margin:0!important;padding:0!important;border:none!important;box-shadow:none!important;}
-    .no-print{display:none!important;}
-    .card{box-shadow:none!important;border:none!important;border-radius:0!important;padding:0!important;margin:0!important;}
-    .check-table{font-size:11px;}.check-table th,.check-table td{height:23px;padding:3px 2px;}
-    .weekend-cell{font-size:18px;}.signature-row{margin-top:58px;}
-}
+.firstaid-sheet{max-width:1120px;padding:10px 8px 0;}.firstaid-company-title{text-align:center;font-size:21px;font-weight:900;margin-bottom:6px;}.firstaid-title{display:grid;grid-template-columns:32% 36% 32%;align-items:center;text-align:center;font-size:17px;font-weight:900;margin-bottom:6px;min-height:24px;line-height:24px;}.firstaid-box-label{grid-column:1;text-align:left;font-weight:900;}.firstaid-main-title{grid-column:2;text-align:center;font-weight:900;white-space:nowrap;}.firstaid-month{text-align:center;font-size:14px;font-weight:900;margin:5px 0 6px;}.firstaid-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:9.2px;}.firstaid-table th,.firstaid-table td{border:1px solid #000;text-align:center;vertical-align:middle;padding:2px 1px;height:24px;line-height:1.08;word-break:normal;}.firstaid-table th{font-weight:900;background:#fff;}.firstaid-table .firstaid-date{width:8%;font-weight:900;}.firstaid-table .firstaid-item{width:5.4%;height:88px;padding:2px 1px;position:relative;overflow:hidden;vertical-align:middle;}.firstaid-table .firstaid-item .vtxt{display:flex;align-items:center;justify-content:center;width:100%;height:100%;text-align:center;white-space:normal;font-size:8.2px;font-weight:900;line-height:1.05;letter-spacing:-.2px;word-break:break-word;overflow:hidden;}.firstaid-table .firstaid-sign{width:6.8%;font-weight:900;}.firstaid-table .firstaid-hr{width:5.8%;font-weight:900;}.firstaid-table .firstaid-weekend{font-size:16px;font-weight:900;letter-spacing:.2px;}.firstaid-note{border:1px solid #000;border-top:none;padding:6px 7px;font-size:10px;font-weight:700;min-height:26px;}.firstaid-bottom-sign{display:flex;justify-content:flex-end;margin-top:46px;font-size:12px;font-weight:700;}.firstaid-bottom-sign div{width:190px;border-top:1px solid #000;text-align:center;padding-top:5px;}
+.pictorial-entry-card{max-width:860px;margin:0 auto;background:linear-gradient(135deg,#f8fbff,#eef7ff);border:1px solid #bbdefb;border-radius:16px;padding:20px;box-shadow:0 6px 20px rgba(7,84,166,.14);}.pictorial-entry-card h2{text-align:center;color:#0754a6;font-size:24px;margin-bottom:16px;}.pictorial-form-row{margin-bottom:14px;}.pictorial-form-row label{display:block;font-weight:900;color:#0d47a1;margin-bottom:6px;}.pictorial-date-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}.pictorial-duration-grid{display:grid;grid-template-columns:1fr 130px;gap:10px;}.pictorial-photo-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:10px;}.pictorial-photo-box{background:white;border:2px dashed #90caf9;border-radius:14px;padding:12px;text-align:center;min-height:210px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 0 0 12px rgba(7,84,166,.06);}.pictorial-photo-box h3{color:#0754a6;margin-bottom:8px;font-size:17px;}.pictorial-photo-preview{width:100%;height:135px;border-radius:10px;background:#eef7ff;display:flex;align-items:center;justify-content:center;overflow:hidden;margin-bottom:8px;color:#607d8b;font-weight:bold;}.pictorial-photo-preview img{width:100%;height:100%;object-fit:cover;}.pictorial-form-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;}.pictorial-status{margin-top:14px;padding:12px;border-radius:10px;background:#eef7ff;color:#0d47a1;font-weight:bold;line-height:1.5;text-align:center;}.pictorial-status.success{background:#e8f5e9;color:#1b5e20;}.pictorial-status.error{background:#ffebee;color:#b71c1c;}
+@page firstaidPage{size:A4 landscape;margin:5mm;}#firstaidPrintArea{page:firstaidPage;}
+@media(max-width:700px){body{padding:10px;}.card{padding:14px;}.print-sheet{padding:4px;}.check-table{font-size:10px;}.check-table th,.check-table td{padding:3px 2px;height:22px;}.company-title{font-size:18px;}.report-title{font-size:14px;}.weekend-cell{font-size:15px;}.pictorial-date-grid,.pictorial-duration-grid,.pictorial-form-actions,.pictorial-photo-grid{grid-template-columns:1fr;}}
+@page{size:A4 portrait;margin:8mm;}@media print{html,body{background:#fff!important;padding:0!important;margin:0!important;}body *{visibility:hidden!important;}.format-page:not(.hidden) .print-area,.format-page:not(.hidden) .print-area *{visibility:visible!important;}.format-page:not(.hidden) .print-area{position:absolute;left:0;top:0;width:100%;max-width:none;background:#fff!important;margin:0!important;padding:0!important;border:none!important;box-shadow:none!important;}.no-print{display:none!important;}.card{box-shadow:none!important;border:none!important;border-radius:0!important;padding:0!important;margin:0!important;}.check-table{font-size:11px;}.check-table th,.check-table td{height:23px;padding:3px 2px;}.weekend-cell{font-size:18px;}.signature-row{margin-top:58px;}.firstaid-sheet{max-width:none!important;width:100%!important;padding:2mm!important;}.firstaid-table{font-size:8.6px;}.firstaid-table th,.firstaid-table td{height:23px;padding:1px;line-height:1.08;}.firstaid-table .firstaid-item{height:88px;padding:2px 1px;position:relative;overflow:hidden;}.firstaid-table .firstaid-item .vtxt{font-size:7.8px;line-height:1.05;white-space:normal;word-break:break-word;overflow:hidden;}.firstaid-table .firstaid-weekend{font-size:15px;}.firstaid-company-title{font-size:19px;margin-bottom:4px;}.firstaid-title{font-size:15px;min-height:22px;line-height:22px;margin-bottom:4px;}.firstaid-month{margin:3px 0 4px;font-weight:900;font-size:13px;}.firstaid-note{font-size:9px;min-height:22px;padding:4px 6px;}.firstaid-bottom-sign{margin-top:38px;}}
 </style>
 </head>
 <body>
 <div class="container">
-    <div class="card no-print" id="formatListPage">
-        <div class="logo-box"><img src="logo.jpeg" alt="A&O Logo"></div>
-        <h1>All Formate</h1>
-        <p class="subtitle">A&O Apparels (Pvt.) Ltd.</p>
-        <p class="small-note">Checklist name select korle oi format open hobe.</p>
-        <div class="menu">
-            <button class="green" onclick="showFormat('humidity')">01. Humidity Check List</button>
-            <button class="orange" onclick="showFormat('temperature')">02. Temperature Checklist</button>
-            <button class="green" onclick="showFormat('firstaid')">03. First Aid Check List</button>
-        </div>
-        <button class="gray" onclick="goBackToPortal()" style="margin-top:18px;">Back To Admin Panel</button>
-    </div>
+    <div class="card no-print" id="formatListPage"><div class="logo-box"><img src="logo.jpeg" alt="A&O Logo"></div><h1>All Formate</h1><p class="subtitle">A&O Apparels (Pvt.) Ltd.</p><p class="small-note">Checklist name select korle oi format open hobe.</p><div class="menu"><button class="green" onclick="showFormat('humidity')">01. Humidity Check List</button><button class="orange" onclick="showFormat('temperature')">02. Temperature Checklist</button><button class="green" onclick="showFormat('firstaid')">03. First Aid Check List</button><button class="orange" onclick="showPictorialEvidence()">04. Pictorial Evidence Formate</button></div><button class="gray" onclick="goBackToPortal()" style="margin-top:18px;">Back To Admin Panel</button></div>
 
-    <div class="card hidden format-page" id="humidityPage">
-        <div class="box no-print">
-            <h2>Humidity Check List</h2>
-            <div class="control-grid">
-                <div><label class="control-label">Month Select</label><input type="month" id="humidityMonth" class="form-control" onchange="onMonthChange('humidity')"></div>
-                <div><label class="control-label">Area</label><input type="text" id="humidityArea" class="form-control" value="Lab (Ground Floor)" oninput="renderChecklist('humidity')"></div>
-            </div>
-            <div class="box" style="background:#fff;margin-top:14px;">
-                <h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2>
-                <p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p>
-                <div class="control-grid">
-                    <div><label class="control-label">Date Select</label><select id="humidityManualDate" class="form-control"></select></div>
-                    <div><label class="control-label">Manual Text</label><input type="text" id="humidityManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div>
-                    <div><button class="green" onclick="addManualText('humidity')">Add</button></div>
-                </div>
-                <div id="humidityManualList" class="manual-list">No manual weekend selected.</div>
-            </div>
-        </div>
-        <div class="print-area print-sheet" id="humidityPrintArea">
-            <div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div>
-            <div class="report-title">Daily Humidity Check Report</div>
-            <div class="report-month" id="humidityReportMonth">For The Month of</div>
-            <div class="area-row">Area: <span id="humidityAreaText">Lab (Ground Floor)</span></div>
-            <table class="check-table humidity-table">
-                <thead><tr><th>Date</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Remarks</th></tr></thead>
-                <tbody id="humidityTableBody"></tbody>
-            </table>
-            <div class="signature-row"><div>Prepared By</div><div>Checked By</div></div>
-        </div>
-        <div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div>
-    </div>
+    <div class="card hidden format-page" id="humidityPage"><div class="box no-print"><h2>Humidity Check List</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="humidityMonth" class="form-control" onchange="onMonthChange('humidity')"></div><div><label class="control-label">Area</label><input type="text" id="humidityArea" class="form-control" value="Lab (Ground Floor)" oninput="renderChecklist('humidity')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p><div class="control-grid"><div><label class="control-label">Date Select</label><select id="humidityManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="humidityManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('humidity')">Add</button></div></div><div id="humidityManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet" id="humidityPrintArea"><div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div><div class="report-title">Daily Humidity Check Report</div><div class="report-month" id="humidityReportMonth">For The Month of</div><div class="area-row">Area: <span id="humidityAreaText">Lab (Ground Floor)</span></div><table class="check-table humidity-table"><thead><tr><th>Date</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Remarks</th></tr></thead><tbody id="humidityTableBody"></tbody></table><div class="signature-row"><div>Prepared By</div><div>Checked By</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
 
-    <div class="card hidden format-page" id="temperaturePage">
-        <div class="box no-print">
-            <h2>Temperature Checklist</h2>
-            <div class="control-grid">
-                <div><label class="control-label">Month Select</label><input type="month" id="temperatureMonth" class="form-control" onchange="onMonthChange('temperature')"></div>
-                <div><label class="control-label">Area</label><input type="text" id="temperatureArea" class="form-control" value="Finishing 1st Floor (Oven)" oninput="renderChecklist('temperature')"></div>
-            </div>
-            <div class="box" style="background:#fff;margin-top:14px;">
-                <h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2>
-                <p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p>
-                <div class="control-grid">
-                    <div><label class="control-label">Date Select</label><select id="temperatureManualDate" class="form-control"></select></div>
-                    <div><label class="control-label">Manual Text</label><input type="text" id="temperatureManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div>
-                    <div><button class="green" onclick="addManualText('temperature')">Add</button></div>
-                </div>
-                <div id="temperatureManualList" class="manual-list">No manual weekend selected.</div>
-            </div>
-        </div>
-        <div class="print-area print-sheet" id="temperaturePrintArea">
-            <div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div>
-            <div class="report-title">Daily Temperature Record</div>
-            <div class="report-month" id="temperatureReportMonth">For The Month of</div>
-            <div class="area-row">Area: <span id="temperatureAreaText">Finishing 1st Floor (Oven)</span></div>
-            <table class="check-table temperature-table">
-                <thead><tr><th>Date</th><th>Checking Time<br>(AM)</th><th>Temp-<br>Measure</th><th>Checking Time<br>(PM)</th><th>Temp-<br>Measure</th><th>Remarks</th></tr></thead>
-                <tbody id="temperatureTableBody"></tbody>
-            </table>
-            <div class="signature-row"><div>Prepared By</div><div>Checked By</div></div>
-        </div>
-        <div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div>
-    </div>
+    <div class="card hidden format-page" id="temperaturePage"><div class="box no-print"><h2>Temperature Checklist</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="temperatureMonth" class="form-control" onchange="onMonthChange('temperature')"></div><div><label class="control-label">Area</label><input type="text" id="temperatureArea" class="form-control" value="Finishing 1st Floor (Oven)" oninput="renderChecklist('temperature')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p><div class="control-grid"><div><label class="control-label">Date Select</label><select id="temperatureManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="temperatureManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('temperature')">Add</button></div></div><div id="temperatureManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet" id="temperaturePrintArea"><div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div><div class="report-title">Daily Temperature Record</div><div class="report-month" id="temperatureReportMonth">For The Month of</div><div class="area-row">Area: <span id="temperatureAreaText">Finishing 1st Floor (Oven)</span></div><table class="check-table temperature-table"><thead><tr><th>Date</th><th>Checking Time<br>(AM)</th><th>Temp-<br>Measure</th><th>Checking Time<br>(PM)</th><th>Temp-<br>Measure</th><th>Remarks</th></tr></thead><tbody id="temperatureTableBody"></tbody></table><div class="signature-row"><div>Prepared By</div><div>Checked By</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
 
-    <div class="card hidden format-page" id="firstaidPage">
-        <div class="box no-print">
-            <h2>First Aid Check List</h2>
-            <div class="control-grid">
-                <div><label class="control-label">Month Select</label><input type="month" id="firstaidMonth" class="form-control" onchange="onMonthChange('firstaid')"></div>
-                <div><label class="control-label">Box No</label><input type="text" id="firstaidBoxNo" class="form-control" value="6" oninput="renderChecklist('firstaid')"></div>
-            </div>
-            <div class="box" style="background:#fff;margin-top:14px;">
-                <h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2>
-                <p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p>
-                <div class="control-grid">
-                    <div><label class="control-label">Date Select</label><select id="firstaidManualDate" class="form-control"></select></div>
-                    <div><label class="control-label">Manual Text</label><input type="text" id="firstaidManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div>
-                    <div><button class="green" onclick="addManualText('firstaid')">Add</button></div>
-                </div>
-                <div id="firstaidManualList" class="manual-list">No manual weekend selected.</div>
-            </div>
-        </div>
-        <div class="print-area print-sheet firstaid-sheet" id="firstaidPrintArea">
-            <div class="firstaid-company-title">A&amp;O Apparels (Pvt.) Ltd.</div>
-            <div class="firstaid-title"><span class="firstaid-box-label" id="firstaidBoxTitle">BOX NO- 6</span><span class="firstaid-main-title">First Aid Check List</span></div>
-            <div class="firstaid-month" id="firstaidReportMonth">For The Month Of</div>
-            <table class="firstaid-table">
-                <thead>
-                    <tr>
-                        <th rowspan="2" class="firstaid-date">Date</th>
-                        <th colspan="12">First Aid Box Items</th>
-                        <th colspan="3">Checked By Signature</th>
-                    </tr>
-                    <tr>
-                        <th class="firstaid-item"><span class="vtxt">Small bandage</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Medium bandage</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Surgical Gauze</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Cotton wool</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Hexisol</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Scissors</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Burn ointment</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Povisep/Viodin Cream</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Povisep/Viodin Lequid</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Tourniquet</span></th>
-                        <th class="firstaid-item"><span class="vtxt">Adhesive Plaster</span></th>
-                        <th class="firstaid-item"><span class="vtxt">First Aid Leaflet</span></th>
-                        <th rowspan="2" class="firstaid-sign">First<br>Aider</th>
-                        <th rowspan="2" class="firstaid-sign">Medical<br>Asst.</th>
-                        <th rowspan="2" class="firstaid-hr">HR</th>
-                    </tr>
-                    <tr>
-                        <th>SL. NO.</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
-                    </tr>
-                </thead>
-                <tbody id="firstaidTableBody"></tbody>
-            </table>
-            <div class="firstaid-note">* Medicine, thermometer and rectified spirit will remain under the supervision of the responsible nurse in doctors room.</div>
-            <div class="firstaid-bottom-sign"><div>Compliance Manager</div></div>
-        </div>
-        <div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div>
-    </div>
+    <div class="card hidden format-page" id="firstaidPage"><div class="box no-print"><h2>First Aid Check List</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="firstaidMonth" class="form-control" onchange="onMonthChange('firstaid')"></div><div><label class="control-label">Box No</label><input type="text" id="firstaidBoxNo" class="form-control" value="6" oninput="renderChecklist('firstaid')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p><div class="control-grid"><div><label class="control-label">Date Select</label><select id="firstaidManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="firstaidManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('firstaid')">Add</button></div></div><div id="firstaidManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet firstaid-sheet" id="firstaidPrintArea"><div class="firstaid-company-title">A&amp;O Apparels (Pvt.) Ltd.</div><div class="firstaid-title"><span class="firstaid-box-label" id="firstaidBoxTitle">BOX NO- 6</span><span class="firstaid-main-title">First Aid Check List</span></div><div class="firstaid-month" id="firstaidReportMonth">For The Month Of</div><table class="firstaid-table"><thead><tr><th rowspan="2" class="firstaid-date">Date</th><th colspan="12">First Aid Box Items</th><th colspan="3">Checked By Signature</th></tr><tr><th class="firstaid-item"><span class="vtxt">Small bandage</span></th><th class="firstaid-item"><span class="vtxt">Medium bandage</span></th><th class="firstaid-item"><span class="vtxt">Surgical Gauze</span></th><th class="firstaid-item"><span class="vtxt">Cotton wool</span></th><th class="firstaid-item"><span class="vtxt">Hexisol</span></th><th class="firstaid-item"><span class="vtxt">Scissors</span></th><th class="firstaid-item"><span class="vtxt">Burn ointment</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Cream</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Lequid</span></th><th class="firstaid-item"><span class="vtxt">Tourniquet</span></th><th class="firstaid-item"><span class="vtxt">Adhesive Plaster</span></th><th class="firstaid-item"><span class="vtxt">First Aid Leaflet</span></th><th rowspan="2" class="firstaid-sign">First<br>Aider</th><th rowspan="2" class="firstaid-sign">Medical<br>Asst.</th><th rowspan="2" class="firstaid-hr">HR</th></tr><tr><th>SL. NO.</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr></thead><tbody id="firstaidTableBody"></tbody></table><div class="firstaid-note">* Medicine, thermometer and rectified spirit will remain under the supervision of the responsible nurse in doctors room.</div><div class="firstaid-bottom-sign"><div>Compliance Manager</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
+
+    <div class="card hidden format-page" id="pictorialPage"><div class="box no-print"><div class="pictorial-entry-card"><h2>Pictorial Evidence Form</h2><div class="pictorial-form-row"><label>Subject Of Training :</label><input type="text" id="pictorialSubject" class="form-control" placeholder="Enter subject of training"></div><div class="pictorial-form-row"><label>Training Date :</label><div class="pictorial-date-grid"><select id="pictorialDateDay" class="form-control"></select><select id="pictorialDateMonth" class="form-control"></select><select id="pictorialDateYear" class="form-control"></select></div></div><div class="pictorial-form-row"><label>Duration :</label><div class="pictorial-duration-grid"><input type="number" id="pictorialDurationValue" class="form-control" value="20" min="1" placeholder="Duration"><select id="pictorialDurationUnit" class="form-control"><option value="Min">Min</option><option value="Hour">Hour</option></select></div></div><div class="pictorial-form-row"><label>Trainer Name :</label><input type="text" id="pictorialTrainerName" class="form-control" placeholder="Enter trainer name"></div><div class="pictorial-form-row"><label>Photo Upload :</label><div class="pictorial-photo-grid"><div class="pictorial-photo-box"><h3>Picture 1</h3><div class="pictorial-photo-preview" id="pictorialPreview1">No Image</div><input type="file" id="pictorialPhoto1" class="form-control" accept="image/*" onchange="previewPictorialPhoto(1)"></div><div class="pictorial-photo-box"><h3>Picture 2</h3><div class="pictorial-photo-preview" id="pictorialPreview2">No Image</div><input type="file" id="pictorialPhoto2" class="form-control" accept="image/*" onchange="previewPictorialPhoto(2)"></div><div class="pictorial-photo-box"><h3>Picture 3</h3><div class="pictorial-photo-preview" id="pictorialPreview3">No Image</div><input type="file" id="pictorialPhoto3" class="form-control" accept="image/*" onchange="previewPictorialPhoto(3)"></div><div class="pictorial-photo-box"><h3>Picture 4</h3><div class="pictorial-photo-preview" id="pictorialPreview4">No Image</div><input type="file" id="pictorialPhoto4" class="form-control" accept="image/*" onchange="previewPictorialPhoto(4)"></div></div></div><div class="pictorial-form-actions"><button class="gray" onclick="backToFormatList()">Back To List</button><button class="green" type="button" onclick="savePictorialEvidence()">Save To Supabase</button></div><div id="pictorialStatus" class="pictorial-status">Data fill করে Save To Supabase চাপুন।</div></div></div></div>
 </div>
+
 <script>
-const manualMaps = {humidity:{}, temperature:{}, firstaid:{}};
-const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-const shortMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-function showFormat(type){
-    document.getElementById('formatListPage').classList.add('hidden');
-    document.getElementById(type + 'Page').classList.remove('hidden');
-    initMonth(type);
-    renderChecklist(type);
-}
-function backToFormatList(){
-    document.getElementById('humidityPage').classList.add('hidden');
-    document.getElementById('temperaturePage').classList.add('hidden');
-    document.getElementById('firstaidPage').classList.add('hidden');
-    document.getElementById('formatListPage').classList.remove('hidden');
-}
+const manualMaps={humidity:{},temperature:{},firstaid:{}};
+const monthNames=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const shortMonths=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function showFormat(type){document.getElementById('formatListPage').classList.add('hidden');document.getElementById(type+'Page').classList.remove('hidden');initMonth(type);renderChecklist(type);}function showPictorialEvidence(){document.getElementById('formatListPage').classList.add('hidden');document.getElementById('pictorialPage').classList.remove('hidden');initPictorialDateDropdowns();}
+function backToFormatList(){document.getElementById('humidityPage').classList.add('hidden');document.getElementById('temperaturePage').classList.add('hidden');document.getElementById('firstaidPage').classList.add('hidden');document.getElementById('pictorialPage').classList.add('hidden');document.getElementById('formatListPage').classList.remove('hidden');}
 function goBackToPortal(){window.location.href='index.html';}
-function initMonth(type){
-    const input = document.getElementById(type + 'Month');
-    if(input.value) return;
-    const now = new Date();
-    input.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
-    populateManualDateOptions(type);
-}
-function onMonthChange(type){
-    manualMaps[type] = {};
-    populateManualDateOptions(type);
-    renderManualList(type);
-    renderChecklist(type);
-}
-function getMonthInfo(type){
-    const value = document.getElementById(type + 'Month').value;
-    const parts = value.split('-');
-    const year = Number(parts[0]);
-    const monthIndex = Number(parts[1])-1;
-    const totalDays = new Date(year, monthIndex+1, 0).getDate();
-    return {year, monthIndex, totalDays};
-}
-function dateKey(year, monthIndex, day){return `${year}-${String(monthIndex+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;}
-function displayDate(year, monthIndex, day){return `${day}-${shortMonths[monthIndex]}-${String(year).slice(-2)}`;}
-function populateManualDateOptions(type){
-    const select = document.getElementById(type + 'ManualDate');
-    const info = getMonthInfo(type);
-    select.innerHTML = '';
-    for(let d=1; d<=info.totalDays; d++){
-        const opt = document.createElement('option');
-        opt.value = dateKey(info.year, info.monthIndex, d);
-        opt.textContent = displayDate(info.year, info.monthIndex, d);
-        select.appendChild(opt);
-    }
-}
-function addManualText(type){
-    const date = document.getElementById(type + 'ManualDate').value;
-    const textInput = document.getElementById(type + 'ManualText');
-    const text = textInput.value.trim();
-    if(!date){alert('Please select date');return;}
-    if(!text){alert('Please write manual text');return;}
-    manualMaps[type][date] = text;
-    textInput.value = '';
-    renderManualList(type);
-    renderChecklist(type);
-}
-function removeManualText(type, key){
-    delete manualMaps[type][key];
-    renderManualList(type);
-    renderChecklist(type);
-}
-function renderManualList(type){
-    const box = document.getElementById(type + 'ManualList');
-    const keys = Object.keys(manualMaps[type]).sort();
-    if(!keys.length){box.innerHTML = 'No manual weekend selected.';return;}
-    box.innerHTML = keys.map(k => `<div><b>${k}</b> - ${manualMaps[type][k]} <button class="red" style="width:auto;padding:4px 8px;margin-left:8px;font-size:12px;box-shadow:none;" onclick="removeManualText('${type}','${k}')">Remove</button></div>`).join('');
-}
-function isRegularText(text){return String(text||'').trim().toLowerCase()==='reguler' || String(text||'').trim().toLowerCase()==='regular';}
-function normalRow(type, dateText){
-    if(type === 'humidity') return `<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;
-    if(type === 'firstaid') return firstAidNormalRow(dateText, null, null);
-    return `<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td></tr>`;
-}
-function mergedRow(type, dateText, text){
-    if(type === 'firstaid') return firstAidMergedRow(dateText, text, null);
-    const span = type === 'humidity' ? 7 : 5;
-    let html = `<tr><td class="date-cell">${dateText}</td><td colspan="${span}" class="weekend-cell">${text}</td></tr>`;
-    if(type === 'humidity') html += `<tr><td></td><td colspan="${span}" class="blank-merged-cell">&nbsp;</td></tr>`;
-    return html;
-}
-function renderChecklist(type){
-    if(type === 'firstaid'){
-        renderFirstAidChecklist();
-        return;
-    }
-    const info = getMonthInfo(type);
-    document.getElementById(type + 'ReportMonth').textContent = `For The Month of ${monthNames[info.monthIndex]} - ${info.year}`;
-    document.getElementById(type + 'AreaText').textContent = document.getElementById(type + 'Area').value.trim() || '';
-    const tbody = document.getElementById(type + 'TableBody');
-    let html = '';
-    for(let d=1; d<=info.totalDays; d++){
-        const key = dateKey(info.year, info.monthIndex, d);
-        const dateText = displayDate(info.year, info.monthIndex, d);
-        const jsDate = new Date(info.year, info.monthIndex, d);
-        const manualText = manualMaps[type][key];
-        if(manualText){
-            html += isRegularText(manualText) ? normalRow(type, dateText) : mergedRow(type, dateText, manualText);
-        }else if(jsDate.getDay() === 5){
-            html += mergedRow(type, dateText, 'Weekend');
-        }else{
-            html += normalRow(type, dateText);
-        }
-    }
-    tbody.innerHTML = html;
-}
-
-function firstAidStatus(info, day){
-    const key = dateKey(info.year, info.monthIndex, day);
-    const manualText = manualMaps.firstaid[key];
-    const isFriday = new Date(info.year, info.monthIndex, day).getDay() === 5;
-    if(manualText){
-        return isRegularText(manualText) ? {normal:true, text:''} : {normal:false, text:manualText};
-    }
-    return isFriday ? {normal:false, text:'Weekend'} : {normal:true, text:''};
-}
-function firstAidMedicalStarts(info){
-    const starts = {};
-    let d = 1;
-    while(d <= info.totalDays){
-        while(d <= info.totalDays && !firstAidStatus(info,d).normal) d++;
-        if(d > info.totalDays) break;
-        const start = d;
-        let len = 0;
-        while(d <= info.totalDays && firstAidStatus(info,d).normal){len++; d++;}
-        starts[start] = len;
-    }
-    return starts;
-}
-function firstAidHrStarts(info){
-    const starts = {1: Math.min(15, info.totalDays)};
-    if(info.totalDays > 15) starts[16] = info.totalDays - 15;
-    return starts;
-}
-function firstAidNormalRow(dateText, medicalSpan, hrSpan){
-    let html = `<tr><td class="firstaid-date">${dateText}</td>`;
-    for(let i=0;i<12;i++) html += '<td></td>';
-    html += '<td></td>';
-    if(medicalSpan) html += `<td rowspan="${medicalSpan}"></td>`;
-    if(hrSpan) html += `<td rowspan="${hrSpan}"></td>`;
-    html += '</tr>';
-    return html;
-}
-function firstAidMergedRow(dateText, text, hrSpan){
-    let html = `<tr><td class="firstaid-date">${dateText}</td><td colspan="14" class="firstaid-weekend">${text}</td>`;
-    if(hrSpan) html += `<td rowspan="${hrSpan}"></td>`;
-    html += '</tr>';
-    return html;
-}
-function renderFirstAidChecklist(){
-    const type = 'firstaid';
-    const info = getMonthInfo(type);
-    const boxNo = document.getElementById('firstaidBoxNo').value.trim() || '';
-    document.getElementById('firstaidBoxTitle').textContent = `BOX NO- ${boxNo}`;
-    document.getElementById('firstaidReportMonth').textContent = `For The Month Of ${monthNames[info.monthIndex]} - ${info.year}`;
-    const medicalStarts = firstAidMedicalStarts(info);
-    const hrStarts = firstAidHrStarts(info);
-    let html = '';
-    for(let d=1; d<=info.totalDays; d++){
-        const dateText = displayDate(info.year, info.monthIndex, d);
-        const status = firstAidStatus(info, d);
-        const medSpan = medicalStarts[d] || null;
-        const hrSpan = hrStarts[d] || null;
-        if(status.normal){
-            html += firstAidNormalRow(dateText, medSpan, hrSpan);
-        }else{
-            html += firstAidMergedRow(dateText, status.text, hrSpan);
-        }
-    }
-    document.getElementById('firstaidTableBody').innerHTML = html;
-}
-
+function initMonth(type){const input=document.getElementById(type+'Month');if(input.value)return;const now=new Date();input.value=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;populateManualDateOptions(type);}function onMonthChange(type){manualMaps[type]={};populateManualDateOptions(type);renderManualList(type);renderChecklist(type);}function getMonthInfo(type){const value=document.getElementById(type+'Month').value;const parts=value.split('-');const year=Number(parts[0]);const monthIndex=Number(parts[1])-1;const totalDays=new Date(year,monthIndex+1,0).getDate();return{year,monthIndex,totalDays};}function dateKey(year,monthIndex,day){return`${year}-${String(monthIndex+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;}function displayDate(year,monthIndex,day){return`${day}-${shortMonths[monthIndex]}-${String(year).slice(-2)}`;}function populateManualDateOptions(type){const select=document.getElementById(type+'ManualDate');const info=getMonthInfo(type);select.innerHTML='';for(let d=1;d<=info.totalDays;d++){const opt=document.createElement('option');opt.value=dateKey(info.year,info.monthIndex,d);opt.textContent=displayDate(info.year,info.monthIndex,d);select.appendChild(opt);}}function addManualText(type){const date=document.getElementById(type+'ManualDate').value;const textInput=document.getElementById(type+'ManualText');const text=textInput.value.trim();if(!date){alert('Please select date');return;}if(!text){alert('Please write manual text');return;}manualMaps[type][date]=text;textInput.value='';renderManualList(type);renderChecklist(type);}function removeManualText(type,key){delete manualMaps[type][key];renderManualList(type);renderChecklist(type);}function renderManualList(type){const box=document.getElementById(type+'ManualList');const keys=Object.keys(manualMaps[type]).sort();if(!keys.length){box.innerHTML='No manual weekend selected.';return;}box.innerHTML=keys.map(k=>`<div><b>${k}</b> - ${manualMaps[type][k]} <button class="red" style="width:auto;padding:4px 8px;margin-left:8px;font-size:12px;box-shadow:none;" onclick="removeManualText('${type}','${k}')">Remove</button></div>`).join('');}function isRegularText(text){return String(text||'').trim().toLowerCase()==='reguler'||String(text||'').trim().toLowerCase()==='regular';}
+function normalRow(type,dateText){if(type==='humidity')return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;if(type==='firstaid')return firstAidNormalRow(dateText,null,null);return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td></tr>`;}function mergedRow(type,dateText,text){if(type==='firstaid')return firstAidMergedRow(dateText,text,null);const span=type==='humidity'?7:5;let html=`<tr><td class="date-cell">${dateText}</td><td colspan="${span}" class="weekend-cell">${text}</td></tr>`;if(type==='humidity')html+=`<tr><td></td><td colspan="${span}" class="blank-merged-cell">&nbsp;</td></tr>`;return html;}function renderChecklist(type){if(type==='firstaid'){renderFirstAidChecklist();return;}const info=getMonthInfo(type);document.getElementById(type+'ReportMonth').textContent=`For The Month of ${monthNames[info.monthIndex]} - ${info.year}`;document.getElementById(type+'AreaText').textContent=document.getElementById(type+'Area').value.trim()||'';const tbody=document.getElementById(type+'TableBody');let html='';for(let d=1;d<=info.totalDays;d++){const key=dateKey(info.year,info.monthIndex,d);const dateText=displayDate(info.year,info.monthIndex,d);const jsDate=new Date(info.year,info.monthIndex,d);const manualText=manualMaps[type][key];if(manualText){html+=isRegularText(manualText)?normalRow(type,dateText):mergedRow(type,dateText,manualText);}else if(jsDate.getDay()===5){html+=mergedRow(type,dateText,'Weekend');}else{html+=normalRow(type,dateText);}}tbody.innerHTML=html;}
+function firstAidStatus(info,day){const key=dateKey(info.year,info.monthIndex,day);const manualText=manualMaps.firstaid[key];const isFriday=new Date(info.year,info.monthIndex,day).getDay()===5;if(manualText){return isRegularText(manualText)?{normal:true,text:''}:{normal:false,text:manualText};}return isFriday?{normal:false,text:'Weekend'}:{normal:true,text:''};}function firstAidMedicalStarts(info){const starts={};let d=1;while(d<=info.totalDays){while(d<=info.totalDays&&!firstAidStatus(info,d).normal)d++;if(d>info.totalDays)break;const start=d;let len=0;while(d<=info.totalDays&&firstAidStatus(info,d).normal){len++;d++;}starts[start]=len;}return starts;}function firstAidHrStarts(info){const starts={1:Math.min(15,info.totalDays)};if(info.totalDays>15)starts[16]=info.totalDays-15;return starts;}function firstAidNormalRow(dateText,medicalSpan,hrSpan){let html=`<tr><td class="firstaid-date">${dateText}</td>`;for(let i=0;i<12;i++)html+='<td></td>';html+='<td></td>';if(medicalSpan)html+=`<td rowspan="${medicalSpan}"></td>`;if(hrSpan)html+=`<td rowspan="${hrSpan}"></td>`;html+='</tr>';return html;}function firstAidMergedRow(dateText,text,hrSpan){let html=`<tr><td class="firstaid-date">${dateText}</td><td colspan="14" class="firstaid-weekend">${text}</td>`;if(hrSpan)html+=`<td rowspan="${hrSpan}"></td>`;html+='</tr>';return html;}function renderFirstAidChecklist(){const type='firstaid';const info=getMonthInfo(type);const boxNo=document.getElementById('firstaidBoxNo').value.trim()||'';document.getElementById('firstaidBoxTitle').textContent=`BOX NO- ${boxNo}`;document.getElementById('firstaidReportMonth').textContent=`For The Month Of ${monthNames[info.monthIndex]} - ${info.year}`;const medicalStarts=firstAidMedicalStarts(info);const hrStarts=firstAidHrStarts(info);let html='';for(let d=1;d<=info.totalDays;d++){const dateText=displayDate(info.year,info.monthIndex,d);const status=firstAidStatus(info,d);const medSpan=medicalStarts[d]||null;const hrSpan=hrStarts[d]||null;if(status.normal){html+=firstAidNormalRow(dateText,medSpan,hrSpan);}else{html+=firstAidMergedRow(dateText,status.text,hrSpan);}}document.getElementById('firstaidTableBody').innerHTML=html;}
+function initPictorialDateDropdowns(){const day=document.getElementById('pictorialDateDay'),month=document.getElementById('pictorialDateMonth'),year=document.getElementById('pictorialDateYear');if(!day||!month||!year)return;const now=new Date();if(day.options.length===0){day.innerHTML='<option value="">Day</option>';for(let i=1;i<=31;i++){const v=String(i).padStart(2,'0');day.innerHTML+=`<option value="${v}">${v}</option>`;}}if(month.options.length===0){month.innerHTML='<option value="">Month</option>';shortMonths.forEach((m,index)=>{const v=String(index+1).padStart(2,'0');month.innerHTML+=`<option value="${v}">${m}</option>`;});}if(year.options.length===0){year.innerHTML='<option value="">Year</option>';for(let y=now.getFullYear()-1;y<=now.getFullYear()+2;y++){year.innerHTML+=`<option value="${y}">${y}</option>`;}}if(!day.value)day.value=String(now.getDate()).padStart(2,'0');if(!month.value)month.value=String(now.getMonth()+1).padStart(2,'0');if(!year.value)year.value=String(now.getFullYear());}
+function setPictorialStatus(msg,type=''){const el=document.getElementById('pictorialStatus');if(!el)return;el.className='pictorial-status'+(type?' '+type:'');el.innerHTML=msg;}function getPictorialTrainingDate(){const d=document.getElementById('pictorialDateDay').value;const m=document.getElementById('pictorialDateMonth').value;const y=document.getElementById('pictorialDateYear').value;if(!d||!m||!y)return'';return`${y}-${m}-${d}`;}function previewPictorialPhoto(num){const input=document.getElementById('pictorialPhoto'+num);const preview=document.getElementById('pictorialPreview'+num);if(!input||!preview)return;const file=input.files[0];if(!file){preview.innerHTML='No Image';return;}preview.innerHTML=`<img src="${URL.createObjectURL(file)}" alt="Picture ${num}">`;}
+async function uploadPictorialPhoto(num,folderName){const input=document.getElementById('pictorialPhoto'+num);const file=input&&input.files?input.files[0]:null;if(!file)return{path:'',url:''};const ext=(file.name.split('.').pop()||'jpg').toLowerCase();const safeExt=ext.replace(/[^a-z0-9]/g,'')||'jpg';const filePath=`${folderName}/picture_${num}.${safeExt}`;const {error}=await supabaseClient.storage.from(PICTORIAL_BUCKET).upload(filePath,file,{cacheControl:'3600',upsert:true,contentType:file.type||'image/jpeg'});if(error)throw new Error(`Picture ${num} upload failed: ${error.message}`);const {data}=supabaseClient.storage.from(PICTORIAL_BUCKET).getPublicUrl(filePath);return{path:filePath,url:(data&&data.publicUrl)?data.publicUrl:''};}
+async function savePictorialEvidence(){const subject=document.getElementById('pictorialSubject').value.trim();const trainingDate=getPictorialTrainingDate();const durationValue=document.getElementById('pictorialDurationValue').value.trim();const durationUnit=document.getElementById('pictorialDurationUnit').value;const trainerName=document.getElementById('pictorialTrainerName').value.trim();if(!subject){setPictorialStatus('Subject Of Training লিখুন।','error');return;}if(!trainingDate){setPictorialStatus('Training Date select করুন।','error');return;}if(!durationValue){setPictorialStatus('Duration লিখুন।','error');return;}if(!trainerName){setPictorialStatus('Trainer Name লিখুন।','error');return;}try{setPictorialStatus('Saving data and uploading photos...');const folderName=`${trainingDate}_${Date.now()}`;const p1=await uploadPictorialPhoto(1,folderName);const p2=await uploadPictorialPhoto(2,folderName);const p3=await uploadPictorialPhoto(3,folderName);const p4=await uploadPictorialPhoto(4,folderName);const payload={subject_of_training:subject,training_date:trainingDate,duration_value:Number(durationValue),duration_unit:durationUnit,trainer_name:trainerName,picture_1_path:p1.path,picture_1_url:p1.url,picture_2_path:p2.path,picture_2_url:p2.url,picture_3_path:p3.path,picture_3_url:p3.url,picture_4_path:p4.path,picture_4_url:p4.url};const {error}=await supabaseClient.from('Pictorial_Evidence').insert([payload]);if(error)throw new Error(error.message);setPictorialStatus('Pictorial Evidence data saved successfully!','success');document.getElementById('pictorialSubject').value='';document.getElementById('pictorialDurationValue').value='20';document.getElementById('pictorialTrainerName').value='';for(let i=1;i<=4;i++){const inp=document.getElementById('pictorialPhoto'+i);const prev=document.getElementById('pictorialPreview'+i);if(inp)inp.value='';if(prev)prev.innerHTML='No Image';}}catch(error){console.log(error);setPictorialStatus('Save failed: '+error.message+'<br>Supabase table/storage policy check করুন।','error');}}
 </script>
 </body>
 </html>
