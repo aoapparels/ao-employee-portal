@@ -140,6 +140,23 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
     .pictorial-stamp-grid{grid-template-columns:repeat(2,1fr)!important;}
 }
 
+
+/* Final function-separated pictorial mode */
+#pictorialPrintArea{display:none!important;}
+.pictorial-entry-card{max-width:980px!important;}
+.pictorial-photo-grid{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:14px!important;margin-top:10px!important;}
+.pictorial-photo-box{display:flex!important;flex-direction:column!important;background:white!important;border:2px dashed #90caf9!important;border-radius:14px!important;padding:12px!important;min-height:330px!important;box-shadow:inset 0 0 12px rgba(7,84,166,.06)!important;}
+.pictorial-photo-preview{width:100%!important;height:150px!important;border-radius:10px!important;background:#eef7ff!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;margin-bottom:8px!important;color:#607d8b!important;font-weight:bold!important;}
+.pictorial-photo-preview img{width:100%!important;height:100%!important;object-fit:cover!important;}
+.pictorial-stamp-grid{display:grid!important;grid-template-columns:repeat(7,1fr)!important;gap:6px!important;margin-top:6px!important;}
+.pictorial-add-photo-row{display:flex;gap:10px;margin-top:12px;}
+.pictorial-add-photo-row button{width:auto;min-width:170px;}
+@media(max-width:700px){
+    .pictorial-photo-grid{grid-template-columns:1fr!important;}
+    .pictorial-stamp-grid{grid-template-columns:repeat(2,1fr)!important;}
+    .pictorial-form-actions{grid-template-columns:1fr!important;}
+}
+
 </style>
 </head>
 <body>
@@ -152,7 +169,7 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
 
     <div class="card hidden format-page" id="firstaidPage"><div class="box no-print"><h2>First Aid Check List</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="firstaidMonth" class="form-control" onchange="onMonthChange('firstaid')"></div><div><label class="control-label">Box No</label><input type="text" id="firstaidBoxNo" class="form-control" value="6" oninput="renderChecklist('firstaid')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p><div class="control-grid"><div><label class="control-label">Date Select</label><select id="firstaidManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="firstaidManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('firstaid')">Add</button></div></div><div id="firstaidManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet firstaid-sheet" id="firstaidPrintArea"><div class="firstaid-company-title">A&amp;O Apparels (Pvt.) Ltd.</div><div class="firstaid-title"><span class="firstaid-box-label" id="firstaidBoxTitle">BOX NO- 6</span><span class="firstaid-main-title">First Aid Check List</span></div><div class="firstaid-month" id="firstaidReportMonth">For The Month Of</div><table class="firstaid-table"><thead><tr><th rowspan="2" class="firstaid-date">Date</th><th colspan="12">First Aid Box Items</th><th colspan="3">Checked By Signature</th></tr><tr><th class="firstaid-item"><span class="vtxt">Small bandage</span></th><th class="firstaid-item"><span class="vtxt">Medium bandage</span></th><th class="firstaid-item"><span class="vtxt">Surgical Gauze</span></th><th class="firstaid-item"><span class="vtxt">Cotton wool</span></th><th class="firstaid-item"><span class="vtxt">Hexisol</span></th><th class="firstaid-item"><span class="vtxt">Scissors</span></th><th class="firstaid-item"><span class="vtxt">Burn ointment</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Cream</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Lequid</span></th><th class="firstaid-item"><span class="vtxt">Tourniquet</span></th><th class="firstaid-item"><span class="vtxt">Adhesive Plaster</span></th><th class="firstaid-item"><span class="vtxt">First Aid Leaflet</span></th><th rowspan="2" class="firstaid-sign">First<br>Aider</th><th rowspan="2" class="firstaid-sign">Medical<br>Asst.</th><th rowspan="2" class="firstaid-hr">HR</th></tr><tr><th>SL. NO.</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr></thead><tbody id="firstaidTableBody"></tbody></table><div class="firstaid-note">* Medicine, thermometer and rectified spirit will remain under the supervision of the responsible nurse in doctors room.</div><div class="firstaid-bottom-sign"><div>Compliance Manager</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
 
-    <div class="card hidden format-page" id="pictorialPage"><div class="box no-print"><div class="pictorial-entry-card"><h2>Pictorial Evidence Form</h2><div class="pictorial-form-row"><label>Subject Of Training : <span style="color:#c62828;">*</span></label><input type="text" id="pictorialSubject" class="form-control" placeholder="Enter subject of training" oninput="renderPictorialOutput()"></div><div class="control-grid"><div class="pictorial-form-row"><label>Training Date :</label><div class="pictorial-date-grid"><select id="pictorialDateDay" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateMonth" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateYear" class="form-control" onchange="renderPictorialOutput()"></select></div></div><div class="pictorial-form-row"><label>Trainer Name :</label><input type="text" id="pictorialTrainerName" class="form-control" placeholder="Enter trainer name" oninput="renderPictorialOutput()"></div></div><div class="pictorial-form-row"><label>Training Start &amp; End Time :</label><div class="pictorial-time-wrap"><div class="pictorial-time-grid"><select id="pictorialStartHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div><div class="time-divider">-</div><div class="pictorial-time-grid"><select id="pictorialEndHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div></div></div><div class="pictorial-form-row"><label>Duration :</label><div id="pictorialDurationDisplay" class="pictorial-duration-box">Auto calculate হবে</div></div><div class="pictorial-form-row"><label>Photo Upload + Date Stamp :</label><div class="pictorial-photo-toolbar"><p class="small-note">প্রথমে ১টা upload field থাকবে। Add New চাপলে নতুন field আসবে, maximum 6 pictures.</p><button class="green" type="button" onclick="addPictorialPhotoField()">+ Add New</button></div><div id="pictorialPhotoItems" class="pictorial-photo-grid"></div></div><div class="pictorial-form-actions"><button class="gray" onclick="backToFormatList()">Back To List</button><button type="button" onclick="renderPictorialOutput()">Preview Output</button><button class="orange" type="button" onclick="printPictorialOutput()">Print / PDF</button><button class="green" type="button" onclick="savePictorialEvidence()">Save To Supabase</button></div><div id="pictorialStatus" class="pictorial-status">Subject Of Training mandatory. Stamp dropdown blank থাকলে photo-এর ভিতরে date stamp আসবে না।</div></div></div><div class="print-area print-sheet pictorial-output-sheet" id="pictorialPrintArea"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div><div class="pictorial-meta"><div><span>Subject Of Training :</span> <span id="outSubjectValue" style="color:#111;font-weight:700;"></span></div><div><span>Training Date :</span> <span id="outTrainingDateValue" style="color:#111;font-weight:700;"></span></div><div><span>Training Time :</span> <span id="outTrainingTimeValue" style="color:#111;font-weight:700;"></span></div><div><span>Duration :</span> <span id="outDurationValue" style="color:#111;font-weight:700;"></span></div><div class="full-row"><span>Trainer Name :</span> <span id="outTrainerNameValue" style="color:#111;font-weight:700;"></span></div></div><div id="pictorialPhotoOutputGrid" class="pictorial-photo-output-grid"><div class="pictorial-no-photo">Photo upload korle ekhane output preview show hobe.</div></div></div></div>
+    <div class="card hidden format-page" id="pictorialPage"><div class="box no-print"><div class="pictorial-entry-card"><h2>Pictorial Evidence Form</h2><div class="pictorial-form-row"><label>Subject Of Training : <span style="color:#c62828;">*</span></label><input type="text" id="pictorialSubject" class="form-control" placeholder="Enter subject of training" oninput="renderPictorialOutput()"></div><div class="control-grid"><div class="pictorial-form-row"><label>Training Date :</label><div class="pictorial-date-grid"><select id="pictorialDateDay" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateMonth" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateYear" class="form-control" onchange="renderPictorialOutput()"></select></div></div><div class="pictorial-form-row"><label>Trainer Name :</label><input type="text" id="pictorialTrainerName" class="form-control" placeholder="Enter trainer name" oninput="renderPictorialOutput()"></div></div><div class="pictorial-form-row"><label>Training Start &amp; End Time :</label><div class="pictorial-time-wrap"><div class="pictorial-time-grid"><select id="pictorialStartHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div><div class="time-divider">-</div><div class="pictorial-time-grid"><select id="pictorialEndHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div></div></div><div class="pictorial-form-row"><label>Duration :</label><div id="pictorialDurationDisplay" class="pictorial-duration-box">Auto calculate হবে</div></div><div class="pictorial-form-row"><label>Photo Upload + Date Stamp :</label><div class="pictorial-photo-toolbar"><p class="small-note">প্রথমে ১টা upload field থাকবে। Add New চাপলে নতুন field আসবে, maximum 6 pictures.</p><button class="green" type="button" onclick="addPictorialPhotoField()">+ Add New</button></div><div id="pictorialPhotoItems" class="pictorial-photo-grid"></div></div><div class="pictorial-form-actions"><button class="gray" onclick="backToFormatList()">Back To List</button><button type="button" onclick="openPictorialPreview()">Preview Output</button><button class="orange" type="button" onclick="printPictorialOutput()">Print / PDF</button><button class="green" type="button" onclick="savePictorialEvidence()">Save To Supabase</button></div><div id="pictorialStatus" class="pictorial-status">Subject Of Training mandatory. Stamp dropdown blank থাকলে photo-এর ভিতরে date stamp আসবে না।</div></div></div><div class="print-area print-sheet pictorial-output-sheet" id="pictorialPrintArea"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div><div class="pictorial-meta"><div><span>Subject Of Training :</span> <span id="outSubjectValue" style="color:#111;font-weight:700;"></span></div><div><span>Training Date :</span> <span id="outTrainingDateValue" style="color:#111;font-weight:700;"></span></div><div><span>Training Time :</span> <span id="outTrainingTimeValue" style="color:#111;font-weight:700;"></span></div><div><span>Duration :</span> <span id="outDurationValue" style="color:#111;font-weight:700;"></span></div><div class="full-row"><span>Trainer Name :</span> <span id="outTrainerNameValue" style="color:#111;font-weight:700;"></span></div></div><div id="pictorialPhotoOutputGrid" class="pictorial-photo-output-grid"><div class="pictorial-no-photo">Photo upload korle ekhane output preview show hobe.</div></div></div></div>
 </div>
 
 <script>
@@ -166,92 +183,314 @@ function initMonth(type){const input=document.getElementById(type+'Month');if(in
 function normalRow(type,dateText){if(type==='humidity')return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;if(type==='firstaid')return firstAidNormalRow(dateText,null,null);return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td></tr>`;}function mergedRow(type,dateText,text){if(type==='firstaid')return firstAidMergedRow(dateText,text,null);const span=type==='humidity'?7:5;let html=`<tr><td class="date-cell">${dateText}</td><td colspan="${span}" class="weekend-cell">${text}</td></tr>`;if(type==='humidity')html+=`<tr><td></td><td colspan="${span}" class="blank-merged-cell">&nbsp;</td></tr>`;return html;}function renderChecklist(type){if(type==='firstaid'){renderFirstAidChecklist();return;}const info=getMonthInfo(type);document.getElementById(type+'ReportMonth').textContent=`For The Month of ${monthNames[info.monthIndex]} - ${info.year}`;document.getElementById(type+'AreaText').textContent=document.getElementById(type+'Area').value.trim()||'';const tbody=document.getElementById(type+'TableBody');let html='';for(let d=1;d<=info.totalDays;d++){const key=dateKey(info.year,info.monthIndex,d);const dateText=displayDate(info.year,info.monthIndex,d);const jsDate=new Date(info.year,info.monthIndex,d);const manualText=manualMaps[type][key];if(manualText){html+=isRegularText(manualText)?normalRow(type,dateText):mergedRow(type,dateText,manualText);}else if(jsDate.getDay()===5){html+=mergedRow(type,dateText,'Weekend');}else{html+=normalRow(type,dateText);}}tbody.innerHTML=html;}
 function firstAidStatus(info,day){const key=dateKey(info.year,info.monthIndex,day);const manualText=manualMaps.firstaid[key];const isFriday=new Date(info.year,info.monthIndex,day).getDay()===5;if(manualText){return isRegularText(manualText)?{normal:true,text:''}:{normal:false,text:manualText};}return isFriday?{normal:false,text:'Weekend'}:{normal:true,text:''};}function firstAidMedicalStarts(info){const starts={};let d=1;while(d<=info.totalDays){while(d<=info.totalDays&&!firstAidStatus(info,d).normal)d++;if(d>info.totalDays)break;const start=d;let len=0;while(d<=info.totalDays&&firstAidStatus(info,d).normal){len++;d++;}starts[start]=len;}return starts;}function firstAidHrStarts(info){const starts={1:Math.min(15,info.totalDays)};if(info.totalDays>15)starts[16]=info.totalDays-15;return starts;}function firstAidNormalRow(dateText,medicalSpan,hrSpan){let html=`<tr><td class="firstaid-date">${dateText}</td>`;for(let i=0;i<12;i++)html+='<td></td>';html+='<td></td>';if(medicalSpan)html+=`<td rowspan="${medicalSpan}"></td>`;if(hrSpan)html+=`<td rowspan="${hrSpan}"></td>`;html+='</tr>';return html;}function firstAidMergedRow(dateText,text,hrSpan){let html=`<tr><td class="firstaid-date">${dateText}</td><td colspan="14" class="firstaid-weekend">${text}</td>`;if(hrSpan)html+=`<td rowspan="${hrSpan}"></td>`;html+='</tr>';return html;}function renderFirstAidChecklist(){const type='firstaid';const info=getMonthInfo(type);const boxNo=document.getElementById('firstaidBoxNo').value.trim()||'';document.getElementById('firstaidBoxTitle').textContent=`BOX NO- ${boxNo}`;document.getElementById('firstaidReportMonth').textContent=`For The Month Of ${monthNames[info.monthIndex]} - ${info.year}`;const medicalStarts=firstAidMedicalStarts(info);const hrStarts=firstAidHrStarts(info);let html='';for(let d=1;d<=info.totalDays;d++){const dateText=displayDate(info.year,info.monthIndex,d);const status=firstAidStatus(info,d);const medSpan=medicalStarts[d]||null;const hrSpan=hrStarts[d]||null;if(status.normal){html+=firstAidNormalRow(dateText,medSpan,hrSpan);}else{html+=firstAidMergedRow(dateText,status.text,hrSpan);}}document.getElementById('firstaidTableBody').innerHTML=html;}
 let pictorialPhotoFieldCount = 0;
-function initPictorialDateDropdowns(){populateDayMonthYear('pictorialDate', true);populateTimeDropdowns('pictorialStart');populateTimeDropdowns('pictorialEnd');for(let i=1;i<=6;i++){populateDayMonthYear('pictorialStamp'+i, false);populateTimeDropdowns('pictorialStamp'+i);}updatePictorialDuration();renderPictorialOutput();}
+
+let pictorialPhotoCount = 1;
+const PICTORIAL_MAX_PHOTOS = 6;
+
+function initPictorialDateDropdowns(){
+    populateDayMonthYear('pictorialDate', true);
+    populateTimeDropdowns('pictorialStart');
+    populateTimeDropdowns('pictorialEnd');
+    ensurePictorialDynamicControls();
+    for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
+        populateDayMonthYear('pictorialStamp'+i, false);
+        populateTimeDropdowns('pictorialStamp'+i);
+    }
+    showOnlyPictorialPhotoFields();
+    updatePictorialDuration();
+}
+
+function ensurePictorialDynamicControls(){
+    const grid = document.querySelector('#pictorialPage .pictorial-photo-grid');
+    if(!grid) return;
+
+    if(!document.getElementById('pictorialPhoto1')){
+        grid.innerHTML = '';
+    }
+
+    for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
+        if(!document.getElementById('pictorialPhoto'+i)){
+            grid.insertAdjacentHTML('beforeend', pictorialPhotoBoxHtml(i));
+        }
+    }
+
+    if(!document.getElementById('pictorialAddPhotoBtn')){
+        const action = document.createElement('div');
+        action.className = 'pictorial-add-photo-row';
+        action.innerHTML = `<button id="pictorialAddPhotoBtn" type="button" class="orange" onclick="addPictorialPhotoField()">+ Add New Photo</button>`;
+        grid.parentNode.appendChild(action);
+    }
+
+    const printArea = document.getElementById('pictorialPrintArea');
+    if(printArea) printArea.style.display = 'none';
+}
+
+function pictorialPhotoBoxHtml(i){
+    return `<div class="pictorial-photo-box" id="pictorialPhotoBox${i}">
+        <h3>Picture ${i}</h3>
+        <div class="pictorial-photo-preview" id="pictorialPreview${i}">No Image</div>
+        <input type="file" id="pictorialPhoto${i}" class="form-control" accept="image/*" onchange="previewPictorialPhoto(${i})">
+        <div class="pictorial-stamp-title">Date Stamp</div>
+        <div class="pictorial-stamp-grid">
+            <select id="pictorialStampDay${i}" class="form-control"></select>
+            <select id="pictorialStampMonth${i}" class="form-control"></select>
+            <select id="pictorialStampYear${i}" class="form-control"></select>
+            <select id="pictorialStampHour${i}" class="form-control"></select>
+            <select id="pictorialStampMinute${i}" class="form-control"></select>
+            <select id="pictorialStampSecond${i}" class="form-control"></select>
+            <select id="pictorialStampAmPm${i}" class="form-control">
+                <option value="">AM/PM</option>
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </select>
+        </div>
+    </div>`;
+}
+
+function addPictorialPhotoField(){
+    if(pictorialPhotoCount >= PICTORIAL_MAX_PHOTOS){
+        alert('Maximum 6 ta picture add kora jabe.');
+        return;
+    }
+    pictorialPhotoCount++;
+    showOnlyPictorialPhotoFields();
+    populateDayMonthYear('pictorialStamp'+pictorialPhotoCount, false);
+    populateTimeDropdowns('pictorialStamp'+pictorialPhotoCount);
+}
+
+function showOnlyPictorialPhotoFields(){
+    for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
+        const box = document.getElementById('pictorialPhotoBox'+i) || document.getElementById('pictorialPhoto'+i)?.closest('.pictorial-photo-box');
+        if(box) box.style.display = (i <= pictorialPhotoCount) ? 'flex' : 'none';
+    }
+    const btn = document.getElementById('pictorialAddPhotoBtn');
+    if(btn) btn.style.display = pictorialPhotoCount >= PICTORIAL_MAX_PHOTOS ? 'none' : 'inline-block';
+}
+
 function populateDayMonthYear(prefix,setToday){
     const day=document.getElementById(prefix+'Day'),month=document.getElementById(prefix+'Month'),year=document.getElementById(prefix+'Year');
     if(!day||!month||!year)return;
     const now=new Date();
-    if(day.options.length===0){day.innerHTML='<option value="">DD</option>';for(let i=1;i<=31;i++){const v=String(i).padStart(2,'0');day.innerHTML+=`<option value="${v}">${v}</option>`;}}
-    if(month.options.length===0){month.innerHTML='<option value="">MM</option>';for(let i=1;i<=12;i++){const v=String(i).padStart(2,'0');month.innerHTML+=`<option value="${v}">${v}</option>`;}}
-    if(year.options.length===0){year.innerHTML='<option value="">YYYY</option>';for(let y=now.getFullYear()-2;y<=now.getFullYear()+3;y++){year.innerHTML+=`<option value="${y}">${y}</option>`;}}
-    if(setToday){if(!day.value)day.value=String(now.getDate()).padStart(2,'0');if(!month.value)month.value=String(now.getMonth()+1).padStart(2,'0');if(!year.value)year.value=String(now.getFullYear());}
+    if(day.options.length===0){
+        day.innerHTML='<option value="">DD</option>';
+        for(let i=1;i<=31;i++){const v=String(i).padStart(2,'0');day.innerHTML+=`<option value="${v}">${v}</option>`;}
+    }
+    if(month.options.length===0){
+        month.innerHTML='<option value="">MM</option>';
+        for(let i=1;i<=12;i++){const v=String(i).padStart(2,'0');month.innerHTML+=`<option value="${v}">${v}</option>`;}
+    }
+    if(year.options.length===0){
+        year.innerHTML='<option value="">YYYY</option>';
+        for(let y=now.getFullYear()-2;y<=now.getFullYear()+3;y++){year.innerHTML+=`<option value="${y}">${y}</option>`;}
+    }
+    if(setToday){
+        if(!day.value)day.value=String(now.getDate()).padStart(2,'0');
+        if(!month.value)month.value=String(now.getMonth()+1).padStart(2,'0');
+        if(!year.value)year.value=String(now.getFullYear());
+    }
 }
-function populateTimeDropdowns(prefix){const hour=document.getElementById(prefix+'Hour'),minute=document.getElementById(prefix+'Minute'),second=document.getElementById(prefix+'Second');if(hour&&hour.options.length===0){hour.innerHTML='<option value="">HH</option>';for(let h=1;h<=12;h++){const v=String(h).padStart(2,'0');hour.innerHTML+=`<option value="${v}">${v}</option>`;}}if(minute&&minute.options.length===0){minute.innerHTML='<option value="">MM</option>';for(let m=0;m<60;m+=5){const v=String(m).padStart(2,'0');minute.innerHTML+=`<option value="${v}">${v}</option>`;}}if(second&&second.options.length===0){second.innerHTML='<option value="">SS</option>';for(let s=0;s<60;s+=5){const v=String(s).padStart(2,'0');second.innerHTML+=`<option value="${v}">${v}</option>`;}}}
+
+function populateTimeDropdowns(prefix){
+    const hour=document.getElementById(prefix+'Hour'),minute=document.getElementById(prefix+'Minute'),second=document.getElementById(prefix+'Second');
+    if(hour&&hour.options.length===0){
+        hour.innerHTML='<option value="">HH</option>';
+        for(let h=1;h<=12;h++){const v=String(h).padStart(2,'0');hour.innerHTML+=`<option value="${v}">${v}</option>`;}
+    }
+    if(minute&&minute.options.length===0){
+        minute.innerHTML='<option value="">MM</option>';
+        for(let m=0;m<60;m+=5){const v=String(m).padStart(2,'0');minute.innerHTML+=`<option value="${v}">${v}</option>`;}
+    }
+    if(second&&second.options.length===0){
+        second.innerHTML='<option value="">SS</option>';
+        for(let s=0;s<60;s+=5){const v=String(s).padStart(2,'0');second.innerHTML+=`<option value="${v}">${v}</option>`;}
+    }
+}
+
 function setPictorialStatus(msg,type=''){
     const el=document.getElementById('pictorialStatus');
     if(!el)return;
     el.className='pictorial-status'+(type?' '+type:'');
     el.innerHTML=msg;
 }
+
 function getPictorialTrainingDate(){
-    const d=document.getElementById('pictorialDateDay').value,m=document.getElementById('pictorialDateMonth').value,y=document.getElementById('pictorialDateYear').value;
+    const d=document.getElementById('pictorialDateDay')?.value||'';
+    const m=document.getElementById('pictorialDateMonth')?.value||'';
+    const y=document.getElementById('pictorialDateYear')?.value||'';
     if(!d||!m||!y)return'';
     return `${d}.${m}.${y}`;
 }
+
 function getTimeText(prefix){
-    const h=document.getElementById(prefix+'Hour')?.value||'',m=document.getElementById(prefix+'Minute')?.value||'',ap=document.getElementById(prefix+'AmPm')?.value||'';
+    const h=document.getElementById(prefix+'Hour')?.value||'';
+    const m=document.getElementById(prefix+'Minute')?.value||'';
+    const ap=document.getElementById(prefix+'AmPm')?.value||'';
     if(!h||!m||!ap)return'';
     return `${h}:${m} ${ap}`;
 }
+
 function toMinutes(h,m,ap){
     if(!h||!m||!ap)return null;
     let hh=Number(h)%12;
     if(ap==='PM')hh+=12;
     return hh*60+Number(m);
 }
+
 function updatePictorialDuration(){
-    const sh=document.getElementById('pictorialStartHour').value,sm=document.getElementById('pictorialStartMinute').value,sa=document.getElementById('pictorialStartAmPm').value,eh=document.getElementById('pictorialEndHour').value,em=document.getElementById('pictorialEndMinute').value,ea=document.getElementById('pictorialEndAmPm').value;
+    const sh=document.getElementById('pictorialStartHour')?.value||'';
+    const sm=document.getElementById('pictorialStartMinute')?.value||'';
+    const sa=document.getElementById('pictorialStartAmPm')?.value||'';
+    const eh=document.getElementById('pictorialEndHour')?.value||'';
+    const em=document.getElementById('pictorialEndMinute')?.value||'';
+    const ea=document.getElementById('pictorialEndAmPm')?.value||'';
     const box=document.getElementById('pictorialDurationDisplay');
+    if(!box)return;
     const s=toMinutes(sh,sm,sa),e=toMinutes(eh,em,ea);
-    let txt='';
-    if(s!==null&&e!==null){let diff=e-s;if(diff<0)diff+=24*60;txt=diff>0?`${diff} Minutes`:'';}
-    box.textContent=txt||'Auto calculate হবে';
-    renderPictorialOutput();
+    let text='';
+    if(s!==null&&e!==null){
+        let diff=e-s;
+        if(diff<0)diff+=24*60;
+        text=diff>0?`${diff} Minutes`:'';
+    }
+    box.textContent=text||'Auto calculate হবে';
 }
+
 function getPictorialDurationText(){
-    const t=document.getElementById('pictorialDurationDisplay').textContent.trim();
+    const t=document.getElementById('pictorialDurationDisplay')?.textContent.trim()||'';
     return t==='Auto calculate হবে'?'':t;
 }
-function getPictorialStampText(num){const d=document.getElementById('pictorialStampDay'+num)?.value||'',m=document.getElementById('pictorialStampMonth'+num)?.value||'',y=document.getElementById('pictorialStampYear'+num)?.value||'',h=document.getElementById('pictorialStampHour'+num)?.value||'',mi=document.getElementById('pictorialStampMinute'+num)?.value||'',sec=document.getElementById('pictorialStampSecond'+num)?.value||'',ap=document.getElementById('pictorialStampAmPm'+num)?.value||'';let date=(d&&m&&y)?`${d}.${m}.${y}`:'';let time='';if(h&&mi&&ap){time=sec?`${h}:${mi}:${sec} ${ap}`:`${h}:${mi} ${ap}`;}else if(h&&mi){time=sec?`${h}:${mi}:${sec}`:`${h}:${mi}`;}else if(h&&ap){time=`${h} ${ap}`;}return [date,time].filter(Boolean).join(' ');}
+
+function getPictorialStampText(num){
+    const d=document.getElementById('pictorialStampDay'+num)?.value||'';
+    const m=document.getElementById('pictorialStampMonth'+num)?.value||'';
+    const y=document.getElementById('pictorialStampYear'+num)?.value||'';
+    const h=document.getElementById('pictorialStampHour'+num)?.value||'';
+    const mi=document.getElementById('pictorialStampMinute'+num)?.value||'';
+    const sec=document.getElementById('pictorialStampSecond'+num)?.value||'';
+    const ap=document.getElementById('pictorialStampAmPm'+num)?.value||'';
+    let date=(d&&m&&y)?`${d}.${m}.${y}`:'';
+    let time='';
+    if(h&&mi&&ap){time=sec?`${h}:${mi}:${sec} ${ap}`:`${h}:${mi} ${ap}`;}
+    else if(h&&mi){time=sec?`${h}:${mi}:${sec}`:`${h}:${mi}`;}
+    else if(h&&ap){time=`${h} ${ap}`;}
+    return [date,time].filter(Boolean).join(' ');
+}
+
 function previewPictorialPhoto(num){
     const input=document.getElementById('pictorialPhoto'+num);
     const preview=document.getElementById('pictorialPreview'+num);
     if(!input||!preview)return;
     const file=input.files[0];
-    const stamp=getPictorialStampText(num);
-    if(!file){preview.innerHTML=`No Image <span class="pictorial-stamp-overlay" id="pictorialPreviewStamp${num}" style="display:none;"></span>`;renderPictorialOutput();return;}
-    preview.innerHTML=`<img src="${URL.createObjectURL(file)}" alt="Picture ${num}"><span class="pictorial-stamp-overlay" id="pictorialPreviewStamp${num}" style="display:${stamp?'block':'none'};">${stamp}</span>`;
-    renderPictorialOutput();
+    if(!file){preview.innerHTML='No Image';return;}
+    preview.innerHTML=`<img src="${URL.createObjectURL(file)}" alt="Picture ${num}">`;
 }
+
 function gatherPictorialPhotoData(){
     const arr=[];
-    for(let i=1;i<=pictorialPhotoFieldCount;i++){
+    for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
         const input=document.getElementById('pictorialPhoto'+i);
         const file=input&&input.files?input.files[0]:null;
         if(file){arr.push({num:i,url:URL.createObjectURL(file),stamp:getPictorialStampText(i)});}
     }
     return arr;
 }
-function renderPictorialOutput(){
-    const subject=document.getElementById('pictorialSubject').value.trim();
+
+function buildPictorialOutputHtml(){
+    const subject=document.getElementById('pictorialSubject')?.value.trim()||'';
     const trainingDate=getPictorialTrainingDate();
-    const trainerName=document.getElementById('pictorialTrainerName').value.trim();
+    const trainerName=document.getElementById('pictorialTrainerName')?.value.trim()||'';
     const startText=getTimeText('pictorialStart');
     const endText=getTimeText('pictorialEnd');
     const durationText=getPictorialDurationText();
-    document.getElementById('outSubjectValue').textContent=subject||'-';
-    document.getElementById('outTrainingDateValue').textContent=trainingDate||'-';
-    document.getElementById('outTrainingTimeValue').textContent=(startText&&endText)?`${startText} - ${endText}`:(startText||endText||'-');
-    document.getElementById('outDurationValue').textContent=durationText||'-';
-    document.getElementById('outTrainerNameValue').textContent=trainerName||'-';
     const photos=gatherPictorialPhotoData();
-    const grid=document.getElementById('pictorialPhotoOutputGrid');
-    if(!grid) return;
-    grid.className='pictorial-photo-output-grid count-'+(photos.length||1);
-    if(!photos.length){grid.innerHTML='<div class="pictorial-no-photo">Photo upload korle ekhane output preview show hobe.</div>';return;}
-    grid.innerHTML=photos.map((p,idx)=>`<div class="pictorial-photo-output-box"><div class="img-wrap"><img src="${p.url}" alt="Picture ${idx+1}"><div class="pictorial-photo-caption">Picture ${idx+1}</div>${p.stamp?`<div class="pictorial-photo-stamp">${p.stamp}</div>`:''}</div></div>`).join('');
+    const countClass='count-'+(photos.length||1);
+
+    const photoHtml = photos.length ? photos.map(p=>`
+        <div class="pictorial-photo-output-box">
+            <div class="img-wrap">
+                <div class="photo-inner">
+                    <img src="${p.url}" alt="Picture ${p.num}">
+                    ${p.stamp ? `<div class="pictorial-photo-stamp">${p.stamp}</div>` : ''}
+                </div>
+            </div>
+            <div class="pictorial-photo-caption">Picture ${p.num}</div>
+        </div>`).join('') : `<div class="pictorial-no-photo">No photo uploaded.</div>`;
+
+    return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pictorial Evidence Preview</title>
+<style>
+@page{size:A4 portrait;margin:8mm;}
+*{box-sizing:border-box;font-family:Arial,sans-serif;}
+body{margin:0;background:#e8ead9;padding:14px;color:#111;}
+.pictorial-output-sheet{background:#fff;max-width:930px;margin:0 auto;padding:16px 18px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.18);}
+.pictorial-output-header{text-align:center;border-bottom:2px solid #0754a6;padding-bottom:10px;margin-bottom:12px;}
+.pictorial-output-header h2{font-size:26px;color:#0754a6;margin:0 0 4px;}
+.pictorial-output-header h3{font-size:20px;color:#111;margin:0;}
+.pictorial-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0 16px;}
+.pictorial-meta div{background:#f8fbff;border:1px solid #bbdefb;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:700;color:#111;}
+.pictorial-meta span{color:#0754a6;font-weight:900;}
+.pictorial-meta .full-row{grid-column:1 / -1;}
+.pictorial-photo-output-grid{display:grid;gap:12px;}
+.pictorial-photo-output-grid.count-1{grid-template-columns:1fr;}
+.pictorial-photo-output-grid.count-2{grid-template-columns:1fr;}
+.pictorial-photo-output-grid.count-3,.pictorial-photo-output-grid.count-4{grid-template-columns:repeat(2,1fr);}
+.pictorial-photo-output-grid.count-5,.pictorial-photo-output-grid.count-6{grid-template-columns:repeat(2,1fr);}
+.pictorial-photo-output-box{position:relative;border:1.5px solid #9fbad5;border-radius:12px;padding:8px;background:#fff;}
+.pictorial-photo-output-box .img-wrap{position:relative;width:100%;background:#fff;display:block;overflow:hidden;}
+.count-1 .img-wrap{height:450px;}
+.count-2 .img-wrap{height:230px;}
+.count-3 .img-wrap,.count-4 .img-wrap{height:225px;}
+.count-5 .img-wrap,.count-6 .img-wrap{height:150px;}
+.photo-inner{position:relative;display:block;width:100%;height:100%;}
+.photo-inner img{width:100%;height:100%;object-fit:fill;display:block;background:#fff;}
+.pictorial-photo-caption{position:absolute;top:8px;left:8px;background:#2f73bd;color:white;border-radius:5px;padding:5px 9px;font-weight:900;font-size:13px;}
+.pictorial-photo-stamp{position:absolute;right:10px;bottom:8px;color:#ff9900;background:transparent;text-shadow:none;box-shadow:none;border:none;padding:0;margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:900;letter-spacing:.4px;line-height:1;z-index:9;white-space:nowrap;}
+.pictorial-no-photo{padding:30px 15px;text-align:center;border:1.5px dashed #90caf9;border-radius:12px;background:#f8fbff;color:#607d8b;font-weight:700;}
+.actions{text-align:center;margin-bottom:12px;}
+.actions button{width:auto;padding:9px 18px;border:0;border-radius:8px;background:#0754a6;color:white;font-weight:900;cursor:pointer;margin:0 5px;}
+@media print{body{background:#fff;padding:0}.actions{display:none}.pictorial-output-sheet{max-width:none;box-shadow:none;border-radius:0;padding:0}}
+</style>
+</head>
+<body>
+<div class="actions"><button onclick="window.print()">Print / PDF</button><button onclick="window.close()">Close</button></div>
+<div class="pictorial-output-sheet">
+    <div class="pictorial-output-header">
+        <h2>A&amp;O Apparels (Pvt.) Ltd.</h2>
+        <h3>Pictorial Evidence Form</h3>
+    </div>
+    <div class="pictorial-meta">
+        <div><span>Subject Of Training :</span> ${subject || '-'}</div>
+        <div><span>Training Date :</span> ${trainingDate || '-'}</div>
+        <div><span>Training Time :</span> ${(startText&&endText)?`${startText} - ${endText}`:(startText||endText||'-')}</div>
+        <div><span>Duration :</span> ${durationText || '-'}</div>
+        <div class="full-row"><span>Trainer Name :</span> ${trainerName || '-'}</div>
+    </div>
+    <div class="pictorial-photo-output-grid ${countClass}">
+        ${photoHtml}
+    </div>
+</div>
+</body>
+</html>`;
 }
-function printPictorialOutput(){renderPictorialOutput();window.print();}
+
+function renderPictorialOutput(){
+    return buildPictorialOutputHtml();
+}
+
+function openPictorialPreview(){
+    const html = buildPictorialOutputHtml();
+    const win = window.open('', '_blank');
+    win.document.write(html);
+    win.document.close();
+}
+
+function printPictorialOutput(){
+    openPictorialPreview();
+}
+
 async function uploadPictorialPhoto(num,folderName){
     const input=document.getElementById('pictorialPhoto'+num);
     const file=input&&input.files?input.files[0]:null;
@@ -264,11 +503,12 @@ async function uploadPictorialPhoto(num,folderName){
     const {data}=supabaseClient.storage.from(PICTORIAL_BUCKET).getPublicUrl(filePath);
     return{path:filePath,url:(data&&data.publicUrl)?data.publicUrl:''};
 }
+
 async function savePictorialEvidence(){
-    const subject=document.getElementById('pictorialSubject').value.trim();
+    const subject=document.getElementById('pictorialSubject')?.value.trim()||'';
     if(!subject){setPictorialStatus('Subject Of Training mandatory. Eta likhun।','error');return;}
     const trainingDate=getPictorialTrainingDate();
-    const trainerName=document.getElementById('pictorialTrainerName').value.trim();
+    const trainerName=document.getElementById('pictorialTrainerName')?.value.trim()||'';
     const startText=getTimeText('pictorialStart');
     const endText=getTimeText('pictorialEnd');
     const durationText=getPictorialDurationText();
@@ -276,9 +516,24 @@ async function savePictorialEvidence(){
         setPictorialStatus('Saving data and uploading photos...');
         const folderName=`${(trainingDate||'no-date').replace(/[^0-9.]/g,'_')}_${Date.now()}`;
         const uploads=[];
-        for(let i=1;i<=6;i++){uploads.push(await uploadPictorialPhoto(i,folderName));}
+        for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){uploads.push(await uploadPictorialPhoto(i,folderName));}
         const durationValue=Number((durationText.match(/\d+/)||['0'])[0]||0);
-        const payload={subject_of_training:subject,training_date:trainingDate||null,start_time_text:startText||null,end_time_text:endText||null,duration_value:durationValue||null,duration_unit:durationValue?'Minutes':null,duration_text:durationText||null,trainer_name:trainerName||null,picture_1_path:uploads[0].path,picture_1_url:uploads[0].url,picture_1_stamp_text:getPictorialStampText(1)||null,picture_2_path:uploads[1].path,picture_2_url:uploads[1].url,picture_2_stamp_text:getPictorialStampText(2)||null,picture_3_path:uploads[2].path,picture_3_url:uploads[2].url,picture_3_stamp_text:getPictorialStampText(3)||null,picture_4_path:uploads[3].path,picture_4_url:uploads[3].url,picture_4_stamp_text:getPictorialStampText(4)||null,picture_5_path:uploads[4].path,picture_5_url:uploads[4].url,picture_5_stamp_text:getPictorialStampText(5)||null,picture_6_path:uploads[5].path,picture_6_url:uploads[5].url,picture_6_stamp_text:getPictorialStampText(6)||null};
+        const payload={
+            subject_of_training:subject,
+            training_date:trainingDate||null,
+            start_time_text:startText||null,
+            end_time_text:endText||null,
+            duration_value:durationValue||null,
+            duration_unit:durationValue?'Minutes':null,
+            duration_text:durationText||null,
+            trainer_name:trainerName||null,
+            picture_1_path:uploads[0].path,picture_1_url:uploads[0].url,picture_1_stamp_text:getPictorialStampText(1)||null,
+            picture_2_path:uploads[1].path,picture_2_url:uploads[1].url,picture_2_stamp_text:getPictorialStampText(2)||null,
+            picture_3_path:uploads[2].path,picture_3_url:uploads[2].url,picture_3_stamp_text:getPictorialStampText(3)||null,
+            picture_4_path:uploads[3].path,picture_4_url:uploads[3].url,picture_4_stamp_text:getPictorialStampText(4)||null,
+            picture_5_path:uploads[4].path,picture_5_url:uploads[4].url,picture_5_stamp_text:getPictorialStampText(5)||null,
+            picture_6_path:uploads[5].path,picture_6_url:uploads[5].url,picture_6_stamp_text:getPictorialStampText(6)||null
+        };
         const {error}=await supabaseClient.from('Pictorial_Evidence').insert([payload]);
         if(error)throw new Error(error.message);
         setPictorialStatus('Pictorial Evidence data saved successfully!','success');
@@ -287,6 +542,7 @@ async function savePictorialEvidence(){
         setPictorialStatus('Save failed: '+error.message+'<br>Supabase table/storage policy or latest SQL update check করুন।','error');
     }
 }
+
 </script>
 </body>
 </html>
