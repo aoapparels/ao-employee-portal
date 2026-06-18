@@ -1197,6 +1197,111 @@ loadPictorialEvidenceList = async function(){
     }
 };
 
+
+
+/* Final fix: picEdit undefined error fixed */
+function getSafePicEdit(){
+    try{
+        if(typeof picEdit !== 'undefined') return picEdit;
+    }catch(e){}
+    return window.__pictorialEditRecord || null;
+}
+
+function setSafePicEdit(v){
+    window.__pictorialEditRecord = v || null;
+    try{
+        if(typeof picEdit !== 'undefined') picEdit = v || null;
+    }catch(e){}
+}
+
+const previousEditPictorialEvidenceSafe = (typeof editPictorialEvidence === 'function') ? editPictorialEvidence : null;
+editPictorialEvidence = function(index){
+    const r = (currentPictorialRecords && currentPictorialRecords[index]) ? currentPictorialRecords[index] : null;
+    setSafePicEdit(r);
+    if(previousEditPictorialEvidenceSafe){
+        previousEditPictorialEvidenceSafe(index);
+    }
+};
+
+const previousPicEditRowSafe = (typeof picEditRow === 'function') ? picEditRow : null;
+if(previousPicEditRowSafe){
+    picEditRow = function(i){
+        const r = (picCache && picCache[i]) ? picCache[i] : null;
+        setSafePicEdit(r);
+        previousPicEditRowSafe(i);
+    };
+}
+
+savePictorialEvidence = async function(){
+    const subject=document.getElementById('pictorialSubject')?.value.trim()||'';
+    if(!subject){setPictorialStatus('Subject Of Training required.','error');return;}
+
+    const trainingDate=getPictorialTrainingDate();
+    const trainerName=document.getElementById('pictorialTrainerName')?.value.trim()||'';
+    const startText=getTimeText('pictorialStart');
+    const endText=getTimeText('pictorialEnd');
+    const durationText=getPictorialDurationText();
+    const activeEdit = getSafePicEdit();
+
+    try{
+        const payload={
+            subject_of_training:subject,
+            training_date:trainingDate||null,
+            start_time_text:startText||null,
+            end_time_text:endText||null,
+            duration_text:durationText||null,
+            trainer_name:trainerName||null
+        };
+
+        const folderName=`${(trainingDate||'no-date').replace(/[^0-9.]/g,'_')}_${Date.now()}`;
+
+        for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
+            const input=document.getElementById('pictorialPhoto'+i);
+            const file=input&&input.files?input.files[0]:null;
+
+            if(file){
+                const up=await uploadPictorialPhoto(i,folderName);
+                payload[`picture_${i}_path`]=up.path;
+                payload[`picture_${i}_url`]=up.url;
+            }else if(activeEdit){
+                payload[`picture_${i}_path`]=activeEdit[`picture_${i}_path`]||'';
+                payload[`picture_${i}_url`]=activeEdit[`picture_${i}_url`]||'';
+            }else{
+                payload[`picture_${i}_path`]='';
+                payload[`picture_${i}_url`]='';
+            }
+
+            payload[`picture_${i}_stamp_text`]=getPictorialStampText(i)||(activeEdit?activeEdit[`picture_${i}_stamp_text`]||null:null);
+        }
+
+        let result;
+        if(activeEdit && activeEdit.id){
+            result = await supabaseClient.from('Pictorial_Evidence').update(payload).eq('id',activeEdit.id);
+        }else{
+            const durationValue=Number((durationText.match(/\d+/)||['0'])[0]||0);
+            payload.duration_value=durationValue||null;
+            payload.duration_unit=durationValue?'Minutes':null;
+            result = await supabaseClient.from('Pictorial_Evidence').insert([payload]);
+        }
+
+        if(result.error) throw result.error;
+
+        setSafePicEdit(null);
+
+        if(typeof clearPictorialFormForNext === 'function'){
+            clearPictorialFormForNext();
+        }
+
+        if(typeof showPictorialList === 'function'){
+            await showPictorialList();
+        }else if(typeof showPictorialEvidenceList === 'function'){
+            showPictorialEvidenceList();
+        }
+    }catch(e){
+        setPictorialStatus('Save failed: '+(e.message||e),'error');
+    }
+};
+
 </script>
 </body>
 </html>
