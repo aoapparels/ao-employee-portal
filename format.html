@@ -16,9 +16,109 @@ function showPictorialAddNew(){document.getElementById('formatListPage')?.classL
 function showPictorialEvidenceList(){document.getElementById('formatListPage')?.classList.add('hidden');picHide();document.getElementById('pictorialListPage')?.classList.remove('hidden');loadPictorialEvidenceList()}
 function picEsc(v){return String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
 function picDate(v){let s=String(v||'');if(s.includes('-')&&s.split('-')[0].length==4){let p=s.split('-');return `${p[2]}.${p[1]}.${p[0]}`}return s}
-async function loadPictorialEvidenceList(){let b=document.getElementById('pictorialEvidenceListBody');if(!b)return;b.innerHTML='<tr><td colspan="5" class="pic-empty">Loading...</td></tr>';try{let q=await supabaseClient.from('Pictorial_Evidence').select('*').order('created_at',{ascending:false});if(q.error)q=await supabaseClient.from('Pictorial_Evidence').select('*');if(q.error)throw q.error;picCache=q.data||[];if(!picCache.length){b.innerHTML='<tr><td colspan="5" class="pic-empty">No saved pictorial evidence found.</td></tr>';return}b.innerHTML=picCache.map((r,i)=>`<tr><td class="pic-sl">${i+1}</td><td><span class="pic-date">${picEsc(picDate(r.training_date)||'-')}</span></td><td><span class="pic-subject">${picEsc(r.subject_of_training||'-')}</span></td><td>${picEsc(r.trainer_name||'-')}</td><td><div class="pic-actions"><button class="pic-icon green" title="Edit" onclick="picEditRow(${i})">✏️</button><button class="pic-icon orange" title="Print" onclick="picOpenRow(${i},true)">🖨️</button><button class="pic-icon" title="Preview" onclick="picOpenRow(${i},false)">👁️</button></div></td></tr>`).join('')}catch(e){b.innerHTML=`<tr><td colspan="5" class="pic-empty">List load failed: ${picEsc(e.message||e)}</td></tr>`}}
-function picEditRow(i){let r=picCache[i];if(!r)return;picEdit=r;picHide();document.getElementById('pictorialPage')?.classList.remove('hidden');initPictorialDateDropdowns();document.getElementById('pictorialSubject').value=r.subject_of_training||'';document.getElementById('pictorialTrainerName').value=r.trainer_name||'';setPictorialStatus('Edit mode opened. Photo change না করলে আগের photo থাকবে।','success')}
-function picHtml(r){let photos=[];for(let n=1;n<=6;n++)if(r[`picture_${n}_url`])photos.push({n,url:r[`picture_${n}_url`],st:r[`picture_${n}_stamp_text`]||''});let cls='count-'+(photos.length||1),ph=photos.map(p=>`<div class="pictorial-photo-output-box"><div class="img-wrap"><div class="photo-inner"><img src="${picEsc(p.url)}">${p.st?`<div class="pictorial-photo-stamp">${picEsc(p.st)}</div>`:''}</div></div><div class="pictorial-photo-caption">Picture ${p.n}</div></div>`).join('')||'<div class="pictorial-no-photo">No photo uploaded.</div>';return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Pictorial Evidence</title><style>@page{size:A4 portrait;margin:8mm}*{box-sizing:border-box;font-family:Arial}body{margin:0;background:#e8ead9;padding:14px}.pictorial-output-sheet{background:#fff;max-width:930px;margin:auto;padding:16px 18px}.pictorial-output-header{text-align:center;border-bottom:2px solid #0754a6;padding-bottom:10px;margin-bottom:12px}.pictorial-output-header h2{font-size:26px;color:#0754a6;margin:0}.pictorial-output-header h3{font-size:20px;margin:0}.pictorial-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0 16px}.pictorial-meta div{background:#f8fbff;border:1px solid #bbdefb;border-radius:10px;padding:10px;font-weight:700}.pictorial-meta span{color:#0754a6;font-weight:900}.full-row{grid-column:1/-1}.pictorial-photo-output-grid{display:grid;gap:10px}.count-1,.count-2{grid-template-columns:1fr}.count-3,.count-4,.count-5,.count-6{grid-template-columns:repeat(2,1fr)}.pictorial-photo-output-box{position:relative;border:1.5px solid #9fbad5;border-radius:12px;padding:8px}.img-wrap{position:relative;overflow:hidden}.count-1 .img-wrap{height:620px}.count-2 .img-wrap{height:305px}.count-3 .img-wrap,.count-4 .img-wrap{height:245px}.count-5 .img-wrap{height:175px}.count-6 .img-wrap{height:190px}.photo-inner{position:relative;width:100%;height:100%}.photo-inner img{width:100%;height:100%;object-fit:fill;display:block}.pictorial-photo-caption{position:absolute;top:8px;left:8px;background:#2f73bd;color:#fff;border-radius:5px;padding:5px 9px;font-weight:900}.pictorial-photo-stamp{position:absolute;right:10px;bottom:8px;color:#ff9900;font-family:'Courier New';font-weight:900}.actions{text-align:center;margin-bottom:12px}.actions button{padding:9px 18px;border:0;border-radius:8px;background:#0754a6;color:#fff;font-weight:900}@media print{body{background:#fff;padding:0}.actions{display:none}.pictorial-output-sheet{max-width:none;padding:0}}</style></head><body><div class="actions"><button onclick="window.print()">Print / PDF</button> <button onclick="window.close()">Close</button></div><div class="pictorial-output-sheet"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div><div class="pictorial-meta"><div><span>Subject Of Training :</span> ${picEsc(r.subject_of_training||'-')}</div><div><span>Training Date :</span> ${picEsc(picDate(r.training_date)||'-')}</div><div><span>Training Time :</span> ${picEsc((r.start_time_text&&r.end_time_text)?`${r.start_time_text} - ${r.end_time_text}`:(r.start_time_text||r.end_time_text||'-'))}</div><div><span>Duration :</span> ${picEsc(r.duration_text||(r.duration_value?`${r.duration_value} ${r.duration_unit||'Minutes'}`:'-'))}</div><div class="full-row"><span>Trainer Name :</span> ${picEsc(r.trainer_name||'-')}</div></div><div class="pictorial-photo-output-grid ${cls}">${ph}</div></div></body></html>`}
+async function loadPictorialEvidenceList(){let b=document.getElementById('pictorialEvidenceListBody');if(!b)return;b.innerHTML='<tr><td colspan="5" class="pic-empty"></td></tr>';try{let q=await supabaseClient.from('Pictorial_Evidence').select('*').order('created_at',{ascending:false});if(q.error)q=await supabaseClient.from('Pictorial_Evidence').select('*');if(q.error)throw q.error;picCache=q.data||[];if(!picCache.length){b.innerHTML='<tr><td colspan="5" class="pic-empty">No saved pictorial evidence found.</td></tr>';return}b.innerHTML=picCache.map((r,i)=>`<tr><td class="pic-sl">${i+1}</td><td><span class="pic-date">${picEsc(picDate(r.training_date)||'-')}</span></td><td><span class="pic-subject">${picEsc(r.subject_of_training||'-')}</span></td><td>${picEsc(r.trainer_name||'-')}</td><td><div class="pic-actions"><button class="pic-icon green" title="Edit" onclick="picEditRow(${i})">✏️</button><button class="pic-icon orange" title="Print" onclick="picOpenRow(${i},true)">🖨️</button><button class="pic-icon" title="Preview" onclick="picOpenRow(${i},false)">👁️</button></div></td></tr>`).join('')}catch(e){b.innerHTML=`<tr><td colspan="5" class="pic-empty">List load failed: ${picEsc(e.message||e)}</td></tr>`}}
+function picEditRow(i){let r=picCache[i];if(!r)return;picEdit=r;picHide();document.getElementById('pictorialPage')?.classList.remove('hidden');initPictorialDateDropdowns();document.getElementById('pictorialSubject').value=r.subject_of_training||'';document.getElementById('pictorialTrainerName').value=r.trainer_name||'';setPictorialStatus('', '')}
+function picHtml(r){let photos=[];for(let n=1;n<=6;n++)if(r[`picture_${n}_url`])photos.push({n,url:r[`picture_${n}_url`],st:r[`picture_${n}_stamp_text`]||''});let cls='count-'+(photos.length||1),ph=photos.map(p=>`<div class="pictorial-photo-output-box"><div class="img-wrap"><div class="photo-inner"><img src="${picEsc(p.url)}">${p.st?`<div class="pictorial-photo-stamp">${picEsc(p.st)}</div>`:''}</div></div><div class="pictorial-photo-caption">Picture ${p.n}</div></div>`).join('')||'<div class="pictorial-no-photo">No photo uploaded.</div>';return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Pictorial Evidence</title><style>@page{size:A4 portrait;margin:8mm}*{box-sizing:border-box;font-family:Arial}body{margin:0;background:#e8ead9;padding:14px}.pictorial-output-sheet{background:#fff;max-width:930px;margin:auto;padding:16px 18px}.pictorial-output-header{text-align:center;border-bottom:2px solid #0754a6;padding-bottom:10px;margin-bottom:12px}.pictorial-output-header h2{font-size:26px;color:#0754a6;margin:0}.pictorial-output-header h3{font-size:20px;margin:0}.pictorial-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0 16px}.pictorial-meta div{background:#f8fbff;border:1px solid #bbdefb;border-radius:10px;padding:10px;font-weight:700}.pictorial-meta span{color:#0754a6;font-weight:900}.full-row{grid-column:1/-1}.pictorial-photo-output-grid{display:grid;gap:10px}.count-1,.count-2{grid-template-columns:1fr}.count-3,.count-4,.count-5,.count-6{grid-template-columns:repeat(2,1fr)}.pictorial-photo-output-box{position:relative;border:1.5px solid #9fbad5;border-radius:12px;padding:8px}.img-wrap{position:relative;overflow:hidden}.count-1 .img-wrap{height:620px}.count-2 .img-wrap{height:305px}.count-3 .img-wrap,.count-4 .img-wrap{height:245px}.count-5 .img-wrap{height:175px}.count-6 .img-wrap{height:190px}.photo-inner{position:relative;width:100%;height:100%}.photo-inner img{width:100%;height:100%;object-fit:fill;display:block}.pictorial-photo-caption{position:absolute;top:8px;left:8px;background:#2f73bd;color:#fff;border-radius:5px;padding:5px 9px;font-weight:900}.pictorial-photo-stamp{position:absolute;right:10px;bottom:8px;color:#ff9900;font-family:'Courier New';font-weight:900}.actions{text-align:center;margin-bottom:12px}.actions button{padding:9px 18px;border:0;border-radius:8px;background:#0754a6;color:#fff;font-weight:900}@media print{body{background:#fff;padding:0}.actions{display:none}.pictorial-output-sheet{max-width:none;padding:0}}
+/* Pictorial submenu/list visibility fix */
+.pictorial-submenu-card{max-width:760px;margin:0 auto;background:linear-gradient(135deg,rgba(81,95,43,.94),rgba(114,126,64,.90));border:1px solid rgba(214,223,172,.45);border-radius:16px;padding:22px;box-shadow:0 12px 28px rgba(29,39,12,.28);}
+.pictorial-submenu-card h2{text-align:center;color:#f6f9e9;margin-bottom:16px;}
+.pictorial-submenu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;}
+.pictorial-list-card{max-width:960px;margin:0 auto;background:linear-gradient(135deg,rgba(81,95,43,.94),rgba(114,126,64,.90));border:1px solid rgba(214,223,172,.45);border-radius:16px;padding:18px;box-shadow:0 12px 28px rgba(29,39,12,.28);}
+.pictorial-list-card h2{text-align:center;color:#f6f9e9;margin-bottom:14px;}
+.pictorial-list-table{width:100%;border-collapse:collapse;background:rgba(255,255,255,.95);border-radius:10px;overflow:hidden;}
+.pictorial-list-table th,.pictorial-list-table td{border:1px solid #c9d6a1;padding:9px 8px;text-align:center;font-size:14px;}
+.pictorial-list-table th{background:#4e5c25;color:#fff;}
+.pictorial-list-table .subject-cell,.pictorial-list-table .date-cell{font-weight:900;color:#26370e;background:#f3f8df;}
+.pictorial-action-btn{width:auto!important;min-width:38px;padding:7px 8px!important;margin:2px;border-radius:7px;font-size:15px;box-shadow:none!important;}
+
+
+/* Final olive polish for pictorial submenu and list */
+#pictorialSubMenu,
+#pictorialListBox{
+    background:linear-gradient(135deg,rgba(85,98,44,.18),rgba(123,137,75,.26))!important;
+    border:1px solid rgba(118,134,61,.45)!important;
+}
+#pictorialSubMenu .pictorial-submenu-card,
+#pictorialListBox .pictorial-list-card{
+    background:linear-gradient(135deg,rgba(70,84,35,.96),rgba(119,132,67,.91))!important;
+    border:1px solid rgba(222,232,184,.55)!important;
+    box-shadow:0 14px 34px rgba(24,34,10,.34)!important;
+    backdrop-filter:blur(8px)!important;
+}
+#pictorialSubMenu .pictorial-submenu-card h2,
+#pictorialListBox .pictorial-list-card h2{
+    color:#f7fbe8!important;
+    text-shadow:0 2px 8px rgba(0,0,0,.22)!important;
+}
+#pictorialSubMenu .pictorial-submenu-card:before,
+#pictorialListBox .pictorial-list-card:before{
+    content:"A&O Apparels";
+    display:block;
+    text-align:center;
+    color:rgba(246,251,224,.72);
+    font-weight:900;
+    letter-spacing:1.5px;
+    margin-bottom:6px;
+    font-size:13px;
+}
+#pictorialSubMenu .pictorial-submenu-grid button{
+    border:1px solid rgba(244,250,219,.35)!important;
+    box-shadow:0 8px 18px rgba(0,0,0,.20)!important;
+}
+#pictorialSubMenu .pictorial-submenu-grid .green{
+    background:linear-gradient(135deg,#3f7d35,#6f8d38)!important;
+}
+#pictorialSubMenu .pictorial-submenu-grid .orange{
+    background:linear-gradient(135deg,#c96a15,#d89435)!important;
+}
+#pictorialListBox .pictorial-status{
+    background:rgba(244,247,227,.93)!important;
+    color:#465322!important;
+    border:1px solid rgba(203,214,150,.8)!important;
+}
+#pictorialListBox .pictorial-list-table{
+    border-collapse:separate!important;
+    border-spacing:0!important;
+    background:rgba(250,252,239,.96)!important;
+    border:1px solid rgba(211,222,160,.9)!important;
+    box-shadow:0 8px 22px rgba(20,32,8,.20)!important;
+}
+#pictorialListBox .pictorial-list-table th{
+    background:linear-gradient(135deg,#3d4b1d,#61712e)!important;
+    color:#fffde9!important;
+    border-color:rgba(213,225,164,.65)!important;
+}
+#pictorialListBox .pictorial-list-table td{
+    border-color:rgba(201,214,161,.75)!important;
+}
+#pictorialListBox .pictorial-list-table tr:nth-child(even) td{
+    background:rgba(242,247,220,.80)!important;
+}
+#pictorialListBox .pictorial-list-table .subject-cell,
+#pictorialListBox .pictorial-list-table .date-cell{
+    background:rgba(226,237,181,.92)!important;
+    color:#27370f!important;
+}
+#pictorialListBox .pictorial-action-btn{
+    border:1px solid rgba(255,255,255,.4)!important;
+    box-shadow:0 4px 10px rgba(0,0,0,.16)!important;
+}
+#pictorialListBox .pictorial-action-btn.green{
+    background:#4f8a34!important;
+}
+#pictorialListBox .pictorial-action-btn.orange{
+    background:#d57817!important;
+}
+#pictorialListBox .pictorial-action-btn:not(.green):not(.orange){
+    background:#51659b!important;
+}
+
+
+/* Hide empty instruction/status note boxes */
+.pictorial-status:empty{display:none!important;}
+#pictorialStatus:empty,#pictorialListStatus:empty{display:none!important;}
+
+</style></head><body><div class="actions"><button onclick="window.print()">Print / PDF</button> <button onclick="window.close()">Close</button></div><div class="pictorial-output-sheet"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div><div class="pictorial-meta"><div><span>Subject Of Training :</span> ${picEsc(r.subject_of_training||'-')}</div><div><span>Training Date :</span> ${picEsc(picDate(r.training_date)||'-')}</div><div><span>Training Time :</span> ${picEsc((r.start_time_text&&r.end_time_text)?`${r.start_time_text} - ${r.end_time_text}`:(r.start_time_text||r.end_time_text||'-'))}</div><div><span>Duration :</span> ${picEsc(r.duration_text||(r.duration_value?`${r.duration_value} ${r.duration_unit||'Minutes'}`:'-'))}</div><div class="full-row"><span>Trainer Name :</span> ${picEsc(r.trainer_name||'-')}</div></div><div class="pictorial-photo-output-grid ${cls}">${ph}</div></div></body></html>`}
 function picOpenRow(i,printNow){let r=picCache[i];if(!r)return;let w=window.open('','_blank');w.document.write(picHtml(r));w.document.close();if(printNow)setTimeout(()=>w.print(),600)}
 
 </script>
@@ -208,18 +308,49 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
 </head>
 <body>
 <div class="container">
-    <div class="card no-print" id="formatListPage"><div class="logo-box"><img src="logo.jpeg" alt="A&O Logo"></div><h1>All Formate</h1><p class="subtitle">A&O Apparels (Pvt.) Ltd.</p><p class="small-note">Checklist name select korle oi format open hobe.</p><div class="menu"><button class="green" onclick="showFormat('humidity')">01. Humidity Check List</button><button class="orange" onclick="showFormat('temperature')">02. Temperature Checklist</button><button class="green" onclick="showFormat('firstaid')">03. First Aid Check List</button><button class="orange" onclick="showPictorialEvidence()">04. Pictorial Evidence Formate</button></div><button class="gray" onclick="goBackToPortal()" style="margin-top:18px;">Back To Admin Panel</button></div>
+    <div class="card no-print" id="formatListPage"><div class="logo-box"><img src="logo.jpeg" alt="A&O Logo"></div><h1>All Formate</h1><p class="subtitle">A&O Apparels (Pvt.) Ltd.</p><div class="menu"><button class="green" onclick="showFormat('humidity')">01. Humidity Check List</button><button class="orange" onclick="showFormat('temperature')">02. Temperature Checklist</button><button class="green" onclick="showFormat('firstaid')">03. First Aid Check List</button><button class="orange" onclick="showPictorialEvidence()">04. Pictorial Evidence Formate</button></div><button class="gray" onclick="goBackToPortal()" style="margin-top:18px;">Back To Admin Panel</button></div>
 
-    <div class="card hidden format-page" id="humidityPage"><div class="box no-print"><h2>Humidity Check List</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="humidityMonth" class="form-control" onchange="onMonthChange('humidity')"></div><div><label class="control-label">Area</label><input type="text" id="humidityArea" class="form-control" value="Lab (Ground Floor)" oninput="renderChecklist('humidity')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p><div class="control-grid"><div><label class="control-label">Date Select</label><select id="humidityManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="humidityManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('humidity')">Add</button></div></div><div id="humidityManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet" id="humidityPrintArea"><div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div><div class="report-title">Daily Humidity Check Report</div><div class="report-month" id="humidityReportMonth">For The Month of</div><div class="area-row">Area: <span id="humidityAreaText">Lab (Ground Floor)</span></div><table class="check-table humidity-table"><thead><tr><th>Date</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Remarks</th></tr></thead><tbody id="humidityTableBody"></tbody></table><div class="signature-row"><div>Prepared By</div><div>Checked By</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
+    <div class="card hidden format-page" id="humidityPage"><div class="box no-print"><h2>Humidity Check List</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="humidityMonth" class="form-control" onchange="onMonthChange('humidity')"></div><div><label class="control-label">Area</label><input type="text" id="humidityArea" class="form-control" value="Lab (Ground Floor)" oninput="renderChecklist('humidity')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><div class="control-grid"><div><label class="control-label">Date Select</label><select id="humidityManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="humidityManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('humidity')">Add</button></div></div><div id="humidityManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet" id="humidityPrintArea"><div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div><div class="report-title">Daily Humidity Check Report</div><div class="report-month" id="humidityReportMonth">For The Month of</div><div class="area-row">Area: <span id="humidityAreaText">Lab (Ground Floor)</span></div><table class="check-table humidity-table"><thead><tr><th>Date</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Remarks</th></tr></thead><tbody id="humidityTableBody"></tbody></table><div class="signature-row"><div>Prepared By</div><div>Checked By</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
 
-    <div class="card hidden format-page" id="temperaturePage"><div class="box no-print"><h2>Temperature Checklist</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="temperatureMonth" class="form-control" onchange="onMonthChange('temperature')"></div><div><label class="control-label">Area</label><input type="text" id="temperatureArea" class="form-control" value="Finishing 1st Floor (Oven)" oninput="renderChecklist('temperature')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p><div class="control-grid"><div><label class="control-label">Date Select</label><select id="temperatureManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="temperatureManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('temperature')">Add</button></div></div><div id="temperatureManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet" id="temperaturePrintArea"><div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div><div class="report-title">Daily Temperature Record</div><div class="report-month" id="temperatureReportMonth">For The Month of</div><div class="area-row">Area: <span id="temperatureAreaText">Finishing 1st Floor (Oven)</span></div><table class="check-table temperature-table"><thead><tr><th>Date</th><th>Checking Time<br>(AM)</th><th>Temp-<br>Measure</th><th>Checking Time<br>(PM)</th><th>Temp-<br>Measure</th><th>Remarks</th></tr></thead><tbody id="temperatureTableBody"></tbody></table><div class="signature-row"><div>Prepared By</div><div>Checked By</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
+    <div class="card hidden format-page" id="temperaturePage"><div class="box no-print"><h2>Temperature Checklist</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="temperatureMonth" class="form-control" onchange="onMonthChange('temperature')"></div><div><label class="control-label">Area</label><input type="text" id="temperatureArea" class="form-control" value="Finishing 1st Floor (Oven)" oninput="renderChecklist('temperature')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><div class="control-grid"><div><label class="control-label">Date Select</label><select id="temperatureManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="temperatureManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('temperature')">Add</button></div></div><div id="temperatureManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet" id="temperaturePrintArea"><div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div><div class="report-title">Daily Temperature Record</div><div class="report-month" id="temperatureReportMonth">For The Month of</div><div class="area-row">Area: <span id="temperatureAreaText">Finishing 1st Floor (Oven)</span></div><table class="check-table temperature-table"><thead><tr><th>Date</th><th>Checking Time<br>(AM)</th><th>Temp-<br>Measure</th><th>Checking Time<br>(PM)</th><th>Temp-<br>Measure</th><th>Remarks</th></tr></thead><tbody id="temperatureTableBody"></tbody></table><div class="signature-row"><div>Prepared By</div><div>Checked By</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
 
-    <div class="card hidden format-page" id="firstaidPage"><div class="box no-print"><h2>First Aid Check List</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="firstaidMonth" class="form-control" onchange="onMonthChange('firstaid')"></div><div><label class="control-label">Box No</label><input type="text" id="firstaidBoxNo" class="form-control" value="6" oninput="renderChecklist('firstaid')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><p class="small-note">Default Friday gula Weekend hobe. Date select kore text add korle oi date e oi text show korbe. Reguler/Regular likhle normal row hobe.</p><div class="control-grid"><div><label class="control-label">Date Select</label><select id="firstaidManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="firstaidManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('firstaid')">Add</button></div></div><div id="firstaidManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet firstaid-sheet" id="firstaidPrintArea"><div class="firstaid-company-title">A&amp;O Apparels (Pvt.) Ltd.</div><div class="firstaid-title"><span class="firstaid-box-label" id="firstaidBoxTitle">BOX NO- 6</span><span class="firstaid-main-title">First Aid Check List</span></div><div class="firstaid-month" id="firstaidReportMonth">For The Month Of</div><table class="firstaid-table"><thead><tr><th rowspan="2" class="firstaid-date">Date</th><th colspan="12">First Aid Box Items</th><th colspan="3">Checked By Signature</th></tr><tr><th class="firstaid-item"><span class="vtxt">Small bandage</span></th><th class="firstaid-item"><span class="vtxt">Medium bandage</span></th><th class="firstaid-item"><span class="vtxt">Surgical Gauze</span></th><th class="firstaid-item"><span class="vtxt">Cotton wool</span></th><th class="firstaid-item"><span class="vtxt">Hexisol</span></th><th class="firstaid-item"><span class="vtxt">Scissors</span></th><th class="firstaid-item"><span class="vtxt">Burn ointment</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Cream</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Lequid</span></th><th class="firstaid-item"><span class="vtxt">Tourniquet</span></th><th class="firstaid-item"><span class="vtxt">Adhesive Plaster</span></th><th class="firstaid-item"><span class="vtxt">First Aid Leaflet</span></th><th rowspan="2" class="firstaid-sign">First<br>Aider</th><th rowspan="2" class="firstaid-sign">Medical<br>Asst.</th><th rowspan="2" class="firstaid-hr">HR</th></tr><tr><th>SL. NO.</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr></thead><tbody id="firstaidTableBody"></tbody></table><div class="firstaid-note">* Medicine, thermometer and rectified spirit will remain under the supervision of the responsible nurse in doctors room.</div><div class="firstaid-bottom-sign"><div>Compliance Manager</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
+    <div class="card hidden format-page" id="firstaidPage"><div class="box no-print"><h2>First Aid Check List</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="firstaidMonth" class="form-control" onchange="onMonthChange('firstaid')"></div><div><label class="control-label">Box No</label><input type="text" id="firstaidBoxNo" class="form-control" value="6" oninput="renderChecklist('firstaid')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><div class="control-grid"><div><label class="control-label">Date Select</label><select id="firstaidManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="firstaidManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('firstaid')">Add</button></div></div><div id="firstaidManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet firstaid-sheet" id="firstaidPrintArea"><div class="firstaid-company-title">A&amp;O Apparels (Pvt.) Ltd.</div><div class="firstaid-title"><span class="firstaid-box-label" id="firstaidBoxTitle">BOX NO- 6</span><span class="firstaid-main-title">First Aid Check List</span></div><div class="firstaid-month" id="firstaidReportMonth">For The Month Of</div><table class="firstaid-table"><thead><tr><th rowspan="2" class="firstaid-date">Date</th><th colspan="12">First Aid Box Items</th><th colspan="3">Checked By Signature</th></tr><tr><th class="firstaid-item"><span class="vtxt">Small bandage</span></th><th class="firstaid-item"><span class="vtxt">Medium bandage</span></th><th class="firstaid-item"><span class="vtxt">Surgical Gauze</span></th><th class="firstaid-item"><span class="vtxt">Cotton wool</span></th><th class="firstaid-item"><span class="vtxt">Hexisol</span></th><th class="firstaid-item"><span class="vtxt">Scissors</span></th><th class="firstaid-item"><span class="vtxt">Burn ointment</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Cream</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Lequid</span></th><th class="firstaid-item"><span class="vtxt">Tourniquet</span></th><th class="firstaid-item"><span class="vtxt">Adhesive Plaster</span></th><th class="firstaid-item"><span class="vtxt">First Aid Leaflet</span></th><th rowspan="2" class="firstaid-sign">First<br>Aider</th><th rowspan="2" class="firstaid-sign">Medical<br>Asst.</th><th rowspan="2" class="firstaid-hr">HR</th></tr><tr><th>SL. NO.</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr></thead><tbody id="firstaidTableBody"></tbody></table><div class="firstaid-note">* Medicine, thermometer and rectified spirit will remain under the supervision of the responsible nurse in doctors room.</div><div class="firstaid-bottom-sign"><div>Compliance Manager</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
 
 
-    <div class="card hidden format-page" id="pictorialMenuPage"><div class="pic-menu-card no-print"><h2>Pictorial Evidence Formate</h2><p class="small-note" style="color:#f1f7d8;">Add new evidence অথবা saved evidence list দেখুন।</p><div class="pic-menu-grid"><button class="green" onclick="showPictorialAddNew()">➕ Add New Pictorial Evidence</button><button class="orange" onclick="showPictorialEvidenceList()">📋 Pictorial Evidence List</button></div><button class="gray" onclick="backToFormatList()" style="margin-top:16px;">Back To List</button></div></div>
-    <div class="card hidden format-page" id="pictorialListPage"><div class="pic-list-card no-print"><h2>Pictorial Evidence List</h2><div class="pic-toolbar"><div><button class="green" onclick="showPictorialAddNew()">➕ Add New</button> <button onclick="loadPictorialEvidenceList()">🔄 Refresh</button></div><button class="gray" onclick="showPictorialEvidence()">Back</button></div><div class="pic-table-wrap"><table class="pic-table"><thead><tr><th>SL</th><th>Training Date</th><th>Training Subject</th><th>Trainer</th><th>Action</th></tr></thead><tbody id="pictorialEvidenceListBody"><tr><td colspan="5" class="pic-empty">Loading...</td></tr></tbody></table></div></div></div>
-    <div class="card hidden format-page" id="pictorialPage"><div class="box no-print"><div class="pictorial-entry-card"><h2>Pictorial Evidence Form</h2><div class="pictorial-form-row"><label>Subject Of Training : <span style="color:#c62828;">*</span></label><input type="text" id="pictorialSubject" class="form-control" placeholder="Enter subject of training" oninput="renderPictorialOutput()"></div><div class="control-grid"><div class="pictorial-form-row"><label>Training Date :</label><div class="pictorial-date-grid"><select id="pictorialDateDay" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateMonth" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateYear" class="form-control" onchange="renderPictorialOutput()"></select></div></div><div class="pictorial-form-row"><label>Trainer Name :</label><input type="text" id="pictorialTrainerName" class="form-control" placeholder="Enter trainer name" oninput="renderPictorialOutput()"></div></div><div class="pictorial-form-row"><label>Training Start &amp; End Time :</label><div class="pictorial-time-wrap"><div class="pictorial-time-grid"><select id="pictorialStartHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div><div class="time-divider">-</div><div class="pictorial-time-grid"><select id="pictorialEndHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div></div></div><div class="pictorial-form-row"><label>Duration :</label><div id="pictorialDurationDisplay" class="pictorial-duration-box">Auto calculate হবে</div></div><div class="pictorial-form-row"><label>Photo Upload + Date Stamp :</label><div class="pictorial-photo-toolbar"><p class="small-note">প্রথমে ১টা upload field থাকবে। Add New চাপলে নতুন field আসবে, maximum 6 pictures.</p><button class="green" type="button" onclick="addPictorialPhotoField()">+ Add New</button></div><div id="pictorialPhotoItems" class="pictorial-photo-grid"></div></div><div class="pictorial-form-actions"><button class="gray" onclick="backToFormatList()">Back To List</button><button type="button" onclick="openPictorialPreview()">Preview Output</button><button class="orange" type="button" onclick="printPictorialOutput()">Print / PDF</button><button class="green" type="button" onclick="savePictorialEvidence()">Save To Supabase</button></div><div id="pictorialStatus" class="pictorial-status">Subject Of Training mandatory. Stamp dropdown blank থাকলে photo-এর ভিতরে date stamp আসবে না।</div></div></div><div class="print-area print-sheet pictorial-output-sheet" id="pictorialPrintArea"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div><div class="pictorial-meta"><div><span>Subject Of Training :</span> <span id="outSubjectValue" style="color:#111;font-weight:700;"></span></div><div><span>Training Date :</span> <span id="outTrainingDateValue" style="color:#111;font-weight:700;"></span></div><div><span>Training Time :</span> <span id="outTrainingTimeValue" style="color:#111;font-weight:700;"></span></div><div><span>Duration :</span> <span id="outDurationValue" style="color:#111;font-weight:700;"></span></div><div class="full-row"><span>Trainer Name :</span> <span id="outTrainerNameValue" style="color:#111;font-weight:700;"></span></div></div><div id="pictorialPhotoOutputGrid" class="pictorial-photo-output-grid"><div class="pictorial-no-photo">Photo upload korle ekhane output preview show hobe.</div></div></div></div>
+    <div class="card hidden format-page" id="pictorialMenuPage"><div class="pic-menu-card no-print"><h2>Pictorial Evidence Formate</h2><div class="pic-menu-grid"><button class="green" onclick="showPictorialAddNew()">➕ Add New Pictorial Evidence</button><button class="orange" onclick="showPictorialEvidenceList()">📋 Pictorial Evidence List</button></div><button class="gray" onclick="backToFormatList()" style="margin-top:16px;">Back To List</button></div></div>
+    <div class="card hidden format-page" id="pictorialListPage"><div class="pic-list-card no-print"><h2>Pictorial Evidence List</h2><div class="pic-toolbar"><div><button class="green" onclick="showPictorialAddNew()">➕ Add New</button> <button onclick="loadPictorialEvidenceList()">🔄 Refresh</button></div><button class="gray" onclick="showPictorialEvidence()">Back</button></div><div class="pic-table-wrap"><table class="pic-table"><thead><tr><th>SL</th><th>Training Date</th><th>Training Subject</th><th>Trainer</th><th>Action</th></tr></thead><tbody id="pictorialEvidenceListBody"><tr><td colspan="5" class="pic-empty"></td></tr></tbody></table></div></div></div>
+    <div class="card hidden format-page" id="pictorialPage">
+    <div class="box no-print" id="pictorialSubMenu">
+        <div class="pictorial-submenu-card">
+            <h2>Pictorial Evidence Formate</h2>
+            <div class="pictorial-submenu-grid">
+                <button class="green" type="button" onclick="showPictorialEntry()">Add New Pictorial Evidence</button>
+                <button class="orange" type="button" onclick="showPictorialList()">Pictorial Evidence List</button>
+            </div>
+            <button class="gray" type="button" onclick="backToFormatList()" style="margin-top:16px;">Back To List</button>
+        </div>
+    </div><div class="box no-print hidden" id="pictorialEntryBox"><div class="pictorial-entry-card"><h2>Pictorial Evidence Form</h2><div class="pictorial-form-row"><label>Subject Of Training : <span style="color:#c62828;">*</span></label><input type="text" id="pictorialSubject" class="form-control" placeholder="Enter subject of training" oninput="renderPictorialOutput()"></div><div class="control-grid"><div class="pictorial-form-row"><label>Training Date :</label><div class="pictorial-date-grid"><select id="pictorialDateDay" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateMonth" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateYear" class="form-control" onchange="renderPictorialOutput()"></select></div></div><div class="pictorial-form-row"><label>Trainer Name :</label><input type="text" id="pictorialTrainerName" class="form-control" placeholder="Enter trainer name" oninput="renderPictorialOutput()"></div></div><div class="pictorial-form-row"><label>Training Start &amp; End Time :</label><div class="pictorial-time-wrap"><div class="pictorial-time-grid"><select id="pictorialStartHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div><div class="time-divider">-</div><div class="pictorial-time-grid"><select id="pictorialEndHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div></div></div><div class="pictorial-form-row"><label>Duration :</label><div id="pictorialDurationDisplay" class="pictorial-duration-box">Auto calculate হবে</div></div><div class="pictorial-form-row"><label>Photo Upload + Date Stamp :</label><div class="pictorial-photo-toolbar"><button class="green" type="button" onclick="addPictorialPhotoField()">+ Add New</button></div><div id="pictorialPhotoItems" class="pictorial-photo-grid"></div></div><div class="pictorial-form-actions"><button class="gray" onclick="backToFormatList()">Back To List</button><button type="button" onclick="openPictorialPreview()">Preview Output</button><button class="orange" type="button" onclick="printPictorialOutput()">Print / PDF</button><button class="green" type="button" onclick="savePictorialEvidence()">Save</button></div><div id="pictorialStatus" class="pictorial-status"></div></div></div>
+    <div class="box no-print hidden" id="pictorialListBox">
+        <div class="pictorial-list-card">
+            <h2>Pictorial Evidence List</h2>
+            <div id="pictorialListStatus" class="pictorial-status"></div>
+            <div style="overflow:auto;margin-top:12px;">
+                <table class="pictorial-list-table">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Training Date</th>
+                            <th>Training Subject</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pictorialListBody"></tbody>
+                </table>
+            </div>
+            <button class="gray" type="button" onclick="showPictorialSubMenu()" style="margin-top:14px;">Back</button>
+        </div>
+    </div>
+<div class="print-area print-sheet pictorial-output-sheet" id="pictorialPrintArea"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div><div class="pictorial-meta"><div><span>Subject Of Training :</span> <span id="outSubjectValue" style="color:#111;font-weight:700;"></span></div><div><span>Training Date :</span> <span id="outTrainingDateValue" style="color:#111;font-weight:700;"></span></div><div><span>Training Time :</span> <span id="outTrainingTimeValue" style="color:#111;font-weight:700;"></span></div><div><span>Duration :</span> <span id="outDurationValue" style="color:#111;font-weight:700;"></span></div><div class="full-row"><span>Trainer Name :</span> <span id="outTrainerNameValue" style="color:#111;font-weight:700;"></span></div></div><div id="pictorialPhotoOutputGrid" class="pictorial-photo-output-grid"><div class="pictorial-no-photo"></div></div></div></div>
 </div>
 
 <script>
@@ -576,14 +707,14 @@ async function uploadPictorialPhoto(num,folderName){
 
 async function savePictorialEvidence(){
     const subject=document.getElementById('pictorialSubject')?.value.trim()||'';
-    if(!subject){setPictorialStatus('Subject Of Training mandatory. Eta likhun।','error');return;}
+    if(!subject){setPictorialStatus('Subject Of Training required.','error');return;}
     const trainingDate=getPictorialTrainingDate();
     const trainerName=document.getElementById('pictorialTrainerName')?.value.trim()||'';
     const startText=getTimeText('pictorialStart');
     const endText=getTimeText('pictorialEnd');
     const durationText=getPictorialDurationText();
     try{
-        setPictorialStatus('Saving data and uploading photos...');
+        setPictorialStatus('', '');
         const folderName=`${(trainingDate||'no-date').replace(/[^0-9.]/g,'_')}_${Date.now()}`;
         const uploads=[];
         for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){uploads.push(await uploadPictorialPhoto(i,folderName));}
@@ -606,10 +737,10 @@ async function savePictorialEvidence(){
         };
         const {error}=await supabaseClient.from('Pictorial_Evidence').insert([payload]);
         if(error)throw new Error(error.message);
-        setPictorialStatus('Pictorial Evidence data saved successfully!','success');
+        setPictorialStatus('', '');
     }catch(error){
         console.log(error);
-        setPictorialStatus('Save failed: '+error.message+'<br>Supabase table/storage policy or latest SQL update check করুন।','error');
+        setPictorialStatus('Save failed: '+error.message,'error');
     }
 }
 
@@ -744,9 +875,9 @@ const originalPictorialSaveForList = savePictorialEvidence;
 savePictorialEvidence = async function(){
   if(!picEdit){ return originalPictorialSaveForList(); }
   const subject=document.getElementById('pictorialSubject')?.value.trim()||'';
-  if(!subject){setPictorialStatus('Subject Of Training mandatory. Eta likhun।','error');return;}
+  if(!subject){setPictorialStatus('Subject Of Training required.','error');return;}
   try{
-    setPictorialStatus('Updating data...');
+    setPictorialStatus('', '');
     const payload={subject_of_training:subject,training_date:getPictorialTrainingDate()||null,start_time_text:getTimeText('pictorialStart')||null,end_time_text:getTimeText('pictorialEnd')||null,duration_text:getPictorialDurationText()||null,trainer_name:document.getElementById('pictorialTrainerName')?.value.trim()||null};
     const folder='edit_'+Date.now();
     for(let i=1;i<=6;i++){
@@ -758,9 +889,314 @@ savePictorialEvidence = async function(){
     const {error}=await supabaseClient.from('Pictorial_Evidence').update(payload).eq('id',picEdit.id);
     if(error) throw error;
     picEdit={...picEdit,...payload};
-    setPictorialStatus('Pictorial Evidence updated successfully!','success');
+    setPictorialStatus('', '');
   }catch(e){setPictorialStatus('Update failed: '+(e.message||e),'error');}
 };
+
+
+/* Pictorial submenu blank-page fix */
+let currentPictorialRecords = [];
+
+function hidePictorialSections(){
+    const ids = ['pictorialSubMenu','pictorialEntryBox','pictorialListBox'];
+    ids.forEach(id=>{
+        const el=document.getElementById(id);
+        if(el) el.classList.add('hidden');
+    });
+}
+
+function showPictorialSubMenu(){
+    hidePictorialSections();
+    const sub=document.getElementById('pictorialSubMenu');
+    if(sub) sub.classList.remove('hidden');
+}
+
+function showPictorialEntry(){
+    hidePictorialSections();
+    const entry=document.getElementById('pictorialEntryBox');
+    if(entry) entry.classList.remove('hidden');
+    initPictorialDateDropdowns();
+}
+
+async function showPictorialList(){
+    hidePictorialSections();
+    const list=document.getElementById('pictorialListBox');
+    if(list) list.classList.remove('hidden');
+    await loadPictorialEvidenceList();
+}
+
+showPictorialEvidence = function(){
+    document.getElementById('formatListPage').classList.add('hidden');
+    document.getElementById('humidityPage').classList.add('hidden');
+    document.getElementById('temperaturePage').classList.add('hidden');
+    document.getElementById('firstaidPage').classList.add('hidden');
+    document.getElementById('pictorialPage').classList.remove('hidden');
+    showPictorialSubMenu();
+};
+
+const oldBackToFormatListPictorial = backToFormatList;
+backToFormatList = function(){
+    hidePictorialSections();
+    oldBackToFormatListPictorial();
+};
+
+async function loadPictorialEvidenceList(){
+    const body=document.getElementById('pictorialListBody');
+    const status=document.getElementById('pictorialListStatus');
+    if(body) body.innerHTML='';
+    if(status){status.className='pictorial-status';status.innerHTML='Loading saved evidence...';}
+
+    try{
+        const {data,error}=await supabaseClient
+            .from('Pictorial_Evidence')
+            .select('*')
+            .order('created_at',{ascending:false});
+        if(error) throw error;
+        currentPictorialRecords = data || [];
+
+        if(!currentPictorialRecords.length){
+            if(status){status.className='pictorial-status';status.innerHTML='No saved pictorial evidence found.';}
+            return;
+        }
+
+        if(status){status.className='pictorial-status success';status.innerHTML=currentPictorialRecords.length+' records found.';}
+
+        body.innerHTML = currentPictorialRecords.map((r,idx)=>`
+            <tr>
+                <td>${idx+1}</td>
+                <td class="date-cell">${r.training_date || '-'}</td>
+                <td class="subject-cell">${r.subject_of_training || '-'}</td>
+                <td>
+                    <button class="pictorial-action-btn green" title="Edit" onclick="editPictorialEvidence(${idx})">✏️</button>
+                    <button class="pictorial-action-btn orange" title="Print" onclick="printSavedPictorialEvidence(${idx})">🖨️</button>
+                    <button class="pictorial-action-btn" title="Preview" onclick="previewSavedPictorialEvidence(${idx})">👁️</button>
+                </td>
+            </tr>
+        `).join('');
+    }catch(err){
+        console.log(err);
+        if(status){status.className='pictorial-status error';status.innerHTML='List load failed: '+err.message;}
+    }
+}
+
+function editPictorialEvidence(index){
+    const r=currentPictorialRecords[index];
+    if(!r) return;
+    showPictorialEntry();
+    document.getElementById('pictorialSubject').value = r.subject_of_training || '';
+    document.getElementById('pictorialTrainerName').value = r.trainer_name || '';
+    // Date may be DD.MM.YYYY or YYYY-MM-DD; support both.
+    const dateText = r.training_date || '';
+    let d='',m='',y='';
+    if(dateText.includes('.')){
+        [d,m,y]=dateText.split('.');
+    }else if(dateText.includes('-')){
+        const parts=dateText.split('-');
+        if(parts[0].length===4){y=parts[0];m=parts[1];d=parts[2];}
+        else{d=parts[0];m=parts[1];y=parts[2];}
+    }
+    if(d) document.getElementById('pictorialDateDay').value=String(d).padStart(2,'0');
+    if(m) document.getElementById('pictorialDateMonth').value=String(m).padStart(2,'0');
+    if(y) document.getElementById('pictorialDateYear').value=y;
+    setPictorialStatus('', '');
+}
+
+function savedRecordToHtml(r){
+    const photos=[];
+    for(let i=1;i<=6;i++){
+        const url=r['picture_'+i+'_url'];
+        const stamp=r['picture_'+i+'_stamp_text'];
+        if(url) photos.push({num:i,url,stamp});
+    }
+    const countClass='count-'+(photos.length||1);
+    const photoHtml = photos.length ? photos.map(p=>`
+        <div class="pictorial-photo-output-box">
+            <div class="img-wrap">
+                <div class="photo-inner">
+                    <img src="${p.url}" alt="Picture ${p.num}">
+                    ${p.stamp ? `<div class="pictorial-photo-stamp">${p.stamp}</div>` : ''}
+                </div>
+            </div>
+            <div class="pictorial-photo-caption">Picture ${p.num}</div>
+        </div>`).join('') : `<div class="pictorial-no-photo">No photo uploaded.</div>`;
+
+    return buildSavedPictorialHtml(r, photoHtml, countClass);
+}
+
+function buildSavedPictorialHtml(r, photoHtml, countClass){
+    return `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pictorial Evidence Preview</title>
+<style>
+@page{size:A4 portrait;margin:8mm;}
+*{box-sizing:border-box;font-family:Arial,sans-serif;}
+body{margin:0;background:#e8ead9;padding:14px;color:#111;}
+.pictorial-output-sheet{background:#fff;max-width:930px;margin:0 auto;padding:16px 18px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.18);}
+.pictorial-output-header{text-align:center;border-bottom:2px solid #0754a6;padding-bottom:10px;margin-bottom:12px;}
+.pictorial-output-header h2{font-size:26px;color:#0754a6;margin:0 0 4px;}
+.pictorial-output-header h3{font-size:20px;color:#111;margin:0;}
+.pictorial-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0 16px;}
+.pictorial-meta div{background:#f8fbff;border:1px solid #bbdefb;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:700;color:#111;}
+.pictorial-meta span{color:#0754a6;font-weight:900;}
+.pictorial-meta .full-row{grid-column:1 / -1;}
+.pictorial-photo-output-grid{display:grid;gap:10px;}
+.pictorial-photo-output-grid.count-1{grid-template-columns:1fr;}
+.pictorial-photo-output-grid.count-2{grid-template-columns:1fr;}
+.pictorial-photo-output-grid.count-3,.pictorial-photo-output-grid.count-4{grid-template-columns:repeat(2,1fr);}
+.pictorial-photo-output-grid.count-5,.pictorial-photo-output-grid.count-6{grid-template-columns:repeat(2,1fr);}
+.pictorial-photo-output-box{position:relative;border:1.5px solid #9fbad5;border-radius:12px;padding:8px;background:#fff;}
+.pictorial-photo-output-box .img-wrap{position:relative;width:100%;background:#fff;display:block;overflow:hidden;}
+.count-1 .img-wrap{height:620px;}
+.count-2 .img-wrap{height:305px;}
+.count-3 .img-wrap,.count-4 .img-wrap{height:245px;}
+.count-5 .img-wrap{height:175px;}.count-6 .img-wrap{height:190px;}
+.photo-inner{position:relative;display:block;width:100%;height:100%;}
+.photo-inner img{width:100%;height:100%;object-fit:fill;display:block;background:#fff;}
+.pictorial-photo-caption{position:absolute;top:8px;left:8px;background:#2f73bd;color:white;border-radius:5px;padding:5px 9px;font-weight:900;font-size:13px;}
+.pictorial-photo-stamp{position:absolute;right:10px;bottom:8px;color:#ff9900;background:transparent;text-shadow:none;box-shadow:none;border:none;padding:0;margin:0;font-family:'Courier New',monospace;font-size:15px;font-weight:900;letter-spacing:.4px;line-height:1;z-index:9;white-space:nowrap;}
+.pictorial-no-photo{padding:30px 15px;text-align:center;border:1.5px dashed #90caf9;border-radius:12px;background:#f8fbff;color:#607d8b;font-weight:700;}
+.actions{text-align:center;margin-bottom:12px;}
+.actions button{width:auto;padding:9px 18px;border:0;border-radius:8px;background:#0754a6;color:white;font-weight:900;cursor:pointer;margin:0 5px;}
+@media print{body{background:#fff;padding:0}.actions{display:none}.pictorial-output-sheet{max-width:none;box-shadow:none;border-radius:0;padding:0}}
+</style>
+</head>
+<body>
+<div class="actions"><button onclick="window.print()">Print / PDF</button><button onclick="window.close()">Close</button></div>
+<div class="pictorial-output-sheet">
+    <div class="pictorial-output-header">
+        <h2>A&amp;O Apparels (Pvt.) Ltd.</h2>
+        <h3>Pictorial Evidence Form</h3>
+    </div>
+    <div class="pictorial-meta">
+        <div><span>Subject Of Training :</span> ${r.subject_of_training || '-'}</div>
+        <div><span>Training Date :</span> ${r.training_date || '-'}</div>
+        <div><span>Training Time :</span> ${(r.start_time_text&&r.end_time_text)?`${r.start_time_text} - ${r.end_time_text}`:(r.start_time_text||r.end_time_text||'-')}</div>
+        <div><span>Duration :</span> ${r.duration_text || '-'}</div>
+        <div class="full-row"><span>Trainer Name :</span> ${r.trainer_name || '-'}</div>
+    </div>
+    <div class="pictorial-photo-output-grid ${countClass}">
+        ${photoHtml}
+    </div>
+</div>
+</body>
+</html>`;
+}
+
+function previewSavedPictorialEvidence(index){
+    const r=currentPictorialRecords[index];
+    if(!r) return;
+    const win=window.open('', '_blank');
+    win.document.write(savedRecordToHtml(r));
+    win.document.close();
+}
+
+function printSavedPictorialEvidence(index){
+    previewSavedPictorialEvidence(index);
+}
+
+
+
+/* Final save/list behavior: Save -> List auto refresh, no instruction notes */
+function clearPictorialFormForNext(){
+    const ids = ['pictorialSubject','pictorialTrainerName'];
+    ids.forEach(id=>{const el=document.getElementById(id); if(el) el.value='';});
+    ['pictorialDateDay','pictorialDateMonth','pictorialDateYear','pictorialStartHour','pictorialStartMinute','pictorialStartAmPm','pictorialEndHour','pictorialEndMinute','pictorialEndAmPm'].forEach(id=>{
+        const el=document.getElementById(id); if(el) el.value='';
+    });
+    const dur=document.getElementById('pictorialDurationDisplay');
+    if(dur) dur.textContent='';
+
+    for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
+        removePictorialPhoto(i);
+    }
+    pictorialPhotoCount=1;
+    showOnlyPictorialPhotoFields();
+    const st=document.getElementById('pictorialStatus');
+    if(st){st.innerHTML='';st.className='pictorial-status';}
+}
+
+async function savePictorialEvidenceFinal(){
+    const subject=document.getElementById('pictorialSubject')?.value.trim()||'';
+    if(!subject){setPictorialStatus('Subject Of Training required.','error');return;}
+    const trainingDate=getPictorialTrainingDate();
+    const trainerName=document.getElementById('pictorialTrainerName')?.value.trim()||'';
+    const startText=getTimeText('pictorialStart');
+    const endText=getTimeText('pictorialEnd');
+    const durationText=getPictorialDurationText();
+
+    try{
+        const payload={
+            subject_of_training:subject,
+            training_date:trainingDate||null,
+            start_time_text:startText||null,
+            end_time_text:endText||null,
+            duration_text:durationText||null,
+            trainer_name:trainerName||null
+        };
+
+        let uploads = [];
+        const folderName=`${(trainingDate||'no-date').replace(/[^0-9.]/g,'_')}_${Date.now()}`;
+
+        for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
+            const input=document.getElementById('pictorialPhoto'+i);
+            const file=input&&input.files?input.files[0]:null;
+            if(file){
+                const up=await uploadPictorialPhoto(i,folderName);
+                payload[`picture_${i}_path`]=up.path;
+                payload[`picture_${i}_url`]=up.url;
+            }else if(picEdit){
+                payload[`picture_${i}_path`]=picEdit[`picture_${i}_path`]||'';
+                payload[`picture_${i}_url`]=picEdit[`picture_${i}_url`]||'';
+            }else{
+                payload[`picture_${i}_path`]='';
+                payload[`picture_${i}_url`]='';
+            }
+            payload[`picture_${i}_stamp_text`]=getPictorialStampText(i)||(picEdit?picEdit[`picture_${i}_stamp_text`]||null:null);
+        }
+
+        let result;
+        if(picEdit && picEdit.id){
+            result = await supabaseClient.from('Pictorial_Evidence').update(payload).eq('id',picEdit.id);
+        }else{
+            const durationValue=Number((durationText.match(/\d+/)||['0'])[0]||0);
+            payload.duration_value=durationValue||null;
+            payload.duration_unit=durationValue?'Minutes':null;
+            result = await supabaseClient.from('Pictorial_Evidence').insert([payload]);
+        }
+
+        if(result.error) throw result.error;
+
+        picEdit=null;
+        clearPictorialFormForNext();
+
+        // After save, go to list and refresh automatically
+        if(typeof showPictorialList === 'function'){
+            await showPictorialList();
+        }else if(typeof showPictorialEvidenceList === 'function'){
+            showPictorialEvidenceList();
+        }
+    }catch(e){
+        setPictorialStatus('Save failed: '+(e.message||e),'error');
+    }
+}
+
+savePictorialEvidence = savePictorialEvidenceFinal;
+
+// Ensure status/list messages remain blank unless error/content is needed
+const oldLoadPictorialEvidenceListFinal = loadPictorialEvidenceList;
+loadPictorialEvidenceList = async function(){
+    const status=document.getElementById('pictorialListStatus');
+    if(status){status.innerHTML='';status.className='pictorial-status';}
+    await oldLoadPictorialEvidenceListFinal();
+    const st=document.getElementById('pictorialListStatus');
+    if(st && /records found|Loading saved evidence|No saved pictorial evidence/i.test(st.innerHTML)){
+        st.innerHTML='';
+        st.className='pictorial-status';
+    }
+};
+
 </script>
 </body>
 </html>
