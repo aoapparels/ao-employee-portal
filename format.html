@@ -2046,6 +2046,73 @@ savePictorialEvidence = async function(){
   },100);
 })();
 
+
+
+/* PICTORIAL REMOVE HARD FIX - verifies DB delete */
+(function(){
+  function el(id){return document.getElementById(id);}
+  function esc(v){return String(v ?? '').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
+  window.removePictorialEvidence = async function(index){
+    const row = (window.picCache || [])[index];
+    if(!row){
+      alert('Remove failed: selected row not found.');
+      return;
+    }
+    if(!row.id){
+      alert('Remove failed: this row has no ID. Please check Pictorial_Evidence table has id column.');
+      return;
+    }
+
+    const ok = confirm('Ei pictorial evidence permanently remove korte chan?');
+    if(!ok) return;
+
+    try{
+      // 1) Delete database row first and verify deletion.
+      const del = await supabaseClient
+        .from('Pictorial_Evidence')
+        .delete()
+        .eq('id', row.id)
+        .select('id');
+
+      if(del.error) throw del.error;
+
+      if(!del.data || del.data.length === 0){
+        alert('Remove failed: Supabase DELETE policy/RLS permission nai. SQL policy run korte hobe.');
+        return;
+      }
+
+      // 2) Try removing storage files after DB deletion. If storage delete blocked, don't restore row.
+      const paths = [];
+      for(let i=1;i<=6;i++){
+        const p = row[`picture_${i}_path`];
+        if(p) paths.push(p);
+      }
+      if(paths.length){
+        const st = await supabaseClient.storage.from(PICTORIAL_BUCKET).remove(paths);
+        if(st.error){
+          console.log('Storage remove failed:', st.error.message);
+        }
+      }
+
+      // 3) Remove from local list immediately.
+      window.picCache = (window.picCache || []).filter(r => r.id !== row.id);
+      try{ if(typeof picCache !== 'undefined') picCache = window.picCache; }catch(e){}
+
+      if(typeof loadPictorialEvidenceList === 'function'){
+        await loadPictorialEvidenceList();
+      }else{
+        const body = el('pictorialEvidenceListBody') || el('pictorialListBody');
+        if(body){
+          body.querySelectorAll('tr')[index]?.remove();
+        }
+      }
+    }catch(e){
+      alert('Remove failed: ' + (e.message || e));
+    }
+  };
+})();
+
 </script>
 </body>
 </html>
