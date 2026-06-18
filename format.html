@@ -329,7 +329,7 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
             </div>
             <button class="gray" type="button" onclick="backToFormatList()" style="margin-top:16px;">Back To List</button>
         </div>
-    </div><div class="box no-print hidden" id="pictorialEntryBox"><div class="pictorial-entry-card"><h2>Pictorial Evidence Form</h2><div class="pictorial-form-row"><label>Subject Of Training : <span style="color:#c62828;">*</span></label><input type="text" id="pictorialSubject" class="form-control" placeholder="Enter subject of training" oninput="renderPictorialOutput()"></div><div class="control-grid"><div class="pictorial-form-row"><label>Training Date :</label><div class="pictorial-date-grid"><select id="pictorialDateDay" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateMonth" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateYear" class="form-control" onchange="renderPictorialOutput()"></select></div></div><div class="pictorial-form-row"><label>Trainer Name :</label><input type="text" id="pictorialTrainerName" class="form-control" placeholder="Enter trainer name" oninput="renderPictorialOutput()"></div></div><div class="pictorial-form-row"><label>Training Start &amp; End Time :</label><div class="pictorial-time-wrap"><div class="pictorial-time-grid"><select id="pictorialStartHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div><div class="time-divider">-</div><div class="pictorial-time-grid"><select id="pictorialEndHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div></div></div><div class="pictorial-form-row"><label>Duration :</label><div id="pictorialDurationDisplay" class="pictorial-duration-box">Auto calculate হবে</div></div><div class="pictorial-form-row"><label>Photo Upload + Date Stamp :</label><div class="pictorial-photo-toolbar"><button class="green" type="button" onclick="addPictorialPhotoField()">+ Add New</button></div><div id="pictorialPhotoItems" class="pictorial-photo-grid"></div></div><div class="pictorial-form-actions"><button class="gray" onclick="backToFormatList()">Back To List</button><button type="button" onclick="openPictorialPreview()">Preview Output</button><button class="orange" type="button" onclick="printPictorialOutput()">Print / PDF</button><button class="green" type="button" onclick="savePictorialEvidence()">Save</button></div><div id="pictorialStatus" class="pictorial-status"></div></div></div>
+    </div><div class="box no-print hidden" id="pictorialEntryBox"><div class="pictorial-entry-card"><h2>Pictorial Evidence Form</h2><div class="pictorial-form-row"><label>Subject Of Training :</label><input type="text" id="pictorialSubject" class="form-control" placeholder="Enter subject of training" oninput="renderPictorialOutput()"></div><div class="control-grid"><div class="pictorial-form-row"><label>Training Date :</label><div class="pictorial-date-grid"><select id="pictorialDateDay" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateMonth" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateYear" class="form-control" onchange="renderPictorialOutput()"></select></div></div><div class="pictorial-form-row"><label>Trainer Name :</label><input type="text" id="pictorialTrainerName" class="form-control" placeholder="Enter trainer name" oninput="renderPictorialOutput()"></div></div><div class="pictorial-form-row"><label>Training Start &amp; End Time :</label><div class="pictorial-time-wrap"><div class="pictorial-time-grid"><select id="pictorialStartHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div><div class="time-divider">-</div><div class="pictorial-time-grid"><select id="pictorialEndHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div></div></div><div class="pictorial-form-row"><label>Duration :</label><div id="pictorialDurationDisplay" class="pictorial-duration-box">Auto calculate হবে</div></div><div class="pictorial-form-row"><label>Photo Upload + Date Stamp :</label><div class="pictorial-photo-toolbar"><button class="green" type="button" onclick="addPictorialPhotoField()">+ Add New</button></div><div id="pictorialPhotoItems" class="pictorial-photo-grid"></div></div><div class="pictorial-form-actions"><button class="gray" onclick="backToFormatList()">Back To List</button><button type="button" onclick="openPictorialPreview()">Preview Output</button><button class="orange" type="button" onclick="printPictorialOutput()">Print / PDF</button><button class="green" type="button" onclick="savePictorialEvidence()">Save</button></div><div id="pictorialStatus" class="pictorial-status"></div></div></div>
     <div class="box no-print hidden" id="pictorialListBox">
         <div class="pictorial-list-card">
             <h2>Pictorial Evidence List</h2>
@@ -1420,6 +1420,101 @@ if(oldPicHtmlDateFix){
         return oldPicHtmlDateFix(copy);
     };
 }
+
+
+
+/* Final no-mandatory safe save: blank fields allowed */
+function safeTextValue(id){
+    return (document.getElementById(id)?.value || '').trim();
+}
+function safeDateValueForDB(){
+    const d=document.getElementById('pictorialDateDay')?.value||'';
+    const m=document.getElementById('pictorialDateMonth')?.value||'';
+    const y=document.getElementById('pictorialDateYear')?.value||'';
+    if(!d || !m || !y) return null;
+    return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+function safeDurationNumber(txt){
+    const n = Number((String(txt||'').match(/\d+/)||['0'])[0]||0);
+    return n || 0;
+}
+function clearPictorialStatus(){
+    const st=document.getElementById('pictorialStatus');
+    if(st){st.innerHTML='';st.className='pictorial-status';}
+}
+
+savePictorialEvidence = async function(){
+    clearPictorialStatus();
+
+    const subject = safeTextValue('pictorialSubject');       // optional
+    const trainerName = safeTextValue('pictorialTrainerName'); // optional
+    const trainingDateDB = safeDateValueForDB();             // optional
+    const trainingDateView = (typeof getPictorialTrainingDate === 'function') ? getPictorialTrainingDate() : '';
+    const startText = (typeof getTimeText === 'function') ? getTimeText('pictorialStart') : '';
+    const endText = (typeof getTimeText === 'function') ? getTimeText('pictorialEnd') : '';
+    const durationText = (typeof getPictorialDurationText === 'function') ? getPictorialDurationText() : '';
+    const activeEdit = (typeof getSafePicEdit === 'function') ? getSafePicEdit() : (window.__pictorialEditRecord || null);
+
+    try{
+        const payload = {
+            // Text columns get empty string instead of null, so NOT NULL text columns will not break.
+            subject_of_training: subject || '',
+            training_date: trainingDateDB,   // date column should be nullable by SQL below if blank
+            start_time_text: startText || '',
+            end_time_text: endText || '',
+            duration_text: durationText || '',
+            trainer_name: trainerName || '',
+            duration_value: safeDurationNumber(durationText),
+            duration_unit: durationText ? 'Minutes' : ''
+        };
+
+        const folderName = `${(trainingDateView || 'no-date').replace(/[^0-9.]/g,'_')}_${Date.now()}`;
+
+        for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
+            const input=document.getElementById('pictorialPhoto'+i);
+            const file=input && input.files ? input.files[0] : null;
+
+            if(file){
+                const up = await uploadPictorialPhoto(i, folderName);
+                payload[`picture_${i}_path`] = up.path || '';
+                payload[`picture_${i}_url`] = up.url || '';
+            }else if(activeEdit){
+                payload[`picture_${i}_path`] = activeEdit[`picture_${i}_path`] || '';
+                payload[`picture_${i}_url`] = activeEdit[`picture_${i}_url`] || '';
+            }else{
+                payload[`picture_${i}_path`] = '';
+                payload[`picture_${i}_url`] = '';
+            }
+
+            payload[`picture_${i}_stamp_text`] = (typeof getPictorialStampText === 'function' ? getPictorialStampText(i) : '') || (activeEdit ? activeEdit[`picture_${i}_stamp_text`] || '' : '');
+        }
+
+        let result;
+        if(activeEdit && activeEdit.id){
+            result = await supabaseClient.from('Pictorial_Evidence').update(payload).eq('id', activeEdit.id);
+        }else{
+            result = await supabaseClient.from('Pictorial_Evidence').insert([payload]);
+        }
+
+        if(result.error) throw result.error;
+
+        if(typeof setSafePicEdit === 'function') setSafePicEdit(null);
+        window.__pictorialEditRecord = null;
+
+        if(typeof clearPictorialFormForNext === 'function') clearPictorialFormForNext();
+
+        // Auto go to list and refresh
+        if(typeof showPictorialList === 'function'){
+            await showPictorialList();
+        }else if(typeof showPictorialEvidenceList === 'function'){
+            showPictorialEvidenceList();
+        }else{
+            backToFormatList();
+        }
+    }catch(e){
+        setPictorialStatus('Save failed: ' + (e.message || e), 'error');
+    }
+};
 
 </script>
 </body>
