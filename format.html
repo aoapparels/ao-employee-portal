@@ -1302,6 +1302,125 @@ savePictorialEvidence = async function(){
     }
 };
 
+
+
+/* Final fix: Supabase date format YYYY-MM-DD */
+function getPictorialTrainingDateForDB(){
+    const d=document.getElementById('pictorialDateDay')?.value||'';
+    const m=document.getElementById('pictorialDateMonth')?.value||'';
+    const y=document.getElementById('pictorialDateYear')?.value||'';
+    if(!d||!m||!y)return null;
+    return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+
+function formatPictorialDateForView(v){
+    const s=String(v||'');
+    if(!s) return '';
+    if(s.includes('-') && s.split('-')[0].length===4){
+        const [y,m,d]=s.split('-');
+        return `${d}.${m}.${y}`;
+    }
+    return s;
+}
+
+savePictorialEvidence = async function(){
+    const subject=document.getElementById('pictorialSubject')?.value.trim()||'';
+    if(!subject){setPictorialStatus('Subject Of Training required.','error');return;}
+
+    const trainingDateDB=getPictorialTrainingDateForDB();
+    const trainingDateView=getPictorialTrainingDate();
+    const trainerName=document.getElementById('pictorialTrainerName')?.value.trim()||'';
+    const startText=getTimeText('pictorialStart');
+    const endText=getTimeText('pictorialEnd');
+    const durationText=getPictorialDurationText();
+    const activeEdit = (typeof getSafePicEdit === 'function') ? getSafePicEdit() : null;
+
+    try{
+        const payload={
+            subject_of_training:subject,
+            training_date:trainingDateDB,
+            start_time_text:startText||null,
+            end_time_text:endText||null,
+            duration_text:durationText||null,
+            trainer_name:trainerName||null
+        };
+
+        const folderName=`${(trainingDateView||'no-date').replace(/[^0-9.]/g,'_')}_${Date.now()}`;
+
+        for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
+            const input=document.getElementById('pictorialPhoto'+i);
+            const file=input&&input.files?input.files[0]:null;
+
+            if(file){
+                const up=await uploadPictorialPhoto(i,folderName);
+                payload[`picture_${i}_path`]=up.path;
+                payload[`picture_${i}_url`]=up.url;
+            }else if(activeEdit){
+                payload[`picture_${i}_path`]=activeEdit[`picture_${i}_path`]||'';
+                payload[`picture_${i}_url`]=activeEdit[`picture_${i}_url`]||'';
+            }else{
+                payload[`picture_${i}_path`]='';
+                payload[`picture_${i}_url`]='';
+            }
+
+            payload[`picture_${i}_stamp_text`]=getPictorialStampText(i)||(activeEdit?activeEdit[`picture_${i}_stamp_text`]||null:null);
+        }
+
+        let result;
+        if(activeEdit && activeEdit.id){
+            result = await supabaseClient.from('Pictorial_Evidence').update(payload).eq('id',activeEdit.id);
+        }else{
+            const durationValue=Number((durationText.match(/\d+/)||['0'])[0]||0);
+            payload.duration_value=durationValue||null;
+            payload.duration_unit=durationValue?'Minutes':null;
+            result = await supabaseClient.from('Pictorial_Evidence').insert([payload]);
+        }
+
+        if(result.error) throw result.error;
+
+        if(typeof setSafePicEdit === 'function') setSafePicEdit(null);
+
+        if(typeof clearPictorialFormForNext === 'function'){
+            clearPictorialFormForNext();
+        }
+
+        if(typeof showPictorialList === 'function'){
+            await showPictorialList();
+        }else if(typeof showPictorialEvidenceList === 'function'){
+            showPictorialEvidenceList();
+        }
+    }catch(e){
+        setPictorialStatus('Save failed: '+(e.message||e),'error');
+    }
+};
+
+// Make list date display friendly even if database stores YYYY-MM-DD
+const oldLoadPictorialEvidenceListDateFix = (typeof loadPictorialEvidenceList === 'function') ? loadPictorialEvidenceList : null;
+if(oldLoadPictorialEvidenceListDateFix){
+    loadPictorialEvidenceList = async function(){
+        await oldLoadPictorialEvidenceListDateFix();
+        document.querySelectorAll('#pictorialListBody .date-cell, #pictorialEvidenceListBody .pic-date').forEach(el=>{
+            el.textContent = formatPictorialDateForView(el.textContent.trim());
+        });
+    };
+}
+
+const oldSavedRecordToHtmlDateFix = (typeof savedRecordToHtml === 'function') ? savedRecordToHtml : null;
+if(oldSavedRecordToHtmlDateFix){
+    savedRecordToHtml = function(r){
+        const copy = {...r, training_date: formatPictorialDateForView(r.training_date)};
+        return oldSavedRecordToHtmlDateFix(copy);
+    };
+}
+
+const oldPicHtmlDateFix = (typeof picHtml === 'function') ? picHtml : null;
+if(oldPicHtmlDateFix){
+    picHtml = function(r){
+        const copy = {...r, training_date: formatPictorialDateForView(r.training_date)};
+        return oldPicHtmlDateFix(copy);
+    };
+}
+
 </script>
 </body>
 </html>
