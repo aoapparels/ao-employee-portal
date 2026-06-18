@@ -39,6 +39,59 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
 .pictorial-photo-output-box img{width:100%!important;height:100%!important;object-fit:contain!important;background:#fff!important;}
 .pictorial-photo-stamp{position:absolute!important;right:10px!important;bottom:8px!important;color:#ff9b00!important;background:transparent!important;text-shadow:none!important;box-shadow:none!important;border:none!important;padding:0!important;font-family:'Courier New',monospace!important;font-size:15px!important;font-weight:900!important;letter-spacing:.4px!important;line-height:1!important;z-index:3!important;}
 
+
+/* Latest fix: timestamp stays inside actual photo, with seconds */
+.pictorial-stamp-grid{grid-template-columns:repeat(7,1fr)!important;}
+.pictorial-photo-output-box .img-wrap{
+    position:relative!important;
+    background:#fff!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    overflow:hidden!important;
+}
+.pictorial-photo-output-box .photo-inner{
+    position:relative!important;
+    display:inline-block!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    line-height:0!important;
+}
+.pictorial-photo-output-box .photo-inner img{
+    display:block!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    width:auto!important;
+    height:auto!important;
+    object-fit:contain!important;
+    background:#fff!important;
+}
+.pictorial-photo-output-box img{
+    object-fit:contain!important;
+    background:#fff!important;
+}
+.pictorial-photo-stamp{
+    position:absolute!important;
+    right:10px!important;
+    bottom:8px!important;
+    color:#ff9b00!important;
+    background:transparent!important;
+    text-shadow:none!important;
+    box-shadow:none!important;
+    border:none!important;
+    padding:0!important;
+    font-family:'Courier New',monospace!important;
+    font-size:15px!important;
+    font-weight:900!important;
+    letter-spacing:.4px!important;
+    line-height:1!important;
+    z-index:3!important;
+    white-space:nowrap!important;
+}
+@media(max-width:700px){
+    .pictorial-stamp-grid{grid-template-columns:repeat(2,1fr)!important;}
+}
+
 </style>
 </head>
 <body>
@@ -131,11 +184,7 @@ function populateDayMonthYear(prefix,setToday){
     if(year.options.length===0){year.innerHTML='<option value="">YYYY</option>';for(let y=now.getFullYear()-2;y<=now.getFullYear()+3;y++){year.innerHTML+=`<option value="${y}">${y}</option>`;}}
     if(setToday){if(!day.value)day.value=String(now.getDate()).padStart(2,'0');if(!month.value)month.value=String(now.getMonth()+1).padStart(2,'0');if(!year.value)year.value=String(now.getFullYear());}
 }
-function populateTimeDropdowns(prefix){
-    const hour=document.getElementById(prefix+'Hour'),minute=document.getElementById(prefix+'Minute');
-    if(hour&&hour.options.length===0){hour.innerHTML='<option value="">HH</option>';for(let h=1;h<=12;h++){const v=String(h).padStart(2,'0');hour.innerHTML+=`<option value="${v}">${v}</option>`;}}
-    if(minute&&minute.options.length===0){minute.innerHTML='<option value="">MM</option>';for(let m=0;m<60;m+=5){const v=String(m).padStart(2,'0');minute.innerHTML+=`<option value="${v}">${v}</option>`;}}
-}
+function populateTimeDropdowns(prefix){const hour=document.getElementById(prefix+'Hour'),minute=document.getElementById(prefix+'Minute'),second=document.getElementById(prefix+'Second');if(hour&&hour.options.length===0){hour.innerHTML='<option value="">HH</option>';for(let h=1;h<=12;h++){const v=String(h).padStart(2,'0');hour.innerHTML+=`<option value="${v}">${v}</option>`;}}if(minute&&minute.options.length===0){minute.innerHTML='<option value="">MM</option>';for(let m=0;m<60;m+=5){const v=String(m).padStart(2,'0');minute.innerHTML+=`<option value="${v}">${v}</option>`;}}if(second&&second.options.length===0){second.innerHTML='<option value="">SS</option>';for(let s=0;s<60;s+=5){const v=String(s).padStart(2,'0');second.innerHTML+=`<option value="${v}">${v}</option>`;}}}
 function setPictorialStatus(msg,type=''){
     const el=document.getElementById('pictorialStatus');
     if(!el)return;
@@ -171,18 +220,7 @@ function getPictorialDurationText(){
     const t=document.getElementById('pictorialDurationDisplay').textContent.trim();
     return t==='Auto calculate হবে'?'':t;
 }
-function getPictorialStampText(num){
-    const d=document.getElementById('pictorialStampDay'+num)?.value||'',m=document.getElementById('pictorialStampMonth'+num)?.value||'',y=document.getElementById('pictorialStampYear'+num)?.value||'',h=document.getElementById('pictorialStampHour'+num)?.value||'',mi=document.getElementById('pictorialStampMinute'+num)?.value||'',ap=document.getElementById('pictorialStampAmPm'+num)?.value||'';
-    const hasAny = d || m || y || h || mi || ap;
-    const complete = d && m && y && h && mi && ap;
-    if(!hasAny || !complete) return '';
-    return `${d}.${m}.${y} ${h}:${mi} ${ap}`;
-}
-function updatePictorialPreviewStamp(num){
-    const stamp = getPictorialStampText(num);
-    const el = document.getElementById('pictorialPreviewStamp'+num);
-    if(el){el.textContent=stamp;el.style.display=stamp?'block':'none';}
-}
+function getPictorialStampText(num){const d=document.getElementById('pictorialStampDay'+num).value,m=document.getElementById('pictorialStampMonth'+num).value,y=document.getElementById('pictorialStampYear'+num).value,h=document.getElementById('pictorialStampHour'+num).value,mi=document.getElementById('pictorialStampMinute'+num).value,sec=document.getElementById('pictorialStampSecond'+num)?.value||'',ap=document.getElementById('pictorialStampAmPm'+num).value;let date=(d&&m&&y)?`${d}.${m}.${y}`:'';let time='';if(h&&mi&&ap){time=sec?`${h}:${mi}:${sec} ${ap}`:`${h}:${mi} ${ap}`;}return [date,time].filter(Boolean).join(' ');}
 function previewPictorialPhoto(num){
     const input=document.getElementById('pictorialPhoto'+num);
     const preview=document.getElementById('pictorialPreview'+num);
