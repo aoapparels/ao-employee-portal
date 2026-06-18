@@ -123,6 +123,40 @@ function picHtml(r){let photos=[];for(let n=1;n<=6;n++)if(r[`picture_${n}_url`])
 #pictorialStatus:empty,#pictorialListStatus:empty{display:none!important;}
 .pic-empty:empty{display:none!important;}
 
+
+/* PICTORIAL LIST SEARCH + REMOVE ONLY */
+.pic-list-search-row{
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    gap:8px;
+    margin:8px 0 14px;
+    flex-wrap:wrap;
+}
+.pic-list-search-row input{
+    width:260px;
+    max-width:100%;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid rgba(197,210,139,.95);
+    background:rgba(249,251,240,.97);
+    color:#364318;
+    font-weight:700;
+}
+.pic-list-search-row button{
+    width:auto!important;
+    min-width:95px!important;
+    padding:10px 14px!important;
+    font-size:14px!important;
+}
+.pic-icon.red{
+    background:#b71c1c!important;
+    color:#fff!important;
+}
+.pic-icon.red:hover{
+    background:#7f0000!important;
+}
+
 </style></head><body><div class="actions"><button onclick="window.print()">Print / PDF</button> <button onclick="window.close()">Close</button></div><div class="pictorial-output-sheet"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div><div class="pictorial-meta"><div><span>Subject Of Training :</span> ${picEsc(r.subject_of_training||'-')}</div><div><span>Training Date :</span> ${picEsc(picDate(r.training_date)||'-')}</div><div><span>Training Time :</span> ${picEsc((r.start_time_text&&r.end_time_text)?`${r.start_time_text} - ${r.end_time_text}`:(r.start_time_text||r.end_time_text||'-'))}</div><div><span>Duration :</span> ${picEsc(r.duration_text||(r.duration_value?`${r.duration_value} ${r.duration_unit||'Minutes'}`:'-'))}</div><div class="full-row"><span>Trainer Name :</span> ${picEsc(r.trainer_name||'-')}</div></div><div class="pictorial-photo-output-grid ${cls}">${ph}</div></div></body></html>`}
 function picOpenRow(i,printNow){let r=picCache[i];if(!r)return;let w=window.open('','_blank');w.document.write(picHtml(r));w.document.close();if(printNow)setTimeout(()=>w.print(),600)}
 
@@ -1838,6 +1872,178 @@ savePictorialEvidence = async function(){
   };
   window.printPictorialOutput = window.openPictorialPreview;
 
+})();
+
+
+
+/* PICTORIAL LIST SEARCH + REMOVE ONLY - final override */
+(function(){
+  function el(id){return document.getElementById(id);}
+  function esc(v){return String(v ?? '').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+  function dateView(v){
+    const s=String(v||'');
+    if(s.includes('-') && s.split('-')[0].length===4){
+      const [y,m,d]=s.split('-');
+      return `${d}.${m}.${y}`;
+    }
+    return s;
+  }
+
+  function ensurePictorialSearchBox(){
+    const card = document.querySelector('#pictorialListPage .pic-list-card');
+    if(!card || el('picEvidenceSearchInput')) return;
+
+    const toolbar = card.querySelector('.pic-toolbar');
+    const search = document.createElement('div');
+    search.className = 'pic-list-search-row';
+    search.innerHTML = `
+      <input type="text" id="picEvidenceSearchInput" placeholder="Search by date / subject / trainer">
+      <button type="button" class="green" onclick="searchPictorialEvidenceList()">Search</button>
+      <button type="button" class="gray" onclick="clearPictorialEvidenceSearch()">Clear</button>
+    `;
+    if(toolbar){
+      toolbar.parentNode.insertBefore(search, toolbar.nextSibling);
+    }else{
+      const h2 = card.querySelector('h2');
+      h2 ? h2.insertAdjacentElement('afterend', search) : card.prepend(search);
+    }
+
+    const input = el('picEvidenceSearchInput');
+    if(input){
+      input.addEventListener('keydown', function(e){
+        if(e.key === 'Enter') searchPictorialEvidenceList();
+      });
+    }
+  }
+
+  function getListRowsBySearch(){
+    const q = (el('picEvidenceSearchInput')?.value || '').trim().toLowerCase();
+    const data = window.picCache || [];
+    if(!q) return data.map((r,i)=>({r,i}));
+    return data.map((r,i)=>({r,i})).filter(x=>{
+      const r=x.r;
+      const hay = [
+        dateView(r.training_date),
+        r.subject_of_training,
+        r.trainer_name,
+        r.start_time_text,
+        r.end_time_text,
+        r.duration_text
+      ].join(' ').toLowerCase();
+      return hay.includes(q);
+    });
+  }
+
+  function renderPictorialEvidenceRows(){
+    const body = el('pictorialEvidenceListBody') || el('pictorialListBody');
+    if(!body) return;
+
+    const rows = getListRowsBySearch();
+    if(!rows.length){
+      body.innerHTML = '<tr><td colspan="5" class="pic-empty">No matching data found.</td></tr>';
+      return;
+    }
+
+    body.innerHTML = rows.map((x,sl)=>`
+      <tr>
+        <td class="pic-sl">${sl+1}</td>
+        <td><span class="pic-date">${esc(dateView(x.r.training_date) || '-')}</span></td>
+        <td><span class="pic-subject">${esc(x.r.subject_of_training || '-')}</span></td>
+        <td>${esc(x.r.trainer_name || '-')}</td>
+        <td>
+          <div class="pic-actions">
+            <button class="pic-icon green" title="Edit" onclick="picEditRow(${x.i})">✏️</button>
+            <button class="pic-icon orange" title="Print" onclick="picOpenRow(${x.i},true)">🖨️</button>
+            <button class="pic-icon" title="Preview" onclick="picOpenRow(${x.i},false)">👁️</button>
+            <button class="pic-icon red" title="Remove" onclick="removePictorialEvidence(${x.i})">🗑️</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  window.searchPictorialEvidenceList = function(){
+    renderPictorialEvidenceRows();
+  };
+
+  window.clearPictorialEvidenceSearch = function(){
+    const input = el('picEvidenceSearchInput');
+    if(input) input.value = '';
+    renderPictorialEvidenceRows();
+  };
+
+  window.loadPictorialEvidenceList = async function(){
+    ensurePictorialSearchBox();
+
+    try{
+      let q = await supabaseClient.from('Pictorial_Evidence').select('*').order('created_at',{ascending:false});
+      if(q.error) q = await supabaseClient.from('Pictorial_Evidence').select('*');
+      if(q.error) throw q.error;
+
+      window.picCache = q.data || [];
+      try{ if(typeof picCache !== 'undefined') picCache = window.picCache; }catch(e){}
+      try{ if(typeof currentPictorialRecords !== 'undefined') currentPictorialRecords = window.picCache; }catch(e){}
+
+      renderPictorialEvidenceRows();
+    }catch(e){
+      const body = el('pictorialEvidenceListBody') || el('pictorialListBody');
+      if(body) body.innerHTML = `<tr><td colspan="5" class="pic-empty">List load failed: ${esc(e.message || e)}</td></tr>`;
+    }
+  };
+
+  const prevShowList = window.showPictorialEvidenceList;
+  window.showPictorialEvidenceList = async function(){
+    if(typeof prevShowList === 'function'){
+      try{ await prevShowList(); }catch(e){}
+    }else{
+      document.getElementById('formatListPage')?.classList.add('hidden');
+      if(typeof picHide === 'function') picHide();
+      document.getElementById('pictorialListPage')?.classList.remove('hidden');
+    }
+    ensurePictorialSearchBox();
+    await window.loadPictorialEvidenceList();
+  };
+
+  window.showPictorialList = window.showPictorialEvidenceList;
+
+  window.removePictorialEvidence = async function(index){
+    const row = (window.picCache || [])[index];
+    if(!row || !row.id) return;
+
+    const ok = confirm('Ei pictorial evidence permanently remove korte chan?');
+    if(!ok) return;
+
+    try{
+      const paths = [];
+      for(let i=1;i<=6;i++){
+        const p = row[`picture_${i}_path`];
+        if(p) paths.push(p);
+      }
+
+      if(paths.length){
+        try{
+          await supabaseClient.storage.from(PICTORIAL_BUCKET).remove(paths);
+        }catch(storageErr){
+          console.log('Storage remove skipped/failed:', storageErr);
+        }
+      }
+
+      const del = await supabaseClient.from('Pictorial_Evidence').delete().eq('id', row.id);
+      if(del.error) throw del.error;
+
+      await window.loadPictorialEvidenceList();
+    }catch(e){
+      alert('Remove failed: ' + (e.message || e));
+    }
+  };
+
+  setTimeout(function(){
+    ensurePictorialSearchBox();
+    const listPage = el('pictorialListPage');
+    if(listPage && !listPage.classList.contains('hidden')){
+      renderPictorialEvidenceRows();
+    }
+  },100);
 })();
 
 </script>
