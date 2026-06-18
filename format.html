@@ -157,6 +157,13 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
     .pictorial-form-actions{grid-template-columns:1fr!important;}
 }
 
+
+/* Stamp dropdown fixed visible layout */
+.pictorial-stamp-grid{display:grid!important;grid-template-columns:repeat(7,minmax(62px,1fr))!important;gap:6px!important;margin-top:6px!important;}
+.pictorial-stamp-grid select{min-width:0!important;font-size:12px!important;padding:8px 5px!important;}
+@media(max-width:900px){.pictorial-stamp-grid{grid-template-columns:repeat(3,1fr)!important;}}
+@media(max-width:600px){.pictorial-stamp-grid{grid-template-columns:repeat(2,1fr)!important;}}
+
 </style>
 </head>
 <body>
@@ -542,6 +549,101 @@ async function savePictorialEvidence(){
         setPictorialStatus('Save failed: '+error.message+'<br>Supabase table/storage policy or latest SQL update check করুন।','error');
     }
 }
+
+
+
+/* Permanent fix for dynamic stamp dropdown + larger 2-photo output */
+function pictorialEnsureAllStampDropdowns(){
+    for(let i=1;i<=PICTORIAL_MAX_PHOTOS;i++){
+        const box = document.getElementById('pictorialPhotoBox'+i) || document.getElementById('pictorialPhoto'+i)?.closest('.pictorial-photo-box');
+        if(!box) continue;
+
+        // If old box has no stamp controls, append them.
+        if(!document.getElementById('pictorialStampDay'+i)){
+            box.insertAdjacentHTML('beforeend', `
+                <div class="pictorial-stamp-title">Date Stamp</div>
+                <div class="pictorial-stamp-grid">
+                    <select id="pictorialStampDay${i}" class="form-control"></select>
+                    <select id="pictorialStampMonth${i}" class="form-control"></select>
+                    <select id="pictorialStampYear${i}" class="form-control"></select>
+                    <select id="pictorialStampHour${i}" class="form-control"></select>
+                    <select id="pictorialStampMinute${i}" class="form-control"></select>
+                    <select id="pictorialStampSecond${i}" class="form-control"></select>
+                    <select id="pictorialStampAmPm${i}" class="form-control">
+                        <option value="">AM/PM</option>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
+                    </select>
+                </div>
+            `);
+        }
+
+        // If second dropdown is missing but other stamp grid exists, add it.
+        if(!document.getElementById('pictorialStampSecond'+i) && document.getElementById('pictorialStampMinute'+i)){
+            document.getElementById('pictorialStampMinute'+i).insertAdjacentHTML('afterend', `<select id="pictorialStampSecond${i}" class="form-control"></select>`);
+        }
+
+        pictorialPopulateDateStamp(i);
+    }
+}
+
+function pictorialPopulateSelect(el, placeholder, values){
+    if(!el) return;
+    const current = el.value || "";
+    el.innerHTML = `<option value="">${placeholder}</option>` + values.map(v => `<option value="${v}">${v}</option>`).join("");
+    if(current && values.includes(current)) el.value = current;
+}
+
+function pictorialPopulateDateStamp(i){
+    const now = new Date();
+    const years = [];
+    for(let y = now.getFullYear() - 3; y <= now.getFullYear() + 3; y++) years.push(String(y));
+    const days = Array.from({length:31}, (_,idx)=>String(idx+1).padStart(2,'0'));
+    const months = Array.from({length:12}, (_,idx)=>String(idx+1).padStart(2,'0'));
+    const hours = Array.from({length:12}, (_,idx)=>String(idx+1).padStart(2,'0'));
+    const mins = Array.from({length:60}, (_,idx)=>String(idx).padStart(2,'0'));
+    const secs = Array.from({length:60}, (_,idx)=>String(idx).padStart(2,'0'));
+
+    pictorialPopulateSelect(document.getElementById('pictorialStampDay'+i), 'DD', days);
+    pictorialPopulateSelect(document.getElementById('pictorialStampMonth'+i), 'MM', months);
+    pictorialPopulateSelect(document.getElementById('pictorialStampYear'+i), 'YYYY', years);
+    pictorialPopulateSelect(document.getElementById('pictorialStampHour'+i), 'HH', hours);
+    pictorialPopulateSelect(document.getElementById('pictorialStampMinute'+i), 'MM', mins);
+    pictorialPopulateSelect(document.getElementById('pictorialStampSecond'+i), 'SS', secs);
+
+    const ap = document.getElementById('pictorialStampAmPm'+i);
+    if(ap && ap.options.length <= 1){
+        ap.innerHTML = '<option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option>';
+    }
+}
+
+const oldEnsurePictorialDynamicControls = ensurePictorialDynamicControls;
+ensurePictorialDynamicControls = function(){
+    oldEnsurePictorialDynamicControls();
+    pictorialEnsureAllStampDropdowns();
+};
+
+const oldAddPictorialPhotoField = addPictorialPhotoField;
+addPictorialPhotoField = function(){
+    oldAddPictorialPhotoField();
+    pictorialEnsureAllStampDropdowns();
+};
+
+const oldShowPictorialEvidence = showPictorialEvidence;
+showPictorialEvidence = function(){
+    oldShowPictorialEvidence();
+    setTimeout(pictorialEnsureAllStampDropdowns, 50);
+};
+
+const oldBuildPictorialOutputHtml = buildPictorialOutputHtml;
+buildPictorialOutputHtml = function(){
+    let html = oldBuildPictorialOutputHtml();
+    html = html.replace('.count-2 .img-wrap{height:230px;}', '.count-2 .img-wrap{height:305px;}');
+    html = html.replace('.count-1 .img-wrap{height:450px;}', '.count-1 .img-wrap{height:620px;}');
+    html = html.replace('.count-3 .img-wrap,.count-4 .img-wrap{height:225px;}', '.count-3 .img-wrap,.count-4 .img-wrap{height:245px;}');
+    html = html.replace('.count-5 .img-wrap,.count-6 .img-wrap{height:150px;}', '.count-5 .img-wrap,.count-6 .img-wrap{height:165px;}');
+    return html;
+};
 
 </script>
 </body>
