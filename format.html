@@ -92,6 +92,54 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
     .pictorial-stamp-grid{grid-template-columns:repeat(2,1fr)!important;}
 }
 
+
+/* Final pictorial image/stamp fix */
+.pictorial-stamp-grid{grid-template-columns:repeat(7,1fr)!important;}
+.pictorial-photo-output-box .img-wrap{
+    position:relative!important;
+    width:100%!important;
+    background:#fff!important;
+    display:block!important;
+    overflow:hidden!important;
+}
+.pictorial-photo-output-box .photo-inner{
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    height:100%!important;
+}
+.pictorial-photo-output-box .photo-inner img,
+.pictorial-photo-output-box .img-wrap > img,
+.pictorial-photo-output-box img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:fill!important;
+    display:block!important;
+    background:#fff!important;
+}
+.pictorial-photo-stamp{
+    position:absolute!important;
+    right:10px!important;
+    bottom:8px!important;
+    color:#ff9900!important;
+    background:transparent!important;
+    text-shadow:none!important;
+    box-shadow:none!important;
+    border:none!important;
+    padding:0!important;
+    margin:0!important;
+    font-family:'Courier New',monospace!important;
+    font-size:15px!important;
+    font-weight:900!important;
+    letter-spacing:.4px!important;
+    line-height:1!important;
+    z-index:9!important;
+    white-space:nowrap!important;
+}
+@media(max-width:700px){
+    .pictorial-stamp-grid{grid-template-columns:repeat(2,1fr)!important;}
+}
+
 </style>
 </head>
 <body>
@@ -118,63 +166,7 @@ function initMonth(type){const input=document.getElementById(type+'Month');if(in
 function normalRow(type,dateText){if(type==='humidity')return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;if(type==='firstaid')return firstAidNormalRow(dateText,null,null);return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td></tr>`;}function mergedRow(type,dateText,text){if(type==='firstaid')return firstAidMergedRow(dateText,text,null);const span=type==='humidity'?7:5;let html=`<tr><td class="date-cell">${dateText}</td><td colspan="${span}" class="weekend-cell">${text}</td></tr>`;if(type==='humidity')html+=`<tr><td></td><td colspan="${span}" class="blank-merged-cell">&nbsp;</td></tr>`;return html;}function renderChecklist(type){if(type==='firstaid'){renderFirstAidChecklist();return;}const info=getMonthInfo(type);document.getElementById(type+'ReportMonth').textContent=`For The Month of ${monthNames[info.monthIndex]} - ${info.year}`;document.getElementById(type+'AreaText').textContent=document.getElementById(type+'Area').value.trim()||'';const tbody=document.getElementById(type+'TableBody');let html='';for(let d=1;d<=info.totalDays;d++){const key=dateKey(info.year,info.monthIndex,d);const dateText=displayDate(info.year,info.monthIndex,d);const jsDate=new Date(info.year,info.monthIndex,d);const manualText=manualMaps[type][key];if(manualText){html+=isRegularText(manualText)?normalRow(type,dateText):mergedRow(type,dateText,manualText);}else if(jsDate.getDay()===5){html+=mergedRow(type,dateText,'Weekend');}else{html+=normalRow(type,dateText);}}tbody.innerHTML=html;}
 function firstAidStatus(info,day){const key=dateKey(info.year,info.monthIndex,day);const manualText=manualMaps.firstaid[key];const isFriday=new Date(info.year,info.monthIndex,day).getDay()===5;if(manualText){return isRegularText(manualText)?{normal:true,text:''}:{normal:false,text:manualText};}return isFriday?{normal:false,text:'Weekend'}:{normal:true,text:''};}function firstAidMedicalStarts(info){const starts={};let d=1;while(d<=info.totalDays){while(d<=info.totalDays&&!firstAidStatus(info,d).normal)d++;if(d>info.totalDays)break;const start=d;let len=0;while(d<=info.totalDays&&firstAidStatus(info,d).normal){len++;d++;}starts[start]=len;}return starts;}function firstAidHrStarts(info){const starts={1:Math.min(15,info.totalDays)};if(info.totalDays>15)starts[16]=info.totalDays-15;return starts;}function firstAidNormalRow(dateText,medicalSpan,hrSpan){let html=`<tr><td class="firstaid-date">${dateText}</td>`;for(let i=0;i<12;i++)html+='<td></td>';html+='<td></td>';if(medicalSpan)html+=`<td rowspan="${medicalSpan}"></td>`;if(hrSpan)html+=`<td rowspan="${hrSpan}"></td>`;html+='</tr>';return html;}function firstAidMergedRow(dateText,text,hrSpan){let html=`<tr><td class="firstaid-date">${dateText}</td><td colspan="14" class="firstaid-weekend">${text}</td>`;if(hrSpan)html+=`<td rowspan="${hrSpan}"></td>`;html+='</tr>';return html;}function renderFirstAidChecklist(){const type='firstaid';const info=getMonthInfo(type);const boxNo=document.getElementById('firstaidBoxNo').value.trim()||'';document.getElementById('firstaidBoxTitle').textContent=`BOX NO- ${boxNo}`;document.getElementById('firstaidReportMonth').textContent=`For The Month Of ${monthNames[info.monthIndex]} - ${info.year}`;const medicalStarts=firstAidMedicalStarts(info);const hrStarts=firstAidHrStarts(info);let html='';for(let d=1;d<=info.totalDays;d++){const dateText=displayDate(info.year,info.monthIndex,d);const status=firstAidStatus(info,d);const medSpan=medicalStarts[d]||null;const hrSpan=hrStarts[d]||null;if(status.normal){html+=firstAidNormalRow(dateText,medSpan,hrSpan);}else{html+=firstAidMergedRow(dateText,status.text,hrSpan);}}document.getElementById('firstaidTableBody').innerHTML=html;}
 let pictorialPhotoFieldCount = 0;
-function initPictorialDateDropdowns(){
-    populateDayMonthYear('pictorialDate', true);
-    populateTimeDropdowns('pictorialStart');
-    populateTimeDropdowns('pictorialEnd');
-    if(pictorialPhotoFieldCount < 1){addPictorialPhotoField();}
-    updatePictorialDuration();
-    renderPictorialOutput();
-}
-function addPictorialPhotoField(){
-    if(pictorialPhotoFieldCount >= 6){alert('Maximum 6 pictures allowed');return;}
-    pictorialPhotoFieldCount++;
-    const num = pictorialPhotoFieldCount;
-    const wrap = document.getElementById('pictorialPhotoItems');
-    if(!wrap) return;
-    const div = document.createElement('div');
-    div.className = 'pictorial-photo-box';
-    div.id = 'pictorialPhotoBox' + num;
-    div.innerHTML = `<h3>Picture ${num}</h3>
-        <div class="pictorial-photo-preview" id="pictorialPreview${num}">No Image <span class="pictorial-stamp-overlay" id="pictorialPreviewStamp${num}"></span></div>
-        <input type="file" id="pictorialPhoto${num}" class="form-control" accept="image/*" onchange="previewPictorialPhoto(${num})">
-        <div class="pictorial-stamp-title">Date Stamp</div>
-        <div class="pictorial-stamp-grid">
-            <select id="pictorialStampDay${num}" class="form-control" onchange="updatePictorialPreviewStamp(${num});renderPictorialOutput()"></select>
-            <select id="pictorialStampMonth${num}" class="form-control" onchange="updatePictorialPreviewStamp(${num});renderPictorialOutput()"></select>
-            <select id="pictorialStampYear${num}" class="form-control" onchange="updatePictorialPreviewStamp(${num});renderPictorialOutput()"></select>
-            <select id="pictorialStampHour${num}" class="form-control" onchange="updatePictorialPreviewStamp(${num});renderPictorialOutput()"></select>
-            <select id="pictorialStampMinute${num}" class="form-control" onchange="updatePictorialPreviewStamp(${num});renderPictorialOutput()"></select>
-            <select id="pictorialStampAmPm${num}" class="form-control" onchange="updatePictorialPreviewStamp(${num});renderPictorialOutput()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select>
-        </div>`;
-    wrap.appendChild(div);
-    populateStampDateTimeDropdowns(num);
-    renderPictorialOutput();
-}
-function populateStampDateTimeDropdowns(num){
-    populateSelectOptions('pictorialStampDay'+num,'DD',1,31,2);
-    populateSelectOptions('pictorialStampMonth'+num,'MM',1,12,2);
-    const now=new Date();
-    const year=document.getElementById('pictorialStampYear'+num);
-    if(year&&year.options.length===0){
-        year.innerHTML='<option value="">YYYY</option>';
-        for(let y=now.getFullYear()-2;y<=now.getFullYear()+3;y++){year.innerHTML+=`<option value="${y}">${y}</option>`;}
-    }
-    populateSelectOptions('pictorialStampHour'+num,'HH',1,12,2);
-    populateMinuteSelect('pictorialStampMinute'+num);
-}
-function populateSelectOptions(id,label,start,end,pad){
-    const el=document.getElementById(id);
-    if(!el||el.options.length>0)return;
-    el.innerHTML=`<option value="">${label}</option>`;
-    for(let i=start;i<=end;i++){const v=String(i).padStart(pad,'0');el.innerHTML+=`<option value="${v}">${v}</option>`;}
-}
-function populateMinuteSelect(id){
-    const el=document.getElementById(id);
-    if(!el||el.options.length>0)return;
-    el.innerHTML='<option value="">MM</option>';
-    for(let m=0;m<60;m+=5){const v=String(m).padStart(2,'0');el.innerHTML+=`<option value="${v}">${v}</option>`;}
-}
+function initPictorialDateDropdowns(){populateDayMonthYear('pictorialDate', true);populateTimeDropdowns('pictorialStart');populateTimeDropdowns('pictorialEnd');for(let i=1;i<=6;i++){populateDayMonthYear('pictorialStamp'+i, false);populateTimeDropdowns('pictorialStamp'+i);}updatePictorialDuration();renderPictorialOutput();}
 function populateDayMonthYear(prefix,setToday){
     const day=document.getElementById(prefix+'Day'),month=document.getElementById(prefix+'Month'),year=document.getElementById(prefix+'Year');
     if(!day||!month||!year)return;
@@ -220,7 +212,7 @@ function getPictorialDurationText(){
     const t=document.getElementById('pictorialDurationDisplay').textContent.trim();
     return t==='Auto calculate হবে'?'':t;
 }
-function getPictorialStampText(num){const d=document.getElementById('pictorialStampDay'+num).value,m=document.getElementById('pictorialStampMonth'+num).value,y=document.getElementById('pictorialStampYear'+num).value,h=document.getElementById('pictorialStampHour'+num).value,mi=document.getElementById('pictorialStampMinute'+num).value,sec=document.getElementById('pictorialStampSecond'+num)?.value||'',ap=document.getElementById('pictorialStampAmPm'+num).value;let date=(d&&m&&y)?`${d}.${m}.${y}`:'';let time='';if(h&&mi&&ap){time=sec?`${h}:${mi}:${sec} ${ap}`:`${h}:${mi} ${ap}`;}return [date,time].filter(Boolean).join(' ');}
+function getPictorialStampText(num){const d=document.getElementById('pictorialStampDay'+num)?.value||'',m=document.getElementById('pictorialStampMonth'+num)?.value||'',y=document.getElementById('pictorialStampYear'+num)?.value||'',h=document.getElementById('pictorialStampHour'+num)?.value||'',mi=document.getElementById('pictorialStampMinute'+num)?.value||'',sec=document.getElementById('pictorialStampSecond'+num)?.value||'',ap=document.getElementById('pictorialStampAmPm'+num)?.value||'';let date=(d&&m&&y)?`${d}.${m}.${y}`:'';let time='';if(h&&mi&&ap){time=sec?`${h}:${mi}:${sec} ${ap}`:`${h}:${mi} ${ap}`;}else if(h&&mi){time=sec?`${h}:${mi}:${sec}`:`${h}:${mi}`;}else if(h&&ap){time=`${h} ${ap}`;}return [date,time].filter(Boolean).join(' ');}
 function previewPictorialPhoto(num){
     const input=document.getElementById('pictorialPhoto'+num);
     const preview=document.getElementById('pictorialPreview'+num);
