@@ -118,6 +118,12 @@ function picHtml(r){let photos=[];for(let n=1;n<=6;n++)if(r[`picture_${n}_url`])
 .pictorial-status:empty{display:none!important;}
 #pictorialStatus:empty,#pictorialListStatus:empty{display:none!important;}
 
+
+/* FINAL STABLE FIX - hide blank notes/errors only */
+.pictorial-status:empty,
+#pictorialStatus:empty,
+#pictorialListStatus:empty{display:none!important;}
+
 </style></head><body><div class="actions"><button onclick="window.print()">Print / PDF</button> <button onclick="window.close()">Close</button></div><div class="pictorial-output-sheet"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div><div class="pictorial-meta"><div><span>Subject Of Training :</span> ${picEsc(r.subject_of_training||'-')}</div><div><span>Training Date :</span> ${picEsc(picDate(r.training_date)||'-')}</div><div><span>Training Time :</span> ${picEsc((r.start_time_text&&r.end_time_text)?`${r.start_time_text} - ${r.end_time_text}`:(r.start_time_text||r.end_time_text||'-'))}</div><div><span>Duration :</span> ${picEsc(r.duration_text||(r.duration_value?`${r.duration_value} ${r.duration_unit||'Minutes'}`:'-'))}</div><div class="full-row"><span>Trainer Name :</span> ${picEsc(r.trainer_name||'-')}</div></div><div class="pictorial-photo-output-grid ${cls}">${ph}</div></div></body></html>`}
 function picOpenRow(i,printNow){let r=picCache[i];if(!r)return;let w=window.open('','_blank');w.document.write(picHtml(r));w.document.close();if(printNow)setTimeout(()=>w.print(),600)}
 
@@ -329,7 +335,7 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
             </div>
             <button class="gray" type="button" onclick="backToFormatList()" style="margin-top:16px;">Back To List</button>
         </div>
-    </div><div class="box no-print hidden" id="pictorialEntryBox"><div class="pictorial-entry-card"><h2>Pictorial Evidence Form</h2><div class="pictorial-form-row"><label>Subject Of Training :</label><input type="text" id="pictorialSubject" class="form-control" placeholder="Enter subject of training" oninput="renderPictorialOutput()"></div><div class="control-grid"><div class="pictorial-form-row"><label>Training Date :</label><div class="pictorial-date-grid"><select id="pictorialDateDay" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateMonth" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateYear" class="form-control" onchange="renderPictorialOutput()"></select></div></div><div class="pictorial-form-row"><label>Trainer Name :</label><input type="text" id="pictorialTrainerName" class="form-control" placeholder="Enter trainer name" oninput="renderPictorialOutput()"></div></div><div class="pictorial-form-row"><label>Training Start &amp; End Time :</label><div class="pictorial-time-wrap"><div class="pictorial-time-grid"><select id="pictorialStartHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div><div class="time-divider">-</div><div class="pictorial-time-grid"><select id="pictorialEndHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div></div></div><div class="pictorial-form-row"><label>Duration :</label><div id="pictorialDurationDisplay" class="pictorial-duration-box">Auto calculate হবে</div></div><div class="pictorial-form-row"><label>Photo Upload + Date Stamp :</label><div class="pictorial-photo-toolbar"><button class="green" type="button" onclick="addPictorialPhotoField()">+ Add New</button></div><div id="pictorialPhotoItems" class="pictorial-photo-grid"></div></div><div class="pictorial-form-actions"><button class="gray" onclick="backToFormatList()">Back To List</button><button type="button" onclick="openPictorialPreview()">Preview Output</button><button class="orange" type="button" onclick="printPictorialOutput()">Print / PDF</button><button class="green" type="button" onclick="savePictorialEvidence()">Save</button></div><div id="pictorialStatus" class="pictorial-status"></div></div></div>
+    </div><div class="box no-print hidden" id="pictorialEntryBox"><div class="pictorial-entry-card"><h2>Pictorial Evidence Form</h2><div class="pictorial-form-row"><label>Subject Of Training :</label><input type="text" id="pictorialSubject" class="form-control" placeholder="Enter subject of training" oninput="renderPictorialOutput()"></div><div class="control-grid"><div class="pictorial-form-row"><label>Training Date :</label><div class="pictorial-date-grid"><select id="pictorialDateDay" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateMonth" class="form-control" onchange="renderPictorialOutput()"></select><select id="pictorialDateYear" class="form-control" onchange="renderPictorialOutput()"></select></div></div><div class="pictorial-form-row"><label>Trainer Name :</label><input type="text" id="pictorialTrainerName" class="form-control" placeholder="Enter trainer name" oninput="renderPictorialOutput()"></div></div><div class="pictorial-form-row"><label>Training Start &amp; End Time :</label><div class="pictorial-time-wrap"><div class="pictorial-time-grid"><select id="pictorialStartHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialStartAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div><div class="time-divider">-</div><div class="pictorial-time-grid"><select id="pictorialEndHour" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndMinute" class="form-control" onchange="updatePictorialDuration()"></select><select id="pictorialEndAmPm" class="form-control" onchange="updatePictorialDuration()"><option value="">AM/PM</option><option value="AM">AM</option><option value="PM">PM</option></select></div></div></div><div class="pictorial-form-row"><label>Duration :</label><div id="pictorialDurationDisplay" class="pictorial-duration-box"></div></div><div class="pictorial-form-row"><label>Photo Upload + Date Stamp :</label><div class="pictorial-photo-toolbar"><button class="green" type="button" onclick="addPictorialPhotoField()">+ Add New</button></div><div id="pictorialPhotoItems" class="pictorial-photo-grid"></div></div><div class="pictorial-form-actions"><button class="gray" onclick="backToFormatList()">Back To List</button><button type="button" onclick="openPictorialPreview()">Preview Output</button><button class="orange" type="button" onclick="printPictorialOutput()">Print / PDF</button><button class="green" type="button" onclick="savePictorialEvidence()">Save</button></div><div id="pictorialStatus" class="pictorial-status"></div></div></div>
     <div class="box no-print hidden" id="pictorialListBox">
         <div class="pictorial-list-card">
             <h2>Pictorial Evidence List</h2>
@@ -542,12 +548,12 @@ function updatePictorialDuration(){
         if(diff<0)diff+=24*60;
         text=diff>0?`${diff} Minutes`:'';
     }
-    box.textContent=text||'Auto calculate হবে';
+    box.textContent=text||'';
 }
 
 function getPictorialDurationText(){
     const t=document.getElementById('pictorialDurationDisplay')?.textContent.trim()||'';
-    return t==='Auto calculate হবে'?'':t;
+    return t===''?'':t;
 }
 
 function getPictorialStampText(num){
@@ -1515,6 +1521,289 @@ savePictorialEvidence = async function(){
         setPictorialStatus('Save failed: ' + (e.message || e), 'error');
     }
 };
+
+
+
+/* FINAL STABLE PICTORIAL SAVE/LIST FIX - do not remove */
+(function(){
+  window.__pictorialEditRecord = window.__pictorialEditRecord || null;
+  window.picCache = window.picCache || [];
+  window.currentPictorialRecords = window.currentPictorialRecords || [];
+
+  function byId(id){return document.getElementById(id);}
+  function val(id){return (byId(id)?.value || '').trim();}
+  function safe(v){return (v === undefined || v === null) ? '' : String(v);}
+  function esc(v){return safe(v).replace(/[&<>"]/g, function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  window.setPictorialStatus = function(msg,type){
+    var el = byId('pictorialStatus');
+    if(!el) return;
+    el.className = 'pictorial-status' + (type ? ' ' + type : '');
+    el.innerHTML = msg || '';
+  };
+
+  function dbDate(){
+    var d = val('pictorialDateDay'), m = val('pictorialDateMonth'), y = val('pictorialDateYear');
+    if(!d || !m || !y) return null;
+    return y + '-' + String(m).padStart(2,'0') + '-' + String(d).padStart(2,'0');
+  }
+
+  function viewDateFromDb(v){
+    var s = safe(v);
+    if(!s) return '';
+    if(s.indexOf('-') > -1 && s.split('-')[0].length === 4){
+      var p = s.split('-');
+      return (p[2] || '') + '.' + (p[1] || '') + '.' + (p[0] || '');
+    }
+    return s;
+  }
+
+  function viewDateFromForm(){
+    var d = val('pictorialDateDay'), m = val('pictorialDateMonth'), y = val('pictorialDateYear');
+    if(!d || !m || !y) return '';
+    return String(d).padStart(2,'0') + '.' + String(m).padStart(2,'0') + '.' + y;
+  }
+
+  window.getPictorialTrainingDateForDB = dbDate;
+  window.formatPictorialDateForView = viewDateFromDb;
+
+  function timeText(prefix){
+    var h = val(prefix+'Hour'), m = val(prefix+'Minute'), ap = val(prefix+'AmPm');
+    if(!h || !m || !ap) return '';
+    return h + ':' + m + ' ' + ap;
+  }
+  window.getTimeText = timeText;
+
+  function durationText(){
+    var el = byId('pictorialDurationDisplay');
+    var t = (el?.textContent || '').trim();
+    if(!t || /auto calculate/i.test(t)) return '';
+    return t;
+  }
+  window.getPictorialDurationText = durationText;
+
+  function durationNumber(t){
+    var n = Number((safe(t).match(/\d+/) || ['0'])[0]);
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  function stampText(i){
+    var d=val('pictorialStampDay'+i), m=val('pictorialStampMonth'+i), y=val('pictorialStampYear'+i);
+    var h=val('pictorialStampHour'+i), mi=val('pictorialStampMinute'+i), sec=val('pictorialStampSecond'+i), ap=val('pictorialStampAmPm'+i);
+    var date = (d && m && y) ? String(d).padStart(2,'0') + '.' + String(m).padStart(2,'0') + '.' + y : '';
+    var time = '';
+    if(h && mi && ap) time = sec ? (h + ':' + mi + ':' + sec + ' ' + ap) : (h + ':' + mi + ' ' + ap);
+    else if(h && mi) time = sec ? (h + ':' + mi + ':' + sec) : (h + ':' + mi);
+    else if(h && ap) time = h + ' ' + ap;
+    return [date,time].filter(Boolean).join(' ');
+  }
+  window.getPictorialStampText = stampText;
+
+  function activeEdit(){
+    try{
+      if(typeof picEdit !== 'undefined' && picEdit) return picEdit;
+    }catch(e){}
+    return window.__pictorialEditRecord || null;
+  }
+  window.getSafePicEdit = activeEdit;
+
+  window.setSafePicEdit = function(v){
+    window.__pictorialEditRecord = v || null;
+    try{ if(typeof picEdit !== 'undefined') picEdit = v || null; }catch(e){}
+  };
+
+  async function uploadOnePhoto(i,folderName){
+    var input = byId('pictorialPhoto'+i);
+    var file = input && input.files ? input.files[0] : null;
+    if(!file) return {path:'',url:''};
+
+    var ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
+    var cleanName = (val('pictorialSubject') || 'pictorial').replace(/[^a-zA-Z0-9_-]/g,'_').slice(0,40) || 'pictorial';
+    var filePath = folderName + '/' + cleanName + '_picture_' + i + '_' + Date.now() + '.' + ext;
+
+    var up = await supabaseClient.storage.from(PICTORIAL_BUCKET).upload(filePath, file, {
+      cacheControl:'3600',
+      upsert:true,
+      contentType:file.type || 'image/jpeg'
+    });
+    if(up.error) throw new Error('Picture '+i+' upload failed: '+up.error.message);
+
+    var pub = supabaseClient.storage.from(PICTORIAL_BUCKET).getPublicUrl(filePath);
+    return {path:filePath, url:(pub.data && pub.data.publicUrl) ? pub.data.publicUrl : ''};
+  }
+
+  function buildPayloadBase(){
+    var dur = durationText();
+    return {
+      subject_of_training: val('pictorialSubject') || '',
+      training_date: dbDate(),
+      start_time_text: timeText('pictorialStart') || '',
+      end_time_text: timeText('pictorialEnd') || '',
+      duration_value: durationNumber(dur),
+      duration_unit: 'Minutes',
+      duration_text: dur || '',
+      trainer_name: val('pictorialTrainerName') || ''
+    };
+  }
+
+  window.savePictorialEvidence = async function(){
+    setPictorialStatus('', '');
+    var edit = activeEdit();
+    var payload = buildPayloadBase();
+    var folderName = (viewDateFromForm() || 'no_date').replace(/[^0-9.]/g,'_') + '_' + Date.now();
+
+    try{
+      for(var i=1;i<=6;i++){
+        var input = byId('pictorialPhoto'+i);
+        var hasNew = !!(input && input.files && input.files[0]);
+
+        if(hasNew){
+          var up = await uploadOnePhoto(i, folderName);
+          payload['picture_'+i+'_path'] = up.path || '';
+          payload['picture_'+i+'_url'] = up.url || '';
+        }else if(edit){
+          payload['picture_'+i+'_path'] = edit['picture_'+i+'_path'] || '';
+          payload['picture_'+i+'_url'] = edit['picture_'+i+'_url'] || '';
+        }else{
+          payload['picture_'+i+'_path'] = '';
+          payload['picture_'+i+'_url'] = '';
+        }
+        payload['picture_'+i+'_stamp_text'] = stampText(i) || (edit ? (edit['picture_'+i+'_stamp_text'] || '') : '');
+      }
+
+      var result;
+      if(edit && edit.id){
+        result = await supabaseClient.from('Pictorial_Evidence').update(payload).eq('id', edit.id);
+      }else{
+        result = await supabaseClient.from('Pictorial_Evidence').insert([payload]);
+      }
+      if(result.error) throw result.error;
+
+      window.setSafePicEdit(null);
+      try{ if(typeof picEdit !== 'undefined') picEdit = null; }catch(e){}
+
+      if(typeof clearPictorialFormForNext === 'function'){
+        clearPictorialFormForNext();
+      }
+
+      if(typeof showPictorialList === 'function'){
+        await showPictorialList();
+      }else if(typeof showPictorialEvidenceList === 'function'){
+        showPictorialEvidenceList();
+      }
+    }catch(e){
+      setPictorialStatus('Save failed: ' + (e.message || e), 'error');
+    }
+  };
+
+  function rowHtml(r,i){
+    return '<tr>'
+      + '<td class="pic-sl">'+(i+1)+'</td>'
+      + '<td><span class="pic-date">'+esc(viewDateFromDb(r.training_date) || '-')+'</span></td>'
+      + '<td><span class="pic-subject">'+esc(r.subject_of_training || '-')+'</span></td>'
+      + '<td>'+esc(r.trainer_name || '-')+'</td>'
+      + '<td><div class="pic-actions">'
+      + '<button class="pic-icon green" title="Edit" onclick="picEditRowFinal('+i+')">✏️</button>'
+      + '<button class="pic-icon orange" title="Print" onclick="picOpenRowFinal('+i+',true)">🖨️</button>'
+      + '<button class="pic-icon" title="Preview" onclick="picOpenRowFinal('+i+',false)">👁️</button>'
+      + '</div></td>'
+      + '</tr>';
+  }
+
+  window.loadPictorialEvidenceList = async function(){
+    var body = byId('pictorialEvidenceListBody') || byId('pictorialListBody');
+    var status = byId('pictorialListStatus');
+    if(status){status.innerHTML='';status.className='pictorial-status';}
+    if(body) body.innerHTML = '';
+
+    try{
+      var q = await supabaseClient.from('Pictorial_Evidence').select('*').order('created_at',{ascending:false});
+      if(q.error) q = await supabaseClient.from('Pictorial_Evidence').select('*');
+      if(q.error) throw q.error;
+
+      window.picCache = q.data || [];
+      window.currentPictorialRecords = window.picCache;
+      try{ if(typeof picCache !== 'undefined') picCache = window.picCache; }catch(e){}
+      try{ if(typeof currentPictorialRecords !== 'undefined') currentPictorialRecords = window.picCache; }catch(e){}
+
+      if(!body) return;
+      if(!window.picCache.length){
+        body.innerHTML = '<tr><td colspan="5" class="pic-empty"></td></tr>';
+        return;
+      }
+      body.innerHTML = window.picCache.map(rowHtml).join('');
+    }catch(e){
+      if(body) body.innerHTML = '<tr><td colspan="5" class="pic-empty">List load failed: '+esc(e.message || e)+'</td></tr>';
+    }
+  };
+
+  window.picEditRowFinal = function(i){
+    var r = window.picCache[i];
+    if(!r) return;
+    window.setSafePicEdit(r);
+
+    if(typeof picHide === 'function') picHide();
+    byId('pictorialPage')?.classList.remove('hidden');
+    if(typeof hidePictorialSections === 'function') hidePictorialSections();
+    byId('pictorialEntryBox')?.classList.remove('hidden');
+
+    if(typeof initPictorialDateDropdowns === 'function') initPictorialDateDropdowns();
+
+    if(byId('pictorialSubject')) byId('pictorialSubject').value = r.subject_of_training || '';
+    if(byId('pictorialTrainerName')) byId('pictorialTrainerName').value = r.trainer_name || '';
+
+    var vd = viewDateFromDb(r.training_date);
+    if(vd && vd.includes('.')){
+      var p = vd.split('.');
+      if(byId('pictorialDateDay')) byId('pictorialDateDay').value = p[0] || '';
+      if(byId('pictorialDateMonth')) byId('pictorialDateMonth').value = p[1] || '';
+      if(byId('pictorialDateYear')) byId('pictorialDateYear').value = p[2] || '';
+    }
+    setPictorialStatus('', '');
+  };
+
+  function evidenceHtml(r){
+    var photos = [];
+    for(var i=1;i<=6;i++){
+      if(r['picture_'+i+'_url']){
+        photos.push({num:i,url:r['picture_'+i+'_url'],stamp:r['picture_'+i+'_stamp_text']||''});
+      }
+    }
+    var countClass = 'count-' + (photos.length || 1);
+    var photoHtml = photos.length ? photos.map(function(p){
+      return '<div class="pictorial-photo-output-box"><div class="img-wrap"><div class="photo-inner">'
+        + '<img src="'+esc(p.url)+'" alt="Picture '+p.num+'">'
+        + (p.stamp ? '<div class="pictorial-photo-stamp">'+esc(p.stamp)+'</div>' : '')
+        + '</div></div><div class="pictorial-photo-caption">Picture '+p.num+'</div></div>';
+    }).join('') : '<div class="pictorial-no-photo">No photo uploaded.</div>';
+
+    return '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Pictorial Evidence</title><style>'
+      + '@page{size:A4 portrait;margin:8mm}*{box-sizing:border-box;font-family:Arial,sans-serif}body{margin:0;background:#e8ead9;padding:14px;color:#111}.pictorial-output-sheet{background:#fff;max-width:930px;margin:0 auto;padding:16px 18px 18px;border-radius:12px;box-shadow:0 6px 18px rgba(0,0,0,.18)}.pictorial-output-header{text-align:center;border-bottom:2px solid #0754a6;padding-bottom:10px;margin-bottom:12px}.pictorial-output-header h2{font-size:26px;color:#0754a6;margin:0 0 4px}.pictorial-output-header h3{font-size:20px;color:#111;margin:0}.pictorial-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:12px 0 16px}.pictorial-meta div{background:#f8fbff;border:1px solid #bbdefb;border-radius:10px;padding:10px 12px;font-size:14px;font-weight:700;color:#111}.pictorial-meta span{color:#0754a6;font-weight:900}.full-row{grid-column:1/-1}.pictorial-photo-output-grid{display:grid;gap:10px}.count-1,.count-2{grid-template-columns:1fr}.count-3,.count-4,.count-5,.count-6{grid-template-columns:repeat(2,1fr)}.pictorial-photo-output-box{position:relative;border:1.5px solid #9fbad5;border-radius:12px;padding:8px;background:#fff}.img-wrap{position:relative;width:100%;background:#fff;display:block;overflow:hidden}.count-1 .img-wrap{height:620px}.count-2 .img-wrap{height:305px}.count-3 .img-wrap,.count-4 .img-wrap{height:245px}.count-5 .img-wrap{height:175px}.count-6 .img-wrap{height:190px}.photo-inner{position:relative;display:block;width:100%;height:100%}.photo-inner img{width:100%;height:100%;object-fit:fill;display:block}.pictorial-photo-caption{position:absolute;top:8px;left:8px;background:#2f73bd;color:white;border-radius:5px;padding:5px 9px;font-weight:900;font-size:13px}.pictorial-photo-stamp{position:absolute;right:10px;bottom:8px;color:#ff9900;background:transparent;font-family:Courier New,monospace;font-size:15px;font-weight:900;z-index:9}.actions{text-align:center;margin-bottom:12px}.actions button{width:auto;padding:9px 18px;border:0;border-radius:8px;background:#0754a6;color:white;font-weight:900;cursor:pointer;margin:0 5px}@media print{body{background:#fff;padding:0}.actions{display:none}.pictorial-output-sheet{max-width:none;box-shadow:none;border-radius:0;padding:0}}'
+      + '</style></head><body><div class="actions"><button onclick="window.print()">Print / PDF</button><button onclick="window.close()">Close</button></div>'
+      + '<div class="pictorial-output-sheet"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div>'
+      + '<div class="pictorial-meta">'
+      + '<div><span>Subject Of Training :</span> '+esc(r.subject_of_training || '-')+'</div>'
+      + '<div><span>Training Date :</span> '+esc(viewDateFromDb(r.training_date) || '-')+'</div>'
+      + '<div><span>Training Time :</span> '+esc((r.start_time_text && r.end_time_text) ? (r.start_time_text+' - '+r.end_time_text) : (r.start_time_text || r.end_time_text || '-'))+'</div>'
+      + '<div><span>Duration :</span> '+esc(r.duration_text || (r.duration_value ? (r.duration_value+' Minutes') : '-'))+'</div>'
+      + '<div class="full-row"><span>Trainer Name :</span> '+esc(r.trainer_name || '-')+'</div>'
+      + '</div><div class="pictorial-photo-output-grid '+countClass+'">'+photoHtml+'</div></div></body></html>';
+  }
+
+  window.picOpenRowFinal = function(i,printNow){
+    var r = window.picCache[i];
+    if(!r) return;
+    var w = window.open('', '_blank');
+    w.document.write(evidenceHtml(r));
+    w.document.close();
+    if(printNow) setTimeout(function(){w.print();},600);
+  };
+
+  window.savedRecordToHtml = evidenceHtml;
+  window.previewSavedPictorialEvidence = function(i){ window.picOpenRowFinal(i,false); };
+  window.printSavedPictorialEvidence = function(i){ window.picOpenRowFinal(i,true); };
+
+})();
 
 </script>
 </body>
