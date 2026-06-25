@@ -903,13 +903,163 @@ input:focus,select:focus,textarea:focus{
     .topbar button{width:100%;}
 }
 
+
+
+/* ===== FINAL A&O OLIVE GLASS THEME OVERRIDE (DESIGN ONLY) ===== */
+:root{
+    --ao-olive-deep:#1f2a12;
+    --ao-olive-dark:#2d3a18;
+    --ao-olive:#5f6f2a;
+    --ao-olive-light:#9aa85a;
+    --ao-olive-soft:#d7dfa3;
+    --ao-glass-olive:rgba(96,111,42,.28);
+    --ao-glass-olive-strong:rgba(67,82,28,.72);
+    --ao-text-cream:#fbffe8;
+}
+body{
+    background:#11170b !important;
+    color:#17210c;
+}
+body::after{
+    background:
+        radial-gradient(circle at 18% 8%,rgba(188,202,104,.35),transparent 32%),
+        radial-gradient(circle at 82% 18%,rgba(100,119,45,.28),transparent 34%),
+        radial-gradient(circle at 50% 100%,rgba(43,58,20,.45),transparent 42%),
+        linear-gradient(135deg,rgba(13,20,8,.94),rgba(63,78,27,.83),rgba(11,16,7,.96)) !important;
+}
+.portal-hero{
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035)),
+        linear-gradient(135deg,rgba(42,55,19,.78),rgba(113,130,48,.42)) !important;
+    border:1px solid rgba(215,223,163,.34) !important;
+    box-shadow:0 20px 52px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.14) !important;
+}
+.ao-logo-mark{
+    width:142px;
+    height:118px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:15px;
+    border-radius:30px;
+    font-size:44px;
+    font-weight:1000;
+    letter-spacing:-3px;
+    color:#f9ffe5;
+    text-shadow:0 3px 12px rgba(0,0,0,.55),0 0 20px rgba(215,223,163,.26);
+    background:
+        radial-gradient(circle at 30% 20%,rgba(255,255,255,.24),transparent 28%),
+        linear-gradient(145deg,rgba(154,168,90,.95),rgba(47,62,22,.96) 55%,rgba(31,42,18,.98));
+    border:1px solid rgba(231,238,181,.55);
+    box-shadow:0 14px 35px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.26), 0 0 0 5px rgba(215,223,163,.10);
+}
+.portal-title-box{
+    background:linear-gradient(135deg,rgba(31,42,18,.96),rgba(95,111,42,.92),rgba(45,58,24,.96)) !important;
+    border:1px solid rgba(215,223,163,.35) !important;
+}
+.portal-title-box h1,
+.topbar h2,
+button{
+    color:var(--ao-text-cream) !important;
+    text-shadow:0 2px 6px rgba(0,0,0,.55);
+}
+.card,#homePage,#adminControlPanel,.admin-subpage,.dashboard-card,.employee-info-card,.accessive-ot-card,.job-history-wrap,#employeeView,.box{
+    background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(215,223,163,.10)) !important;
+    border:1px solid rgba(215,223,163,.28) !important;
+    box-shadow:0 16px 42px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.12) !important;
+    backdrop-filter:blur(10px);
+}
+#homePage::before,
+h1,h2,h3,.small-note,label{
+    color:#f8ffe0 !important;
+    text-shadow:0 2px 8px rgba(0,0,0,.45);
+}
+button,
+button.green,
+button.orange,
+button.purple,
+button.red,
+button.gray,
+#homePage button,
+#adminControlPanel .menu button,
+#employeeDashboard .menu button,
+.topbar button,
+.admin-page-back-top,
+.job-history-actions button,
+.print-actions button{
+    background:linear-gradient(135deg,rgba(31,42,18,.98),rgba(95,111,42,.94) 52%,rgba(48,62,23,.98)) !important;
+    border:1px solid rgba(215,223,163,.44) !important;
+    color:#fbffe8 !important;
+    box-shadow:0 10px 24px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.18), 0 0 16px rgba(154,168,90,.16) !important;
+}
+button:hover,
+button.green:hover,
+button.orange:hover,
+button.purple:hover,
+button.red:hover,
+button.gray:hover,
+#homePage button:hover,
+#adminControlPanel .menu button:hover,
+#employeeDashboard .menu button:hover{
+    background:linear-gradient(135deg,rgba(46,61,21,.99),rgba(124,139,55,.98) 54%,rgba(55,71,27,.99)) !important;
+    box-shadow:0 14px 31px rgba(0,0,0,.36),0 0 22px rgba(215,223,163,.32) !important;
+}
+.topbar,
+#adminControlPanel h3,
+.admin-subpage h3,
+.box h3,
+.accessive-ot-table-title,
+.job-history-table-title{
+    background:linear-gradient(135deg,rgba(31,42,18,.98),rgba(95,111,42,.94),rgba(42,55,20,.98)) !important;
+    border:1px solid rgba(215,223,163,.35) !important;
+    color:#fbffe8 !important;
+}
+input,textarea,select{
+    background:rgba(251,255,232,.88) !important;
+    border:1px solid rgba(154,168,90,.60) !important;
+    color:#1c260f !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
+}
+input:focus,select:focus,textarea:focus{
+    border:2px solid #bac86b !important;
+    box-shadow:0 0 0 4px rgba(154,168,90,.22),0 0 16px rgba(215,223,163,.32) !important;
+}
+table,.admin-subpage table,.employee-info-table,.dashboard-table,.accessive-ot-table,.job-history-table{
+    background:rgba(251,255,232,.82) !important;
+    border-color:rgba(95,111,42,.65) !important;
+}
+th,.admin-subpage th,.employee-info-table th,.dashboard-table th,.accessive-ot-table th,.job-history-table th{
+    background:linear-gradient(135deg,#273616,#66772f) !important;
+    color:#fbffe8 !important;
+    border-color:rgba(215,223,163,.45) !important;
+}
+td,.admin-subpage td,.employee-info-table td,.dashboard-table td,.accessive-ot-table td,.job-history-table td{
+    background:rgba(250,255,230,.74) !important;
+    color:#15200b !important;
+    border-color:rgba(95,111,42,.45) !important;
+}
+tr:nth-child(even) td,
+.admin-subpage tr:nth-child(even) td,
+.employee-info-table tr:nth-child(even) td,
+.accessive-ot-table tbody tr:nth-child(even),
+.job-history-table tbody tr:nth-child(even){
+    background:rgba(226,235,173,.62) !important;
+}
+.status,.success,.error,.small-note,.not-publish-box{
+    background:rgba(251,255,232,.78) !important;
+    border:1px solid rgba(154,168,90,.45) !important;
+    color:#1d2a0f !important;
+}
+a{color:#e9f5a9 !important;}
+#homePage a{color:#415315 !important;text-shadow:none;}
+
 </style>
 </head>
 
 <body>
 
 <div class="portal-hero" style="display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:20px;width:100%;">
-    <img src="logo.jpeg" style="width:110px;height:110px;object-fit:contain;margin-bottom:15px;">
+    <div class="ao-logo-mark" aria-label="A&O Logo">A&amp;O</div>
     <div class="portal-title-box"><h1>A&O Employee Portal</h1></div>
 </div>
 
@@ -3719,6 +3869,158 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 .print-actions{text-align:center;margin:10px;}
 .print-actions button{width:auto;padding:8px 18px;margin:0 4px;border-radius:6px;border:0;background:#0754a6;color:#fff;font-weight:bold;cursor:pointer;}
 @media print{.print-actions{display:none;}body{background:#fff;}.page{min-height:283mm;}}
+
+
+/* ===== A&O Full Olive Transparent Theme Override (UI only - no function/layout change) ===== */
+:root{
+    --ao-olive:#6f7b2f;
+    --ao-olive-deep:#202812;
+    --ao-olive-dark:#303817;
+    --ao-olive-mid:#566322;
+    --ao-olive-light:#9aa95a;
+    --ao-gold:#d4b85a;
+    --ao-text:#f8ffe8;
+    --ao-dark-text:#18200c;
+    --ao-glass-bg:rgba(38,48,21,.58);
+    --ao-glass-bg-light:rgba(245,250,226,.82);
+    --ao-border:rgba(221,210,129,.34);
+}
+body{
+    background:#11170b !important;
+    color:var(--ao-text);
+}
+body::before{opacity:.18 !important;}
+body::after{
+    background:
+        radial-gradient(circle at top left,rgba(154,169,90,.34),transparent 35%),
+        radial-gradient(circle at bottom right,rgba(212,184,90,.16),transparent 34%),
+        linear-gradient(135deg,rgba(10,14,6,.94),rgba(46,58,22,.86),rgba(13,18,8,.96)) !important;
+}
+.portal-hero,
+.card,
+.box,
+#homePage,
+#adminControlPanel,
+.admin-subpage,
+.dashboard-card,
+.employee-info-card,
+.accessive-ot-card,
+.job-history-wrap,
+#employeeView{
+    background:linear-gradient(145deg,rgba(245,250,226,.86),rgba(111,123,47,.24)) !important;
+    border:1px solid var(--ao-border) !important;
+    box-shadow:0 16px 42px rgba(0,0,0,.34) !important;
+    backdrop-filter:blur(10px);
+}
+#homePage::before{color:#eef7c7 !important;text-shadow:0 2px 8px rgba(0,0,0,.45);}
+.card h1,.card h2,.card h3,
+h1,h2,h3,
+.employee-info-title,.accessive-ot-title,.dashboard-card h2{
+    color:#f8ffe8 !important;
+    text-shadow:0 2px 8px rgba(0,0,0,.42);
+}
+#homePage, #adminControlPanel, .admin-subpage, #employeeView{color:var(--ao-dark-text);}
+#adminControlPanel h3,
+.admin-subpage h3,
+.box h3,
+.topbar,
+.portal-title-box,
+.job-history-table-title,
+.accessive-ot-table-title{
+    background:linear-gradient(135deg,rgba(32,40,18,.96),rgba(111,123,47,.92),rgba(154,169,90,.68)) !important;
+    color:#fffbe2 !important;
+    border:1px solid rgba(212,184,90,.30) !important;
+}
+button,
+button.green,
+button.orange,
+button.purple,
+button.red,
+button.gray,
+#homePage button,
+#adminControlPanel .menu button,
+#employeeDashboard .menu button,
+.admin-page-back-top,
+.job-history-actions button{
+    background:linear-gradient(135deg,rgba(31,39,17,.98),rgba(91,104,38,.96),rgba(143,158,75,.88)) !important;
+    color:#fffbe8 !important;
+    border:1px solid rgba(220,210,135,.38) !important;
+    box-shadow:0 10px 24px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+button:hover,
+#homePage button:hover,
+#adminControlPanel .menu button:hover,
+#employeeDashboard .menu button:hover{
+    background:linear-gradient(135deg,rgba(47,58,24,.98),rgba(118,132,55,.98),rgba(175,189,102,.92)) !important;
+    color:#ffffff !important;
+}
+button.red{background:linear-gradient(135deg,rgba(73,35,20,.98),rgba(105,75,34,.96),rgba(143,124,58,.88)) !important;}
+button.orange{background:linear-gradient(135deg,rgba(72,55,18,.98),rgba(128,112,43,.96),rgba(190,166,82,.88)) !important;}
+button.purple{background:linear-gradient(135deg,rgba(42,37,20,.98),rgba(93,102,39,.96),rgba(141,153,72,.88)) !important;}
+button.gray,.admin-page-back-top{background:linear-gradient(135deg,rgba(28,34,17,.98),rgba(65,74,34,.96),rgba(98,109,56,.88)) !important;}
+input,textarea,select{
+    background:rgba(255,255,245,.88) !important;
+    border:1px solid rgba(111,123,47,.45) !important;
+    color:#17200c !important;
+}
+input::placeholder, textarea::placeholder{color:rgba(31,40,16,.68) !important;}
+input:focus,select:focus,textarea:focus{
+    border:2px solid #9aa95a !important;
+    box-shadow:0 0 0 4px rgba(154,169,90,.20),0 0 16px rgba(212,184,90,.28) !important;
+}
+.small-note,.status{
+    background:rgba(245,250,226,.78) !important;
+    color:#24300f !important;
+    border:1px solid rgba(111,123,47,.26);
+}
+.success{background:rgba(218,235,172,.82) !important;color:#1d3710 !important;}
+.error{background:rgba(240,214,184,.82) !important;color:#4a240e !important;}
+table{background:rgba(255,255,245,.88) !important;}
+th{
+    background:linear-gradient(135deg,#303817,#6f7b2f) !important;
+    color:#fffbe8 !important;
+}
+td{background:rgba(250,253,235,.84) !important;color:#18200c !important;}
+tr:nth-child(even) td{background:rgba(236,244,205,.82) !important;}
+.dashboard-table th,.dashboard-table td:first-child,
+.employee-info-table th,
+.accessive-ot-table th,
+.job-history-table th{
+    background:linear-gradient(135deg,#303817,#6f7b2f) !important;
+    color:#fffbe8 !important;
+}
+.dashboard-table tr:nth-child(odd),
+.accessive-ot-table tbody tr:nth-child(odd),
+.job-history-table tbody tr:nth-child(odd){background:rgba(250,253,235,.84) !important;}
+.dashboard-table tr:nth-child(even),
+.accessive-ot-table tbody tr:nth-child(even),
+.job-history-table tbody tr:nth-child(even){background:rgba(236,244,205,.82) !important;}
+.employee-photo-frame,
+.accessive-ot-info,
+.job-history-info-card{
+    background:linear-gradient(135deg,rgba(245,250,226,.72),rgba(111,123,47,.28)) !important;
+    border:1px solid rgba(212,184,90,.28);
+}
+.employee-photo-frame img{border-color:#6f7b2f !important;}
+.accessive-ot-row,.job-history-info-row{background:rgba(255,255,245,.68) !important;}
+.accessive-ot-label,.job-history-label{color:#354214 !important;}
+.accessive-ot-value,.job-history-value{color:#17200c !important;}
+.autocomplete-list{background:rgba(255,255,245,.96) !important;border-color:rgba(111,123,47,.50) !important;}
+.autocomplete-item{color:#17200c !important;border-bottom:1px solid rgba(111,123,47,.18) !important;}
+.autocomplete-item:hover{background:rgba(221,233,171,.82) !important;}
+a{color:#f1df85 !important;}
+#homePage a{color:#4f5d24 !important;}
+.not-publish-box{
+    background:linear-gradient(135deg,rgba(245,250,226,.88),rgba(154,169,90,.42)) !important;
+    border:2px solid rgba(212,184,90,.55) !important;
+    color:#263015 !important;
+}
+.not-publish-box h2,.not-publish-box .not-publish-text{color:#263015 !important;text-shadow:none !important;}
+#adminControlPanel .small-note{background:rgba(245,250,226,.80) !important;color:#263015 !important;}
+/* Preserve printed documents/reports as readable paper output */
+@media print{
+    body{background:white !important;color:#000 !important;}
+}
 </style>
 </head>
 <body>
