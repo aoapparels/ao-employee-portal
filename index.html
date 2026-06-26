@@ -4330,6 +4330,84 @@ ${pages.join("")}
     win.document.close();
 }
 
+
+
+/* EMPLOYEE INFO TXT/CSV IMPORT COLUMN FIX - Supabase valid columns only */
+(function(){
+    const originalNormalizeEmployeeImportRow = window.normalizeEmployeeImportRow;
+
+    window.normalizeEmployeeImportRow = function(row){
+        let source = {};
+        if(typeof originalNormalizeEmployeeImportRow === "function"){
+            source = originalNormalizeEmployeeImportRow(row || {});
+        }else{
+            source = {...(row || {})};
+        }
+
+        const out = {};
+
+        function pick(keys){
+            for(const k of keys){
+                if(source[k] !== undefined && source[k] !== null && String(source[k]).trim() !== ""){
+                    return String(source[k]).trim();
+                }
+                if(row && row[k] !== undefined && row[k] !== null && String(row[k]).trim() !== ""){
+                    return String(row[k]).trim();
+                }
+            }
+            return "";
+        }
+
+        // Only send columns that exist/are used in Employee_Info portal table.
+        out.Employee_ID = pick(["Employee_ID","Local ID","UID_NO","EMP_CODE"]);
+        out.Name_OF_Employee = pick(["Name_OF_Employee","Name","EMP_NAME"]);
+        out.Mobile_No = pick(["Mobile_No","Contact","MOBILE"]);
+        out.Salary_Account_No = pick(["Salary_Account_No","Mobile/Bank Account","MOBILE_ACC","BANK_ACCOUNT_NO"]);
+        out.Date_Of_Birth = pick(["Date_Of_Birth","Date of Birth","DOB"]);
+        out.Blood_Group = pick(["Blood_Group","Blood Group","BLOOD_GROUP"]);
+        out.Designation = pick(["Designation","DESIG_NAME","DESIGNATION"]);
+        out.Current_Salary = pick(["Current_Salary","Present Salary","PRESENT_SAL"]);
+        out.Joining_Date = pick(["Joining_Date","Joining Date","JOINING_DATE"]);
+        out.Religion = pick(["Religion","RELIGION","Religion_1"]);
+        out.Department = pick(["Department","DEPT_NAME","LINE_NAME"]);
+        out.Section_Name = pick(["Section_Name","SECTION_NAME","SEC_NAME","Department","DEPT_NAME","LINE_NAME"]);
+
+        // Keep useful employee details only if matching Supabase column exists in user's table.
+        // These are common current/new-join compatible columns from the portal.
+        out.Father_Name = pick(["Father_Name","Father's Name","F_NAME"]);
+        out.Mother_Name = pick(["Mother_Name","Mother's Name","M_NAME"]);
+        out.Spouse_Name = pick(["Spouse_Name","Spouse Name","SPOUSE_NAME"]);
+        out.NID_Birth = pick(["NID_Birth","NID","NID_NO"]);
+        out.Gender = pick(["Gender","GENDER"]);
+        out.Education = pick(["Education","EDU"]);
+        out.Skill_Experience = pick(["Skill_Experience","Skill","JOB_EXP"]);
+        out.Height = pick(["Height","EMP_HIGHT"]);
+
+        out.Per_Vill = pick(["Per_Vill","Permanent Street","PER_VILL"]);
+        out.Per_PO = pick(["Per_PO","Permanent Town","Permanent Area","PER_PO"]);
+        out.Per_PS = pick(["Per_PS","Permanent Thana","PER_PS"]);
+        out.Per_Dist = pick(["Per_Dist","Permanent District","PER_DIST"]);
+
+        out.Pre_Vill = pick(["Pre_Vill","Present Street","M_VILL"]);
+        out.Pre_PO = pick(["Pre_PO","Present Town","Present Area","M_PO"]);
+        out.Pre_PS = pick(["Pre_PS","Present Thana","M_PS"]);
+        out.Pre_Dist = pick(["Pre_Dist","Present District","M_DIST"]);
+
+        // Remove empty fields so missing optional Supabase columns won't be sent.
+        Object.keys(out).forEach(k => {
+            if(out[k] === ""){
+                delete out[k];
+            }
+        });
+
+        if(out.Employee_ID){
+            out.Employee_ID = String(out.Employee_ID).trim().toUpperCase();
+        }
+
+        return out;
+    };
+})();
+
 </script>
 
 <div style="text-align:center; margin-top:20px;">
