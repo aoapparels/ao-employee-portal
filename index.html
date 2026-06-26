@@ -1065,6 +1065,17 @@ a{color:#e9f5a9 !important;}
 .rocket-help-text{margin-top:8px;background:rgba(251,255,232,.75);border:1px solid rgba(154,168,90,.45);color:#24300f;padding:10px 12px;border-radius:12px;font-weight:700;line-height:1.5;}
 @media(max-width:700px){.rocket-input-row{grid-template-columns:1fr;}.rocket-preview-actions button{width:100%;}}
 
+
+/* Hide empty instruction/status boxes after note cleanup */
+.status:empty,
+.small-note:empty,
+#submittedFormResult:empty,
+#newJoinStatus:empty,
+#adminStatus:empty,
+#rocketCommitmentStatus:empty{
+    display:none!important;
+}
+
 </style>
 </head>
 
@@ -1104,9 +1115,7 @@ a{color:#e9f5a9 !important;}
 <div class="card hidden" id="newJoinApplicationPage">
     <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
     <h2>New Join Application</h2>
-    <p class="small-note" style="text-align:center;">প্রাথমিক যাচাই ফরম। Submit করার পর Temporary ID দেখাবে।</p>
-
-    <div class="box">
+<div class="box">
         <h3>ব্যক্তিগত তথ্য</h3>
         <input type="text" id="Name_English" placeholder="1. Name Of Employee (English)">
         <input type="text" id="Employee_Name" placeholder="2. কর্মীর নাম">
@@ -1375,17 +1384,16 @@ a{color:#e9f5a9 !important;}
 
     <button onclick="submitNewJoinApplication()" class="green">Submit Application</button>
     <button class="gray" onclick="goHome()">Back</button>
-    <div id="newJoinStatus" class="status">সব তথ্য লিখে Submit চাপুন।</div>
+    <div id="newJoinStatus" class="status"></div>
 </div>
 
 <div class="card hidden" id="submittedFormPage">
     <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
     <h2>Submitted Form</h2>
-    <p class="small-note" style="text-align:center;">Temporary ID দিয়ে আপনার submitted form view / edit / print করতে পারবেন।</p>
-    <input type="text" id="searchTemporaryId" placeholder="Enter Temporary ID, example: 260602001" oninput="digitsOnly(this,20)">
+<input type="text" id="searchTemporaryId" placeholder="Enter Temporary ID, example: 260602001" oninput="digitsOnly(this,20)">
     <button onclick="loadSubmittedApplication()" class="green">View Submitted Form</button>
     <button class="gray" onclick="goHome()">Back</button>
-    <div id="submittedFormResult" class="box">Temporary ID দিয়ে search করুন।</div>
+    <div id="submittedFormResult" class="box"></div>
 </div>
 
 <div class="card hidden" id="adminLoginPage">
@@ -1423,11 +1431,7 @@ a{color:#e9f5a9 !important;}
             <button class="orange" onclick="openSupabaseDashboard()">14. Open Supabase Dashboard</button>
             <button class="green" onclick="showRocketCommitment()">15. Rocket Commitment</button>
         </div>
-
-        <p class="small-note">
-            CSV upload দিলে Supabase database এ data update হবে। Excel heading আর Supabase column name একই রাখতে হবে।
-        </p>
-    </div>
+</div>
 
     <div id="adminView" class="box hidden"></div>
 
@@ -1528,7 +1532,7 @@ function showNewJoinApplication(){
     hideAll();
     document.getElementById("newJoinApplicationPage").classList.remove("hidden");
     document.getElementById("newJoinStatus").className = "status";
-    document.getElementById("newJoinStatus").innerHTML = "সব তথ্য লিখে Submit চাপুন।";
+    document.getElementById("newJoinStatus").innerHTML = "";
     toggleOtherField("Education","Education_Other");
     toggleOtherField("Applied_Post","Applied_Post_Other");
     toggleOtherField("Section_Name","Section_Name_Other");
@@ -1544,7 +1548,7 @@ function showNewJoinApplication(){
 function showSubmittedFormSearch(){
     hideAll();
     document.getElementById("submittedFormPage").classList.remove("hidden");
-    document.getElementById("submittedFormResult").innerHTML = "Temporary ID দিয়ে search করুন।";
+    document.getElementById("submittedFormResult").innerHTML = "";
 }
 
 function showAdminLogin(){
@@ -1940,7 +1944,7 @@ function showChangePasswordPanel(){
         </button>
 
         <div id="adminStatus" class="status">
-            Password change করলে Supabase admin_settings table update হবে। GitHub/HTML edit লাগবে না।
+            
         </div>
     `;
 }
@@ -2044,15 +2048,10 @@ function showSupabaseUpload(type){
         </button>
 
         <div id="adminStatus" class="status">
-            ${type === 'jobCardTotalHistory' ? 'Toad থেকে export করা .txt বা CSV file select করে Upload / Update চাপো।<br>' : 'CSV file select করে Upload / Update চাপো।<br>'}
-            Table: <b>${cfg.table}</b> | Primary Key: <b>${cfg.conflict || cfg.key}</b>
+            ${type === 'jobCardTotalHistory' ? 'Toad থেকে export করা .txt বা ' : ''}
+            
         </div>
-
-        <p class="small-note">
-            CSV header exactly Supabase column name এর মতো হতে হবে।
-            ${type === 'jobCardTotalHistory' ? 'এই upload-এর key EMP_CODE + TRANS_DATE। Same employee/date থাকলে update হবে।' : 'Same Employee_ID থাকলে update হবে, new Employee_ID থাকলে add হবে।'}
-        </p>
-    `;
+`;
 }
 
 function showOutEmployeePanel(){
@@ -2068,7 +2067,7 @@ function showOutEmployeePanel(){
             Back
         </button>
         <div id="adminStatus" class="status">
-            Employee_ID দিলে Employee_Info, Jobcard, Payslip, Total_Overtime — ৪টা table থেকেই remove হবে।
+            
         </div>
     `;
 }
@@ -2104,8 +2103,7 @@ function showAttendanceUploadPanel(){
         </button>
 
         <div id="adminStatus" class="status">
-            PDF select করে upload চাপো। Same report type দিলে পুরান PDF replace হবে।<br>
-            Bucket: <b>attendance-reports</b>
+            
         </div>
     `;
 }
@@ -2137,8 +2135,7 @@ async function uploadAttendancePdf(){
         console.log(error);
         setAdminStatus(`
             <b>PDF upload failed.</b><br>
-            ${error.message}<br><br>
-            Supabase Storage bucket permission/policy check করো।
+            ${error.message}
         `, "error");
         return;
     }
@@ -2273,8 +2270,7 @@ async function uploadCsvToSupabase(type){
                 console.log(error);
                 setAdminStatus(`
                     <b>Upload failed.</b><br>
-                    ${error.message}<br><br>
-                    Check করো: table name, column heading, primary key, RLS insert/update policy.
+                    ${error.message}
                 `, "error");
                 return;
             }
@@ -2310,7 +2306,7 @@ async function removeAllDataFromSupabase(type){
 
     if(error){
         console.log(error);
-        setAdminStatus(`<b>Remove failed.</b><br>${error.message}<br><br>Delete permission/RLS policy check করতে হবে।`, "error");
+        setAdminStatus(`<b>Remove failed.</b><br>${error.message}`, "error");
         return;
     }
 
@@ -3375,7 +3371,7 @@ async function submitNewJoinApplication(){
         if(error){
             console.log(error);
             status.className = "status error";
-            status.innerHTML = "Update failed: " + error.message + "<br>Supabase table column name check করো।";
+            status.innerHTML = "Update failed: " + error.message + "";
             return;
         }
 
@@ -3397,13 +3393,13 @@ async function submitNewJoinApplication(){
     if(error){
         console.log(error);
         status.className = "status error";
-        status.innerHTML = "Submit failed: " + error.message + "<br>Supabase table column name check করো।";
+        status.innerHTML = "Submit failed: " + error.message + "";
         return;
     }
 
     lastSubmittedApplication = formData;
     status.className = "status success";
-    status.innerHTML = `<b>Application Submitted Successfully!</b><br>Temporary ID: <b>${tempId}</b><br>এই ID সংরক্ষণ করুন।<br><button onclick="printBasicForm(lastSubmittedApplication)" class="green">Print / Save PDF Basic Form</button>`;
+    status.innerHTML = `<b>Application Submitted Successfully!</b><br>Temporary ID: <b>${tempId}</b><button onclick="printBasicForm(lastSubmittedApplication)" class="green">Print / Save PDF Basic Form</button>`;
 }
 
 function clearNewJoinForm(){
@@ -3539,10 +3535,6 @@ function applicationSummaryHtml(data){
         statusHtml += `
         <div class="status success" style="margin-bottom:15px;text-align:center;">
             Congratulations! You are selected for the post of ${data.Applied_Post || ""}
-        </div>
-
-        <div class="status" style="margin-bottom:15px;text-align:center;">
-            This form has been approved by authority. Editing is not allowed.
         </div>`;
     }
 
@@ -4178,8 +4170,7 @@ function showRocketCommitment(){
                 <button class="green" onclick="addRocketEmployeeByInput()">Add Employee</button>
                 <button class="orange" onclick="previewRocketCommitment()">Preview / Print</button>
             </div>
-            <div class="rocket-help-text">Employee ID / Card No লিখে Enter দিলে Employee_Info থেকে নাম ও Rocket Account Number নিয়ে নিচের list এ add হবে।</div>
-            <div id="rocketCommitmentStatus" class="status"></div>
+<div id="rocketCommitmentStatus" class="status"></div>
             <table class="rocket-selected-table"><thead><tr><th>SL</th><th>Employee ID</th><th>Name</th><th>Rocket Account Number</th><th>Action</th></tr></thead><tbody id="rocketCommitmentBody"><tr><td colspan="5">No employee added yet.</td></tr></tbody></table>
             <div class="rocket-preview-actions"><button class="orange" onclick="previewRocketCommitment()">Preview / Print</button><button class="red" onclick="clearRocketCommitmentList()">Clear List</button><button class="gray" onclick="backToAdminPanel()">Back</button></div>
         </div>`;
