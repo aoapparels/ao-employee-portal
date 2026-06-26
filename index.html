@@ -2029,10 +2029,10 @@ function showSupabaseUpload(type){
         ${adminBackButtonHtml()}
         <h3>${cfg.title} Upload / Update</h3>
 
-        <input type="file" id="adminCsvFile" accept="${type === 'jobCardTotalHistory' ? '.csv,.txt' : '.csv'}">
+        <input type="file" id="adminCsvFile" accept="${(type === 'jobCardTotalHistory' || type === 'employee') ? '.csv,.txt' : '.csv'}">
 
         <button onclick="uploadCsvToSupabase('${type}')" class="green">
-            Upload / Update CSV To Database
+            Upload / Update File To Database
         </button>
 
         <button onclick="removeAllDataFromSupabase('${type}')" class="red">
@@ -2163,55 +2163,55 @@ function setAdminStatus(msg, type=""){
 }
 
 function parseCSV(text){
-    let firstLine = String(text || "").split(/\r?\n/).find(line => line.trim() !== "") || "";
+    text = String(text || "").replace(/^\uFEFF/, "");
+
+    let lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+    if(lines.length < 2) return [];
+
+    let firstLine = lines[0] || "";
     let candidates = [",", "|", "\t", ";"];
     let delimiter = candidates
     .map(d => ({delimiter:d, count:firstLine.split(d).length}))
     .sort((a,b) => b.count - a.count)[0].delimiter;
 
-    let rows = [];
-    let row = [];
-    let value = "";
-    let insideQuotes = false;
+    function parseDelimitedLine(line){
+        let cells = [];
+        let value = "";
+        let insideQuotes = false;
 
-    for(let i = 0; i < text.length; i++){
-        let char = text[i];
-        let next = text[i + 1];
+        for(let i = 0; i < line.length; i++){
+            let char = line[i];
+            let next = line[i + 1];
 
-        if(char === '"' && insideQuotes && next === '"'){
-            value += '"';
-            i++;
-        }else if(char === '"'){
-            insideQuotes = !insideQuotes;
-        }else if(char === delimiter && !insideQuotes){
-            row.push(value.trim());
-            value = "";
-        }else if((char === "\n" || char === "\r") && !insideQuotes){
-            if(char === "\r" && next === "\n") i++;
-            row.push(value.trim());
-            value = "";
-
-            if(row.some(cell => cell !== "")){
-                rows.push(row);
+            if(char === '"' && insideQuotes && next === '"'){
+                value += '"';
+                i++;
+            }else if(char === '"'){
+                insideQuotes = !insideQuotes;
+            }else if(char === delimiter && !insideQuotes){
+                cells.push(value.trim());
+                value = "";
+            }else{
+                value += char;
             }
-            row = [];
-        }else{
-            value += char;
         }
+
+        cells.push(value.trim());
+        return cells;
     }
 
-    if(value || row.length){
-        row.push(value.trim());
-        if(row.some(cell => cell !== "")){
-            rows.push(row);
-        }
+    function mergeOverflowCells(cells, headerCount){
+        if(cells.length <= headerCount) return cells;
+        let fixed = cells.slice(0, headerCount);
+        fixed[headerCount - 1] = cells.slice(headerCount - 1).join(" ").trim();
+        return fixed;
     }
 
-    if(rows.length < 2) return [];
+    let headers = parseDelimitedLine(lines[0]).map(h => h.replace(/^\uFEFF/, "").trim());
+    let headerCount = headers.length;
 
-    let headers = rows[0].map(h => h.replace(/^\uFEFF/, "").trim());
-
-    return rows.slice(1).map(r => {
+    return lines.slice(1).map(line => {
+        let r = mergeOverflowCells(parseDelimitedLine(line), headerCount);
         let obj = {};
         headers.forEach((h, index) => {
             if(h){
@@ -2222,6 +2222,49 @@ function parseCSV(text){
     });
 }
 
+function normalizeEmployeeImportRow(row){
+    let out = {...row};
+
+    const map = {
+        "Local ID": "Employee_ID",
+        "Name": "Name_OF_Employee",
+        "Contact": "Mobile_No",
+        "Mobile/Bank Account": "Salary_Account_No",
+        "Date of Birth": "Date_Of_Birth",
+        "Blood Group": "Blood_Group",
+        "DESIG_NAME": "Designation",
+        "Present Salary": "Current_Salary",
+        "Joining Date": "Joining_Date",
+        "Religion_1": "Religion",
+        "RELIGION": "Religion",
+        "DEPT_NAME": "Department"
+    };
+
+    Object.keys(map).forEach(srcKey => {
+        const destKey = map[srcKey];
+        if((out[destKey] === undefined || out[destKey] === "") && out[srcKey] !== undefined){
+            out[destKey] = out[srcKey];
+        }
+    });
+
+    if(out.Employee_ID) out.Employee_ID = String(out.Employee_ID).trim().toUpperCase();
+
+    if(!out.Name_OF_Employee && out.Name) out.Name_OF_Employee = out.Name;
+    if(!out.Mobile_No && out.Contact) out.Mobile_No = out.Contact;
+    if(!out.Salary_Account_No && out["Mobile/Bank Account"]) out.Salary_Account_No = out["Mobile/Bank Account"];
+    if(!out.Current_Salary && out["Present Salary"]) out.Current_Salary = out["Present Salary"];
+    if(!out.Joining_Date && out["Joining Date"]) out.Joining_Date = out["Joining Date"];
+    if(!out.Date_Of_Birth && out["Date of Birth"]) out.Date_Of_Birth = out["Date of Birth"];
+    if(!out.Blood_Group && out["Blood Group"]) out.Blood_Group = out["Blood Group"];
+    if(!out.Designation && out.DESIG_NAME) out.Designation = out.DESIG_NAME;
+    if(!out.Department && out.DEPT_NAME) out.Department = out.DEPT_NAME;
+    if(!out.Section_Name && out.Department) out.Section_Name = out.Department;
+
+    delete out.id;
+    delete out.created_at;
+
+    return out;
+}
 async function uploadCsvToSupabase(type){
     const cfg = tableConfig[type];
     const fileInput = document.getElementById("adminCsvFile");
@@ -2232,7 +2275,7 @@ async function uploadCsvToSupabase(type){
         return;
     }
 
-    setAdminStatus("Reading CSV file...");
+    setAdminStatus("Reading file...");
 
     const reader = new FileReader();
 
@@ -2242,19 +2285,24 @@ async function uploadCsvToSupabase(type){
             let rows = parseCSV(csvText);
 
             if(!rows.length){
-                setAdminStatus("No data found in CSV.", "error");
+                setAdminStatus("No data found in file.", "error");
                 return;
             }
 
             rows = rows.map(row => {
+                if(type === "employee"){
+                    row = normalizeEmployeeImportRow(row);
+                }
+
                 if(row[cfg.key]){
                     row[cfg.key] = String(row[cfg.key]).trim().toUpperCase();
                 }
+
                 return row;
             }).filter(row => row[cfg.key] && String(row[cfg.key]).trim() !== "");
 
             if(!rows.length){
-                setAdminStatus(`CSV তে ${cfg.key} column/value পাওয়া যায়নি।`, "error");
+                setAdminStatus(`File এ ${cfg.key} column/value পাওয়া যায়নি।`, "error");
                 return;
             }
 
@@ -2280,7 +2328,7 @@ async function uploadCsvToSupabase(type){
 
         }catch(error){
             console.log(error);
-            setAdminStatus("CSV upload failed. File format check করো.", "error");
+            setAdminStatus("Upload failed. File format check করো.", "error");
         }
     };
 
