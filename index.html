@@ -1053,6 +1053,18 @@ tr:nth-child(even) td,
 a{color:#e9f5a9 !important;}
 #homePage a{color:#415315 !important;text-shadow:none;}
 
+
+/* ===== Rocket Commitment Module (Admin Only) ===== */
+.rocket-commit-card{background:linear-gradient(145deg,rgba(245,250,226,.92),rgba(111,123,47,.30)) !important;border:1px solid rgba(215,223,163,.42) !important;border-radius:18px;padding:18px;box-shadow:0 14px 34px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.18);}
+.rocket-commit-card h3{background:linear-gradient(135deg,rgba(31,42,18,.98),rgba(95,111,42,.94),rgba(42,55,20,.98)) !important;color:#fbffe8 !important;border:1px solid rgba(215,223,163,.35) !important;}
+.rocket-input-row{display:grid;grid-template-columns:1.2fr auto auto;gap:10px;align-items:end;}
+.rocket-selected-table th,.rocket-selected-table td{text-align:center;vertical-align:middle;}
+.rocket-selected-table .rocket-name-cell,.rocket-selected-table .rocket-account-cell{font-weight:900;color:#1f2a12 !important;}
+.rocket-preview-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.rocket-preview-actions button{width:auto;min-width:150px;}
+.rocket-help-text{margin-top:8px;background:rgba(251,255,232,.75);border:1px solid rgba(154,168,90,.45);color:#24300f;padding:10px 12px;border-radius:12px;font-weight:700;line-height:1.5;}
+@media(max-width:700px){.rocket-input-row{grid-template-columns:1fr;}.rocket-preview-actions button{width:100%;}}
+
 </style>
 </head>
 
@@ -1409,6 +1421,7 @@ a{color:#e9f5a9 !important;}
             <button class="red" onclick="removeAllApprovedApplications()">12. Remove All Approved Data</button>
             <button class="purple" onclick="showChangePasswordPanel()">13. Change Admin Password</button>
             <button class="orange" onclick="openSupabaseDashboard()">14. Open Supabase Dashboard</button>
+            <button class="green" onclick="showRocketCommitment()">15. Rocket Commitment</button>
         </div>
 
         <p class="small-note">
@@ -4147,6 +4160,75 @@ document.addEventListener("keypress", function(event){
 goHome();
 
 
+
+
+
+/* ===== Rocket Commitment Module (Admin Only) ===== */
+let rocketCommitmentRows = [];
+
+function showRocketCommitment(){
+    activateAdminSubPage();
+    rocketCommitmentRows = [];
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <div class="rocket-commit-card">
+            <h3>Rocket Commitment</h3>
+            <div class="rocket-input-row">
+                <div><label>Employee ID / Card No</label><input type="text" id="rocketEmployeeIdInput" placeholder="Employee ID লিখে Enter চাপুন" onkeydown="rocketEmployeeEnter(event)"></div>
+                <button class="green" onclick="addRocketEmployeeByInput()">Add Employee</button>
+                <button class="orange" onclick="previewRocketCommitment()">Preview / Print</button>
+            </div>
+            <div class="rocket-help-text">Employee ID / Card No লিখে Enter দিলে Employee_Info থেকে নাম ও Rocket Account Number নিয়ে নিচের list এ add হবে।</div>
+            <div id="rocketCommitmentStatus" class="status"></div>
+            <table class="rocket-selected-table"><thead><tr><th>SL</th><th>Employee ID</th><th>Name</th><th>Rocket Account Number</th><th>Action</th></tr></thead><tbody id="rocketCommitmentBody"><tr><td colspan="5">No employee added yet.</td></tr></tbody></table>
+            <div class="rocket-preview-actions"><button class="orange" onclick="previewRocketCommitment()">Preview / Print</button><button class="red" onclick="clearRocketCommitmentList()">Clear List</button><button class="gray" onclick="backToAdminPanel()">Back</button></div>
+        </div>`;
+    setTimeout(() => { const input = document.getElementById("rocketEmployeeIdInput"); if(input) input.focus(); }, 80);
+}
+function rocketEmployeeEnter(event){ if(event.key === "Enter"){ event.preventDefault(); addRocketEmployeeByInput(); } }
+function setRocketStatus(msg, type=""){ const el = document.getElementById("rocketCommitmentStatus"); if(!el) return; el.className = "status" + (type ? " " + type : ""); el.innerHTML = msg || ""; }
+function normalizeRocketId(value){ return String(value || "").trim().toUpperCase(); }
+function pickRocketName(row){ const keys=["Name_OF_Employee","Name_Of_Employee","NAME_OF_EMPLOYEE","EMP_NAME","Employee_Name","Employee_Name_Bangla","Name_English","NAME","Name","EMPLOYEE_NAME"]; for(const k of keys){ if(row && row[k]!==undefined && row[k]!==null && String(row[k]).trim()!=="") return String(row[k]).trim(); } return ""; }
+function pickRocketAccount(row){ const keys=["Rocket_Account_No","Rocket_Account_Number","ROCKET_ACCOUNT_NO","ROCKET_ACCOUNT_NUMBER","Rocket_No","Rocket_Number","ROCKET_NO","ROCKET_NUMBER","Salary_Account_No","SALARY_ACCOUNT_NO","salary_account_no","Mobile_Banking_No","Mobile_No","MOBILE_NO"]; for(const k of keys){ if(row && row[k]!==undefined && row[k]!==null && String(row[k]).trim()!=="") return String(row[k]).trim(); } return ""; }
+async function findRocketEmployee(employeeId){
+    const id = normalizeRocketId(employeeId); if(!id) return null;
+    let res = await supabaseClient.from("Employee_Info").select("*").eq("Employee_ID", id).maybeSingle();
+    if(res.error) console.log("Employee_Info Employee_ID search error:", res.error);
+    if(res.data) return res.data;
+    const possibleCols = ["EMP_CODE","Emp_Code","CARD_NO","Card_No","CardNo","CARDNO"];
+    for(const col of possibleCols){ try{ const r = await supabaseClient.from("Employee_Info").select("*").eq(col, id).maybeSingle(); if(!r.error && r.data) return r.data; }catch(e){} }
+    return null;
+}
+async function addRocketEmployeeByInput(){
+    const input = document.getElementById("rocketEmployeeIdInput"); const id = normalizeRocketId(input ? input.value : "");
+    if(!id){ setRocketStatus("Employee ID লিখুন।", "error"); return; }
+    if(rocketCommitmentRows.some(r => normalizeRocketId(r.employeeId) === id)){ setRocketStatus("এই Employee ID আগে add করা আছে।", "error"); if(input) input.value = ""; return; }
+    setRocketStatus("Loading employee data...");
+    const emp = await findRocketEmployee(id);
+    if(!emp){ setRocketStatus("Employee_Info table এ এই Employee ID পাওয়া যায়নি: " + id, "error"); return; }
+    const employeeId = normalizeRocketId(emp.Employee_ID || emp.EMP_CODE || emp.CARD_NO || id);
+    const name = pickRocketName(emp);
+    const rocketAccount = pickRocketAccount(emp);
+    rocketCommitmentRows.push({employeeId, name, rocketAccount, raw: emp});
+    if(input){ input.value = ""; input.focus(); }
+    setRocketStatus(""); renderRocketCommitmentRows();
+}
+function renderRocketCommitmentRows(){
+    const body = document.getElementById("rocketCommitmentBody"); if(!body) return;
+    if(!rocketCommitmentRows.length){ body.innerHTML = `<tr><td colspan="5">No employee added yet.</td></tr>`; return; }
+    body.innerHTML = rocketCommitmentRows.map((r, i) => `<tr><td>${i + 1}</td><td>${escapeRocketHtml(r.employeeId)}</td><td class="rocket-name-cell">${escapeRocketHtml(r.name || "-")}</td><td class="rocket-account-cell">${escapeRocketHtml(r.rocketAccount || "-")}</td><td><button class="red" onclick="removeRocketCommitmentRow(${i})">Remove</button></td></tr>`).join("");
+}
+function removeRocketCommitmentRow(index){ rocketCommitmentRows.splice(index, 1); renderRocketCommitmentRows(); }
+function clearRocketCommitmentList(){ rocketCommitmentRows = []; renderRocketCommitmentRows(); setRocketStatus(""); }
+function escapeRocketHtml(value){ return String(value ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function rocketCommitmentFormHtml(row){ const name = escapeRocketHtml(row.name || ""); const account = escapeRocketHtml(row.rocketAccount || ""); return `<div class="rocket-form-box"><h2>অঙ্গীকার নামা</h2><p class="rocket-text">আমি নিম্ন স্বাক্ষরকারী এই মর্মে প্রত্যয়ন করছি যে, আমার নামে রকেট-এ অন্য কোন একাউন্ট নাই এবং ভবিষ্যতে আমি যদি অন্য রকেট একাউন্ট খুলতে চাই তাহলে নিজ থেকে বর্তমান একাউন্টটি বন্ধ করব। তাছাড়া আমি যখনই NID হাতে পাবো রকেট এর অফিসে ফটোকপি জমা দিয়ে আমার তথ্য হালনাগাদ করবো।</p><div class="rocket-line"><span>স্বাক্ষর</span><b>:</b><strong></strong></div><div class="rocket-line"><span>নাম</span><b>:</b><strong>${name}</strong></div><div class="rocket-line"><span>রকেট একাউন্ট নম্বর</span><b>:</b><strong>${account}</strong></div></div>`; }
+function previewRocketCommitment(){
+    if(!rocketCommitmentRows.length){ setRocketStatus("Preview করার আগে Employee ID add করুন।", "error"); return; }
+    const pages = [];
+    for(let i = 0; i < rocketCommitmentRows.length; i += 3){ const pageRows = rocketCommitmentRows.slice(i, i + 3); pages.push(`<div class="rocket-print-page">${pageRows.map(rocketCommitmentFormHtml).join("")}</div>`); }
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rocket Commitment</title><style>@page{size:A4;margin:8mm;}*{box-sizing:border-box;}body{margin:0;background:#f5f5f5;color:#000;font-family:Arial,'Noto Sans Bengali','SolaimanLipi',sans-serif;}.print-actions{text-align:center;padding:10px;}.print-actions button{width:auto;padding:9px 18px;margin:0 5px;border:0;border-radius:8px;background:#0754a6;color:#fff;font-weight:bold;cursor:pointer;}.rocket-print-page{width:210mm;min-height:297mm;margin:0 auto 10px auto;background:#fff;padding:5mm 4mm;page-break-after:always;}.rocket-print-page:last-child{page-break-after:auto;}.rocket-form-box{width:100%;height:91mm;border:1.5px solid #000;padding:7mm 4mm 4mm 4mm;margin-bottom:6mm;overflow:hidden;}.rocket-form-box:last-child{margin-bottom:0;}.rocket-form-box h2{text-align:center;font-size:22px;font-weight:900;text-decoration:underline;margin:0 0 8mm 0;}.rocket-text{font-size:17px;line-height:2.05;font-weight:700;text-align:left;margin:0 0 13mm 0;}.rocket-line{display:grid;grid-template-columns:39mm 5mm 1fr;gap:2mm;align-items:end;font-size:16px;font-weight:800;margin-top:7mm;}.rocket-line span{font-weight:900;}.rocket-line strong{min-height:7mm;border-bottom:0;font-weight:900;font-size:17px;}@media print{body{background:#fff;}.print-actions{display:none;}.rocket-print-page{margin:0;padding:5mm 4mm;box-shadow:none;}}</style></head><body><div class="print-actions"><button onclick="window.print()">Print / Save PDF</button><button onclick="window.close()">Close</button></div>${pages.join("")}</body></html>`;
+    const win = window.open("", "_blank"); win.document.write(html); win.document.close();
+}
 
 </script>
 
