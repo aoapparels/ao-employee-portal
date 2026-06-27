@@ -9,7 +9,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
 /* Pictorial submenu/list functions */
 let picCache=[],picEdit=null;
-function picHide(){['humidityPage','temperaturePage','firstaidPage','pictorialPage','pictorialMenuPage','pictorialListPage'].forEach(id=>{let e=document.getElementById(id);if(e)e.classList.add('hidden')})}
+function picHide(){['humidityPage','temperaturePage','firstaidPage','productionStatusPage','dailyProductionPage','pictorialPage','pictorialMenuPage','pictorialListPage'].forEach(id=>{let e=document.getElementById(id);if(e)e.classList.add('hidden')})}
 function showPictorialEvidence(){document.getElementById('formatListPage')?.classList.add('hidden');picHide();document.getElementById('pictorialMenuPage')?.classList.remove('hidden')}
 function backToFormatList(){picHide();document.getElementById('formatListPage')?.classList.remove('hidden')}
 function showPictorialAddNew(){document.getElementById('formatListPage')?.classList.add('hidden');picHide();document.getElementById('pictorialPage')?.classList.remove('hidden');picEdit=null;try{pictorialPhotoCount=1;initPictorialDateDropdowns();showOnlyPictorialPhotoFields();}catch(e){}}
@@ -343,17 +343,154 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
 
 /* Pictorial submenu/list */
 .pic-menu-card,.pic-list-card{background:linear-gradient(135deg,rgba(81,95,43,.94),rgba(114,126,64,.90));border:1px solid rgba(214,223,172,.45);border-radius:18px;padding:20px;box-shadow:0 12px 28px rgba(29,39,12,.30)}.pic-menu-card{max-width:760px;margin:auto}.pic-menu-card h2,.pic-list-card h2{text-align:center;color:#f6f9e9;margin-bottom:14px}.pic-menu-grid{display:grid;grid-template-columns:repeat(2,minmax(220px,1fr));gap:16px;margin-top:14px}.pic-menu-grid button{min-height:90px;font-size:18px}.pic-toolbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:10px 0 14px}.pic-toolbar button{width:auto;min-width:120px;padding:10px 14px;font-size:14px}.pic-table-wrap{overflow:auto;background:rgba(249,251,240,.95);border-radius:12px;border:1px solid rgba(197,210,139,.95)}.pic-table{width:100%;min-width:760px;border-collapse:collapse;font-size:14px}.pic-table th{background:#4f6129;color:#fff;padding:10px}.pic-table td{padding:10px;border:1px solid rgba(83,99,45,.25);background:rgba(255,255,255,.75);vertical-align:middle}.pic-table tr:nth-child(even) td{background:rgba(244,247,227,.9)}.pic-sl{text-align:center;font-weight:900;width:55px}.pic-date{display:inline-block;background:#fff3cd;color:#7a4d00;border:1px solid #ffd66b;padding:5px 9px;border-radius:8px;font-weight:900}.pic-subject{font-weight:900;color:#0754a6;font-size:15px}.pic-actions{display:flex;gap:7px;justify-content:center}.pic-icon{width:34px!important;height:34px!important;min-width:34px!important;border-radius:50%!important;padding:0!important;font-size:15px!important;display:flex;align-items:center;justify-content:center}.pic-empty{text-align:center;font-weight:900;color:#586733;padding:22px}@media(max-width:700px){.pic-menu-grid{grid-template-columns:1fr}.pic-toolbar button{width:100%}}
+
+/* HUMIDITY PRINT ONE PAGE HARD FIX */
+@media print{
+  #humidityPrintArea{
+    height:283mm!important;
+    max-height:283mm!important;
+    width:196mm!important;
+    max-width:196mm!important;
+    display:flex!important;
+    flex-direction:column!important;
+    overflow:hidden!important;
+    padding:0!important;
+    margin:0!important;
+  }
+  #humidityPrintArea .company-title{
+    font-size:25px!important;
+    font-weight:900!important;
+    line-height:1.08!important;
+    margin:0 0 5px!important;
+  }
+  #humidityPrintArea .report-title{
+    font-size:19px!important;
+    font-weight:900!important;
+    line-height:1.08!important;
+    margin:0 0 3px!important;
+  }
+  #humidityPrintArea .report-month{
+    font-size:14px!important;
+    font-weight:900!important;
+    margin:0 0 4px!important;
+  }
+  #humidityPrintArea .area-row{
+    font-size:14px!important;
+    line-height:1.05!important;
+    padding:2px 5px!important;
+  }
+  #humidityPrintArea .humidity-table{
+    flex:0 1 auto!important;
+    font-size:9.4px!important;
+    line-height:1!important;
+    page-break-after:avoid!important;
+  }
+  #humidityPrintArea .humidity-table th,
+  #humidityPrintArea .humidity-table td{
+    height:4.35mm!important;
+    max-height:4.35mm!important;
+    padding:0 1px!important;
+    line-height:1!important;
+  }
+  #humidityPrintArea .humidity-table thead th{
+    height:6mm!important;
+    max-height:6mm!important;
+  }
+  #humidityPrintArea .weekend-cell{
+    font-size:13px!important;
+  }
+  #humidityPrintArea .blank-merged-cell{
+    height:3.2mm!important;
+    max-height:3.2mm!important;
+  }
+  #humidityPrintArea .signature-row{
+    margin-top:3mm!important;
+    min-height:15mm!important;
+    flex-shrink:0!important;
+    font-size:12px!important;
+    padding-bottom:0!important;
+    page-break-before:avoid!important;
+    page-break-inside:avoid!important;
+  }
+  #humidityPrintArea .signature-row div{
+    padding-top:4px!important;
+  }
+}
+
 </style>
 </head>
 <body>
 <div class="container">
-    <div class="card no-print" id="formatListPage"><div class="logo-box"><img src="logo.jpeg" alt="A&O Logo"></div><h1>All Formate</h1><p class="subtitle">A&O Apparels (Pvt.) Ltd.</p><div class="menu"><button class="green" onclick="showFormat('humidity')">01. Humidity Check List</button><button class="orange" onclick="showFormat('temperature')">02. Temperature Checklist</button><button class="green" onclick="showFormat('firstaid')">03. First Aid Check List</button><button class="orange" onclick="showPictorialEvidence()">04. Pictorial Evidence Formate</button></div><button class="gray" onclick="goBackToPortal()" style="margin-top:18px;">Back To Admin Panel</button></div>
+    <div class="card no-print" id="formatListPage"><div class="logo-box"><img src="logo.jpeg" alt="A&O Logo"></div><h1>All Formate</h1><p class="subtitle">A&O Apparels (Pvt.) Ltd.</p><div class="menu"><button class="green" onclick="showFormat('humidity')">01. Humidity Check List</button><button class="orange" onclick="showFormat('temperature')">02. Temperature Checklist</button><button class="green" onclick="showFormat('firstaid')">03. First Aid Check List</button><button class="orange" onclick="showPictorialEvidence()">04. Pictorial Evidence Formate</button><button class="green" onclick="showFormat('productionStatus')">05. Production Status</button><button class="orange" onclick="showFormat('dailyProduction')">06. Daily Production Report</button></div><button class="gray" onclick="goBackToPortal()" style="margin-top:18px;">Back To Admin Panel</button></div>
 
     <div class="card hidden format-page" id="humidityPage"><div class="box no-print"><h2>Humidity Check List</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="humidityMonth" class="form-control" onchange="onMonthChange('humidity')"></div><div><label class="control-label">Area</label><input type="text" id="humidityArea" class="form-control" value="Lab (Ground Floor)" oninput="renderChecklist('humidity')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><div class="control-grid"><div><label class="control-label">Date Select</label><select id="humidityManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="humidityManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('humidity')">Add</button></div></div><div id="humidityManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet" id="humidityPrintArea"><div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div><div class="report-title">Daily Humidity Check Report</div><div class="report-month" id="humidityReportMonth">For The Month of</div><div class="area-row">Area: <span id="humidityAreaText">Lab (Ground Floor)</span></div><table class="check-table humidity-table"><thead><tr><th>Date</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Checking Time</th><th>Humidity<br>Measure<br>(%)</th><th>Checked By</th><th>Remarks</th></tr></thead><tbody id="humidityTableBody"></tbody></table><div class="signature-row"><div>Prepared By</div><div>Checked By</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
 
     <div class="card hidden format-page" id="temperaturePage"><div class="box no-print"><h2>Temperature Checklist</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="temperatureMonth" class="form-control" onchange="onMonthChange('temperature')"></div><div><label class="control-label">Area</label><input type="text" id="temperatureArea" class="form-control" value="Finishing 1st Floor (Oven)" oninput="renderChecklist('temperature')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><div class="control-grid"><div><label class="control-label">Date Select</label><select id="temperatureManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="temperatureManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('temperature')">Add</button></div></div><div id="temperatureManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet" id="temperaturePrintArea"><div class="company-title">A &amp; O Apparels (Pvt.) Ltd.</div><div class="report-title">Daily Temperature Record</div><div class="report-month" id="temperatureReportMonth">For The Month of</div><div class="area-row">Area: <span id="temperatureAreaText">Finishing 1st Floor (Oven)</span></div><table class="check-table temperature-table"><thead><tr><th>Date</th><th>Checking Time<br>(AM)</th><th>Temp-<br>Measure</th><th>Checking Time<br>(PM)</th><th>Temp-<br>Measure</th><th>Remarks</th></tr></thead><tbody id="temperatureTableBody"></tbody></table><div class="signature-row"><div>Prepared By</div><div>Checked By</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
 
     <div class="card hidden format-page" id="firstaidPage"><div class="box no-print"><h2>First Aid Check List</h2><div class="control-grid"><div><label class="control-label">Month Select</label><input type="month" id="firstaidMonth" class="form-control" onchange="onMonthChange('firstaid')"></div><div><label class="control-label">Box No</label><input type="text" id="firstaidBoxNo" class="form-control" value="6" oninput="renderChecklist('firstaid')"></div></div><div class="box" style="background:#fff;margin-top:14px;"><h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2><div class="control-grid"><div><label class="control-label">Date Select</label><select id="firstaidManualDate" class="form-control"></select></div><div><label class="control-label">Manual Text</label><input type="text" id="firstaidManualText" class="form-control" placeholder="Example: Holiday / Reguler"></div><div><button class="green" onclick="addManualText('firstaid')">Add</button></div></div><div id="firstaidManualList" class="manual-list">No manual weekend selected.</div></div></div><div class="print-area print-sheet firstaid-sheet" id="firstaidPrintArea"><div class="firstaid-company-title">A&amp;O Apparels (Pvt.) Ltd.</div><div class="firstaid-title"><span class="firstaid-box-label" id="firstaidBoxTitle">BOX NO- 6</span><span class="firstaid-main-title">First Aid Check List</span></div><div class="firstaid-month" id="firstaidReportMonth">For The Month Of</div><table class="firstaid-table"><thead><tr><th rowspan="2" class="firstaid-date">Date</th><th colspan="12">First Aid Box Items</th><th colspan="3">Checked By Signature</th></tr><tr><th class="firstaid-item"><span class="vtxt">Small bandage</span></th><th class="firstaid-item"><span class="vtxt">Medium bandage</span></th><th class="firstaid-item"><span class="vtxt">Surgical Gauze</span></th><th class="firstaid-item"><span class="vtxt">Cotton wool</span></th><th class="firstaid-item"><span class="vtxt">Hexisol</span></th><th class="firstaid-item"><span class="vtxt">Scissors</span></th><th class="firstaid-item"><span class="vtxt">Burn ointment</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Cream</span></th><th class="firstaid-item"><span class="vtxt">Povisep/Viodin Lequid</span></th><th class="firstaid-item"><span class="vtxt">Tourniquet</span></th><th class="firstaid-item"><span class="vtxt">Adhesive Plaster</span></th><th class="firstaid-item"><span class="vtxt">First Aid Leaflet</span></th><th rowspan="2" class="firstaid-sign">First<br>Aider</th><th rowspan="2" class="firstaid-sign">Medical<br>Asst.</th><th rowspan="2" class="firstaid-hr">HR</th></tr><tr><th>SL. NO.</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th></tr></thead><tbody id="firstaidTableBody"></tbody></table><div class="firstaid-note">* Medicine, thermometer and rectified spirit will remain under the supervision of the responsible nurse in doctors room.</div><div class="firstaid-bottom-sign"><div>Compliance Manager</div></div></div><div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div></div>
+
+
+    <div class="card hidden format-page" id="productionStatusPage">
+        <div class="box no-print">
+            <h2>Production Status</h2>
+            <div class="control-grid">
+                <div><label class="control-label">Month Select</label><input type="month" id="productionStatusMonth" class="form-control" onchange="onMonthChange('productionStatus')"></div>
+            </div>
+            <div class="box manual-box" style="margin-top:14px;">
+                <h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2>
+                <div class="control-grid">
+                    <div><label class="control-label">Date Select</label><select id="productionStatusManualDate" class="form-control"></select></div>
+                    <div><label class="control-label">Manual Text</label><input type="text" id="productionStatusManualText" class="form-control" placeholder="Example: Holiday / Regular"></div>
+                    <div><button class="green" onclick="addManualText('productionStatus')">Add</button></div>
+                </div>
+                <div id="productionStatusManualList" class="manual-list">No manual weekend selected.</div>
+            </div>
+        </div>
+        <div class="print-area print-sheet production-sheet" id="productionStatusPrintArea">
+            <div class="company-title">A&amp;O Apparels (Pvt.) Ltd.</div>
+            <div class="report-title">Production Status</div>
+            <div class="report-month" id="productionStatusReportMonth">For The Month of</div>
+            <table class="check-table production-status-table">
+                <thead>
+                    <tr><th rowspan="2">Date</th><th rowspan="2">Cutting</th><th colspan="6">Sewing (Woven)</th><th rowspan="2">Remarks</th></tr>
+                    <tr><th>Front Part<br>In-put</th><th>Front Part<br>Out-put</th><th>Back Part<br>In-put</th><th>Back Part<br>Out-put</th><th>Complete<br>Out-put</th><th>Wash Send</th></tr>
+                </thead>
+                <tbody id="productionStatusTableBody"></tbody>
+            </table>
+            <div class="signature-row"><div>Prepared By</div><div>Checked By</div></div>
+        </div>
+        <div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div>
+    </div>
+
+    <div class="card hidden format-page" id="dailyProductionPage">
+        <div class="box no-print">
+            <h2>Daily Production Report</h2>
+            <div class="control-grid">
+                <div><label class="control-label">Month Select</label><input type="month" id="dailyProductionMonth" class="form-control" onchange="onMonthChange('dailyProduction')"></div>
+            </div>
+            <div class="box manual-box" style="margin-top:14px;">
+                <h2 style="font-size:20px;margin-bottom:5px;">Add Manual Weekend Select</h2>
+                <div class="control-grid">
+                    <div><label class="control-label">Date Select</label><select id="dailyProductionManualDate" class="form-control"></select></div>
+                    <div><label class="control-label">Manual Text</label><input type="text" id="dailyProductionManualText" class="form-control" placeholder="Example: Holiday / Regular"></div>
+                    <div><button class="green" onclick="addManualText('dailyProduction')">Add</button></div>
+                </div>
+                <div id="dailyProductionManualList" class="manual-list">No manual weekend selected.</div>
+            </div>
+        </div>
+        <div class="print-area print-sheet daily-production-sheet" id="dailyProductionPrintArea">
+            <div class="company-title">A&amp;O Apparels (Pvt.) Ltd.</div>
+            <div class="report-title">DAILY PRODUCTION REPORT</div>
+            <div class="report-address">256, Char Rajapur, Baktaboli, Fatulla, Narayanganj.</div>
+            <div class="report-month" id="dailyProductionReportMonth">For The Month of</div>
+            <table class="check-table daily-production-table">
+                <thead><tr><th>Date</th><th>Order<br>Qty.</th><th>Cut.<br>TTL</th><th>Input<br>TTL</th><th>Output<br>TTL</th><th>To<br>Wash</th><th>From<br>Wash</th><th>Poly<br>TTL</th><th>Ctn.<br>TTL</th></tr></thead>
+                <tbody id="dailyProductionTableBody"></tbody>
+            </table>
+            <div class="signature-row"><div>Prepared By</div><div>Checked By</div></div>
+        </div>
+        <div class="menu no-print"><button onclick="window.print()">Print</button><button class="gray" onclick="backToFormatList()">Back To List</button></div>
+    </div>
 
 
     <div class="card hidden format-page" id="pictorialMenuPage"><div class="pic-menu-card no-print"><h2>Pictorial Evidence Formate</h2><div class="pic-menu-grid"><button class="green" onclick="showPictorialAddNew()">➕ Add New Pictorial Evidence</button><button class="orange" onclick="showPictorialEvidenceList()">📋 Pictorial Evidence List</button></div><button class="gray" onclick="backToFormatList()" style="margin-top:16px;">Back To List</button></div></div>
@@ -393,14 +530,14 @@ button{width:100%;padding:14px 12px;border:none;border-radius:10px;background:#0
 </div>
 
 <script>
-const manualMaps={humidity:{},temperature:{},firstaid:{}};
+const manualMaps={humidity:{},temperature:{},firstaid:{},productionStatus:{},dailyProduction:{}};
 const monthNames=["January","February","March","April","May","June","July","August","September","October","November","December"];
 const shortMonths=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 function showFormat(type){document.getElementById('formatListPage').classList.add('hidden');document.getElementById(type+'Page').classList.remove('hidden');initMonth(type);renderChecklist(type);}function showPictorialEvidence(){document.getElementById('formatListPage').classList.add('hidden');document.getElementById('pictorialPage').classList.remove('hidden');initPictorialDateDropdowns();}
-function backToFormatList(){document.getElementById('humidityPage').classList.add('hidden');document.getElementById('temperaturePage').classList.add('hidden');document.getElementById('firstaidPage').classList.add('hidden');document.getElementById('pictorialPage').classList.add('hidden');document.getElementById('formatListPage').classList.remove('hidden');}
+function backToFormatList(){document.getElementById('humidityPage').classList.add('hidden');document.getElementById('temperaturePage').classList.add('hidden');document.getElementById('firstaidPage').classList.add('hidden');document.getElementById('productionStatusPage')?.classList.add('hidden');document.getElementById('dailyProductionPage')?.classList.add('hidden');document.getElementById('pictorialPage').classList.add('hidden');document.getElementById('formatListPage').classList.remove('hidden');}
 function goBackToPortal(){window.location.href='index.html';}
 function initMonth(type){const input=document.getElementById(type+'Month');if(input.value)return;const now=new Date();input.value=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;populateManualDateOptions(type);}function onMonthChange(type){manualMaps[type]={};populateManualDateOptions(type);renderManualList(type);renderChecklist(type);}function getMonthInfo(type){const value=document.getElementById(type+'Month').value;const parts=value.split('-');const year=Number(parts[0]);const monthIndex=Number(parts[1])-1;const totalDays=new Date(year,monthIndex+1,0).getDate();return{year,monthIndex,totalDays};}function dateKey(year,monthIndex,day){return`${year}-${String(monthIndex+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;}function displayDate(year,monthIndex,day){return`${day}-${shortMonths[monthIndex]}-${String(year).slice(-2)}`;}function populateManualDateOptions(type){const select=document.getElementById(type+'ManualDate');const info=getMonthInfo(type);select.innerHTML='';for(let d=1;d<=info.totalDays;d++){const opt=document.createElement('option');opt.value=dateKey(info.year,info.monthIndex,d);opt.textContent=displayDate(info.year,info.monthIndex,d);select.appendChild(opt);}}function addManualText(type){const date=document.getElementById(type+'ManualDate').value;const textInput=document.getElementById(type+'ManualText');const text=textInput.value.trim();if(!date){alert('Please select date');return;}if(!text){alert('Please write manual text');return;}manualMaps[type][date]=text;textInput.value='';renderManualList(type);renderChecklist(type);}function removeManualText(type,key){delete manualMaps[type][key];renderManualList(type);renderChecklist(type);}function renderManualList(type){const box=document.getElementById(type+'ManualList');const keys=Object.keys(manualMaps[type]).sort();if(!keys.length){box.innerHTML='No manual weekend selected.';return;}box.innerHTML=keys.map(k=>`<div><b>${k}</b> - ${manualMaps[type][k]} <button class="red" style="width:auto;padding:4px 8px;margin-left:8px;font-size:12px;box-shadow:none;" onclick="removeManualText('${type}','${k}')">Remove</button></div>`).join('');}function isRegularText(text){return String(text||'').trim().toLowerCase()==='reguler'||String(text||'').trim().toLowerCase()==='regular';}
-function normalRow(type,dateText){if(type==='humidity')return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;if(type==='firstaid')return firstAidNormalRow(dateText,null,null);return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td></tr>`;}function mergedRow(type,dateText,text){if(type==='firstaid')return firstAidMergedRow(dateText,text,null);const span=type==='humidity'?7:5;let html=`<tr><td class="date-cell">${dateText}</td><td colspan="${span}" class="weekend-cell">${text}</td></tr>`;if(type==='humidity')html+=`<tr><td></td><td colspan="${span}" class="blank-merged-cell">&nbsp;</td></tr>`;return html;}function renderChecklist(type){if(type==='firstaid'){renderFirstAidChecklist();return;}const info=getMonthInfo(type);document.getElementById(type+'ReportMonth').textContent=`For The Month of ${monthNames[info.monthIndex]} - ${info.year}`;document.getElementById(type+'AreaText').textContent=document.getElementById(type+'Area').value.trim()||'';const tbody=document.getElementById(type+'TableBody');let html='';for(let d=1;d<=info.totalDays;d++){const key=dateKey(info.year,info.monthIndex,d);const dateText=displayDate(info.year,info.monthIndex,d);const jsDate=new Date(info.year,info.monthIndex,d);const manualText=manualMaps[type][key];if(manualText){html+=isRegularText(manualText)?normalRow(type,dateText):mergedRow(type,dateText,manualText);}else if(jsDate.getDay()===5){html+=mergedRow(type,dateText,'Weekend');}else{html+=normalRow(type,dateText);}}tbody.innerHTML=html;}
+function normalRow(type,dateText){if(type==='humidity')return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;if(type==='firstaid')return firstAidNormalRow(dateText,null,null);if(type==='productionStatus'||type==='dailyProduction')return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>`;return`<tr><td class="date-cell">${dateText}</td><td></td><td></td><td></td><td></td><td></td></tr>`;}function mergedRow(type,dateText,text){if(type==='firstaid')return firstAidMergedRow(dateText,text,null);const span=(type==='humidity'||type==='productionStatus'||type==='dailyProduction')?8:5;let html=`<tr><td class="date-cell">${dateText}</td><td colspan="${span}" class="weekend-cell">${text}</td></tr>`;if(type==='humidity')html+=`<tr><td></td><td colspan="${span}" class="blank-merged-cell">&nbsp;</td></tr>`;return html;}function renderChecklist(type){if(type==='firstaid'){renderFirstAidChecklist();return;}const info=getMonthInfo(type);document.getElementById(type+'ReportMonth').textContent=`For The Month of ${monthNames[info.monthIndex]} - ${info.year}`;const areaTextEl=document.getElementById(type+'AreaText');const areaInputEl=document.getElementById(type+'Area');if(areaTextEl&&areaInputEl)areaTextEl.textContent=areaInputEl.value.trim()||'';const tbody=document.getElementById(type+'TableBody');let html='';for(let d=1;d<=info.totalDays;d++){const key=dateKey(info.year,info.monthIndex,d);const dateText=displayDate(info.year,info.monthIndex,d);const jsDate=new Date(info.year,info.monthIndex,d);const manualText=manualMaps[type][key];if(manualText){html+=isRegularText(manualText)?normalRow(type,dateText):mergedRow(type,dateText,manualText);}else if(jsDate.getDay()===5){html+=mergedRow(type,dateText,'Weekend');}else{html+=normalRow(type,dateText);}}tbody.innerHTML=html;}
 function firstAidStatus(info,day){const key=dateKey(info.year,info.monthIndex,day);const manualText=manualMaps.firstaid[key];const isFriday=new Date(info.year,info.monthIndex,day).getDay()===5;if(manualText){return isRegularText(manualText)?{normal:true,text:''}:{normal:false,text:manualText};}return isFriday?{normal:false,text:'Weekend'}:{normal:true,text:''};}function firstAidMedicalStarts(info){const starts={};let d=1;while(d<=info.totalDays){while(d<=info.totalDays&&!firstAidStatus(info,d).normal)d++;if(d>info.totalDays)break;const start=d;let len=0;while(d<=info.totalDays&&firstAidStatus(info,d).normal){len++;d++;}starts[start]=len;}return starts;}function firstAidHrStarts(info){const starts={1:Math.min(15,info.totalDays)};if(info.totalDays>15)starts[16]=info.totalDays-15;return starts;}function firstAidNormalRow(dateText,medicalSpan,hrSpan){let html=`<tr><td class="firstaid-date">${dateText}</td>`;for(let i=0;i<12;i++)html+='<td></td>';html+='<td></td>';if(medicalSpan)html+=`<td rowspan="${medicalSpan}"></td>`;if(hrSpan)html+=`<td rowspan="${hrSpan}"></td>`;html+='</tr>';return html;}function firstAidMergedRow(dateText,text,hrSpan){let html=`<tr><td class="firstaid-date">${dateText}</td><td colspan="14" class="firstaid-weekend">${text}</td>`;if(hrSpan)html+=`<td rowspan="${hrSpan}"></td>`;html+='</tr>';return html;}function renderFirstAidChecklist(){const type='firstaid';const info=getMonthInfo(type);const boxNo=document.getElementById('firstaidBoxNo').value.trim()||'';document.getElementById('firstaidBoxTitle').textContent=`BOX NO- ${boxNo}`;document.getElementById('firstaidReportMonth').textContent=`For The Month Of ${monthNames[info.monthIndex]} - ${info.year}`;const medicalStarts=firstAidMedicalStarts(info);const hrStarts=firstAidHrStarts(info);let html='';for(let d=1;d<=info.totalDays;d++){const dateText=displayDate(info.year,info.monthIndex,d);const status=firstAidStatus(info,d);const medSpan=medicalStarts[d]||null;const hrSpan=hrStarts[d]||null;if(status.normal){html+=firstAidNormalRow(dateText,medSpan,hrSpan);}else{html+=firstAidMergedRow(dateText,status.text,hrSpan);}}document.getElementById('firstaidTableBody').innerHTML=html;}
 let pictorialPhotoFieldCount = 0;
 
@@ -969,6 +1106,8 @@ showPictorialEvidence = function(){
     document.getElementById('humidityPage').classList.add('hidden');
     document.getElementById('temperaturePage').classList.add('hidden');
     document.getElementById('firstaidPage').classList.add('hidden');
+    document.getElementById('productionStatusPage')?.classList.add('hidden');
+    document.getElementById('dailyProductionPage')?.classList.add('hidden');
     document.getElementById('pictorialPage').classList.remove('hidden');
     showPictorialSubMenu();
 };
@@ -1640,7 +1779,7 @@ savePictorialEvidence = async function(){
   };
 
   function hideAllFormatPages(){
-    ['formatListPage','humidityPage','temperaturePage','firstaidPage','pictorialMenuPage','pictorialListPage','pictorialPage'].forEach(id => el(id)?.classList.add('hidden'));
+    ['formatListPage','humidityPage','temperaturePage','firstaidPage','productionStatusPage','dailyProductionPage','pictorialMenuPage','pictorialListPage','pictorialPage'].forEach(id => el(id)?.classList.add('hidden'));
     ['pictorialSubMenu','pictorialEntryBox','pictorialListBox'].forEach(id => el(id)?.classList.add('hidden'));
   }
 
@@ -1826,7 +1965,185 @@ savePictorialEvidence = async function(){
       .pictorial-photo-output-box{position:relative;border:1.5px solid #9fbad5;border-radius:12px;padding:8px;background:#fff}.img-wrap{position:relative;width:100%;overflow:hidden}.count-1 .img-wrap{height:620px}.count-2 .img-wrap{height:305px}.count-3 .img-wrap,.count-4 .img-wrap{height:245px}.count-5 .img-wrap{height:175px}.count-6 .img-wrap{height:190px}
       .photo-inner{position:relative;width:100%;height:100%}.photo-inner img{width:100%;height:100%;object-fit:fill;display:block}.pictorial-photo-caption{position:absolute;top:8px;left:8px;background:#2f73bd;color:#fff;border-radius:5px;padding:5px 9px;font-weight:900}.pictorial-photo-stamp{position:absolute;right:10px;bottom:8px;color:#ff9900;font-family:'Courier New';font-weight:900;z-index:9}
       .actions{text-align:center;margin-bottom:12px}.actions button{padding:9px 18px;border:0;border-radius:8px;background:#0754a6;color:#fff;font-weight:900}@media print{body{background:#fff;padding:0}.actions{display:none}.pictorial-output-sheet{max-width:none;padding:0;box-shadow:none;border-radius:0}}
-      </style></head><body><div class="actions"><button onclick="window.print()">Print / PDF</button><button onclick="window.close()">Close</button></div>
+      
+
+/* ================= PURPLE GLASS THEME + A4 ONE PAGE FIT ================= */
+body{background:linear-gradient(135deg,rgba(45,18,74,.90),rgba(112,54,153,.78),rgba(30,10,55,.92)),url('background.jpg')!important;background-size:cover!important;background-position:center!important;background-attachment:fixed!important;}
+.card,.box{background:rgba(255,255,255,.16)!important;border:1px solid rgba(235,214,255,.35)!important;backdrop-filter:blur(12px)!important;box-shadow:0 14px 34px rgba(36,9,68,.32)!important;}
+#formatListPage,.pic-menu-card,.pic-list-card,.pictorial-entry-card,#pictorialPage .pictorial-entry-card,#pictorialSubMenu .pictorial-submenu-card,#pictorialListBox .pictorial-list-card{background:linear-gradient(135deg,rgba(72,28,112,.92),rgba(137,75,176,.84))!important;border:1px solid rgba(235,214,255,.42)!important;box-shadow:0 15px 38px rgba(40,8,76,.36)!important;}
+h1,.box h2,.pictorial-entry-card h2,.pic-menu-card h2,.pic-list-card h2,#pictorialPage .pictorial-entry-card h2{color:#fff6ff!important;text-shadow:0 2px 12px rgba(0,0,0,.28)!important;}
+.subtitle,.small-note,.control-label,.pictorial-form-row label,#pictorialPage .pictorial-form-row label,#pictorialPage .pictorial-stamp-title{color:#f8eaff!important;}
+.form-control,select,input[type="text"],input[type="month"],#pictorialPage .form-control,#pictorialPage select,#pictorialPage input[type="text"]{background:rgba(255,250,255,.94)!important;border:1px solid rgba(217,175,255,.88)!important;color:#3b1757!important;box-shadow:0 4px 14px rgba(55,10,90,.10)!important;}
+.manual-list{background:rgba(255,250,255,.88)!important;color:#431a60!important;border:1px solid rgba(217,175,255,.65)!important;}
+button{background:linear-gradient(135deg,#6a1b9a,#9c4dcc)!important;box-shadow:0 7px 18px rgba(76,18,120,.24)!important;border:1px solid rgba(255,255,255,.22)!important;}
+button:hover{background:linear-gradient(135deg,#4a0f75,#7b2cbf)!important;}
+.green{background:linear-gradient(135deg,#7b2cbf,#b56be0)!important;}.orange{background:linear-gradient(135deg,#8e24aa,#d16be5)!important;}.gray{background:linear-gradient(135deg,#5e4b70,#8b759d)!important;}.red{background:linear-gradient(135deg,#ad1457,#d81b60)!important;}
+.logo-box img{filter:drop-shadow(0 8px 16px rgba(45,10,80,.32));}
+.pic-table th,.pictorial-list-table th{background:linear-gradient(135deg,#551887,#8a35b7)!important;color:#fff!important;}
+.pic-table-wrap,.pictorial-list-table{border-color:rgba(218,180,255,.75)!important;background:rgba(255,250,255,.95)!important;}
+.pic-date{background:#f3e5ff!important;color:#4a136e!important;border-color:#d9a8ff!important;}.pic-subject{color:#5b1689!important;}
+.report-address{text-align:center;font-size:13px;font-weight:700;margin:2px 0 4px;color:#111;}
+.production-status-table th:nth-child(1),.production-status-table td:nth-child(1),.daily-production-table th:nth-child(1),.daily-production-table td:nth-child(1){width:11%;}
+.production-status-table th:nth-child(2),.production-status-table td:nth-child(2){width:10%;}.production-status-table th:nth-child(n+3):nth-child(-n+8),.production-status-table td:nth-child(n+3):nth-child(-n+8){width:10.5%;}.production-status-table th:nth-child(9),.production-status-table td:nth-child(9){width:16%;}
+.daily-production-table th,.daily-production-table td{width:11.1%;}
+.print-sheet{display:flex;flex-direction:column;}
+.check-table{flex:0 0 auto;}
+.signature-row{margin-top:auto!important;min-height:34px;align-items:flex-end;}
+@media print{
+  @page{size:A4 portrait;margin:7mm;}
+  .format-page:not(.hidden) .print-area{height:283mm!important;max-height:283mm!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;}
+  .print-sheet{width:196mm!important;max-width:196mm!important;padding:0!important;}
+  .company-title{font-size:25px!important;margin:0 0 5px!important;line-height:1.08!important;}
+  .report-title{font-size:19px!important;font-weight:900!important;margin:0 0 3px!important;line-height:1.08!important;}
+  .report-month{font-size:14px!important;font-weight:900!important;margin:0 0 4px!important;}
+  .report-address{font-size:12px!important;margin:0 0 3px!important;}
+  .area-row{font-size:14px!important;padding:2px 5px!important;}
+  .check-table{font-size:10.5px!important;line-height:1.05!important;}
+  .check-table th,.check-table td{height:5.35mm!important;padding:1px 2px!important;}
+  .check-table thead th{height:7mm!important;font-weight:900!important;}
+  .weekend-cell{font-size:15px!important;}
+  .blank-merged-cell{height:4.5mm!important;}
+  .signature-row{margin-top:auto!important;font-size:12px!important;padding-bottom:2mm!important;}
+  .signature-row div{padding-top:4px!important;}
+  @page firstaidPage{size:A4 landscape;margin:5mm;}
+  #firstaidPrintArea{height:200mm!important;max-height:200mm!important;width:287mm!important;max-width:287mm!important;display:flex!important;flex-direction:column!important;overflow:hidden!important;}
+  .firstaid-company-title{font-size:22px!important;margin:0 0 3px!important;line-height:1.05!important;}
+  .firstaid-title{font-size:17px!important;min-height:18px!important;line-height:18px!important;margin-bottom:3px!important;}
+  .firstaid-month{font-size:14px!important;margin:2px 0 3px!important;}
+  .firstaid-table{font-size:7.9px!important;line-height:1.0!important;}
+  .firstaid-table th,.firstaid-table td{height:4.15mm!important;padding:0 1px!important;line-height:1.0!important;}
+  .firstaid-table .firstaid-item{height:15mm!important;}
+  .firstaid-table .firstaid-item .vtxt{font-size:7.0px!important;line-height:1.0!important;}
+  .firstaid-table .firstaid-weekend{font-size:13px!important;}
+  .firstaid-note{font-size:8px!important;min-height:5mm!important;padding:2px 5px!important;}
+  .firstaid-bottom-sign{margin-top:auto!important;font-size:11px!important;padding-bottom:1mm!important;}
+}
+</style>
+
+<!-- FINAL PRINT FIX: Humidity one-page + centered production headings -->
+<style>
+@page humidityFitPage{size:A4 portrait;margin:5mm;}
+#humidityPrintArea{page:humidityFitPage;}
+.production-sheet .company-title,
+.production-sheet .report-title,
+.production-sheet .report-month,
+.daily-production-sheet .company-title,
+.daily-production-sheet .report-title,
+.daily-production-sheet .report-address,
+.daily-production-sheet .report-month{
+    text-align:center!important;
+    width:100%!important;
+    display:block!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+}
+@media print{
+    #humidityPrintArea{
+        width:200mm!important;
+        max-width:200mm!important;
+        height:272mm!important;
+        max-height:272mm!important;
+        min-height:272mm!important;
+        display:flex!important;
+        flex-direction:column!important;
+        overflow:hidden!important;
+        padding:0!important;
+        margin:0 auto!important;
+        page-break-after:avoid!important;
+        page-break-inside:avoid!important;
+    }
+    #humidityPrintArea .company-title{
+        font-size:25px!important;
+        line-height:1.05!important;
+        margin:0 0 4px!important;
+        flex:0 0 auto!important;
+    }
+    #humidityPrintArea .report-title{
+        font-size:19px!important;
+        line-height:1.05!important;
+        margin:0 0 2px!important;
+        flex:0 0 auto!important;
+    }
+    #humidityPrintArea .report-month{
+        font-size:14px!important;
+        line-height:1.05!important;
+        margin:0 0 3px!important;
+        flex:0 0 auto!important;
+    }
+    #humidityPrintArea .area-row{
+        font-size:13px!important;
+        line-height:1!important;
+        padding:1px 5px!important;
+        flex:0 0 auto!important;
+    }
+    #humidityPrintArea .humidity-table{
+        width:100%!important;
+        flex:0 0 auto!important;
+        table-layout:fixed!important;
+        border-collapse:collapse!important;
+        font-size:8.8px!important;
+        line-height:1!important;
+        page-break-inside:avoid!important;
+        page-break-after:avoid!important;
+    }
+    #humidityPrintArea .humidity-table th,
+    #humidityPrintArea .humidity-table td{
+        height:3.75mm!important;
+        max-height:3.75mm!important;
+        min-height:3.75mm!important;
+        padding:0 1px!important;
+        line-height:1!important;
+        overflow:hidden!important;
+    }
+    #humidityPrintArea .humidity-table thead th{
+        height:5.2mm!important;
+        max-height:5.2mm!important;
+        min-height:5.2mm!important;
+    }
+    #humidityPrintArea .weekend-cell{
+        font-size:12px!important;
+        line-height:1!important;
+    }
+    #humidityPrintArea .blank-merged-cell{
+        height:2.2mm!important;
+        max-height:2.2mm!important;
+        min-height:2.2mm!important;
+    }
+    #humidityPrintArea .signature-row{
+        margin-top:auto!important;
+        min-height:11mm!important;
+        height:11mm!important;
+        flex:0 0 11mm!important;
+        font-size:12px!important;
+        padding-bottom:0!important;
+        page-break-before:avoid!important;
+        page-break-inside:avoid!important;
+        break-before:avoid!important;
+        break-inside:avoid!important;
+    }
+    #humidityPrintArea .signature-row div{
+        padding-top:3px!important;
+    }
+    .production-sheet .company-title,
+    .production-sheet .report-title,
+    .production-sheet .report-month,
+    .daily-production-sheet .company-title,
+    .daily-production-sheet .report-title,
+    .daily-production-sheet .report-address,
+    .daily-production-sheet .report-month{
+        text-align:center!important;
+        align-self:center!important;
+        justify-self:center!important;
+        width:100%!important;
+        max-width:100%!important;
+        margin-left:auto!important;
+        margin-right:auto!important;
+        padding-left:0!important;
+        padding-right:0!important;
+    }
+}
+</style>
+</head><body><div class="actions"><button onclick="window.print()">Print / PDF</button><button onclick="window.close()">Close</button></div>
       <div class="pictorial-output-sheet"><div class="pictorial-output-header"><h2>A&amp;O Apparels (Pvt.) Ltd.</h2><h3>Pictorial Evidence Form</h3></div>
       <div class="pictorial-meta">
         <div><span>Subject Of Training :</span> ${esc(r.subject_of_training || '-')}</div>
