@@ -1,0 +1,4419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A&O Employee Portal</title>
+<meta name="robots" content="noindex,nofollow">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseUrl = "https://hneomxtzhbeseqlyrszh.supabase.co";
+const supabaseKey = "sb_publishable_oT6uhXtknOi9PfP6QIu9gw_6hdgrb7Z";
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+</script>
+
+<style>
+.portal-title-box{display:inline-block;padding:12px 25px;border-radius:12px;background:rgba(128,0,128,0.75);box-shadow:0 0 18px rgba(128,0,128,0.9);}
+.portal-title-box h1{color:white;margin:0;animation:blinkText 1.2s infinite;}
+@keyframes blinkText{0%{opacity:1;}50%{opacity:0.35;}100%{opacity:1;}}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:linear-gradient(rgba(255,255,255,0.30),rgba(255,255,255,0.30)),url('background.jpg');background-size:cover;background-position:center;background-attachment:fixed;padding:20px;}
+.container{max-width:1100px;margin:auto;}
+.card{background:white;padding:20px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,0.1);margin-bottom:20px;}
+h1,h2,h3{text-align:center;margin-bottom:15px;}
+input,button,textarea,select{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ccc;font-size:16px;}
+button{background:#0754a6;color:white;border:none;cursor:pointer;font-weight:bold;}
+button:hover{background:#003f7f;}
+.red{background:#c62828;}
+.gray{background:#555;}
+.purple{background:#6a1b9a;}
+.green{background:#2e7d32;}
+.orange{background:#ef6c00;}
+.hidden{display:none;}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:15px;}
+.box{border:1px solid #ddd;padding:15px;border-radius:12px;background:#fafafa;margin-top:15px;}
+table{width:100%;border-collapse:collapse;margin-top:10px;}
+th,td{border:1px solid #aaa;padding:8px;text-align:left;vertical-align:top;}
+th{background:#e7f0ff;}
+
+.box{border:none;padding:18px;border-radius:14px;margin-top:15px;}
+.box h3{color:#fff;padding:10px;border-radius:10px;margin-bottom:10px;}
+
+#newJoinApplicationPage .box:nth-of-type(1){background:#e3f2fd;} 
+#newJoinApplicationPage .box:nth-of-type(1) h3{background:#1976d2;}
+
+#newJoinApplicationPage .box:nth-of-type(2){background:#e8f5e9;}
+#newJoinApplicationPage .box:nth-of-type(2) h3{background:#2e7d32;}
+
+#newJoinApplicationPage .box:nth-of-type(3){background:#fff8e1;}
+#newJoinApplicationPage .box:nth-of-type(3) h3{background:#f9a825;}
+
+#newJoinApplicationPage .box:nth-of-type(4){background:#f3e5f5;}
+#newJoinApplicationPage .box:nth-of-type(4) h3{background:#8e24aa;}
+
+#newJoinApplicationPage .box:nth-of-type(5){background:#fff3e0;}
+#newJoinApplicationPage .box:nth-of-type(5) h3{background:#ef6c00;}
+
+#newJoinApplicationPage .box:nth-of-type(6){background:#ede7f6;}
+#newJoinApplicationPage .box:nth-of-type(6) h3{background:#5e35b1;}
+
+#newJoinApplicationPage .box:nth-of-type(7){background:#fce4ec;}
+#newJoinApplicationPage .box:nth-of-type(7) h3{background:#d81b60;}
+
+#newJoinApplicationPage .box:nth-of-type(8){background:#e0f7fa;}
+#newJoinApplicationPage .box:nth-of-type(8) h3{background:#00838f;}
+
+#newJoinApplicationPage .box:nth-of-type(9){background:#f1f8e9;}
+#newJoinApplicationPage .box:nth-of-type(9) h3{background:#558b2f;}
+
+input:focus,select:focus,textarea:focus{
+outline:none;
+border:2px solid #1976d2;
+box-shadow:0 0 8px rgba(25,118,210,.35);
+}
+
+button.green{
+background:linear-gradient(135deg,#43a047,#2e7d32);
+}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.topbar button{width:auto;padding:10px 18px;}
+.small-note{font-size:14px;color:#555;margin-top:8px;line-height:1.5;}
+.status{padding:10px;border-radius:8px;background:#eef6ff;margin-top:10px;line-height:1.5;}
+.success{background:#e8f5e9;}
+.error{background:#ffebee;}
+
+
+
+.address-field{position:relative;width:100%;}
+.address-field input{width:100%;}
+.autocomplete-list{
+    position:absolute;
+    left:0;
+    right:0;
+    top:100%;
+    background:#fff;
+    border:1px solid #999;
+    border-radius:8px;
+    max-height:220px;
+    overflow-y:auto;
+    z-index:9999;
+    box-shadow:0 5px 14px rgba(0,0,0,.18);
+}
+.autocomplete-item{
+    padding:9px 12px;
+    cursor:pointer;
+    border-bottom:1px solid #eee;
+    font-size:15px;
+}
+.autocomplete-item:hover{background:#e7f0ff;}
+
+
+/* Admin sub page view system */
+.admin-subpage{
+    background:linear-gradient(135deg,#ffffff,#eef7ff);
+    border:1px solid #bbdefb;
+    box-shadow:0 6px 22px rgba(7,84,166,.18);
+    border-radius:16px;
+    padding:22px;
+    animation:adminSubPageFade .22s ease-in-out;
+}
+@keyframes adminSubPageFade{
+    from{opacity:0;transform:translateY(8px);}
+    to{opacity:1;transform:translateY(0);}
+}
+.admin-subpage h3{
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:#fff !important;
+    padding:12px 16px;
+    border-radius:12px;
+    margin-bottom:16px;
+    box-shadow:0 5px 14px rgba(25,118,210,.25);
+}
+.admin-subpage .subpage-hint{
+    background:#e3f2fd;
+    color:#0d47a1;
+    padding:10px 12px;
+    border-radius:10px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+.admin-subpage table{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+}
+.admin-subpage th{
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:white;
+}
+.admin-subpage td{background:#f8fbff;font-weight:600;}
+.admin-subpage tr:nth-child(even) td{background:#eaf4ff;}
+.admin-page-back-top{
+    width:auto;
+    display:inline-block;
+    margin:0 0 12px 0;
+    padding:10px 16px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#555,#333) !important;
+    color:#fff;
+}
+@media(max-width:700px){
+    .admin-subpage{padding:14px;border-radius:14px;margin-left:-6px;margin-right:-6px;}
+    .admin-subpage h3{font-size:18px;padding:10px 12px;}
+    .admin-subpage table{font-size:12px;}
+    .admin-subpage th,.admin-subpage td{padding:6px 5px;}
+}
+
+
+/* Employee dashboard publish/design update */
+.not-publish-box{
+    background:linear-gradient(135deg,#fff3cd,#ffe0b2);
+    border:2px solid #ff9800;
+    color:#bf360c;
+    padding:25px;
+    border-radius:14px;
+    text-align:center;
+    font-weight:bold;
+    box-shadow:0 0 18px rgba(255,152,0,.35);
+    animation:notPublishBlink 1.1s infinite;
+}
+.not-publish-box h2{margin-bottom:8px;color:#bf360c;}
+.not-publish-box .not-publish-text{font-size:24px;letter-spacing:.5px;}
+@keyframes notPublishBlink{
+    0%{box-shadow:0 0 8px rgba(255,152,0,.25);transform:scale(1);}
+    50%{box-shadow:0 0 24px rgba(255,87,34,.75);transform:scale(1.01);}
+    100%{box-shadow:0 0 8px rgba(255,152,0,.25);transform:scale(1);}
+}
+.dashboard-card{
+    background:linear-gradient(135deg,#ffffff,#eef7ff);
+    padding:25px;
+    border-radius:14px;
+    box-shadow:0 5px 18px rgba(7,84,166,.16);
+    border:1px solid #bbdefb;
+}
+.dashboard-card h2{
+    color:#0754a6;
+    text-align:left;
+    margin-bottom:20px;
+}
+.dashboard-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:18px;
+    overflow:hidden;
+    border-radius:10px;
+}
+.dashboard-table th,
+.dashboard-table td{
+    padding:10px;
+    border:1px solid #90caf9;
+    font-weight:bold;
+}
+.dashboard-table tr:nth-child(odd){background:#e3f2fd;}
+.dashboard-table tr:nth-child(even){background:#f1f8ff;}
+.dashboard-table th,
+.dashboard-table td:first-child{
+    background:#bbdefb;
+    color:#0d47a1;
+}
+.dashboard-table .absent-highlight,
+.dashboard-table tr.absent-row td,
+.dashboard-table tr.absent-row th{
+    background:#ffebee !important;
+    color:#c62828 !important;
+    font-weight:bold;
+    box-shadow:inset 0 0 0 9999px rgba(244,67,54,.06);
+}
+
+
+/* Employee Info colorful design */
+.employee-info-card{
+    background:linear-gradient(135deg,#f8fbff,#eef7ff);
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 6px 22px rgba(7,84,166,.18);
+    border:1px solid #bbdefb;
+}
+.employee-info-title{
+    text-align:center !important;
+    color:#063b78;
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:18px;
+    letter-spacing:.3px;
+}
+.employee-photo-frame{
+    width:150px;
+    margin:0 auto 22px;
+    padding:10px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#e3f2fd,#bbdefb);
+    box-shadow:0 5px 16px rgba(7,84,166,.24);
+    text-align:center;
+}
+.employee-photo-frame img{
+    width:130px;
+    height:150px;
+    object-fit:cover;
+    border:3px solid #0754a6;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    background:white;
+}
+.employee-info-table-wrap{
+    width:100%;
+    overflow-x:auto;
+    border-radius:14px;
+    box-shadow:0 4px 14px rgba(0,0,0,.10);
+    border:1px solid #90caf9;
+}
+.employee-info-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:15px;
+    margin-top:0;
+    background:white;
+}
+.employee-info-table th,
+.employee-info-table td{
+    padding:10px 12px;
+    border:1px solid #90caf9;
+    font-weight:700;
+    vertical-align:middle;
+}
+.employee-info-table th{
+    width:34%;
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:white;
+    text-align:left;
+}
+.employee-info-table td{
+    color:#111;
+    background:#f8fbff;
+}
+.employee-info-table tr:nth-child(even) td{background:#eaf4ff;}
+.employee-info-table tr.employee-money-highlight th{
+    background:linear-gradient(135deg,#ef6c00,#f9a825);
+    color:#fff;
+}
+.employee-info-table tr.employee-money-highlight td{
+    background:#fff3e0 !important;
+    color:#bf360c;
+    font-size:16px;
+    font-weight:900;
+}
+@media(max-width:700px){
+    .employee-info-card{padding:14px;border-radius:14px;}
+    .employee-info-title{font-size:20px;}
+    .employee-info-table{font-size:13px;}
+    .employee-info-table th,
+    .employee-info-table td{padding:8px 7px;}
+    .employee-info-table th{width:42%;}
+}
+
+/* Accessive OT colorful design */
+.accessive-ot-card{
+    background:linear-gradient(135deg,#f8fbff,#eef7ff);
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 6px 22px rgba(7,84,166,.18);
+    border:1px solid #bbdefb;
+}
+.accessive-ot-title{
+    text-align:center !important;
+    color:#063b78;
+    font-size:24px;
+    font-weight:900;
+    margin-bottom:16px;
+}
+.accessive-ot-info{
+    max-width:620px;
+    margin:0 auto 16px;
+    border-radius:14px;
+    padding:12px;
+    background:linear-gradient(135deg,#e3f2fd,#bbdefb);
+    box-shadow:0 5px 16px rgba(7,84,166,.22);
+}
+.accessive-ot-row{
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:8px;
+    align-items:center;
+    padding:8px 10px;
+    border-radius:10px;
+    margin-bottom:7px;
+    background:rgba(255,255,255,.70);
+}
+.accessive-ot-row:last-child{margin-bottom:0;}
+.accessive-ot-label{
+    font-weight:900;
+    color:#0d47a1;
+}
+.accessive-ot-value{
+    font-weight:900;
+    color:#111;
+    text-align:right;
+    word-break:break-word;
+}
+.accessive-ot-amount .accessive-ot-label{color:#bf360c;}
+.accessive-ot-amount .accessive-ot-value{
+    color:#bf360c;
+    font-size:18px;
+}
+.accessive-ot-table-title{
+    width:max-content;
+    max-width:100%;
+    margin:8px auto 10px;
+    padding:8px 30px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#6a1b9a,#1976d2);
+    color:white;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:.4px;
+    box-shadow:0 5px 14px rgba(25,118,210,.30);
+}
+.accessive-ot-table-wrap{
+    width:100%;
+    overflow-x:auto;
+    border-radius:14px;
+    border:1px solid #90caf9;
+    box-shadow:0 4px 14px rgba(0,0,0,.10);
+}
+.accessive-ot-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:15px;
+    margin-top:0;
+    min-width:420px;
+}
+.accessive-ot-table th,
+.accessive-ot-table td{
+    border:1px solid #90caf9;
+    padding:9px 10px;
+    text-align:center;
+    font-weight:800;
+}
+.accessive-ot-table th{
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:white;
+    font-weight:900;
+}
+.accessive-ot-table tbody tr:nth-child(odd){background:#f8fbff;}
+.accessive-ot-table tbody tr:nth-child(even){background:#eaf4ff;}
+.accessive-ot-table tbody tr:hover{background:#fff8e1;}
+@media(max-width:700px){
+    .accessive-ot-card{padding:14px;border-radius:14px;}
+    .accessive-ot-title{font-size:20px;}
+    .accessive-ot-row{grid-template-columns:1fr;gap:3px;}
+    .accessive-ot-value{text-align:left;}
+    .accessive-ot-table-title{font-size:15px;padding:7px 22px;}
+    .accessive-ot-table{font-size:13px;min-width:360px;}
+    .accessive-ot-table th,
+    .accessive-ot-table td{padding:8px 7px;}
+}
+
+
+/* Job Card Total History report */
+.job-history-wrap{
+    background:linear-gradient(135deg,#f8fbff,#eef7ff);
+    padding:18px;
+    border-radius:16px;
+    box-shadow:0 6px 22px rgba(7,84,166,.18);
+    overflow-x:auto;
+}
+.job-history-report{
+    background:white;
+    color:#111;
+    max-width:1020px;
+    margin:0 auto;
+    padding:16px 16px 24px;
+    font-family:Arial, sans-serif;
+    border-radius:14px;
+    box-shadow:0 0 0 1px rgba(25,118,210,.08);
+}
+.job-history-report h2{
+    margin:0;
+    text-align:center;
+    line-height:1.25;
+    font-size:24px;
+    font-weight:800;
+    color:#063b78;
+}
+.job-history-report .reporting-date{
+    text-align:center;
+    font-size:14px;
+    margin:10px 0 16px;
+    font-weight:700;
+    color:#263238;
+}
+.job-history-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    margin:14px 0 16px;
+}
+.job-history-info-card{
+    border-radius:14px;
+    padding:12px;
+    box-shadow:0 4px 14px rgba(0,0,0,.12);
+    border:1px solid rgba(255,255,255,.85);
+}
+.job-history-info-left{
+    background:linear-gradient(135deg,#e3f2fd,#bbdefb);
+}
+.job-history-info-right{
+    background:linear-gradient(135deg,#e8f5e9,#c8e6c9);
+}
+.job-history-info-row{
+    display:grid;
+    grid-template-columns:145px 1fr;
+    gap:8px;
+    align-items:center;
+    padding:6px 8px;
+    border-radius:9px;
+    margin-bottom:6px;
+    background:rgba(255,255,255,.62);
+}
+.job-history-info-row:last-child{margin-bottom:0;}
+.job-history-label{
+    font-size:14px;
+    font-weight:800;
+    color:#0d47a1;
+}
+.job-history-info-right .job-history-label{color:#1b5e20;}
+.job-history-value{
+    font-size:14px;
+    font-weight:800;
+    color:#111;
+    text-align:right;
+    word-break:break-word;
+}
+.job-history-table-title{
+    width:max-content;
+    max-width:100%;
+    margin:8px auto 10px;
+    padding:8px 30px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#6a1b9a,#1976d2);
+    color:white;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:.4px;
+    box-shadow:0 5px 14px rgba(25,118,210,.30);
+}
+.job-history-table-box{
+    width:100%;
+    overflow-x:auto;
+    border-radius:12px;
+    border:1px solid #90caf9;
+    box-shadow:0 4px 14px rgba(0,0,0,.10);
+}
+.job-history-table{
+    width:100%;
+    min-width:760px;
+    border-collapse:collapse;
+    font-size:12px;
+    margin-top:0;
+    table-layout:fixed;
+}
+.job-history-table th,
+.job-history-table td{
+    border:1px solid #90caf9;
+    padding:5px 4px;
+    text-align:center;
+    vertical-align:middle;
+    line-height:1.18;
+    font-weight:700;
+}
+.job-history-table th{
+    background:linear-gradient(135deg,#0754a6,#1976d2);
+    color:#fff;
+    font-weight:900;
+    font-size:12px;
+}
+.job-history-table tbody tr:nth-child(odd){background:#f8fbff;}
+.job-history-table tbody tr:nth-child(even){background:#eaf4ff;}
+.job-history-table tbody tr:hover{background:#fff8e1;}
+.job-history-table th:nth-child(1), .job-history-table td:nth-child(1){width:42px;}
+.job-history-table th:nth-child(2), .job-history-table td:nth-child(2){width:86px;}
+.job-history-table th:nth-child(3), .job-history-table td:nth-child(3){width:56px;}
+.job-history-table th:nth-child(4), .job-history-table td:nth-child(4){width:78px;}
+.job-history-table th:nth-child(5), .job-history-table td:nth-child(5){width:78px;}
+.job-history-table th:nth-child(6), .job-history-table td:nth-child(6){width:58px;}
+.job-history-table th:nth-child(7), .job-history-table td:nth-child(7){width:58px;}
+.job-history-table th:nth-child(8), .job-history-table td:nth-child(8){width:82px;}
+.job-history-table th:nth-child(9), .job-history-table td:nth-child(9){width:92px;}
+.job-history-table td.status-cell{
+    text-align:center;
+    font-size:11px;
+    padding:4px 3px;
+    white-space:normal;
+    word-break:break-word;
+}
+.job-history-row-weekend td{background:#fff3e0 !important;}
+.job-history-row-holiday td{background:#ede7f6 !important;}
+.job-history-row-absent td{background:#ffebee !important;color:#b71c1c !important;}
+.job-history-row-leave td{background:#e8f5e9 !important;color:#1b5e20 !important;}
+.job-history-row-late td{background:#fff8e1 !important;color:#e65100 !important;}
+.status-pill{
+    display:inline-block;
+    border-radius:999px;
+    padding:3px 7px;
+    font-size:10px;
+    font-weight:900;
+    color:#263238;
+    background:#eceff1;
+}
+.job-history-row-weekend .status-pill{background:#ffcc80;color:#e65100;}
+.job-history-row-holiday .status-pill{background:#d1c4e9;color:#4a148c;}
+.job-history-row-absent .status-pill{background:#ffcdd2;color:#b71c1c;}
+.job-history-row-leave .status-pill{background:#c8e6c9;color:#1b5e20;}
+.job-history-row-late .status-pill{background:#ffe082;color:#e65100;}
+.job-history-actions{
+    max-width:1020px;
+    margin:12px auto 0;
+    display:flex;
+    gap:10px;
+}
+.job-history-actions button{width:auto;min-width:130px;}
+@media(max-width:700px){
+    .job-history-wrap{
+        padding:10px;
+        margin-left:-10px;
+        margin-right:-10px;
+        border-radius:12px;
+    }
+    .job-history-report{
+        padding:12px 8px 18px;
+        border-radius:12px;
+    }
+    .job-history-report h2{font-size:20px;}
+    .job-history-report .reporting-date{font-size:12px;margin:8px 0 12px;}
+    .job-history-info{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+    .job-history-info-row{
+        grid-template-columns:120px 1fr;
+        padding:5px 7px;
+    }
+    .job-history-label,
+    .job-history-value{
+        font-size:13px;
+    }
+    .job-history-table-title{
+        font-size:15px;
+        padding:7px 22px;
+    }
+    .job-history-table{
+        min-width:690px;
+        font-size:10px;
+    }
+    .job-history-table th,
+    .job-history-table td{
+        padding:4px 2px;
+        font-size:10px;
+    }
+    .job-history-table td.status-cell{font-size:9px;}
+    .status-pill{font-size:9px;padding:2px 5px;}
+}
+@media print{
+    body *{visibility:hidden !important;}
+    #jobCardTotalHistoryReport,
+    #jobCardTotalHistoryReport *{visibility:visible !important;}
+    #jobCardTotalHistoryReport{
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        box-shadow:none;
+        border-radius:0;
+        padding:8px;
+    }
+    .job-history-actions{display:none !important;}
+    .job-history-wrap{box-shadow:none;padding:0;background:white;}
+    .job-history-report{max-width:none;box-shadow:none;}
+    .job-history-table{min-width:0;font-size:10px;}
+    .job-history-table th,
+    .job-history-table td{padding:3px 2px;font-size:10px;}
+}
+
+
+
+/* ===== Modern Olive Dark Portal Redesign (UI only) ===== */
+:root{
+    --ao-olive:#6f7b2f;
+    --ao-olive-dark:#283015;
+    --ao-gold:#d4b85a;
+    --ao-blue:#0754a6;
+    --ao-card:rgba(255,255,255,.94);
+    --ao-glass:rgba(255,255,255,.12);
+}
+body{
+    position:relative;
+    min-height:100vh;
+    background:#10140d !important;
+    padding:22px;
+    overflow-x:hidden;
+}
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url('background.jpg') center/cover no-repeat fixed;
+    opacity:.20;
+    filter:grayscale(12%) contrast(1.08);
+    z-index:-3;
+}
+body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at top left,rgba(148,163,55,.38),transparent 34%),
+        radial-gradient(circle at bottom right,rgba(7,84,166,.22),transparent 34%),
+        linear-gradient(135deg,rgba(12,18,8,.92),rgba(50,60,22,.78),rgba(8,12,7,.94));
+    z-index:-2;
+    pointer-events:none;
+}
+.container{
+    position:relative;
+    z-index:1;
+}
+.portal-hero{
+    position:relative;
+    z-index:1;
+    width:min(1100px,100%);
+    margin:0 auto 24px;
+    padding:26px 18px 22px;
+    border-radius:24px;
+    background:
+        linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.04)),
+        linear-gradient(135deg,rgba(111,123,47,.55),rgba(7,84,166,.20));
+    border:1px solid rgba(255,255,255,.22);
+    box-shadow:0 18px 45px rgba(0,0,0,.36);
+    backdrop-filter:blur(8px);
+}
+.portal-hero img{
+    width:118px !important;
+    height:118px !important;
+    padding:8px;
+    border-radius:24px;
+    background:rgba(255,255,255,.88);
+    box-shadow:0 10px 28px rgba(0,0,0,.34),0 0 0 4px rgba(212,184,90,.22);
+}
+.portal-title-box{
+    background:linear-gradient(135deg,rgba(43,53,20,.95),rgba(111,123,47,.95),rgba(7,84,166,.72)) !important;
+    border:1px solid rgba(255,255,255,.24);
+    box-shadow:0 12px 34px rgba(0,0,0,.36),0 0 22px rgba(212,184,90,.22) !important;
+}
+.portal-title-box h1{
+    letter-spacing:.8px;
+    text-shadow:0 2px 10px rgba(0,0,0,.35);
+}
+.card{
+    background:var(--ao-card) !important;
+    border:1px solid rgba(255,255,255,.45);
+    box-shadow:0 18px 45px rgba(0,0,0,.28) !important;
+    backdrop-filter:blur(8px);
+}
+#homePage{
+    max-width:650px;
+    margin:0 auto 20px;
+    padding:24px;
+    border-radius:24px;
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.96),rgba(241,246,226,.94)) !important;
+    border:1px solid rgba(212,184,90,.45);
+}
+#homePage::before{
+    content:"WELCOME TO A&O PORTAL";
+    display:block;
+    text-align:center;
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:2px;
+    color:#5f6b22;
+    margin-bottom:12px;
+}
+button{
+    position:relative;
+    overflow:hidden;
+    border-radius:14px !important;
+    letter-spacing:.2px;
+    box-shadow:0 8px 20px rgba(0,0,0,.16);
+    transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+}
+button::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-120%;
+    width:55%;
+    height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+    transform:skewX(-18deg);
+    animation:buttonShine 3.8s infinite;
+}
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 28px rgba(0,0,0,.24);
+    filter:saturate(1.08);
+}
+@keyframes buttonShine{
+    0%,45%{left:-120%;}
+    60%,100%{left:130%;}
+}
+@keyframes softBlinkGlow{
+    0%,100%{box-shadow:0 8px 20px rgba(0,0,0,.16),0 0 0 rgba(212,184,90,0);}
+    50%{box-shadow:0 12px 30px rgba(0,0,0,.22),0 0 18px rgba(212,184,90,.48);}
+}
+#homePage button,
+#adminControlPanel .menu button,
+#employeeDashboard .menu button{
+    animation:softBlinkGlow 2.8s infinite;
+}
+#homePage button:nth-of-type(1){background:linear-gradient(135deg,#34401d,#6f7b2f) !important;}
+#homePage button:nth-of-type(2){background:linear-gradient(135deg,#0754a6,#1976d2) !important;}
+#homePage button:nth-of-type(3){background:linear-gradient(135deg,#2e7d32,#75a843) !important;}
+#homePage button:nth-of-type(4){background:linear-gradient(135deg,#ef6c00,#d4a017) !important;}
+#homePage button:nth-of-type(5){background:linear-gradient(135deg,#5b1b80,#8e24aa) !important;}
+
+.topbar{
+    padding:14px 16px;
+    margin-bottom:16px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#253015,#6f7b2f);
+    color:#fff;
+    box-shadow:0 12px 30px rgba(0,0,0,.24);
+}
+.topbar h2{
+    margin:0;
+    color:#fff;
+    text-align:left;
+    letter-spacing:.4px;
+}
+#adminControlPanel{
+    background:
+        linear-gradient(135deg,rgba(255,255,255,.96),rgba(246,249,236,.96)) !important;
+    border:1px solid rgba(111,123,47,.25);
+    border-radius:22px;
+    box-shadow:0 14px 35px rgba(0,0,0,.18);
+}
+#adminControlPanel h3{
+    background:linear-gradient(135deg,#263015,#6f7b2f,#0754a6) !important;
+    color:#fff !important;
+    font-size:24px;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+    border-radius:16px;
+    padding:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,.24);
+}
+#adminControlPanel .menu{
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:15px;
+    counter-reset:adminCard;
+}
+#adminControlPanel .menu button{
+    min-height:58px;
+    text-align:left;
+    padding:15px 15px 15px 18px;
+    font-size:15px;
+    line-height:1.25;
+    border:1px solid rgba(255,255,255,.35);
+    background:linear-gradient(135deg,#0754a6,#1976d2) !important;
+}
+#adminControlPanel .menu button:nth-child(1){background:linear-gradient(135deg,#173f7a,#1976d2) !important;}
+#adminControlPanel .menu button:nth-child(2){background:linear-gradient(135deg,#2e5d1d,#5c8f28) !important;}
+#adminControlPanel .menu button:nth-child(3){background:linear-gradient(135deg,#673ab7,#8e24aa) !important;}
+#adminControlPanel .menu button:nth-child(4){background:linear-gradient(135deg,#bf5b00,#ef8f00) !important;}
+#adminControlPanel .menu button:nth-child(5){background:linear-gradient(135deg,#004d40,#00897b) !important;}
+#adminControlPanel .menu button:nth-child(6){background:linear-gradient(135deg,#2e7d32,#6f9d38) !important;}
+#adminControlPanel .menu button:nth-child(7){background:linear-gradient(135deg,#9b1c1c,#d32f2f) !important;}
+#adminControlPanel .menu button:nth-child(8){background:linear-gradient(135deg,#1565c0,#42a5f5) !important;}
+#adminControlPanel .menu button:nth-child(9){background:linear-gradient(135deg,#d65f00,#ff9800) !important;}
+#adminControlPanel .menu button:nth-child(10){background:linear-gradient(135deg,#33691e,#7cb342) !important;}
+#adminControlPanel .menu button:nth-child(11){background:linear-gradient(135deg,#4e5d16,#9e9d24) !important;}
+#adminControlPanel .menu button:nth-child(12){background:linear-gradient(135deg,#8e0000,#c62828) !important;}
+#adminControlPanel .menu button:nth-child(13){background:linear-gradient(135deg,#4a148c,#7b1fa2) !important;}
+#adminControlPanel .menu button:nth-child(14){background:linear-gradient(135deg,#7a4200,#ef6c00) !important;}
+#adminControlPanel .small-note{
+    margin-top:16px;
+    background:#f6f8e9;
+    border-left:5px solid var(--ao-olive);
+    padding:12px 14px;
+    border-radius:12px;
+    color:#36420f;
+    font-weight:700;
+}
+.admin-page-back-top,
+button.gray,
+.job-history-actions .gray{
+    background:linear-gradient(135deg,#263015,#4f5d24) !important;
+    border:1px solid rgba(255,255,255,.22);
+}
+.admin-page-back-top{
+    position:sticky;
+    top:10px;
+    z-index:10;
+    box-shadow:0 10px 26px rgba(0,0,0,.25);
+}
+.admin-subpage{
+    background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(240,246,220,.96)) !important;
+    border:1px solid rgba(111,123,47,.30) !important;
+}
+.admin-subpage h3{
+    background:linear-gradient(135deg,#263015,#6f7b2f,#0754a6) !important;
+}
+.box{
+    background:rgba(255,255,255,.90);
+}
+input,textarea,select{
+    border-radius:13px !important;
+    border:1px solid rgba(111,123,47,.32);
+    background:rgba(255,255,255,.96);
+}
+input:focus,select:focus,textarea:focus{
+    border:2px solid #7c8a31;
+    box-shadow:0 0 0 4px rgba(111,123,47,.16),0 0 12px rgba(111,123,47,.25);
+}
+#employeeDashboard .menu button:nth-child(1){background:linear-gradient(135deg,#0754a6,#1976d2) !important;}
+#employeeDashboard .menu button:nth-child(2){background:linear-gradient(135deg,#2e7d32,#6f9d38) !important;}
+#employeeDashboard .menu button:nth-child(3){background:linear-gradient(135deg,#ef6c00,#d4a017) !important;}
+#employeeDashboard .menu button:nth-child(4){background:linear-gradient(135deg,#4e5d16,#8c9430) !important;}
+#employeeView{
+    border-radius:18px;
+    background:rgba(255,255,255,.92);
+    border:1px solid rgba(111,123,47,.20);
+}
+@media(max-width:700px){
+    body{padding:12px;}
+    .portal-hero{border-radius:18px;padding:18px 10px;}
+    .portal-title-box h1{font-size:24px;}
+    #adminControlPanel .menu{grid-template-columns:1fr;}
+    #adminControlPanel h3{font-size:19px;}
+    #adminControlPanel .menu button{font-size:14px;min-height:52px;}
+    .topbar{align-items:flex-start;flex-direction:column;}
+    .topbar button{width:100%;}
+}
+
+
+
+/* ===== FINAL A&O OLIVE GLASS THEME OVERRIDE (DESIGN ONLY) ===== */
+:root{
+    --ao-olive-deep:#1f2a12;
+    --ao-olive-dark:#2d3a18;
+    --ao-olive:#5f6f2a;
+    --ao-olive-light:#9aa85a;
+    --ao-olive-soft:#d7dfa3;
+    --ao-glass-olive:rgba(96,111,42,.28);
+    --ao-glass-olive-strong:rgba(67,82,28,.72);
+    --ao-text-cream:#fbffe8;
+}
+body{
+    background:#11170b !important;
+    color:#17210c;
+}
+body::after{
+    background:
+        radial-gradient(circle at 18% 8%,rgba(188,202,104,.35),transparent 32%),
+        radial-gradient(circle at 82% 18%,rgba(100,119,45,.28),transparent 34%),
+        radial-gradient(circle at 50% 100%,rgba(43,58,20,.45),transparent 42%),
+        linear-gradient(135deg,rgba(13,20,8,.94),rgba(63,78,27,.83),rgba(11,16,7,.96)) !important;
+}
+.portal-hero{
+    background:
+        linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035)),
+        linear-gradient(135deg,rgba(42,55,19,.78),rgba(113,130,48,.42)) !important;
+    border:1px solid rgba(215,223,163,.34) !important;
+    box-shadow:0 20px 52px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.14) !important;
+}
+.ao-logo-mark{
+    width:142px;
+    height:118px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:15px;
+    border-radius:30px;
+    font-size:44px;
+    font-weight:1000;
+    letter-spacing:-3px;
+    color:#f9ffe5;
+    text-shadow:0 3px 12px rgba(0,0,0,.55),0 0 20px rgba(215,223,163,.26);
+    background:
+        radial-gradient(circle at 30% 20%,rgba(255,255,255,.24),transparent 28%),
+        linear-gradient(145deg,rgba(154,168,90,.95),rgba(47,62,22,.96) 55%,rgba(31,42,18,.98));
+    border:1px solid rgba(231,238,181,.55);
+    box-shadow:0 14px 35px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.26), 0 0 0 5px rgba(215,223,163,.10);
+}
+.portal-title-box{
+    background:linear-gradient(135deg,rgba(31,42,18,.96),rgba(95,111,42,.92),rgba(45,58,24,.96)) !important;
+    border:1px solid rgba(215,223,163,.35) !important;
+}
+.portal-title-box h1,
+.topbar h2,
+button{
+    color:var(--ao-text-cream) !important;
+    text-shadow:0 2px 6px rgba(0,0,0,.55);
+}
+.card,#homePage,#adminControlPanel,.admin-subpage,.dashboard-card,.employee-info-card,.accessive-ot-card,.job-history-wrap,#employeeView,.box{
+    background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(215,223,163,.10)) !important;
+    border:1px solid rgba(215,223,163,.28) !important;
+    box-shadow:0 16px 42px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.12) !important;
+    backdrop-filter:blur(10px);
+}
+#homePage::before,
+h1,h2,h3,.small-note,label{
+    color:#f8ffe0 !important;
+    text-shadow:0 2px 8px rgba(0,0,0,.45);
+}
+button,
+button.green,
+button.orange,
+button.purple,
+button.red,
+button.gray,
+#homePage button,
+#adminControlPanel .menu button,
+#employeeDashboard .menu button,
+.topbar button,
+.admin-page-back-top,
+.job-history-actions button,
+.print-actions button{
+    background:linear-gradient(135deg,rgba(31,42,18,.98),rgba(95,111,42,.94) 52%,rgba(48,62,23,.98)) !important;
+    border:1px solid rgba(215,223,163,.44) !important;
+    color:#fbffe8 !important;
+    box-shadow:0 10px 24px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.18), 0 0 16px rgba(154,168,90,.16) !important;
+}
+button:hover,
+button.green:hover,
+button.orange:hover,
+button.purple:hover,
+button.red:hover,
+button.gray:hover,
+#homePage button:hover,
+#adminControlPanel .menu button:hover,
+#employeeDashboard .menu button:hover{
+    background:linear-gradient(135deg,rgba(46,61,21,.99),rgba(124,139,55,.98) 54%,rgba(55,71,27,.99)) !important;
+    box-shadow:0 14px 31px rgba(0,0,0,.36),0 0 22px rgba(215,223,163,.32) !important;
+}
+.topbar,
+#adminControlPanel h3,
+.admin-subpage h3,
+.box h3,
+.accessive-ot-table-title,
+.job-history-table-title{
+    background:linear-gradient(135deg,rgba(31,42,18,.98),rgba(95,111,42,.94),rgba(42,55,20,.98)) !important;
+    border:1px solid rgba(215,223,163,.35) !important;
+    color:#fbffe8 !important;
+}
+input,textarea,select{
+    background:rgba(251,255,232,.88) !important;
+    border:1px solid rgba(154,168,90,.60) !important;
+    color:#1c260f !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
+}
+input:focus,select:focus,textarea:focus{
+    border:2px solid #bac86b !important;
+    box-shadow:0 0 0 4px rgba(154,168,90,.22),0 0 16px rgba(215,223,163,.32) !important;
+}
+table,.admin-subpage table,.employee-info-table,.dashboard-table,.accessive-ot-table,.job-history-table{
+    background:rgba(251,255,232,.82) !important;
+    border-color:rgba(95,111,42,.65) !important;
+}
+th,.admin-subpage th,.employee-info-table th,.dashboard-table th,.accessive-ot-table th,.job-history-table th{
+    background:linear-gradient(135deg,#273616,#66772f) !important;
+    color:#fbffe8 !important;
+    border-color:rgba(215,223,163,.45) !important;
+}
+td,.admin-subpage td,.employee-info-table td,.dashboard-table td,.accessive-ot-table td,.job-history-table td{
+    background:rgba(250,255,230,.74) !important;
+    color:#15200b !important;
+    border-color:rgba(95,111,42,.45) !important;
+}
+tr:nth-child(even) td,
+.admin-subpage tr:nth-child(even) td,
+.employee-info-table tr:nth-child(even) td,
+.accessive-ot-table tbody tr:nth-child(even),
+.job-history-table tbody tr:nth-child(even){
+    background:rgba(226,235,173,.62) !important;
+}
+.status,.success,.error,.small-note,.not-publish-box{
+    background:rgba(251,255,232,.78) !important;
+    border:1px solid rgba(154,168,90,.45) !important;
+    color:#1d2a0f !important;
+}
+a{color:#e9f5a9 !important;}
+#homePage a{color:#415315 !important;text-shadow:none;}
+
+
+/* ===== Rocket Commitment Module (Admin Only) ===== */
+.rocket-commit-card{background:linear-gradient(145deg,rgba(245,250,226,.92),rgba(111,123,47,.30)) !important;border:1px solid rgba(215,223,163,.42) !important;border-radius:18px;padding:18px;box-shadow:0 14px 34px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.18);}
+.rocket-commit-card h3{background:linear-gradient(135deg,rgba(31,42,18,.98),rgba(95,111,42,.94),rgba(42,55,20,.98)) !important;color:#fbffe8 !important;border:1px solid rgba(215,223,163,.35) !important;}
+.rocket-input-row{display:grid;grid-template-columns:1.2fr auto auto;gap:10px;align-items:end;}
+.rocket-selected-table th,.rocket-selected-table td{text-align:center;vertical-align:middle;}
+.rocket-selected-table .rocket-name-cell,.rocket-selected-table .rocket-account-cell{font-weight:900;color:#1f2a12 !important;}
+.rocket-preview-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+.rocket-preview-actions button{width:auto;min-width:150px;}
+.rocket-help-text{margin-top:8px;background:rgba(251,255,232,.75);border:1px solid rgba(154,168,90,.45);color:#24300f;padding:10px 12px;border-radius:12px;font-weight:700;line-height:1.5;}
+@media(max-width:700px){.rocket-input-row{grid-template-columns:1fr;}.rocket-preview-actions button{width:100%;}}
+
+
+/* Hide empty instruction/status boxes after note cleanup */
+.status:empty,
+.small-note:empty,
+#submittedFormResult:empty,
+#newJoinStatus:empty,
+#adminStatus:empty,
+#rocketCommitmentStatus:empty{
+    display:none!important;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="portal-hero" style="display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:20px;width:100%;">
+    <div class="ao-logo-mark" aria-label="A&O Logo">A&amp;O</div>
+    <div class="portal-title-box"><h1>A&O Employee Portal</h1></div>
+</div>
+
+<div class="container">
+
+<div class="card" id="homePage">
+    <button onclick="showEmployeeLogin()">Employee Login</button>
+    <button onclick="showAttendancePassword()" style="margin-top:15px;">Attendance Report</button>
+    <button onclick="showNewJoinApplication()" class="green" style="margin-top:15px;">New Join Application</button>
+    <button onclick="showSubmittedFormSearch()" class="orange" style="margin-top:15px;">Submitted Form</button>
+    <button onclick="showAdminLogin()" class="purple" style="margin-top:15px;">Admin Panel</button>
+    <div style="text-align:right;margin-top:8px;">
+    <a href="https://drive.google.com/uc?export=download&id=1L0N8E57Y22mlcPNJ9JihOmsFArpby_j3"
+       target="_blank"
+       style="font-size:11px;color:#0754a6;text-decoration:none;font-weight:bold;">
+       Download App
+    </a>
+</div>
+</div>
+
+<div class="card hidden" id="employeeLoginPage">
+    <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
+    <h2>Employee Login</h2>
+    <input type="text" id="empLoginId" placeholder="User Id / Employee ID">
+    <input type="text" id="empLoginPhone" placeholder="Password / Mobile No">
+    <button onclick="employeeLogin()">Login</button>
+    <button class="gray" onclick="goHome()">Back</button>
+</div>
+
+<div class="card hidden" id="newJoinApplicationPage">
+    <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
+    <h2>New Join Application</h2>
+<div class="box">
+        <h3>ব্যক্তিগত তথ্য</h3>
+        <input type="text" id="Name_English" placeholder="1. Name Of Employee (English)">
+        <input type="text" id="Employee_Name" placeholder="2. কর্মীর নাম">
+        <input type="text" id="Father_Name" placeholder="3. পিতার নাম">
+        <input type="text" id="Mother_Name" placeholder="4. মাতার নাম">
+        <input type="text" id="Spouse_Name" placeholder="5. স্বামী/স্ত্রীর নাম">
+        <input type="text" id="Care_Of" placeholder="6. প্রযত্নে / Care Of">
+    </div>
+
+    <div class="box">
+        <h3>স্থায়ী ঠিকানা</h3>
+        <div class="menu">
+            <input type="text" id="Per_Vill" placeholder="Per. Vill / গ্রাম">
+            <input type="text" id="Per_PO" placeholder="Per. PO / পোস্ট অফিস">
+            <div class="address-field">
+                <input type="text" id="Per_Dist" placeholder="Per. Dist / জেলা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showDistrictSuggestions('Per_Dist','Per_PS')" onfocus="showDistrictSuggestions('Per_Dist','Per_PS')">
+                <div id="Per_Dist_Suggestions" class="autocomplete-list hidden"></div>
+            </div>
+            <input type="text" id="Per_Dist_Other" class="hidden">
+            <div class="address-field">
+                <input type="text" id="Per_PS" placeholder="Per. PS / থানা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showThanaSuggestions('Per_Dist','Per_PS')" onfocus="showThanaSuggestions('Per_Dist','Per_PS')">
+                <div id="Per_PS_Suggestions" class="autocomplete-list hidden"></div>
+            </div>
+            <input type="text" id="Per_PS_Other" class="hidden">
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>বর্তমান ঠিকানা</h3>
+        <div class="menu">
+            <input type="text" id="Pre_Vill" placeholder="Pre. Vill / গ্রাম">
+            <input type="text" id="Pre_PO" placeholder="Pre. PO / পোস্ট অফিস">
+            <div class="address-field">
+                <input type="text" id="Pre_Dist" placeholder="Pre. Dist / জেলা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showDistrictSuggestions('Pre_Dist','Pre_PS')" onfocus="showDistrictSuggestions('Pre_Dist','Pre_PS')">
+                <div id="Pre_Dist_Suggestions" class="autocomplete-list hidden"></div>
+            </div>
+            <input type="text" id="Pre_Dist_Other" class="hidden">
+            <div class="address-field">
+                <input type="text" id="Pre_PS" placeholder="Pre. PS / থানা লিখুন বা নির্বাচন করুন" autocomplete="off" oninput="showThanaSuggestions('Pre_Dist','Pre_PS')" onfocus="showThanaSuggestions('Pre_Dist','Pre_PS')">
+                <div id="Pre_PS_Suggestions" class="autocomplete-list hidden"></div>
+            </div>
+            <input type="text" id="Pre_PS_Other" class="hidden">
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>যোগাযোগ ও পরিচয়</h3>
+        <div class="menu">
+            <div>
+                <label>জন্ম তারিখ</label>
+                <div class="menu" style="grid-template-columns:1fr 1fr 1fr;margin-top:0;">
+                    <select id="DOB_Day"></select>
+                    <select id="DOB_Month"></select>
+                    <select id="DOB_Year"></select>
+                </div>
+                <input type="hidden" id="Date_Of_Birth">
+            </div>
+            <div>
+                <label>যোগদানের তারিখ</label>
+                <div class="menu" style="grid-template-columns:1fr 1fr 1fr;margin-top:0;">
+                    <select id="JOIN_Day"></select>
+                    <select id="JOIN_Month"></select>
+                    <select id="JOIN_Year"></select>
+                </div>
+                <input type="hidden" id="Joining_Date">
+            </div>
+        </div>
+        <select id="Religion">
+            <option value="">ধর্ম নির্বাচন করুন</option>
+            <option value="ইসলাম">ইসলাম</option>
+            <option value="হিন্দু">হিন্দু</option>
+            <option value="বৌদ্ধ">বৌদ্ধ</option>
+            <option value="খ্রিস্টান">খ্রিস্টান</option>
+            <option value="অন্যান্য">অন্যান্য</option>
+        </select>
+        <input type="text" id="Mobile_No" placeholder="মোবাইল নম্বর (নিজ) - max 12 digit" maxlength="12" oninput="digitsOnly(this,12)">
+        <input type="text" id="NID_Birth" placeholder="NID / জন্ম নিবন্ধন নম্বর">
+        <div class="menu">
+            <input type="text" id="Weight" placeholder="ওজন (KG)">
+            <input type="text" id="Height" placeholder="উচ্চতা">
+        </div>
+        <select id="Blood_Group">
+            <option value="">Blood Group নির্বাচন করুন</option>
+            <option value="A+">A+</option><option value="A-">A-</option>
+            <option value="B+">B+</option><option value="B-">B-</option>
+            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+            <option value="O+">O+</option><option value="O-">O-</option>
+        </select>
+    </div>
+
+    <div class="box">
+        <h3>পারিবারিক তথ্য</h3>
+        <select id="Marital_Status" onchange="toggleChildrenFields()">
+            <option value="">বৈবাহিক অবস্থা নির্বাচন করুন</option>
+            <option value="Married">বিবাহিত</option>
+            <option value="Unmarried">অবিবাহিত</option>
+            <option value="Divorced">তালাকপ্রাপ্ত</option>
+            <option value="Widow/Widower">বিধবা/বিপত্নীক</option>
+        </select>
+        <label style="display:flex;align-items:center;gap:8px;margin-top:12px;font-weight:bold;">
+            <input type="checkbox" id="Has_Children" onchange="toggleChildrenFields()" style="width:auto;margin-top:0;">
+            সন্তান আছে
+        </label>
+        <div class="menu hidden" id="childrenFields">
+            <select id="Son_Children">
+                <option value="">ছেলে সংখ্যা</option>
+                <option value="0">0 Male</option><option value="1">1 Male</option><option value="2">2 Male</option>
+                <option value="3">3 Male</option><option value="4">4 Male</option><option value="5">5 Male</option><option value="6">6 Male</option>
+            </select>
+            <select id="Daughter_Children">
+                <option value="">মেয়ে সংখ্যা</option>
+                <option value="0">0 Female</option><option value="1">1 Female</option><option value="2">2 Female</option>
+                <option value="3">3 Female</option><option value="4">4 Female</option><option value="5">5 Female</option><option value="6">6 Female</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="box">
+        <h3>শিক্ষা ও শনাক্তকরণ</h3>
+        
+<select id="Education">
+<option value="">শিক্ষাগত যোগ্যতা নির্বাচন করুন</option>
+<option value="One To Ten">One To Ten</option>
+<option value="SSC">SSC</option>
+<option value="HSC">HSC</option>
+<option value="Masters">Masters</option>
+<option value="Degree">Degree</option>
+<option value="Hons">Hons</option>
+<option value="Alim">Alim</option>
+<option value="Dakhil">Dakhil</option>
+<option value="PhD">PhD</option>
+<option value="Diploma">Diploma</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" id="Education_Other" placeholder="অন্যান্য শিক্ষাগত যোগ্যতা লিখুন" class="hidden">
+
+        <input type="text" id="Identification_Mark" placeholder="শনাক্তকরণ চিহ্ন">
+    </div>
+
+    <div class="box">
+        <h3>শনাক্তকারীর বিবরণ</h3>
+        <input type="text" id="Reference_Name" placeholder="শনাক্তকারীর নাম">
+        <select id="Reference_Relation">
+            <option value="">শনাক্তকারীর সাথে সম্পর্ক নির্বাচন করুন</option>
+            <option value="চাচা">চাচা</option>
+            <option value="মামা">মামা</option>
+            <option value="খালা">খালা</option>
+            <option value="দেবর">দেবর</option>
+            <option value="ভাসুর">ভাসুর</option>
+            <option value="ভাবী">ভাবী</option>
+            <option value="ফুফু">ফুফু</option>
+            <option value="মামি">মামি</option>
+            <option value="দুলাভাই">দুলাভাই</option>
+            <option value="খালাতো বোন">খালাতো বোন</option>
+            <option value="খালাতো ভাই">খালাতো ভাই</option>
+            <option value="চাচাতো ভাই">চাচাতো ভাই</option>
+            <option value="মামাতো ভাই">মামাতো ভাই</option>
+            <option value="বন্ধু">বন্ধু</option>
+            <option value="বাড়িওয়ালা">বাড়িওয়ালা</option>
+            <option value="সহকর্মী">সহকর্মী</option>
+            <option value="ননদ">ননদ</option>
+            <option value="স্থানীয় চেয়ারম্যান">স্থানীয় চেয়ারম্যান</option>
+            <option value="স্থানীয় মেম্বার">স্থানীয় মেম্বার</option>
+            <option value="Other">Other</option>
+        </select>
+        <input type="text" id="Reference_Relation_Other" placeholder="অন্যান্য সম্পর্ক লিখুন" class="hidden">
+        <input type="text" id="Reference_Mobile" placeholder="শনাক্তকারীর মোবাইল" maxlength="11" oninput="digitsOnly(this,11)">
+    </div>
+
+    <div class="box">
+        <h3>জরুরী যোগাযোগ</h3>
+        <input type="text" id="Emergency_Name" placeholder="জরুরী যোগাযোগের নাম">
+        <select id="Emergency_Relation">
+            <option value="">সম্পর্ক নির্বাচন করুন</option>
+            <option value="বাবা">বাবা</option>
+            <option value="মা">মা</option>
+            <option value="ভাই">ভাই</option>
+            <option value="বোন">বোন</option>
+            <option value="স্বামী">স্বামী</option>
+            <option value="স্ত্রী">স্ত্রী</option>
+            <option value="ছেলে">ছেলে</option>
+            <option value="মেয়ে">মেয়ে</option>
+            <option value="Other">Other</option>
+        </select>
+        <input type="text" id="Emergency_Relation_Other" placeholder="অন্যান্য সম্পর্ক লিখুন" class="hidden">
+        <input type="text" id="Emergency_Mobile" placeholder="মোবাইল নম্বর" maxlength="11" oninput="digitsOnly(this,11)">
+    </div>
+
+    <div class="box">
+        <h3>কাজের তথ্য</h3>
+        <select id="Skill_Experience">
+            <option value="">Skill Experience নির্বাচন করুন</option>
+            <option value="Fresher">Fresher</option>
+            <option value="Below 1 Year">Below 1 Year</option>
+            <option value="1 Year">1 Year</option>
+            <option value="2 Year">2 Year</option>
+            <option value="3 Year">3 Year</option>
+            <option value="4 Year">4 Year</option>
+            <option value="5 Year">5 Year</option>
+            <option value="5 Year Above">5 Year Above</option>
+        </select>
+        <input type="text" id="Previous_Factory" placeholder="পূর্বের কারখানার নাম / Last Working Details">
+<select id="Unit_Name">
+<option value="">Unit নির্বাচন করুন</option>
+<option value="Knit Division">Knit Division</option>
+<option value="Woven Division">Woven Division</option>
+<option value="Combine">Combine</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" id="Unit_Name_Other" placeholder="অন্যান্য Unit লিখুন" class="hidden">
+
+        
+<select id="Applied_Post">
+<option value="">যে পদে কাজের আবেদন</option>
+<option value="Jr. S/M Operator">Jr. S/M Operator</option>
+<option value="Finishing Asst.">Finishing Asst.</option>
+<option value="Asstt. M. Operator">Asstt. M. Operator</option>
+<option value="Cutter">Cutter</option>
+<option value="Jr. Quality Inspector">Jr. Quality Inspector</option>
+<option value="Asstt. Quality Inspector">Asstt. Quality Inspector</option>
+<option value="Jr. Officer">Jr. Officer</option>
+<option value="Cleaner">Cleaner</option>
+<option value="Office Peon">Office Peon</option>
+<option value="Manager">Manager</option>
+<option value="Jr. Q.A.O">Jr. Q.A.O</option>
+<option value="Quality Incharge">Quality Incharge</option>
+<option value="Production Manager">Production Manager</option>
+<option value="Line Iron Man">Line Iron Man</option>
+<option value="Jr Ironman">Jr Ironman</option>
+<option value="Jr. Packer">Jr. Packer</option>
+<option value="Jr Folder">Jr Folder</option>
+<option value="Polywoman">Polywoman</option>
+<option value="Asstt. Cutter">Asstt. Cutter</option>
+<option value="Cutterman">Cutterman</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" id="Applied_Post_Other" placeholder="অন্যান্য পদবি লিখুন" class="hidden">
+
+        
+<select id="Section_Name">
+<option value="">সেকশন নির্বাচন করুন</option>
+<option value="Sewing - A">Sewing - A</option>
+<option value="Sewing - B">Sewing - B</option>
+<option value="Sewing - C">Sewing - C</option>
+<option value="Sewing - D">Sewing - D</option>
+<option value="Sewing Knit - A">Sewing Knit - A</option>
+<option value="Sewing Knit - B">Sewing Knit - B</option>
+<option value="Cutting Knit">Cutting Knit</option>
+<option value="Finishing Knit">Finishing Knit</option>
+<option value="Finishing">Finishing</option>
+<option value="Finishing - A">Finishing - A</option>
+<option value="Finishing - B">Finishing - B</option>
+<option value="Maintenance">Maintenance</option>
+<option value="Electric">Electric</option>
+<option value="Farm">Farm</option>
+<option value="Maintenance Knit">Maintenance Knit</option>
+<option value="Embroidery">Embroidery</option>
+<option value="Floor Staff">Floor Staff</option>
+<option value="Floor Staff Knit">Floor Staff Knit</option>
+<option value="Other">Other</option>
+</select>
+<input type="text" id="Section_Name_Other" placeholder="অন্যান্য সেকশন লিখুন" class="hidden">
+
+        <textarea id="Machine_Skill" placeholder="মেশিন দক্ষতা / কাজের দক্ষতা" rows="4"></textarea>
+    </div>
+
+    <button onclick="submitNewJoinApplication()" class="green">Submit Application</button>
+    <button class="gray" onclick="goHome()">Back</button>
+    <div id="newJoinStatus" class="status"></div>
+</div>
+
+<div class="card hidden" id="submittedFormPage">
+    <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
+    <h2>Submitted Form</h2>
+<input type="text" id="searchTemporaryId" placeholder="Enter Temporary ID, example: 260602001" oninput="digitsOnly(this,20)">
+    <button onclick="loadSubmittedApplication()" class="green">View Submitted Form</button>
+    <button class="gray" onclick="goHome()">Back</button>
+    <div id="submittedFormResult" class="box"></div>
+</div>
+
+<div class="card hidden" id="adminLoginPage">
+    <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
+    <h2>Admin Login</h2>
+    <input type="text" id="adminUser" placeholder="Admin User ID">
+    <input type="password" id="adminPass" placeholder="Admin Password">
+    <button onclick="adminLogin()">Login</button>
+    <button class="gray" onclick="goHome()">Back</button>
+</div>
+
+<div class="card hidden" id="adminDashboard">
+    <div class="topbar">
+        <h2>Admin Panel</h2>
+        <button class="red" onclick="adminLogout()">Logout</button>
+    </div>
+
+    <div class="box" id="adminControlPanel">
+        <h3>Database Control Panel</h3>
+
+        <div class="menu">
+            <button onclick="showSupabaseUpload('employee')">01. Employee Info</button>
+            <button onclick="showSupabaseUpload('jobcard')">02. Job Card</button>
+            <button onclick="showSupabaseUpload('payslip')">03. Pay Slip</button>
+            <button onclick="showSupabaseUpload('overtime')">04. Accessive OT</button>
+            <button onclick="showSupabaseUpload('jobCardTotalHistory')">05. Job Card Total History</button>
+            <button class="green" onclick="openSalaryReconciliation()">06. Salary Reconciliation</button>
+            <button class="red" onclick="showOutEmployeePanel()">07. Out Employee Remove</button>
+            <button class="green" onclick="showAttendanceUploadPanel()">08. Attendance PDF Upload</button>
+            <button class="orange" onclick="showNewJoinRequestsPanel()">09. New Joining Requests</button>
+            <button class="green" onclick="showApprovedApplicationsPanel()">10. Approved List</button>
+            <button class="green" onclick="openAllFormate()">11. All Formate</button>
+            <button class="red" onclick="removeAllApprovedApplications()">12. Remove All Approved Data</button>
+            <button class="purple" onclick="showChangePasswordPanel()">13. Change Admin Password</button>
+            <button class="orange" onclick="openSupabaseDashboard()">14. Open Supabase Dashboard</button>
+            <button class="green" onclick="showRocketCommitment()">15. Rocket Commitment</button>
+        </div>
+</div>
+
+    <div id="adminView" class="box hidden"></div>
+
+</div>
+
+
+<div class="card hidden" id="attendancePasswordPage">
+    <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
+    <h2>Attendance Report Login</h2>
+    <input type="password" id="attendancePassword" placeholder="Enter Password">
+    <button onclick="checkAttendancePassword()">Login</button>
+    <button class="gray" onclick="goHome()">Back</button>
+</div>
+
+<div class="card hidden" id="attendancePage"></div>
+
+<div class="card hidden" id="employeeDashboard">
+    <div class="topbar">
+        <h2 id="welcomeText">Welcome</h2>
+        <button class="red" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="menu">
+        <button onclick="showEmployeeInfo()">Employee Info</button>
+        <button onclick="showJobCard()">Job Card</button>
+        <button onclick="showPaySlip()">Pay Slip</button>
+        <button onclick="showMore()">More</button>
+    </div>
+
+    <div id="employeeView" class="box">Select Option</div>
+</div>
+
+</div>
+
+<script>
+let currentEmployee = null;
+let currentAdminUser = null;
+let lastSubmittedApplication = null;
+let editingTemporaryId = null;
+const ATTENDANCE_PASSWORD = "4321";
+const SUPABASE_DASHBOARD_URL = "https://supabase.com/dashboard/project/hneomxtzhbeseqlyrszh/editor";
+const ATTENDANCE_BUCKET = "attendance-reports";
+
+const tableConfig = {
+    employee: {
+        title: "Employee Info",
+        table: "Employee_Info",
+        key: "Employee_ID"
+    },
+    jobcard: {
+        title: "Job Card",
+        table: "Jobcard",
+        key: "Employee_ID"
+    },
+    payslip: {
+        title: "Pay Slip",
+        table: "Payslip",
+        key: "Employee_ID"
+    },
+    overtime: {
+        title: "Accessive OT",
+        table: "Total_Overtime",
+        key: "Employee_ID"
+    },
+    jobCardTotalHistory: {
+        title: "Job Card Total History",
+        table: "Job_Card_Total_History",
+        key: "EMP_CODE",
+        conflict: "EMP_CODE,TRANS_DATE"
+    }
+};
+
+function hideAll(){
+    document.getElementById("homePage").classList.add("hidden");
+    document.getElementById("employeeLoginPage").classList.add("hidden");
+    document.getElementById("employeeDashboard").classList.add("hidden");
+    document.getElementById("attendancePasswordPage").classList.add("hidden");
+    document.getElementById("attendancePage").classList.add("hidden");
+    document.getElementById("adminLoginPage").classList.add("hidden");
+    document.getElementById("adminDashboard").classList.add("hidden");
+    document.getElementById("newJoinApplicationPage").classList.add("hidden");
+    document.getElementById("submittedFormPage").classList.add("hidden");
+}
+
+function goHome(){
+    hideAll();
+    document.getElementById("homePage").classList.remove("hidden");
+}
+
+function showEmployeeLogin(){
+    hideAll();
+    document.getElementById("employeeLoginPage").classList.remove("hidden");
+}
+
+function showNewJoinApplication(){
+    editingTemporaryId = null;
+    clearNewJoinForm();
+    hideAll();
+    document.getElementById("newJoinApplicationPage").classList.remove("hidden");
+    document.getElementById("newJoinStatus").className = "status";
+    document.getElementById("newJoinStatus").innerHTML = "";
+    toggleOtherField("Education","Education_Other");
+    toggleOtherField("Applied_Post","Applied_Post_Other");
+    toggleOtherField("Section_Name","Section_Name_Other");
+    toggleOtherField("Unit_Name","Unit_Name_Other");
+    toggleOtherField("Reference_Relation","Reference_Relation_Other");
+    toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
+    initDateDropdowns();
+    initAddressDropdowns();
+    toggleOtherField("Reference_Relation","Reference_Relation_Other");
+    toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
+}
+
+function showSubmittedFormSearch(){
+    hideAll();
+    document.getElementById("submittedFormPage").classList.remove("hidden");
+    document.getElementById("submittedFormResult").innerHTML = "";
+}
+
+function showAdminLogin(){
+    hideAll();
+    document.getElementById("adminLoginPage").classList.remove("hidden");
+}
+
+async function adminLogin(){
+    let user = document.getElementById("adminUser").value.trim();
+    let pass = document.getElementById("adminPass").value.trim();
+
+    if(!user || !pass){
+        alert("Please enter Admin ID and Password");
+        return;
+    }
+
+    try{
+        const { data, error } = await supabaseClient
+        .from("admin_settings")
+        .select("*")
+        .eq("username", user)
+        .maybeSingle();
+
+        if(error){
+            console.log(error);
+            alert("Admin database connection problem: " + error.message);
+            return;
+        }
+
+        if(data && String(data.password || "") === pass){
+            currentAdminUser = user;
+            hideAll();
+            document.getElementById("adminDashboard").classList.remove("hidden");
+            showAdminMainPanel();
+        }else{
+            alert("Wrong Admin ID or Password");
+        }
+    }catch(error){
+        console.log(error);
+        alert("Admin login failed: " + error.message);
+    }
+}
+
+function adminLogout(){
+    currentAdminUser = null;
+    document.getElementById("adminUser").value = "";
+    document.getElementById("adminPass").value = "";
+    goHome();
+}
+
+
+function showAdminMainPanel(){
+    const controlPanel = document.getElementById("adminControlPanel");
+    const adminView = document.getElementById("adminView");
+    if(controlPanel) controlPanel.classList.remove("hidden");
+    if(adminView){
+        adminView.className = "box hidden";
+        adminView.innerHTML = "";
+    }
+}
+
+function activateAdminSubPage(){
+    const controlPanel = document.getElementById("adminControlPanel");
+    const adminView = document.getElementById("adminView");
+    if(controlPanel) controlPanel.classList.add("hidden");
+    if(adminView){
+        adminView.className = "box admin-subpage";
+        adminView.classList.remove("hidden");
+    }
+    setTimeout(() => window.scrollTo({top:0, behavior:"smooth"}), 30);
+}
+
+function backToAdminPanel(){
+    showAdminMainPanel();
+}
+
+function adminBackButtonHtml(){
+    return `<button class="admin-page-back-top" onclick="backToAdminPanel()">← Back to Admin Panel</button>`;
+}
+
+function toggleOtherField(selectId, inputId){
+    const sel = document.getElementById(selectId);
+    const inp = document.getElementById(inputId);
+
+    if(!sel || !inp) return;
+
+    if(sel.value === "Other"){
+        inp.classList.remove("hidden");
+    }else{
+        inp.classList.add("hidden");
+        inp.value = "";
+    }
+}
+
+function getDropdownValue(selectId, otherInputId){
+    const sel = document.getElementById(selectId);
+    const other = document.getElementById(otherInputId);
+
+    if(!sel) return "";
+
+    if(sel.value === "Other"){
+        return other ? other.value.trim() : "";
+    }
+
+    return sel.value.trim();
+}
+
+let bdDistrictCache = [];
+let bdThanaCache = {};
+
+async function loadDistrictsFromSupabase(){
+    if(bdDistrictCache.length) return bdDistrictCache;
+
+    const { data, error } = await supabaseClient
+    .from("bd_districts")
+    .select("id,district_name")
+    .order("district_name", { ascending:true });
+
+    if(error){
+        console.log("District load failed:", error);
+        return [];
+    }
+
+    bdDistrictCache = data || [];
+    return bdDistrictCache;
+}
+
+async function populateDistrictDropdown(inputId){
+    await loadDistrictsFromSupabase();
+}
+
+function toggleAddressOther(selectId, otherId){
+    return;
+}
+
+async function loadThanasFromSupabase(districtId){
+    if(!districtId) return [];
+
+    if(bdThanaCache[districtId]){
+        return bdThanaCache[districtId];
+    }
+
+    const { data, error } = await supabaseClient
+    .from("bd_thanas")
+    .select("id,thana_name,district_id")
+    .eq("district_id", Number(districtId))
+    .order("thana_name", { ascending:true });
+
+    if(error){
+        console.log("Thana load failed:", error);
+        return [];
+    }
+
+    bdThanaCache[districtId] = data || [];
+    return bdThanaCache[districtId];
+}
+
+async function updateThanaDropdown(distId, psId, distOtherId, psOtherId){
+    const distInput = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+
+    if(!distInput || !psInput) return;
+
+    const districtName = distInput.value.trim();
+    const districts = await loadDistrictsFromSupabase();
+    const foundDistrict = districts.find(d => d.district_name === districtName);
+
+    if(!foundDistrict){
+        psInput.value = "";
+        return;
+    }
+
+    await loadThanasFromSupabase(foundDistrict.id);
+}
+
+
+function hideAutocompleteLists(){
+    document.querySelectorAll(".autocomplete-list").forEach(el => el.classList.add("hidden"));
+}
+
+function renderSuggestionList(listId, items, onPick){
+    const list = document.getElementById(listId);
+    if(!list) return;
+
+    list.innerHTML = "";
+
+    if(!items.length){
+        list.classList.add("hidden");
+        return;
+    }
+
+    items.slice(0, 200).forEach(item => {
+        const div = document.createElement("div");
+        div.className = "autocomplete-item";
+        div.textContent = item.label;
+        div.onclick = function(){
+            onPick(item);
+            list.classList.add("hidden");
+        };
+        list.appendChild(div);
+    });
+
+    list.classList.remove("hidden");
+}
+
+async function showDistrictSuggestions(distId, psId){
+    const input = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+    if(!input) return;
+
+    const districts = await loadDistrictsFromSupabase();
+    const q = input.value.trim().toLowerCase();
+
+    const matched = districts
+    .filter(d => !q || String(d.district_name || "").toLowerCase().includes(q))
+    .map(d => ({label:d.district_name, row:d}));
+
+    renderSuggestionList(distId + "_Suggestions", matched, function(item){
+        input.value = item.label;
+        if(psInput) psInput.value = "";
+        updateThanaDropdown(distId, psId, "", "");
+        setTimeout(() => showThanaSuggestions(distId, psId), 80);
+    });
+}
+
+async function showThanaSuggestions(distId, psId){
+    const distInput = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+    if(!distInput || !psInput) return;
+
+    const districts = await loadDistrictsFromSupabase();
+    const foundDistrict = districts.find(d => d.district_name === distInput.value.trim());
+
+    if(!foundDistrict){
+        renderSuggestionList(psId + "_Suggestions", [], function(){});
+        return;
+    }
+
+    const thanas = await loadThanasFromSupabase(foundDistrict.id);
+    const q = psInput.value.trim().toLowerCase();
+
+    const matched = thanas
+    .filter(t => !q || String(t.thana_name || "").toLowerCase().includes(q))
+    .map(t => ({label:t.thana_name, row:t}));
+
+    renderSuggestionList(psId + "_Suggestions", matched, function(item){
+        psInput.value = item.label;
+    });
+}
+
+document.addEventListener("click", function(e){
+    if(!e.target.closest(".address-field")){
+        hideAutocompleteLists();
+    }
+});
+
+
+function getAddressValue(inputId, otherId){
+    const input = document.getElementById(inputId);
+    if(!input) return "";
+    return input.value.trim();
+}
+
+async function setAddressDropdownValue(distId, psId, distOtherId, psOtherId, distValue, psValue){
+    await populateDistrictDropdown(distId);
+
+    const distInput = document.getElementById(distId);
+    const psInput = document.getElementById(psId);
+
+    if(distInput){
+        distInput.value = distValue || "";
+    }
+
+    await updateThanaDropdown(distId, psId, distOtherId, psOtherId);
+
+    if(psInput){
+        psInput.value = psValue || "";
+    }
+}
+
+function toggleChildrenFields(){
+    const chk = document.getElementById("Has_Children");
+    const box = document.getElementById("childrenFields");
+    const son = document.getElementById("Son_Children");
+    const daughter = document.getElementById("Daughter_Children");
+    const marital = document.getElementById("Marital_Status");
+
+    if(!chk || !box) return;
+
+    const isMarried = marital && marital.value === "Married";
+
+    if(isMarried){
+        chk.disabled = false;
+    }else{
+        chk.checked = false;
+        chk.disabled = true;
+    }
+
+    if(isMarried && chk.checked){
+        box.classList.remove("hidden");
+    }else{
+        box.classList.add("hidden");
+        if(son) son.value = "";
+        if(daughter) daughter.value = "";
+    }
+}
+
+async function initAddressDropdowns(){
+    await populateDistrictDropdown("Per_Dist");
+    await populateDistrictDropdown("Pre_Dist");
+    await updateThanaDropdown("Per_Dist","Per_PS","Per_Dist_Other","Per_PS_Other");
+    await updateThanaDropdown("Pre_Dist","Pre_PS","Pre_Dist_Other","Pre_PS_Other");
+    toggleChildrenFields();
+}
+
+
+function enableEnterToNextFieldInNewJoinForm(){
+    const formPage = document.getElementById("newJoinApplicationPage");
+    if(!formPage) return;
+
+    formPage.addEventListener("keydown", function(e){
+        if(e.key !== "Enter") return;
+
+        const current = e.target;
+
+        // Textarea তে Enter দিলে new line হবে, next field যাবে না
+        if(current.tagName === "TEXTAREA") return;
+
+        // Button এ Enter দিলে normal button কাজ করবে
+        if(current.tagName === "BUTTON") return;
+
+        const fields = Array.from(
+            formPage.querySelectorAll("input, select, textarea")
+        ).filter(field => {
+            return !field.disabled &&
+                   field.type !== "hidden" &&
+                   !field.classList.contains("hidden") &&
+                   field.offsetParent !== null;
+        });
+
+        const index = fields.indexOf(current);
+
+        if(index > -1 && index < fields.length - 1){
+            e.preventDefault();
+            fields[index + 1].focus();
+        }
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+    initDateDropdowns();
+    initAddressDropdowns();
+    enableEnterToNextFieldInNewJoinForm();
+    toggleOtherField("Education","Education_Other");
+    toggleOtherField("Applied_Post","Applied_Post_Other");
+    toggleOtherField("Section_Name","Section_Name_Other");
+    toggleOtherField("Unit_Name","Unit_Name_Other");
+    toggleOtherField("Reference_Relation","Reference_Relation_Other");
+    toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
+    toggleChildrenFields();
+});
+
+document.addEventListener("change", function(){
+    toggleOtherField("Education","Education_Other");
+    toggleOtherField("Applied_Post","Applied_Post_Other");
+    toggleOtherField("Section_Name","Section_Name_Other");
+    toggleOtherField("Unit_Name","Unit_Name_Other");
+    toggleOtherField("Reference_Relation","Reference_Relation_Other");
+    toggleOtherField("Emergency_Relation","Emergency_Relation_Other");
+    toggleChildrenFields();
+});
+
+
+
+
+
+function showChangePasswordPanel(){
+    activateAdminSubPage();
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <h3>Change Admin Password</h3>
+
+        <input type="password" id="oldAdminPassword" placeholder="Old Password">
+        <input type="password" id="newAdminPassword" placeholder="New Password">
+        <input type="password" id="confirmAdminPassword" placeholder="Confirm New Password">
+
+        <button onclick="changeAdminPassword()" class="green">
+            Save New Password
+        </button>
+
+        <button class="gray" onclick="backToAdminPanel()">
+            Back
+        </button>
+
+        <div id="adminStatus" class="status">
+            
+        </div>
+    `;
+}
+
+async function changeAdminPassword(){
+    let oldPass = document.getElementById("oldAdminPassword").value.trim();
+    let newPass = document.getElementById("newAdminPassword").value.trim();
+    let confirmPass = document.getElementById("confirmAdminPassword").value.trim();
+    let user = currentAdminUser || document.getElementById("adminUser").value.trim();
+
+    if(!oldPass || !newPass || !confirmPass){
+        alert("Please fill all password fields");
+        return;
+    }
+
+    if(newPass !== confirmPass){
+        alert("New password and confirm password not match");
+        return;
+    }
+
+    if(newPass.length < 4){
+        alert("New password minimum 4 characters hote hobe");
+        return;
+    }
+
+    setAdminStatus("Checking old password...");
+
+    const { data, error } = await supabaseClient
+    .from("admin_settings")
+    .select("*")
+    .eq("username", user)
+    .maybeSingle();
+
+    if(error){
+        console.log(error);
+        setAdminStatus("Password check failed: " + error.message, "error");
+        return;
+    }
+
+    if(!data || String(data.password || "") !== oldPass){
+        setAdminStatus("Old password wrong", "error");
+        return;
+    }
+
+    setAdminStatus("Saving new password...");
+
+    const { error: updateError } = await supabaseClient
+    .from("admin_settings")
+    .update({ password: newPass })
+    .eq("username", user);
+
+    if(updateError){
+        console.log(updateError);
+        setAdminStatus("Password save failed: " + updateError.message, "error");
+        return;
+    }
+
+    document.getElementById("oldAdminPassword").value = "";
+    document.getElementById("newAdminPassword").value = "";
+    document.getElementById("confirmAdminPassword").value = "";
+
+    setAdminStatus("Admin password changed successfully!", "success");
+}
+
+function openSalaryReconciliation(){
+    window.open("salary.html", "_blank");
+}
+
+function openAllFormate(){
+    window.open("format.html", "_blank");
+}
+
+function openSupabaseDashboard(){
+    window.open(SUPABASE_DASHBOARD_URL, "_blank");
+}
+
+function showSupabaseUpload(type){
+    const cfg = tableConfig[type];
+    activateAdminSubPage();
+
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <h3>${cfg.title} Upload / Update</h3>
+
+        <input type="file" id="adminCsvFile" accept="${(type === 'jobCardTotalHistory' || type === 'employee') ? '.csv,.txt' : '.csv'}">
+
+        <button onclick="uploadCsvToSupabase('${type}')" class="green">
+            Upload / Update File To Database
+        </button>
+
+        <button onclick="removeAllDataFromSupabase('${type}')" class="red">
+            Remove All ${cfg.title}
+        </button>
+
+        <button onclick="openSupabaseDashboard()" class="orange">
+            Open Supabase Table
+        </button>
+
+        <button class="gray" onclick="backToAdminPanel()">
+            Back
+        </button>
+
+        <div id="adminStatus" class="status">
+            ${type === 'jobCardTotalHistory' ? 'Toad থেকে export করা .txt বা ' : ''}
+            
+        </div>
+`;
+}
+
+function showOutEmployeePanel(){
+    activateAdminSubPage();
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <h3>Out Employee Remove</h3>
+        <input type="text" id="outEmployeeId" placeholder="Enter Employee_ID, example: OS00002">
+        <button onclick="removeOutEmployee()" class="red">
+            Remove Employee From All Tables
+        </button>
+        <button class="gray" onclick="backToAdminPanel()">
+            Back
+        </button>
+        <div id="adminStatus" class="status">
+            
+        </div>
+    `;
+}
+
+
+function getAttendanceFileName(type){
+    if(type === "manpower") return "manpower.pdf";
+    if(type === "absent") return "absent.pdf";
+    if(type === "halfday") return "halfday.pdf";
+    return "report.pdf";
+}
+
+function showAttendanceUploadPanel(){
+    activateAdminSubPage();
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <h3>Attendance PDF Upload / Replace</h3>
+
+        <select id="attendanceReportType">
+            <option value="manpower">Manpower Report</option>
+            <option value="absent">Absent Report</option>
+            <option value="halfday">Half Day Report</option>
+        </select>
+
+        <input type="file" id="attendancePdfFile" accept="application/pdf,.pdf">
+
+        <button onclick="uploadAttendancePdf()" class="green">
+            Upload / Replace PDF
+        </button>
+
+        <button class="gray" onclick="backToAdminPanel()">
+            Back
+        </button>
+
+        <div id="adminStatus" class="status">
+            
+        </div>
+    `;
+}
+
+async function uploadAttendancePdf(){
+    let type = document.getElementById("attendanceReportType").value;
+    let fileInput = document.getElementById("attendancePdfFile");
+    let file = fileInput.files[0];
+
+    if(!file){
+        alert("Please select PDF file first");
+        return;
+    }
+
+    let fileName = getAttendanceFileName(type);
+
+    setAdminStatus(`Uploading ${fileName}...`);
+
+    const { error } = await supabaseClient
+    .storage
+    .from(ATTENDANCE_BUCKET)
+    .upload(fileName, file, {
+        cacheControl: "0",
+        upsert: true,
+        contentType: "application/pdf"
+    });
+
+    if(error){
+        console.log(error);
+        setAdminStatus(`
+            <b>PDF upload failed.</b><br>
+            ${error.message}
+        `, "error");
+        return;
+    }
+
+    fileInput.value = "";
+
+    const { data } = supabaseClient
+    .storage
+    .from(ATTENDANCE_BUCKET)
+    .getPublicUrl(fileName);
+
+    setAdminStatus(`
+        <b>Success!</b> ${fileName} uploaded/replaced.<br>
+        <a href="${data.publicUrl}?t=${Date.now()}" target="_blank">Open uploaded PDF</a>
+    `, "success");
+}
+
+
+function setAdminStatus(msg, type=""){
+    let status = document.getElementById("adminStatus");
+    if(status){
+        status.className = "status" + (type ? " " + type : "");
+        status.innerHTML = msg;
+    }
+}
+
+function parseCSV(text){
+    text = String(text || "").replace(/^\uFEFF/, "");
+
+    let lines = text.split(/\r?\n/).filter(line => line.trim() !== "");
+    if(lines.length < 2) return [];
+
+    let firstLine = lines[0] || "";
+    let candidates = [",", "|", "\t", ";"];
+    let delimiter = candidates
+    .map(d => ({delimiter:d, count:firstLine.split(d).length}))
+    .sort((a,b) => b.count - a.count)[0].delimiter;
+
+    function parseDelimitedLine(line){
+        let cells = [];
+        let value = "";
+        let insideQuotes = false;
+
+        for(let i = 0; i < line.length; i++){
+            let char = line[i];
+            let next = line[i + 1];
+
+            if(char === '"' && insideQuotes && next === '"'){
+                value += '"';
+                i++;
+            }else if(char === '"'){
+                insideQuotes = !insideQuotes;
+            }else if(char === delimiter && !insideQuotes){
+                cells.push(value.trim());
+                value = "";
+            }else{
+                value += char;
+            }
+        }
+
+        cells.push(value.trim());
+        return cells;
+    }
+
+    function mergeOverflowCells(cells, headerCount){
+        if(cells.length <= headerCount) return cells;
+        let fixed = cells.slice(0, headerCount);
+        fixed[headerCount - 1] = cells.slice(headerCount - 1).join(" ").trim();
+        return fixed;
+    }
+
+    let headers = parseDelimitedLine(lines[0]).map(h => h.replace(/^\uFEFF/, "").trim());
+    let headerCount = headers.length;
+
+    return lines.slice(1).map(line => {
+        let r = mergeOverflowCells(parseDelimitedLine(line), headerCount);
+        let obj = {};
+        headers.forEach((h, index) => {
+            if(h){
+                obj[h] = r[index] || "";
+            }
+        });
+        return obj;
+    });
+}
+
+function normalizeEmployeeImportRow(row){
+    let out = {...row};
+
+    const map = {
+        "Local ID": "Employee_ID",
+        "Name": "Name_OF_Employee",
+        "Contact": "Mobile_No",
+        "Mobile/Bank Account": "Salary_Account_No",
+        "Date of Birth": "Date_Of_Birth",
+        "Blood Group": "Blood_Group",
+        "DESIG_NAME": "Designation",
+        "Present Salary": "Current_Salary",
+        "Joining Date": "Joining_Date",
+        "Religion_1": "Religion",
+        "RELIGION": "Religion",
+        "DEPT_NAME": "Department"
+    };
+
+    Object.keys(map).forEach(srcKey => {
+        const destKey = map[srcKey];
+        if((out[destKey] === undefined || out[destKey] === "") && out[srcKey] !== undefined){
+            out[destKey] = out[srcKey];
+        }
+    });
+
+    if(out.Employee_ID) out.Employee_ID = String(out.Employee_ID).trim().toUpperCase();
+
+    if(!out.Name_OF_Employee && out.Name) out.Name_OF_Employee = out.Name;
+    if(!out.Mobile_No && out.Contact) out.Mobile_No = out.Contact;
+    if(!out.Salary_Account_No && out["Mobile/Bank Account"]) out.Salary_Account_No = out["Mobile/Bank Account"];
+    if(!out.Current_Salary && out["Present Salary"]) out.Current_Salary = out["Present Salary"];
+    if(!out.Joining_Date && out["Joining Date"]) out.Joining_Date = out["Joining Date"];
+    if(!out.Date_Of_Birth && out["Date of Birth"]) out.Date_Of_Birth = out["Date of Birth"];
+    if(!out.Blood_Group && out["Blood Group"]) out.Blood_Group = out["Blood Group"];
+    if(!out.Designation && out.DESIG_NAME) out.Designation = out.DESIG_NAME;
+    if(!out.Department && out.DEPT_NAME) out.Department = out.DEPT_NAME;
+    if(!out.Section_Name && out.Department) out.Section_Name = out.Department;
+
+    delete out.id;
+    delete out.created_at;
+
+    return out;
+}
+async function uploadCsvToSupabase(type){
+    const cfg = tableConfig[type];
+    const fileInput = document.getElementById("adminCsvFile");
+    const file = fileInput.files[0];
+
+    if(!file){
+        alert("Please select CSV file first");
+        return;
+    }
+
+    setAdminStatus("Reading file...");
+
+    const reader = new FileReader();
+
+    reader.onload = async function(e){
+        try{
+            let csvText = e.target.result;
+            let rows = parseCSV(csvText);
+
+            if(!rows.length){
+                setAdminStatus("No data found in file.", "error");
+                return;
+            }
+
+            rows = rows.map(row => {
+                if(type === "employee"){
+                    row = normalizeEmployeeImportRow(row);
+                }
+
+                if(row[cfg.key]){
+                    row[cfg.key] = String(row[cfg.key]).trim().toUpperCase();
+                }
+
+                return row;
+            }).filter(row => row[cfg.key] && String(row[cfg.key]).trim() !== "");
+
+            if(!rows.length){
+                setAdminStatus(`File এ ${cfg.key} column/value পাওয়া যায়নি।`, "error");
+                return;
+            }
+
+            setAdminStatus(`Uploading ${rows.length} rows to ${cfg.table}...`);
+
+            const conflictKey = cfg.conflict || cfg.key;
+
+            const { error } = await supabaseClient
+            .from(cfg.table)
+            .upsert(rows, { onConflict: conflictKey });
+
+            if(error){
+                console.log(error);
+                setAdminStatus(`
+                    <b>Upload failed.</b><br>
+                    ${error.message}
+                `, "error");
+                return;
+            }
+
+            fileInput.value = "";
+            setAdminStatus(`<b>Success!</b> ${rows.length} rows uploaded/updated in ${cfg.table}.`, "success");
+
+        }catch(error){
+            console.log(error);
+            setAdminStatus("Upload failed. File format check করো.", "error");
+        }
+    };
+
+    reader.readAsText(file);
+}
+
+async function removeAllDataFromSupabase(type){
+    const cfg = tableConfig[type];
+
+    let confirmText = prompt(`Type DELETE to remove all data from ${cfg.title}`);
+
+    if(confirmText !== "DELETE"){
+        alert("Delete cancelled");
+        return;
+    }
+
+    setAdminStatus(`Removing all data from ${cfg.table}...`);
+
+    const { error } = await supabaseClient
+    .from(cfg.table)
+    .delete()
+    .not(cfg.key, "is", null);
+
+    if(error){
+        console.log(error);
+        setAdminStatus(`<b>Remove failed.</b><br>${error.message}`, "error");
+        return;
+    }
+
+    setAdminStatus(`<b>Removed!</b> All data deleted from ${cfg.table}.`, "success");
+}
+
+async function removeOutEmployee(){
+    let empId = document.getElementById("outEmployeeId").value.trim().toUpperCase();
+
+    if(!empId){
+        alert("Employee_ID লিখো");
+        return;
+    }
+
+    let confirmText = prompt(`Type DELETE to remove ${empId} from all tables`);
+    if(confirmText !== "DELETE"){
+        alert("Delete cancelled");
+        return;
+    }
+
+    setAdminStatus(`Removing ${empId} from all tables...`);
+
+    let messages = [];
+
+    for(const key of Object.keys(tableConfig)){
+        const cfg = tableConfig[key];
+        const { error } = await supabaseClient
+        .from(cfg.table)
+        .delete()
+        .eq(cfg.key, empId);
+
+        if(error){
+            console.log(cfg.table, error);
+            messages.push(`${cfg.table}: Failed - ${error.message}`);
+        }else{
+            messages.push(`${cfg.table}: Removed`);
+        }
+    }
+
+    setAdminStatus(messages.join("<br>"), "success");
+}
+
+function cleanMobile(num){
+    let mobile = String(num || "").replace(/\D/g, "").trim();
+
+    if(mobile.startsWith("88") && mobile.length === 13){
+        mobile = mobile.slice(2);
+    }
+
+    if(mobile.length === 10){
+        mobile = "0" + mobile;
+    }
+
+    return mobile;
+}
+
+function formatValue(value){
+    if(value === null || value === undefined) return "";
+    return String(value);
+}
+
+async function fetchOneByEmployeeId(table, employeeId){
+    try{
+        const { data, error } = await supabaseClient
+        .from(table)
+        .select("*")
+        .eq("Employee_ID", employeeId)
+        .maybeSingle();
+
+        if(error){
+            console.log(table, error);
+            return null;
+        }
+
+        return data || null;
+    }catch(error){
+        console.log(table, error);
+        return null;
+    }
+}
+
+async function employeeLogin(){
+    let id = document.getElementById("empLoginId").value.trim().toUpperCase();
+    let phone = cleanMobile(document.getElementById("empLoginPhone").value);
+
+    if(!id || !phone){
+        alert("Please enter User ID and Password");
+        return;
+    }
+
+    try{
+        const { data: info, error } = await supabaseClient
+        .from("Employee_Info")
+        .select("*")
+        .eq("Employee_ID", id)
+        .maybeSingle();
+
+        if(error){
+            console.log(error);
+            alert("Database connection problem: " + error.message);
+            return;
+        }
+
+        if(!info){
+            alert("Employee ID not found");
+            return;
+        }
+
+        let dbPhone = cleanMobile(info.Mobile_No || "");
+
+        if(!(dbPhone === phone || dbPhone.slice(-10) === phone.slice(-10))){
+            alert("Wrong Password");
+            return;
+        }
+
+        let job = await fetchOneByEmployeeId("Jobcard", id);
+        let pay = await fetchOneByEmployeeId("Payslip", id);
+        let totalOvertime = await fetchOneByEmployeeId("Total_Overtime", id);
+
+        currentEmployee = { info, job, pay, totalOvertime };
+
+        hideAll();
+        document.getElementById("employeeDashboard").classList.remove("hidden");
+        document.getElementById("welcomeText").innerText =
+        "Welcome " + (info.Name_OF_Employee || id);
+
+        showEmployeeInfo();
+
+    }catch(error){
+        console.log(error);
+        alert("Supabase connection failed: " + error.message);
+    }
+}
+
+function showEmployeeInfo(){
+    let info = currentEmployee.info;
+
+    if(!info){
+        document.getElementById("employeeView").innerHTML = "<h3>No Employee Information Found</h3>";
+        return;
+    }
+
+    let photoId = "no-photo";
+
+    if(info.Employee_ID){
+        photoId = String(info.Employee_ID)
+        .toLowerCase()
+        .replace(/([a-z]+)0+(\d+)/i,'$1$2');
+    }
+
+    let html = `
+    <div class="employee-info-card">
+        <h2 class="employee-info-title">Employee Information</h2>
+
+        <div class="employee-photo-frame">
+            <img src="photos/${photoId}.jpg"
+            onerror="this.src='photos/no-photo.jpg'">
+        </div>
+
+        <div class="employee-info-table-wrap">
+        <table class="employee-info-table">
+    `;
+
+    Object.keys(info).forEach(key => {
+        if(key === "id" || key === "created_at") return;
+
+        const cleanKey = String(key || "").toLowerCase().replace(/\s+/g,"_");
+        const isHighlight = cleanKey === "salary_account_no" || cleanKey === "current_salary";
+
+        html += `
+        <tr class="${isHighlight ? 'employee-money-highlight' : ''}">
+            <th>${key}</th>
+            <td>${formatValue(info[key])}</td>
+        </tr>
+        `;
+    });
+
+    html += "</table></div></div>";
+    document.getElementById("employeeView").innerHTML = html;
+}
+
+function renderNotPublished(title){
+    return `
+    <div class="not-publish-box">
+        <h2>${title}</h2>
+        <div class="not-publish-text">Not publish yet</div>
+    </div>`;
+}
+
+function rowToTable(title, row){
+    if(!row){
+        return renderNotPublished(title);
+    }
+
+    let html = `<div class="dashboard-card"><h2>${title}</h2><table class="dashboard-table">`;
+
+    Object.keys(row).forEach(key => {
+        if(key === "id" || key === "created_at") return;
+        let isAbsent = String(key || "").toLowerCase().includes("abs");
+        html += `<tr class="${isAbsent ? 'absent-row' : ''}"><th>${key}</th><td>${formatValue(row[key])}</td></tr>`;
+    });
+
+    html += "</table></div>";
+    return html;
+}
+
+function showJobCard(){
+    let job = currentEmployee.job;
+
+    if(!job){
+        document.getElementById("employeeView").innerHTML = renderNotPublished("Job Card");
+        return;
+    }
+
+    if(!job.DASHBOARD){
+        document.getElementById("employeeView").innerHTML = rowToTable("Job Card", job);
+        return;
+    }
+
+    let text = job.DASHBOARD || "";
+
+    let month = (text.match(/Job card\s+(.+?)\s+of/i) || [,"-"])[1];
+    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.Name_OF_Employee || "-"])[1];
+    let present = (text.match(/Total Present-(\d+)/i) || [,"0"])[1];
+    let absent = (text.match(/Absent-(\d+)/i) || [,"0"])[1];
+    let ot = (text.match(/OT-([\d.]+)/i) || [,"0"])[1];
+    let leave = (text.match(/Leave-(\d+)/i) || [,"0"])[1];
+    let late = (text.match(/Late-(\d+)/i) || [,"0"])[1];
+
+    document.getElementById("employeeView").innerHTML = `
+    <div class="dashboard-card">
+        <h2>Job Card</h2>
+        <table class="dashboard-table">
+            <tr><td>Job Card Month :</td><td>${month}</td></tr>
+            <tr><td>Name :</td><td>${name}</td></tr>
+            <tr><td>Total Present :</td><td>${present} Days</td></tr>
+            <tr class="absent-row"><td>Absent :</td><td class="absent-highlight">${absent}</td></tr>
+            <tr><td>Over Time OT :</td><td>${ot}</td></tr>
+            <tr><td>Leave :</td><td>${leave}</td></tr>
+            <tr><td>Late :</td><td>${late}</td></tr>
+        </table>
+    </div>`;
+}
+
+function showPaySlip(){
+    let pay = currentEmployee.pay;
+
+    if(!pay){
+        document.getElementById("employeeView").innerHTML = renderNotPublished("Pay Slip");
+        return;
+    }
+
+    if(!pay.DASHBOARD){
+        document.getElementById("employeeView").innerHTML = rowToTable("Pay Slip", pay);
+        return;
+    }
+
+    let text = pay.DASHBOARD || "";
+
+    let month = (text.match(/PaySlip\s+(.+?)\s+of/i) || [,"-"])[1];
+    let name = (text.match(/of\s+(.+?)\s+\(/i) || [,currentEmployee.info.Name_OF_Employee || "-"])[1];
+    let gross = (text.match(/G\.Salary=([^;]*)/i) || [,"0"])[1];
+    let att = (text.match(/AttBns=([^;]*)/i) || [,"0"])[1];
+    let el = (text.match(/EL=([^;]*)/i) || [,"0"])[1];
+    let otMatch = text.match(/OT=\[([^\]]*)\]([^;]*)/i);
+    let otHourRate = otMatch ? otMatch[1] : "0";
+    let otAmount = otMatch ? otMatch[2] : "0";
+    let abs = (text.match(/AbsAmt=([^;]*)/i) || [,"0"])[1];
+    let stamp = (text.match(/Stm=([^;]*)/i) || [,"0"])[1];
+    let net = (text.match(/NetSalary=([^ ]*)/i) || [,"0"])[1];
+
+    document.getElementById("employeeView").innerHTML = `
+    <div class="dashboard-card">
+        <h2>Pay Slip</h2>
+        <table class="dashboard-table">
+            <tr><td>Pay Slip Month :</td><td>${month}</td></tr>
+            <tr><td>Name :</td><td>${name}</td></tr>
+            <tr><td>Gross Salary :</td><td>${gross}</td></tr>
+            <tr><td>Attendance Bonus :</td><td>${att}</td></tr>
+            <tr><td>Earn Leave :</td><td>${el}</td></tr>
+            <tr><td>Over Time OT :</td><td>${otHourRate} = ${otAmount}</td></tr>
+            <tr class="absent-row"><td>Absent Amount :</td><td class="absent-highlight">${abs}</td></tr>
+            <tr><td>Stamp :</td><td>${stamp}</td></tr>
+            <tr><td>Net Salary :</td><td>${net}</td></tr>
+        </table>
+    </div>`;
+}
+
+function showMore(){
+    document.getElementById("employeeView").innerHTML = `
+    <div style="background:white;padding:25px;border-radius:12px;">
+        <h2 style="color:#0754a6;text-align:center;margin-bottom:25px;">More</h2>
+        <button onclick="showTotalOvertime()">Accessive OT</button>
+        <button onclick="showJobCardTotalHistory()" class="green" style="margin-top:12px;">Job Card Total History</button>
+    </div>`;
+}
+
+function numberFromValue(value){
+    if(value === null || value === undefined) return 0;
+    let text = String(value).replace(/,/g,"").trim();
+    let match = text.match(/-?\d+(\.\d+)?/);
+    return match ? Number(match[0]) : 0;
+}
+
+function formatAmount(value){
+    if(!isFinite(value)) return "-";
+    return Number(value).toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+
+function showTotalOvertime(){
+    let overtime = currentEmployee.totalOvertime;
+
+    if(!overtime){
+        document.getElementById("employeeView").innerHTML = `
+        ${renderNotPublished("Accessive OT")}
+        <button onclick="showMore()" style="margin-top:15px;">Back</button>`;
+        return;
+    }
+
+    let rows = "";
+    for(let i = 1; i <= 31; i++){
+        let key = "Day_" + i;
+        if(overtime[key] !== undefined && overtime[key] !== null && overtime[key] !== ""){
+            rows += `<tr><td>Day ${i}</td><td>${formatValue(overtime[key])}</td></tr>`;
+        }
+    }
+
+    if(!rows){
+        rows = `<tr><td colspan="2">No daily accessive OT published</td></tr>`;
+    }
+
+    const employeeId = overtime.Employee_ID || currentEmployee.info.Employee_ID || "-";
+    const otRate = overtime.OT_RATE || "-";
+    const totalOT = overtime.TOTAL_OT || "-";
+    const totalAmount = formatAmount(numberFromValue(otRate) * numberFromValue(totalOT));
+
+    document.getElementById("employeeView").innerHTML = `
+    <div class="accessive-ot-card">
+        <h2 class="accessive-ot-title">Accessive OT</h2>
+
+        <div class="accessive-ot-info">
+            <div class="accessive-ot-row">
+                <div class="accessive-ot-label">Employee Id:</div>
+                <div class="accessive-ot-value">${employeeId}</div>
+            </div>
+            <div class="accessive-ot-row">
+                <div class="accessive-ot-label">OT Rate:</div>
+                <div class="accessive-ot-value">${formatValue(otRate)}</div>
+            </div>
+            <div class="accessive-ot-row">
+                <div class="accessive-ot-label">Total OT:</div>
+                <div class="accessive-ot-value">${formatValue(totalOT)}</div>
+            </div>
+            <div class="accessive-ot-row accessive-ot-amount">
+                <div class="accessive-ot-label">Total Accessive OT Amount:</div>
+                <div class="accessive-ot-value">${totalAmount}</div>
+            </div>
+        </div>
+
+        <div class="accessive-ot-table-title">Accessive OT Summary</div>
+
+        <div class="accessive-ot-table-wrap">
+            <table class="accessive-ot-table">
+                <thead><tr><th>Day</th><th>Hour</th></tr></thead>
+                <tbody>${rows}</tbody>
+            </table>
+        </div>
+
+        <button onclick="showMore()" style="margin-top:15px;">Back</button>
+    </div>`;
+}
+
+function excelSerialToDate(value){
+    if(value === null || value === undefined || value === "") return null;
+
+    let text = String(value).trim();
+    if(!text) return null;
+
+    if(/^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}$/.test(text)){
+        return text;
+    }
+
+    let num = Number(text);
+    if(!isNaN(num) && num > 20000){
+        let date = new Date(Date.UTC(1899, 11, 30));
+        date.setUTCDate(date.getUTCDate() + Math.floor(num));
+        let d = String(date.getUTCDate()).padStart(2,"0");
+        let m = String(date.getUTCMonth() + 1).padStart(2,"0");
+        let y = date.getUTCFullYear();
+        return `${d}/${m}/${y}`;
+    }
+
+    return text;
+}
+
+function excelSerialToTime(value){
+    if(value === null || value === undefined || value === "") return "";
+
+    let text = String(value).trim();
+    if(!text || text === ":" || text === "0") return "";
+
+    // If Excel converted a blank/time field into a date-only value like 02-May-26,
+    // do not show that date inside In Time / Out Time.
+    const dateOnlyPatterns = [
+        /^\d{4}-\d{1,2}-\d{1,2}$/,
+        /^\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}$/,
+        /^\d{1,2}-[A-Za-z]{3}-\d{2,4}$/
+    ];
+    if(dateOnlyPatterns.some(p => p.test(text))){
+        return "";
+    }
+
+    if(/[AP]M/i.test(text) || /^\d{1,2}\s*:\s*\d{2}/.test(text)){
+        return text.replace(/\s+/g, " ");
+    }
+
+    let num = Number(text);
+    if(isNaN(num)) return "";
+
+    let fraction = num - Math.floor(num);
+    if(fraction <= 0) return "";
+
+    let totalMinutes = Math.round(fraction * 24 * 60);
+    let hour24 = Math.floor(totalMinutes / 60) % 24;
+    let minute = totalMinutes % 60;
+    let ampm = hour24 >= 12 ? "PM" : "AM";
+    let hour12 = hour24 % 12;
+    if(hour12 === 0) hour12 = 12;
+
+    return `${String(hour12).padStart(2,"0")} : ${String(minute).padStart(2,"0")} ${ampm}`;
+}
+
+function cleanJobHistoryValue(value){
+    if(value === null || value === undefined) return "";
+    let text = String(value).trim();
+    if(text === ":" || text === "undefined" || text === "null") return "";
+    return text;
+}
+
+function parseJobHistoryMinutes(value){
+    if(value === null || value === undefined || value === "") return 0;
+
+    let text = String(value).trim();
+    if(!text || text === ":") return 0;
+
+    if(/^\d+(\.\d+)?$/.test(text)){
+        return Number(text);
+    }
+
+    let match = text.match(/(\d{1,3})\s*:\s*(\d{2})/);
+    if(match){
+        return (Number(match[1]) * 60) + Number(match[2]);
+    }
+
+    return 0;
+}
+
+function minutesToHourDecimal(minutes){
+    let num = Number(minutes || 0);
+    return (num / 60).toFixed(2);
+}
+
+function getJobHistoryDayName(dateValue){
+    let formatted = excelSerialToDate(dateValue);
+    if(!formatted) return "";
+
+    let parts = String(formatted).split(/[\/-]/);
+    if(parts.length < 3) return "";
+
+    let d = Number(parts[0]);
+    let monthPart = parts[1];
+    let m = Number(monthPart) - 1;
+
+    if(isNaN(m)){
+        const monthMap = {
+            jan:0, feb:1, mar:2, apr:3, may:4, jun:5,
+            jul:6, aug:7, sep:8, oct:9, nov:10, dec:11
+        };
+        m = monthMap[String(monthPart).slice(0,3).toLowerCase()];
+    }
+
+    let y = Number(parts[2]);
+    if(y < 100) y += 2000;
+
+    let date = new Date(y, m, d);
+    if(isNaN(date.getTime())) return "";
+
+    return ["SUN","MON","TUE","WED","THU","FRI","SAT"][date.getDay()];
+}
+
+function calcJobHistorySummary(rows){
+    rows = rows || [];
+    let first = rows[0] || {};
+
+    let summary = {
+        present: Number(first.PRESENT_CNT || 0),
+        absent: Number(first.ABSENT_CNT || 0),
+        late: Number(first.LATE_CNT || 0),
+        leave: Number(first.LEAVE_CNT || 0),
+        otMinutes: 0
+    };
+
+    rows.forEach(row => {
+        let parsedOtMinutes = parseJobHistoryMinutes(row.OVER_TIME);
+        if(parsedOtMinutes > 0){
+            summary.otMinutes += parsedOtMinutes;
+            return;
+        }
+
+        let otMin = Number(row.OT_MIN || 0);
+        if(!isNaN(otMin) && otMin > 0){
+            summary.otMinutes += otMin;
+        }
+    });
+
+    return summary;
+}
+
+async function showJobCardTotalHistory(){
+    if(!currentEmployee || !currentEmployee.info){
+        document.getElementById("employeeView").innerHTML = `
+        ${renderNotPublished("Job Card Total History")}
+        <button onclick="showMore()" style="margin-top:15px;">Back</button>`;
+        return;
+    }
+
+    const empId = String(currentEmployee.info.Employee_ID || "").trim().toUpperCase();
+
+    if(!empId){
+        document.getElementById("employeeView").innerHTML = `
+        ${renderNotPublished("Job Card Total History")}
+        <button onclick="showMore()" style="margin-top:15px;">Back</button>`;
+        return;
+    }
+
+    document.getElementById("employeeView").innerHTML = `
+    <div class="dashboard-card">
+        <h2>Job Card Total History</h2>
+        <div class="status">Loading data for ${empId}...</div>
+    </div>`;
+
+    try{
+        const { data, error } = await supabaseClient
+        .from("Job_Card_Total_History")
+        .select("*")
+        .eq("EMP_CODE", empId)
+        .order("TRANS_DATE", { ascending:true });
+
+        if(error){
+            console.log(error);
+            document.getElementById("employeeView").innerHTML = `
+            <div class="not-publish-box">
+                <h2>Job Card Total History</h2>
+                <div class="not-publish-text">Not publish yet</div>
+                <p style="margin-top:10px;font-size:15px;">${error.message}</p>
+            </div>
+            <button onclick="showMore()" style="margin-top:15px;">Back</button>`;
+            return;
+        }
+
+        if(!data || !data.length){
+            document.getElementById("employeeView").innerHTML = `
+            ${renderNotPublished("Job Card Total History")}
+            <button onclick="showMore()" style="margin-top:15px;">Back</button>`;
+            return;
+        }
+
+        renderJobCardTotalHistory(data);
+
+    }catch(error){
+        console.log(error);
+        document.getElementById("employeeView").innerHTML = `
+        <div class="not-publish-box">
+            <h2>Job Card Total History</h2>
+            <div class="not-publish-text">Not publish yet</div>
+            <p style="margin-top:10px;font-size:15px;">${error.message}</p>
+        </div>
+        <button onclick="showMore()" style="margin-top:15px;">Back</button>`;
+    }
+}
+
+
+function getJobHistoryReportingMonth(startDate, endDate){
+    const value = String(startDate || endDate || "").trim();
+    if(!value) return "-";
+
+    const monthMap = {
+        jan:"Jan", feb:"Feb", mar:"Mar", apr:"Apr", may:"May", jun:"Jun",
+        jul:"Jul", aug:"Aug", sep:"Sep", oct:"Oct", nov:"Nov", dec:"Dec"
+    };
+
+    let parts = value.split(/[\/-]/);
+    if(parts.length >= 3){
+        let monthPart = parts[1];
+        let yearPart = parts[2];
+
+        if(/^\d+$/.test(monthPart)){
+            const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+            monthPart = months[Number(monthPart) - 1] || monthPart;
+        }else{
+            monthPart = monthMap[String(monthPart).slice(0,3).toLowerCase()] || monthPart;
+        }
+
+        if(String(yearPart).length === 4) yearPart = String(yearPart).slice(-2);
+
+        return `${monthPart}-${yearPart}`;
+    }
+
+    return value;
+}
+
+function getJobHistoryStatusClass(status){
+    let s = String(status || "").toLowerCase();
+
+    if(s.includes("absent")) return "job-history-row-absent";
+    if(s.includes("leave")) return "job-history-row-leave";
+    if(s.includes("late")) return "job-history-row-late";
+    if(s.includes("weekend")) return "job-history-row-weekend";
+    if(s.includes("holiday") || s.includes("replacement") || s.includes("eid") || s.includes("off day")){
+        return "job-history-row-holiday";
+    }
+
+    return "";
+}
+
+function renderJobCardTotalHistory(rows){
+    rows = (rows || []).slice().sort((a,b) => {
+        let as = Number(a.CS_SL || 0);
+        let bs = Number(b.CS_SL || 0);
+        if(as && bs) return as - bs;
+        return Number(a.TRANS_DATE || 0) - Number(b.TRANS_DATE || 0);
+    });
+
+    const first = rows[0] || {};
+    const startDate = excelSerialToDate(rows[0]?.TRANS_DATE || "");
+    const endDate = excelSerialToDate(rows[rows.length - 1]?.TRANS_DATE || "");
+    const reportingDate = startDate && endDate ? `${startDate} to ${endDate}` : "-";
+    const reportingMonth = getJobHistoryReportingMonth(startDate, endDate);
+    const summary = calcJobHistorySummary(rows);
+
+    let tableRows = rows.map((row, index) => {
+        const serial = cleanJobHistoryValue(row.CS_SL) || (index + 1);
+        const date = excelSerialToDate(row.TRANS_DATE) || "";
+        const day = cleanJobHistoryValue(row.ATT_DAY) || getJobHistoryDayName(row.TRANS_DATE);
+        const inTime = excelSerialToTime(row.IN_TIME);
+        const outTime = excelSerialToTime(row.OUT_TIME);
+        const late = cleanJobHistoryValue(row.LATE);
+        const early = cleanJobHistoryValue(row.EARLY);
+        const overtime = cleanJobHistoryValue(row.OVER_TIME);
+        const status = cleanJobHistoryValue(row.STATUS);
+        const statusClass = getJobHistoryStatusClass(status);
+
+        return `
+        <tr class="${statusClass}">
+            <td>${serial}</td>
+            <td>${date}</td>
+            <td>${day}</td>
+            <td>${inTime}</td>
+            <td>${outTime}</td>
+            <td>${late}</td>
+            <td>${early}</td>
+            <td>${overtime}</td>
+            <td class="status-cell">${status ? `<span class="status-pill">${status}</span>` : ""}</td>
+        </tr>`;
+    }).join("");
+
+    document.getElementById("employeeView").innerHTML = `
+    <div class="job-history-wrap">
+        <div id="jobCardTotalHistoryReport" class="job-history-report">
+            <h2>A&amp;O Apparels (Pvt.) Ltd.</h2>
+            <div class="reporting-date">Reporting Date : ${reportingDate}</div>
+
+            <div class="job-history-info">
+                <div class="job-history-info-card job-history-info-left">
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Employee id :</div>
+                        <div class="job-history-value">${cleanJobHistoryValue(first.EMP_CODE)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Name :</div>
+                        <div class="job-history-value">${cleanJobHistoryValue(first.EMP_NAME)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Reporting Month:</div>
+                        <div class="job-history-value">${reportingMonth}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Joining Date:</div>
+                        <div class="job-history-value">${excelSerialToDate(first.JOINING_DATE) || ""}</div>
+                    </div>
+                </div>
+
+                <div class="job-history-info-card job-history-info-right">
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total Present :</div>
+                        <div class="job-history-value">${summary.present.toFixed(2)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total Absent:</div>
+                        <div class="job-history-value">${summary.absent.toFixed(2)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total Late:</div>
+                        <div class="job-history-value">${summary.late.toFixed(2)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total OT Hour:</div>
+                        <div class="job-history-value">${minutesToHourDecimal(summary.otMinutes)}</div>
+                    </div>
+                    <div class="job-history-info-row">
+                        <div class="job-history-label">Total Leave :</div>
+                        <div class="job-history-value">${summary.leave.toFixed(2)}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="job-history-table-title">Job Card History</div>
+
+            <div class="job-history-table-box">
+                <table class="job-history-table">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Date</th>
+                            <th>Day</th>
+                            <th>In Time</th>
+                            <th>Out Time</th>
+                            <th>Late</th>
+                            <th>Early</th>
+                            <th>Over Time</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>${tableRows}</tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="job-history-actions">
+            <button onclick="window.print()" class="green">Print / PDF</button>
+            <button onclick="showMore()" class="gray">Back</button>
+        </div>
+    </div>`;
+}
+
+function showAttendancePassword(){
+    hideAll();
+    document.getElementById("attendancePasswordPage").classList.remove("hidden");
+}
+
+function checkAttendancePassword(){
+    let pass = document.getElementById("attendancePassword").value.trim();
+
+    if(pass === ATTENDANCE_PASSWORD){
+        document.getElementById("attendancePassword").value = "";
+        showAttendanceReport();
+    }else{
+        alert("Wrong Password");
+    }
+}
+
+function showAttendanceReport(){
+    hideAll();
+    document.getElementById("attendancePage").classList.remove("hidden");
+    showAttendanceReportMenu();
+}
+
+function openAttendanceReport(type){
+    let fileName = getAttendanceFileName(type);
+
+    const { data } = supabaseClient
+    .storage
+    .from(ATTENDANCE_BUCKET)
+    .getPublicUrl(fileName);
+
+    if(!data || !data.publicUrl){
+        alert(type + " report not found");
+        return;
+    }
+
+    window.open(data.publicUrl + "?t=" + Date.now(), "_blank");
+}
+
+function showAttendanceReportMenu(){
+    document.getElementById("attendancePage").innerHTML = `
+    <h2>Attendance Report</h2>
+
+    <div class="menu">
+        <button onclick="openAttendanceReport('manpower')">
+            Manpower Report
+        </button>
+
+        <button onclick="openAttendanceReport('absent')">
+            Absent Report
+        </button>
+
+        <button onclick="openAttendanceReport('halfday')">
+            Half Day Report
+        </button>
+    </div>
+
+    <button class="gray" onclick="goHome()" style="margin-top:20px;">
+        Back
+    </button>
+    `;
+}
+
+
+
+function englishNameOnly(input){
+    input.value = input.value.replace(/[^A-Za-z .'-]/g, "");
+}
+
+function digitsOnly(input, maxLen){
+    input.value = input.value.replace(/\D/g, "").slice(0, maxLen);
+}
+
+const shortMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function populateDateDropdowns(prefix, startYear){
+    const day = document.getElementById(prefix + "_Day");
+    const month = document.getElementById(prefix + "_Month");
+    const year = document.getElementById(prefix + "_Year");
+
+    if(!day || !month || !year) return;
+
+    if(day.options.length === 0){
+        day.innerHTML = '<option value="">Day</option>';
+        for(let i = 1; i <= 31; i++){
+            const v = String(i).padStart(2,"0");
+            day.innerHTML += `<option value="${v}">${v}</option>`;
+        }
+    }
+
+    if(month.options.length === 0){
+        month.innerHTML = '<option value="">Month</option>';
+        shortMonths.forEach(m => {
+            month.innerHTML += `<option value="${m}">${m}</option>`;
+        });
+    }
+
+    if(year.options.length === 0){
+        const currentYear = new Date().getFullYear() + 1;
+        year.innerHTML = '<option value="">Year</option>';
+        for(let y = startYear; y <= currentYear; y++){
+            year.innerHTML += `<option value="${y}">${y}</option>`;
+        }
+    }
+}
+
+function initDateDropdowns(){
+    populateDateDropdowns("DOB", 1960);
+    populateDateDropdowns("JOIN", 2021);
+}
+
+function getDateDropdownValue(prefix){
+    const d = document.getElementById(prefix + "_Day")?.value || "";
+    const m = document.getElementById(prefix + "_Month")?.value || "";
+    const y = document.getElementById(prefix + "_Year")?.value || "";
+
+    if(!d || !m || !y) return "";
+    return `${d}-${m}-${y}`;
+}
+
+function setDateDropdownValue(prefix, value){
+    initDateDropdowns();
+
+    if(!value) return;
+
+    let d = "", m = "", y = "";
+    value = String(value).trim();
+
+    if(/^\d{4}-\d{2}-\d{2}$/.test(value)){
+        const parts = value.split("-");
+        y = parts[0];
+        d = parts[2];
+        m = shortMonths[Number(parts[1]) - 1] || "";
+    }else if(/^\d{2}-[A-Za-z]{3}-\d{4}$/.test(value)){
+        const parts = value.split("-");
+        d = parts[0];
+        m = parts[1];
+        y = parts[2];
+    }
+
+    const day = document.getElementById(prefix + "_Day");
+    const month = document.getElementById(prefix + "_Month");
+    const year = document.getElementById(prefix + "_Year");
+
+    if(day) day.value = d;
+    if(month) month.value = m;
+    if(year) year.value = y;
+}
+
+function syncHiddenDates(){
+    const dob = document.getElementById("Date_Of_Birth");
+    const join = document.getElementById("Joining_Date");
+
+    if(dob) dob.value = getDateDropdownValue("DOB");
+    if(join) join.value = getDateDropdownValue("JOIN");
+}
+
+
+function normalizePortalDate(value){
+    if(!value) return "";
+    value = String(value).trim();
+
+    if(/^\d{2}-[A-Za-z]{3}-\d{4}$/.test(value)){
+        const p = value.split("-");
+        return `${p[0]}-${p[1].charAt(0).toUpperCase() + p[1].slice(1,3).toLowerCase()}-${p[2]}`;
+    }
+
+    if(/^\d{4}-\d{2}-\d{2}$/.test(value)){
+        const p = value.split("-");
+        return `${p[2]}-${shortMonths[Number(p[1]) - 1] || p[1]}-${p[0]}`;
+    }
+
+    if(/^\d{2}-\d{2}-\d{4}$/.test(value)){
+        const p = value.split("-");
+        return `${p[0]}-${shortMonths[Number(p[1]) - 1] || p[1]}-${p[2]}`;
+    }
+
+    return value;
+}
+
+
+function normalizeReligionText(value){
+    value = String(value || "").trim();
+    const map = {
+        "Islam":"ইসলাম",
+        "Hindu":"হিন্দু",
+        "Buddhist":"বৌদ্ধ",
+        "Christian":"খ্রিস্টান",
+        "Others":"অন্যান্য",
+        "Other":"অন্যান্য",
+        "ইসলাম":"ইসলাম",
+        "হিন্দু":"হিন্দু",
+        "বৌদ্ধ":"বৌদ্ধ",
+        "খ্রিস্টান":"খ্রিস্টান",
+        "অন্যান্য":"অন্যান্য"
+    };
+    return map[value] || value;
+}
+
+function setReligionField(value){
+    const el = document.getElementById("Religion");
+    if(!el) return;
+    el.value = normalizeReligionText(value);
+}
+
+function getNewJoinFormData(){
+    return {
+        Name_English: document.getElementById("Name_English").value.trim(),
+        Employee_Name: document.getElementById("Employee_Name").value.trim(),
+        Father_Name: document.getElementById("Father_Name").value.trim(),
+        Mother_Name: document.getElementById("Mother_Name").value.trim(),
+        Spouse_Name: document.getElementById("Spouse_Name").value.trim(),
+        Care_Of: document.getElementById("Care_Of").value.trim(),
+        Per_Vill: document.getElementById("Per_Vill").value.trim(),
+        Per_PO: document.getElementById("Per_PO").value.trim(),
+        Per_PS: getAddressValue("Per_PS","Per_PS_Other"),
+        Per_Dist: getAddressValue("Per_Dist","Per_Dist_Other"),
+        Pre_Vill: document.getElementById("Pre_Vill").value.trim(),
+        Pre_PO: document.getElementById("Pre_PO").value.trim(),
+        Pre_PS: getAddressValue("Pre_PS","Pre_PS_Other"),
+        Pre_Dist: getAddressValue("Pre_Dist","Pre_Dist_Other"),
+        Date_Of_Birth: normalizePortalDate(getDateDropdownValue("DOB")),
+        Joining_Date: normalizePortalDate(getDateDropdownValue("JOIN")),
+        Religion: normalizeReligionText(document.getElementById("Religion").value),
+        Mobile_No: document.getElementById("Mobile_No").value.trim(),
+        Emergency_Name: document.getElementById("Emergency_Name").value.trim(),
+        Emergency_Relation: getDropdownValue("Emergency_Relation","Emergency_Relation_Other"),
+        Emergency_Mobile: document.getElementById("Emergency_Mobile").value.trim(),
+        NID_Birth: document.getElementById("NID_Birth").value.trim(),
+        Weight: document.getElementById("Weight").value.trim(),
+        Height: document.getElementById("Height").value.trim(),
+        Blood_Group: document.getElementById("Blood_Group").value,
+        Marital_Status: document.getElementById("Marital_Status").value,
+        Son_Children: (document.getElementById("Marital_Status").value === "Married" && document.getElementById("Has_Children").checked) ? document.getElementById("Son_Children").value : "",
+        Daughter_Children: (document.getElementById("Marital_Status").value === "Married" && document.getElementById("Has_Children").checked) ? document.getElementById("Daughter_Children").value : "",
+        Education: getDropdownValue("Education","Education_Other"),
+        Identification_Mark: document.getElementById("Identification_Mark").value.trim(),
+        Reference_Name: document.getElementById("Reference_Name").value.trim(),
+        Reference_Mobile: document.getElementById("Reference_Mobile").value.trim(),
+        Reference_Relation: getDropdownValue("Reference_Relation","Reference_Relation_Other"),
+        Skill_Experience: document.getElementById("Skill_Experience").value,
+        Previous_Factory: document.getElementById("Previous_Factory").value.trim(),
+        Unit_Name: getDropdownValue("Unit_Name","Unit_Name_Other"),
+        Applied_Post: getDropdownValue("Applied_Post","Applied_Post_Other"),
+        Section_Name: getDropdownValue("Section_Name","Section_Name_Other"),
+        Machine_Skill: document.getElementById("Machine_Skill").value.trim(),
+        Approval_Status: "Pending",
+        Created_At: new Date().toISOString()
+    };
+}
+
+async function generateTemporaryId(){
+
+    const today = new Date();
+
+    const yy = String(today.getFullYear()).slice(2);
+    const mm = String(today.getMonth() + 1).padStart(2,"0");
+    const dd = String(today.getDate()).padStart(2,"0");
+
+    const prefix = yy + mm + dd;
+
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("temporary_id")
+    .order("temporary_id", { ascending:false })
+    .limit(1);
+
+    if(error){
+        console.log(error);
+        return Number(prefix + "001");
+    }
+
+    if(data && data.length){
+
+        let lastId = String(data[0].temporary_id || "");
+
+        if(lastId.startsWith(prefix)){
+
+            let lastSerial = Number(lastId.slice(6)) || 0;
+
+            let newSerial = String(lastSerial + 1).padStart(3,"0");
+
+            return Number(prefix + newSerial);
+        }
+    }
+
+    return Number(prefix + "001");
+}
+
+async function submitNewJoinApplication(){
+    syncHiddenDates();
+    let status = document.getElementById("newJoinStatus");
+    let formData = getNewJoinFormData();
+
+    if(!formData.name_english || !formData.joining_date){
+        status.className = "status error";
+        status.innerHTML = "Name English এবং যোগদানের তারিখ অবশ্যই দিতে হবে।";
+        return;
+    }
+
+    if(formData.Mobile_No.length > 12 || formData.Emergency_Mobile.length > 11){
+        status.className = "status error";
+        status.innerHTML = "Mobile No max 12 digit এবং Emergency Mobile max 11 digit হতে হবে।";
+        return;
+    }
+
+    status.className = "status";
+
+    if(editingTemporaryId){
+        status.innerHTML = "Updating application...";
+        formData.Temporary_ID = editingTemporaryId;
+
+        const { error } = await supabaseClient
+        .from("New_Join_Applications")
+        .update(formData)
+        .eq("Temporary_ID", editingTemporaryId);
+
+        if(error){
+            console.log(error);
+            status.className = "status error";
+            status.innerHTML = "Update failed: " + error.message + "";
+            return;
+        }
+
+        lastSubmittedApplication = formData;
+        status.className = "status success";
+        status.innerHTML = `<b>Application Updated Successfully!</b><br>Temporary ID: <b>${editingTemporaryId}</b><br><button onclick="printBasicForm(lastSubmittedApplication)" class="green">Print / Save PDF Basic Form</button>`;
+        return;
+    }
+
+    status.innerHTML = "Submitting application...";
+
+    let tempId = await generateTemporaryId();
+    formData.Temporary_ID = tempId;
+
+    const { error } = await supabaseClient
+    .from("New_Join_Applications")
+    .insert([formData]);
+
+    if(error){
+        console.log(error);
+        status.className = "status error";
+        status.innerHTML = "Submit failed: " + error.message + "";
+        return;
+    }
+
+    lastSubmittedApplication = formData;
+    status.className = "status success";
+    status.innerHTML = `<b>Application Submitted Successfully!</b><br>Temporary ID: <b>${tempId}</b><button onclick="printBasicForm(lastSubmittedApplication)" class="green">Print / Save PDF Basic Form</button>`;
+}
+
+function clearNewJoinForm(){
+    const ids = [
+        "Name_English","Employee_Name","Father_Name","Mother_Name","Spouse_Name","Care_Of",
+        "Per_Vill","Per_PO","Per_PS","Per_PS_Other","Per_Dist","Per_Dist_Other","Pre_Vill","Pre_PO","Pre_PS","Pre_PS_Other","Pre_Dist","Pre_Dist_Other",
+        "Date_Of_Birth","Joining_Date","DOB_Day","DOB_Month","DOB_Year","JOIN_Day","JOIN_Month","JOIN_Year","Religion","Mobile_No","NID_Birth","Weight","Height",
+        "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Education_Other","Identification_Mark",
+        "Reference_Name","Reference_Mobile","Reference_Relation","Reference_Relation_Other","Emergency_Name","Emergency_Relation","Emergency_Relation_Other","Emergency_Mobile",
+        "Skill_Experience","Previous_Factory","Unit_Name","Unit_Name_Other","Applied_Post","Applied_Post_Other","Section_Name","Section_Name_Other","Machine_Skill"
+    ];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = "";
+    });
+    const hasChild = document.getElementById("Has_Children");
+    if(hasChild) hasChild.checked = false;
+    initDateDropdowns();
+    initAddressDropdowns();
+}
+
+function fillNewJoinForm(data){
+    const ids = [
+        "Name_English","Employee_Name","Father_Name","Mother_Name","Spouse_Name","Care_Of",
+        "Per_Vill","Per_PO","Per_PS","Per_PS_Other","Per_Dist","Per_Dist_Other","Pre_Vill","Pre_PO","Pre_PS","Pre_PS_Other","Pre_Dist","Pre_Dist_Other",
+        "Date_Of_Birth","Joining_Date","DOB_Day","DOB_Month","DOB_Year","JOIN_Day","JOIN_Month","JOIN_Year","Religion","Mobile_No","NID_Birth","Weight","Height",
+        "Blood_Group","Marital_Status","Son_Children","Daughter_Children","Education","Education_Other","Identification_Mark",
+        "Reference_Name","Reference_Mobile","Reference_Relation","Reference_Relation_Other","Emergency_Name","Emergency_Relation","Emergency_Relation_Other","Emergency_Mobile",
+        "Skill_Experience","Previous_Factory","Unit_Name","Unit_Name_Other","Applied_Post","Applied_Post_Other","Section_Name","Section_Name_Other","Machine_Skill"
+    ];
+    ids.forEach(id => {
+        const el = document.getElementById(id);
+        if(el) el.value = data[id] || "";
+    });
+
+    setReligionField(data.Religion || "");
+
+    setDateDropdownValue("DOB", data.Date_Of_Birth || "");
+    setDateDropdownValue("JOIN", data.Joining_Date || "");
+
+    setAddressDropdownValue("Per_Dist","Per_PS","Per_Dist_Other","Per_PS_Other", data.Per_Dist || "", data.Per_PS || "");
+    setAddressDropdownValue("Pre_Dist","Pre_PS","Pre_Dist_Other","Pre_PS_Other", data.Pre_Dist || "", data.Pre_PS || "");
+
+    const hasChild = document.getElementById("Has_Children");
+    if(hasChild) hasChild.checked = !!(data.Son_Children || data.Daughter_Children);
+    toggleChildrenFields();
+
+    setDropdownOrOther("Education","Education_Other", data.Education || "");
+    setDropdownOrOther("Applied_Post","Applied_Post_Other", data.Applied_Post || "");
+    setDropdownOrOther("Section_Name","Section_Name_Other", data.Section_Name || "");
+    setDropdownOrOther("Unit_Name","Unit_Name_Other", data.Unit_Name || "");
+    setDropdownOrOther("Reference_Relation","Reference_Relation_Other", data.Reference_Relation || "");
+    setDropdownOrOther("Emergency_Relation","Emergency_Relation_Other", data.Emergency_Relation || "");
+}
+
+function setDropdownOrOther(selectId, otherInputId, value){
+    const sel = document.getElementById(selectId);
+    const other = document.getElementById(otherInputId);
+    if(!sel) return;
+
+    let found = false;
+    for(let i = 0; i < sel.options.length; i++){
+        if(sel.options[i].value === value){
+            found = true;
+            break;
+        }
+    }
+
+    if(found){
+        sel.value = value || "";
+        if(other){
+            other.classList.add("hidden");
+            other.value = "";
+        }
+    }else if(value){
+        sel.value = "Other";
+        if(other){
+            other.classList.remove("hidden");
+            other.value = value;
+        }
+    }else{
+        sel.value = "";
+        if(other){
+            other.classList.add("hidden");
+            other.value = "";
+        }
+    }
+}
+
+async function loadSubmittedApplication(){
+    let tempId = document.getElementById("searchTemporaryId").value.trim();
+    let result = document.getElementById("submittedFormResult");
+
+    if(!tempId){
+        alert("Temporary ID লিখো");
+        return;
+    }
+
+    result.innerHTML = "Loading submitted form...";
+
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("*")
+    .eq("Temporary_ID", Number(tempId))
+    .maybeSingle();
+
+    if(error){
+        console.log(error);
+        result.innerHTML = "Load failed: " + error.message;
+        return;
+    }
+
+    if(!data){
+        result.innerHTML = "এই Temporary ID দিয়ে কোনো form পাওয়া যায়নি।";
+        return;
+    }
+
+    lastSubmittedApplication = data;
+    result.innerHTML = applicationSummaryHtml(data);
+}
+
+
+function applicationSummaryHtml(data){
+
+    const approved = String(data.Approval_Status || "") === "Approved";
+
+    let statusHtml = `
+    <div class="status ${approved ? 'success' : 'error'}" style="margin-bottom:15px;font-weight:bold;text-align:center;">
+        ${approved ? 'Approved' : 'Pending For Approval'}
+    </div>`;
+
+    if(approved){
+        statusHtml += `
+        <div class="status success" style="margin-bottom:15px;text-align:center;">
+            Congratulations! You are selected for the post of ${data.Applied_Post || ""}
+        </div>`;
+    }
+
+    return `
+    ${statusHtml}
+
+    <h3>Submitted Form Found</h3>
+
+    <table>
+        <tr><th>Temporary ID</th><td>${data.Temporary_ID || ""}</td></tr>
+        <tr><th>Name English</th><td>${data.Name_English || ""}</td></tr>
+        <tr><th>কর্মীর নাম</th><td>${data.Employee_Name || ""}</td></tr>
+        <tr><th>পিতার নাম</th><td>${data.Father_Name || ""}</td></tr>
+        <tr><th>মোবাইল</th><td>${data.Mobile_No || ""}</td></tr>
+        <tr><th>Unit</th><td>${data.Unit_Name || ""}</td></tr>
+        <tr><th>আবেদিত পদ</th><td>${data.Applied_Post || ""}</td></tr>
+        <tr><th>সেকশন</th><td>${data.Section_Name || ""}</td></tr>
+    </table>
+
+    ${approved ? "" : `<button onclick="editSubmittedApplication(lastSubmittedApplication)" class="orange">Edit Form</button>`}
+
+    <button onclick="printBasicForm(lastSubmittedApplication)" class="green">Print / Save PDF Basic Form</button>
+    `;
+}
+
+
+function editSubmittedApplication(data){
+    if(!data) return;
+    editingTemporaryId = Number(data.Temporary_ID);
+    fillNewJoinForm(data);
+    hideAll();
+    document.getElementById("newJoinApplicationPage").classList.remove("hidden");
+    document.getElementById("newJoinStatus").className = "status";
+    document.getElementById("newJoinStatus").innerHTML = `Editing Temporary ID: <b>${editingTemporaryId}</b>. তথ্য edit করে Submit চাপলে update হবে।`;
+}
+
+async function showNewJoinRequestsPanel(){
+    activateAdminSubPage();
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <h3>New Joining Requests</h3>
+        <div class="status">Loading requests...</div>
+    `;
+
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("Temporary_ID,Name_English,Employee_Name,Mobile_No,Unit_Name,Applied_Post,Section_Name,Approval_Status,Created_At")
+    .or("Approval_Status.eq.Pending,Approval_Status.is.null")
+    .order("Temporary_ID", { ascending:false })
+    .limit(200);
+
+    if(error){
+        console.log(error);
+        document.getElementById("adminView").innerHTML = `
+            <h3>New Joining Requests</h3>
+            <div class="status error">Load failed: ${error.message}</div>
+        `;
+        return;
+    }
+
+    let pendingData = (data || []).filter(r => String(r.Approval_Status || "Pending") !== "Approved");
+
+    if(!pendingData.length){
+        document.getElementById("adminView").innerHTML = `
+            <h3>New Joining Requests</h3>
+            <div class="status">No new joining request found.</div>
+            <button class="gray" onclick="backToAdminPanel()">Back</button>
+        `;
+        return;
+    }
+
+    let rows = pendingData.map((r, i) => `
+        <tr>
+            <td>${i + 1}</td>
+            <td>${r.Temporary_ID || ""}</td>
+            <td>${r.Name_English || ""}</td>
+            <td>${r.Employee_Name || ""}</td>
+            <td>${r.Mobile_No || ""}</td>
+            <td>${r.Unit_Name || ""}</td>
+            <td>${r.Applied_Post || ""}</td>
+            <td>${r.Section_Name || ""}</td>
+            <td>
+                <button onclick="adminViewJoinApplication('${r.Temporary_ID}')" class="green">View</button>
+                <button onclick="approveJoinApplication('${r.Temporary_ID}')" class="orange">Approve</button>
+                <button onclick="removeJoinApplication('${r.Temporary_ID}')" class="red">Remove</button>
+            </td>
+        </tr>
+    `).join("");
+
+    document.getElementById("adminView").innerHTML = `
+        <h3>New Joining Requests</h3>
+        <table>
+            <tr>
+                <th>SL</th><th>Temp ID</th><th>Name English</th><th>কর্মীর নাম</th><th>Mobile</th><th>Unit</th><th>Post</th><th>Section</th><th>Action</th>
+            </tr>
+            ${rows}
+        </table>
+        <button class="gray" onclick="backToAdminPanel()">Back</button>
+    `;
+}
+
+async function adminViewJoinApplication(tempId){
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("*")
+    .eq("Temporary_ID", Number(tempId))
+    .maybeSingle();
+
+    if(error || !data){
+        alert("Form load failed");
+        return;
+    }
+
+    lastSubmittedApplication = data;
+    const approved = String(data.Approval_Status || "") === "Approved";
+    document.getElementById("adminView").innerHTML = applicationSummaryHtml(data) + `
+        ${approved ? "" : `<button onclick="approveJoinApplication('${data.Temporary_ID}')" class="orange">Approve / Keep</button>`}
+        <button onclick="removeJoinApplication('${data.Temporary_ID}')" class="red">Remove Submission</button>
+        <button class="gray" onclick="${approved ? "showApprovedApplicationsPanel()" : "showNewJoinRequestsPanel()"}">Back</button>`;
+}
+
+async function approveJoinApplication(tempId){
+
+    const { error } = await supabaseClient
+    .from("New_Join_Applications")
+    .update({
+        Approval_Status: "Approved",
+        Approved_At: new Date().toISOString()
+    })
+    .eq("Temporary_ID", Number(tempId));
+
+    if(error){
+        console.log(error);
+        alert("Approve failed: " + error.message);
+        return;
+    }
+
+    alert("Temporary ID " + tempId + " approved successfully.");
+    showNewJoinRequestsPanel();
+}
+
+async function removeJoinApplication(tempId){
+    if(!tempId){
+        alert("Temporary ID not found");
+        return;
+    }
+
+    let confirmText = prompt(`Type DELETE to remove Temporary ID ${tempId}`);
+    if(confirmText !== "DELETE"){
+        alert("Remove cancelled");
+        return;
+    }
+
+    const { error } = await supabaseClient
+    .from("New_Join_Applications")
+    .delete()
+    .eq("Temporary_ID", Number(tempId));
+
+    if(error){
+        console.log(error);
+        alert("Remove failed: " + error.message);
+        return;
+    }
+
+    alert("Temporary ID " + tempId + " removed from database.");
+    showNewJoinRequestsPanel();
+}
+
+
+async function showApprovedApplicationsPanel(){
+
+    activateAdminSubPage();
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <h3>Approved Applications</h3>
+        <div class="status">Loading approved applications...</div>
+    `;
+
+    const { data, error } = await supabaseClient
+    .from("New_Join_Applications")
+    .select("Temporary_ID,Name_English,Employee_Name,Mobile_No,Unit_Name,Applied_Post,Section_Name,Approved_At")
+    .eq("Approval_Status","Approved")
+    .order("Approved_At",{ascending:false})
+    .limit(300);
+
+    if(error){
+        console.log(error);
+        document.getElementById("adminView").innerHTML = "Load failed";
+        return;
+    }
+
+    if(!data || !data.length){
+        document.getElementById("adminView").innerHTML = `
+        <h3>Approved Applications</h3>
+        <div class="status">No approved application found.</div>`;
+        return;
+    }
+
+    let rows = data.map((r,i)=>`
+        <tr>
+            <td>${i+1}</td>
+            <td>${r.Temporary_ID || ""}</td>
+            <td>${r.Name_English || ""}</td>
+            <td>${r.Employee_Name || ""}</td>
+            <td>${r.Mobile_No || ""}</td>
+            <td>${r.Unit_Name || ""}</td>
+            <td>${r.Applied_Post || ""}</td>
+            <td>${r.Section_Name || ""}</td>
+            <td>
+                <button onclick="adminViewJoinApplication('${r.Temporary_ID}')" class="green">View</button>
+                <button onclick="removeJoinApplication('${r.Temporary_ID}')" class="red">Remove</button>
+            </td>
+        </tr>
+    `).join("");
+
+    document.getElementById("adminView").innerHTML = `
+        <h3>Approved Applications</h3>
+        <table>
+            <tr>
+                <th>SL</th>
+                <th>Temp ID</th>
+                <th>Name English</th>
+                <th>কর্মীর নাম</th>
+                <th>Mobile</th>
+                <th>Unit</th>
+                <th>Post</th>
+                <th>Section</th>
+                <th>Action</th>
+            </tr>
+            ${rows}
+        </table>
+
+        <button class="gray" onclick="backToAdminPanel()">
+            Back
+        </button>
+    `;
+}
+
+async function removeAllApprovedApplications(){
+
+    let confirmText = prompt("Type DELETE to remove all approved applications");
+
+    if(confirmText !== "DELETE"){
+        alert("Delete cancelled");
+        return;
+    }
+
+    const { error } = await supabaseClient
+    .from("New_Join_Applications")
+    .delete()
+    .eq("Approval_Status","Approved");
+
+    if(error){
+        console.log(error);
+        alert("Remove failed: " + error.message);
+        return;
+    }
+
+    alert("All approved applications removed successfully.");
+    showApprovedApplicationsPanel();
+}
+
+
+function v(data, key){
+    return (data && data[key]) ? String(data[key]) : "";
+}
+
+function formatPrintDate(value){
+    if(!value) return "";
+    const d = new Date(value + "T00:00:00");
+    if(isNaN(d.getTime())) return String(value);
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const day = String(d.getDate()).padStart(2, "0");
+    return day + "-" + months[d.getMonth()] + "-" + d.getFullYear();
+}
+
+function printBasicForm(data){
+    if(!data) return;
+
+    const v = (obj, key) => (obj && obj[key] !== undefined && obj[key] !== null) ? String(obj[key]) : "";
+
+    const joiningDate = normalizePortalDate(v(data,"Joining_Date"));
+    const dob = normalizePortalDate(v(data,"Date_Of_Birth"));
+    const post = v(data,"Applied_Post");
+    const section = v(data,"Section_Name");
+    const religion = normalizeReligionText(v(data,"Religion"));
+    const mobileNo = v(data,"Mobile_No") || v(data,"Mobile") || v(data,"mobile_no") || v(data,"MobileNo") || v(data,"Contact_No");
+
+    const showChildren = (v(data,"Marital_Status") === "Married") && (v(data,"Son_Children") || v(data,"Daughter_Children"));
+    const childLine = showChildren ? `
+        <div class="row"><span class="label">সন্তান:</span><span class="value">ছেলে ${v(data,"Son_Children") || "0"} / মেয়ে ${v(data,"Daughter_Children") || "0"}</span></div>
+    ` : "";
+
+    const html = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Basic Form</title>
+<style>
+@page{size:A4;margin:6mm;}
+*{box-sizing:border-box;}
+body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;background:#fff;}
+.page{width:100%;min-height:283mm;position:relative;padding:0 6mm 7mm 6mm;border:1.6px solid #1f4e79;background:linear-gradient(180deg,#f7fbff 0%,#ffffff 18%,#ffffff 100%);}
+.header{text-align:center;border:1.5px solid #1f4e79;border-radius:7px;background:#eaf4ff;padding:7px 8px 8px 8px;position:relative;margin-bottom:5px;}
+.header h2{font-size:30px;margin:0;font-weight:900;letter-spacing:.4px;color:#0b376d;text-transform:uppercase;line-height:1.05;}
+.header p{font-size:11px;margin:3px 0 4px 0;color:#333;}
+.form-title{display:inline-block;font-size:24px;font-weight:900;color:#000;background:transparent;border:0;border-radius:0;padding:2px 22px;margin-top:2px;line-height:1.12;}
+.section-center{text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.15;margin-top:2px;width:100%;}
+.section-center .section-label{font-size:20px;font-weight:900;color:#0b376d;}
+.section-center .section-value{font-size:22px;font-weight:900;color:#000;display:inline-block;max-width:135mm;vertical-align:bottom;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.top-info{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:5px;font-size:12px;font-weight:bold;}
+.top-info div{border:1px solid #9fbad5;background:#f2f8ff;border-radius:5px;padding:4px 6px;min-height:24px;display:flex;align-items:center;gap:4px;}
+.join-label{font-size:12px;font-weight:800;white-space:nowrap;}
+.join-date-value{font-size:22px;font-weight:900;color:#000;line-height:1;white-space:nowrap;}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:0 6mm;margin-top:4px;}
+.full-row{grid-column:1 / -1;}
+.row{display:flex;align-items:flex-end;font-size:11.3px;min-height:19px;margin-bottom:2px;line-height:1.25;}
+.label{font-weight:bold;white-space:nowrap;margin-right:4px;color:#123b5d;}
+.value{flex:1;border-bottom:1px dotted #333;min-height:14px;padding-left:4px;color:#000;font-weight:500;}
+.box{border:1px solid #9fbad5;margin-top:4px;padding:4px 5px;border-radius:6px;background:#fbfdff;}
+.box-title{text-align:left;font-weight:800;font-size:12.2px;margin:-4px -5px 3px -5px;padding:3px 8px;background:#dceeff;color:#0b376d;border-radius:5px 5px 0 0;border-bottom:1px solid #9fbad5;}
+.mobile-account-row{margin-top:5px;font-size:20px;font-weight:900;line-height:1.35;}
+.mobile-account-row .label{font-size:20px;font-weight:900;color:#0b376d;}
+.mobile-account-row .value{font-size:22px;font-weight:900;border-bottom:1.5px dotted #000;letter-spacing:.5px;}
+.big-pdf-value{font-size:17px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;overflow:visible!important;text-overflow:clip!important;}
+.big-pdf-value.value{border-bottom:1.5px dotted #000!important;letter-spacing:0!important;}
+.name-fit-value{font-size:17px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;overflow:visible!important;text-overflow:clip!important;border-bottom:1.5px dotted #000!important;}
+.applied-post-top{font-size:16.5px;font-weight:900;color:#000;line-height:1;white-space:nowrap;display:inline-block;max-width:76mm;overflow:visible;text-overflow:clip;vertical-align:bottom;}
+.salary-post-big{font-size:15.5px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;min-width:48mm!important;max-width:none!important;overflow:visible!important;text-overflow:clip!important;}
+.addr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;}
+.salary-line{font-size:11.5px;margin-top:42px;line-height:2.8;background:#fffdf2;border:1px solid #e1c878;border-radius:6px;padding:13px 10px 10px 10px;min-height:24mm;}
+.salary-line span{display:inline-block;border-bottom:1px dotted #000;min-width:42mm;text-align:center;font-weight:bold;min-height:7mm;}
+.signatures{position:absolute;left:12mm;right:12mm;bottom:14mm;display:grid;grid-template-columns:repeat(4,1fr);gap:7mm;text-align:center;font-size:11.2px;}
+.signatures div{border-top:1.2px solid #000;padding-top:5px;font-weight:bold;color:#123b5d;}
+.form-sl{position:absolute;left:6mm;bottom:3.2mm;font-size:7.5px;color:#777;}
+.print-actions{text-align:center;margin:10px;}
+.print-actions button{width:auto;padding:8px 18px;margin:0 4px;border-radius:6px;border:0;background:#0754a6;color:#fff;font-weight:bold;cursor:pointer;}
+@media print{.print-actions{display:none;}body{background:#fff;}.page{min-height:283mm;}}
+
+
+/* ===== A&O Full Olive Transparent Theme Override (UI only - no function/layout change) ===== */
+:root{
+    --ao-olive:#6f7b2f;
+    --ao-olive-deep:#202812;
+    --ao-olive-dark:#303817;
+    --ao-olive-mid:#566322;
+    --ao-olive-light:#9aa95a;
+    --ao-gold:#d4b85a;
+    --ao-text:#f8ffe8;
+    --ao-dark-text:#18200c;
+    --ao-glass-bg:rgba(38,48,21,.58);
+    --ao-glass-bg-light:rgba(245,250,226,.82);
+    --ao-border:rgba(221,210,129,.34);
+}
+body{
+    background:#11170b !important;
+    color:var(--ao-text);
+}
+body::before{opacity:.18 !important;}
+body::after{
+    background:
+        radial-gradient(circle at top left,rgba(154,169,90,.34),transparent 35%),
+        radial-gradient(circle at bottom right,rgba(212,184,90,.16),transparent 34%),
+        linear-gradient(135deg,rgba(10,14,6,.94),rgba(46,58,22,.86),rgba(13,18,8,.96)) !important;
+}
+.portal-hero,
+.card,
+.box,
+#homePage,
+#adminControlPanel,
+.admin-subpage,
+.dashboard-card,
+.employee-info-card,
+.accessive-ot-card,
+.job-history-wrap,
+#employeeView{
+    background:linear-gradient(145deg,rgba(245,250,226,.86),rgba(111,123,47,.24)) !important;
+    border:1px solid var(--ao-border) !important;
+    box-shadow:0 16px 42px rgba(0,0,0,.34) !important;
+    backdrop-filter:blur(10px);
+}
+#homePage::before{color:#eef7c7 !important;text-shadow:0 2px 8px rgba(0,0,0,.45);}
+.card h1,.card h2,.card h3,
+h1,h2,h3,
+.employee-info-title,.accessive-ot-title,.dashboard-card h2{
+    color:#f8ffe8 !important;
+    text-shadow:0 2px 8px rgba(0,0,0,.42);
+}
+#homePage, #adminControlPanel, .admin-subpage, #employeeView{color:var(--ao-dark-text);}
+#adminControlPanel h3,
+.admin-subpage h3,
+.box h3,
+.topbar,
+.portal-title-box,
+.job-history-table-title,
+.accessive-ot-table-title{
+    background:linear-gradient(135deg,rgba(32,40,18,.96),rgba(111,123,47,.92),rgba(154,169,90,.68)) !important;
+    color:#fffbe2 !important;
+    border:1px solid rgba(212,184,90,.30) !important;
+}
+button,
+button.green,
+button.orange,
+button.purple,
+button.red,
+button.gray,
+#homePage button,
+#adminControlPanel .menu button,
+#employeeDashboard .menu button,
+.admin-page-back-top,
+.job-history-actions button{
+    background:linear-gradient(135deg,rgba(31,39,17,.98),rgba(91,104,38,.96),rgba(143,158,75,.88)) !important;
+    color:#fffbe8 !important;
+    border:1px solid rgba(220,210,135,.38) !important;
+    box-shadow:0 10px 24px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+button:hover,
+#homePage button:hover,
+#adminControlPanel .menu button:hover,
+#employeeDashboard .menu button:hover{
+    background:linear-gradient(135deg,rgba(47,58,24,.98),rgba(118,132,55,.98),rgba(175,189,102,.92)) !important;
+    color:#ffffff !important;
+}
+button.red{background:linear-gradient(135deg,rgba(73,35,20,.98),rgba(105,75,34,.96),rgba(143,124,58,.88)) !important;}
+button.orange{background:linear-gradient(135deg,rgba(72,55,18,.98),rgba(128,112,43,.96),rgba(190,166,82,.88)) !important;}
+button.purple{background:linear-gradient(135deg,rgba(42,37,20,.98),rgba(93,102,39,.96),rgba(141,153,72,.88)) !important;}
+button.gray,.admin-page-back-top{background:linear-gradient(135deg,rgba(28,34,17,.98),rgba(65,74,34,.96),rgba(98,109,56,.88)) !important;}
+input,textarea,select{
+    background:rgba(255,255,245,.88) !important;
+    border:1px solid rgba(111,123,47,.45) !important;
+    color:#17200c !important;
+}
+input::placeholder, textarea::placeholder{color:rgba(31,40,16,.68) !important;}
+input:focus,select:focus,textarea:focus{
+    border:2px solid #9aa95a !important;
+    box-shadow:0 0 0 4px rgba(154,169,90,.20),0 0 16px rgba(212,184,90,.28) !important;
+}
+.small-note,.status{
+    background:rgba(245,250,226,.78) !important;
+    color:#24300f !important;
+    border:1px solid rgba(111,123,47,.26);
+}
+.success{background:rgba(218,235,172,.82) !important;color:#1d3710 !important;}
+.error{background:rgba(240,214,184,.82) !important;color:#4a240e !important;}
+table{background:rgba(255,255,245,.88) !important;}
+th{
+    background:linear-gradient(135deg,#303817,#6f7b2f) !important;
+    color:#fffbe8 !important;
+}
+td{background:rgba(250,253,235,.84) !important;color:#18200c !important;}
+tr:nth-child(even) td{background:rgba(236,244,205,.82) !important;}
+.dashboard-table th,.dashboard-table td:first-child,
+.employee-info-table th,
+.accessive-ot-table th,
+.job-history-table th{
+    background:linear-gradient(135deg,#303817,#6f7b2f) !important;
+    color:#fffbe8 !important;
+}
+.dashboard-table tr:nth-child(odd),
+.accessive-ot-table tbody tr:nth-child(odd),
+.job-history-table tbody tr:nth-child(odd){background:rgba(250,253,235,.84) !important;}
+.dashboard-table tr:nth-child(even),
+.accessive-ot-table tbody tr:nth-child(even),
+.job-history-table tbody tr:nth-child(even){background:rgba(236,244,205,.82) !important;}
+.employee-photo-frame,
+.accessive-ot-info,
+.job-history-info-card{
+    background:linear-gradient(135deg,rgba(245,250,226,.72),rgba(111,123,47,.28)) !important;
+    border:1px solid rgba(212,184,90,.28);
+}
+.employee-photo-frame img{border-color:#6f7b2f !important;}
+.accessive-ot-row,.job-history-info-row{background:rgba(255,255,245,.68) !important;}
+.accessive-ot-label,.job-history-label{color:#354214 !important;}
+.accessive-ot-value,.job-history-value{color:#17200c !important;}
+.autocomplete-list{background:rgba(255,255,245,.96) !important;border-color:rgba(111,123,47,.50) !important;}
+.autocomplete-item{color:#17200c !important;border-bottom:1px solid rgba(111,123,47,.18) !important;}
+.autocomplete-item:hover{background:rgba(221,233,171,.82) !important;}
+a{color:#f1df85 !important;}
+#homePage a{color:#4f5d24 !important;}
+.not-publish-box{
+    background:linear-gradient(135deg,rgba(245,250,226,.88),rgba(154,169,90,.42)) !important;
+    border:2px solid rgba(212,184,90,.55) !important;
+    color:#263015 !important;
+}
+.not-publish-box h2,.not-publish-box .not-publish-text{color:#263015 !important;text-shadow:none !important;}
+#adminControlPanel .small-note{background:rgba(245,250,226,.80) !important;color:#263015 !important;}
+/* Preserve printed documents/reports as readable paper output */
+@media print{
+    body{background:white !important;color:#000 !important;}
+}
+</style>
+</head>
+<body>
+<div class="print-actions"><button onclick="window.print()">Print / Save PDF</button><button onclick="window.close()">Close</button></div>
+<div class="page">
+    <div class="header">
+        <h2>A&O Apparels (Pvt.) Ltd.</h2>
+        <p>256, Boktaboli Ferighat Road, Fatulla, Narayanganj</p>
+        <div class="form-title">প্রাথমিক যাচাই ফরম</div>
+        <div class="section-center"><span class="section-label">সেকশন:</span> <span class="section-value">${section}</span></div>
+    </div>    <div class="top-info">
+        <div><span class="join-label">যোগদানের তারিখ:</span> <span class="join-date-value">${joiningDate}</span></div>
+        <div><span class="join-label">যে পদের জন্য আবেদন:</span> <span class="applied-post-top">${post}</span></div>
+    </div>
+
+    <div class="grid">
+        <div class="row"><span class="label">Name (English):</span><span class="value big-pdf-value">${v(data,"Name_English")}</span></div>
+        <div class="row"><span class="label">কর্মীর নাম:</span><span class="value name-fit-value">${v(data,"Employee_Name")}</span></div>
+        <div class="row"><span class="label">পিতার নাম:</span><span class="value">${v(data,"Father_Name")}</span></div>
+        <div class="row"><span class="label">মাতার নাম:</span><span class="value">${v(data,"Mother_Name")}</span></div>
+        <div class="row"><span class="label">স্বামী/স্ত্রীর নাম:</span><span class="value">${v(data,"Spouse_Name")}</span></div>
+        <div class="row"><span class="label">প্রযত্নে:</span><span class="value">${v(data,"Care_Of")}</span></div>
+    </div>
+
+    <div class="box">
+        <div class="box-title">স্থায়ী ঠিকানা</div>
+        <div class="addr-grid">
+            <div class="row"><span class="label">গ্রাম:</span><span class="value">${v(data,"Per_Vill")}</span></div>
+            <div class="row"><span class="label">পোস্ট:</span><span class="value">${v(data,"Per_PO")}</span></div>
+            <div class="row"><span class="label">থানা:</span><span class="value">${v(data,"Per_PS")}</span></div>
+            <div class="row"><span class="label">জেলা:</span><span class="value">${v(data,"Per_Dist")}</span></div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="box-title">বর্তমান ঠিকানা</div>
+        <div class="addr-grid">
+            <div class="row"><span class="label">গ্রাম:</span><span class="value">${v(data,"Pre_Vill")}</span></div>
+            <div class="row"><span class="label">পোস্ট:</span><span class="value">${v(data,"Pre_PO")}</span></div>
+            <div class="row"><span class="label">থানা:</span><span class="value">${v(data,"Pre_PS")}</span></div>
+            <div class="row"><span class="label">জেলা:</span><span class="value">${v(data,"Pre_Dist")}</span></div>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="row"><span class="label">জন্ম তারিখ:</span><span class="value">${dob}</span></div>
+        <div class="row"><span class="label">ধর্ম:</span><span class="value">${religion}</span></div>
+        <div class="row"><span class="label">NID/জন্ম নিবন্ধন:</span><span class="value">${v(data,"NID_Birth")}</span></div>
+        <div class="row"><span class="label">রক্তের গ্রুপ:</span><span class="value">${v(data,"Blood_Group")}</span></div>
+        <div class="row"><span class="label">ওজন:</span><span class="value">${v(data,"Weight")}</span></div>
+        <div class="row"><span class="label">উচ্চতা:</span><span class="value">${v(data,"Height")}</span></div>
+        <div class="row"><span class="label">বৈবাহিক অবস্থা:</span><span class="value">${v(data,"Marital_Status")}</span></div>
+        ${childLine}
+        <div class="row"><span class="label">শিক্ষাগত যোগ্যতা:</span><span class="value">${v(data,"Education")}</span></div>
+        <div class="row"><span class="label">শনাক্তকরণ চিহ্ন:</span><span class="value">${v(data,"Identification_Mark")}</span></div>
+    </div>
+
+    <div class="box">
+        <div class="box-title">শনাক্তকারীর বিবরণ</div>
+        <div class="grid">
+            <div class="row"><span class="label">নাম:</span><span class="value">${v(data,"Reference_Name")}</span></div>
+            <div class="row"><span class="label">সম্পর্ক:</span><span class="value">${v(data,"Reference_Relation")}</span></div>
+            <div class="row"><span class="label">মোবাইল নম্বর:</span><span class="value">${v(data,"Reference_Mobile")}</span></div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="box-title">জরুরী যোগাযোগ</div>
+        <div class="grid">
+            <div class="row"><span class="label">নাম:</span><span class="value">${v(data,"Emergency_Name")}</span></div>
+            <div class="row"><span class="label">সম্পর্ক:</span><span class="value">${v(data,"Emergency_Relation")}</span></div>
+            <div class="row"><span class="label">মোবাইল নম্বর:</span><span class="value">${v(data,"Emergency_Mobile")}</span></div>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="box-title">কাজের দক্ষতা যাচাই</div>
+        <div class="grid">
+            <div class="row"><span class="label">Skill Experience:</span><span class="value">${v(data,"Skill_Experience")}</span></div>
+            <div class="row"><span class="label">পূর্বের কারখানা:</span><span class="value">${v(data,"Previous_Factory")}</span></div>
+        </div>
+        <div class="row"><span class="label">মেশিন দক্ষতা:</span><span class="value">${v(data,"Machine_Skill")}</span></div>
+    </div>
+
+    <div class="row mobile-account-row"><span class="label">মোবাইল একাউন্ট নং:</span><span class="value">${mobileNo}</span></div>
+
+    <div class="salary-line">
+        শ্রমিকের সম্পূর্ণ যোগ্যতা ও দক্ষতা বিবেচনা করিয়া তাহাকে মাসিক
+        <span></span> টাকা বেতনে
+        <span class="salary-post-big">${post}</span> পদে নিয়োগ দেওয়া জন্য সুপারিশ করিলাম।
+    </div>
+
+    <div class="signatures">
+        <div>মানব সম্পদ বিভাগ</div>
+        <div>সুপারিশকারীর সাক্ষর</div>
+        <div>বিভাগীয় প্রধান</div>
+        <div>অনুমোদনকারী</div>
+    </div>
+
+    <div class="form-sl">Form SL No: ${v(data,"Temporary_ID")}</div>
+</div>
+<script>window.print();<\/script>
+</body>
+</html>`;
+
+    const win = window.open("", "_blank");
+    win.document.write(html);
+    win.document.close();
+}
+
+function logout(){
+    currentEmployee = null;
+    goHome();
+}
+
+document.addEventListener("keypress", function(event){
+    if(event.key === "Enter"){
+        if(!document.getElementById("employeeLoginPage").classList.contains("hidden")) employeeLogin();
+        if(!document.getElementById("attendancePasswordPage").classList.contains("hidden")) checkAttendancePassword();
+        if(!document.getElementById("adminLoginPage").classList.contains("hidden")) adminLogin();
+    }
+});
+
+goHome();
+
+
+
+
+
+/* ===== Rocket Commitment Module (Admin Only) ===== */
+let rocketCommitmentRows = [];
+
+function showRocketCommitment(){
+    activateAdminSubPage();
+    rocketCommitmentRows = [];
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <div class="rocket-commit-card">
+            <h3>Rocket Commitment</h3>
+            <div class="rocket-input-row">
+                <div><label>Employee ID / Card No</label><input type="text" id="rocketEmployeeIdInput" placeholder="Employee ID লিখে Enter চাপুন" onkeydown="rocketEmployeeEnter(event)"></div>
+                <button class="green" onclick="addRocketEmployeeByInput()">Add Employee</button>
+                <button class="orange" onclick="previewRocketCommitment()">Preview / Print</button>
+            </div>
+<div id="rocketCommitmentStatus" class="status"></div>
+            <table class="rocket-selected-table"><thead><tr><th>SL</th><th>Employee ID</th><th>Name</th><th>Rocket Account Number</th><th>Action</th></tr></thead><tbody id="rocketCommitmentBody"><tr><td colspan="5">No employee added yet.</td></tr></tbody></table>
+            <div class="rocket-preview-actions"><button class="orange" onclick="previewRocketCommitment()">Preview / Print</button><button class="red" onclick="clearRocketCommitmentList()">Clear List</button><button class="gray" onclick="backToAdminPanel()">Back</button></div>
+        </div>`;
+    setTimeout(() => { const input = document.getElementById("rocketEmployeeIdInput"); if(input) input.focus(); }, 80);
+}
+function rocketEmployeeEnter(event){ if(event.key === "Enter"){ event.preventDefault(); addRocketEmployeeByInput(); } }
+function setRocketStatus(msg, type=""){ const el = document.getElementById("rocketCommitmentStatus"); if(!el) return; el.className = "status" + (type ? " " + type : ""); el.innerHTML = msg || ""; }
+function normalizeRocketId(value){ return String(value || "").trim().toUpperCase(); }
+function pickRocketName(row){ const keys=["Name_OF_Employee","Name_Of_Employee","NAME_OF_EMPLOYEE","EMP_NAME","Employee_Name","Employee_Name_Bangla","Name_English","NAME","Name","EMPLOYEE_NAME"]; for(const k of keys){ if(row && row[k]!==undefined && row[k]!==null && String(row[k]).trim()!=="") return String(row[k]).trim(); } return ""; }
+function pickRocketAccount(row){ const keys=["Rocket_Account_No","Rocket_Account_Number","ROCKET_ACCOUNT_NO","ROCKET_ACCOUNT_NUMBER","Rocket_No","Rocket_Number","ROCKET_NO","ROCKET_NUMBER","Salary_Account_No","SALARY_ACCOUNT_NO","salary_account_no","Mobile_Banking_No","Mobile_No","MOBILE_NO"]; for(const k of keys){ if(row && row[k]!==undefined && row[k]!==null && String(row[k]).trim()!=="") return String(row[k]).trim(); } return ""; }
+async function findRocketEmployee(employeeId){
+    const id = normalizeRocketId(employeeId); if(!id) return null;
+    let res = await supabaseClient.from("Employee_Info").select("*").eq("Employee_ID", id).maybeSingle();
+    if(res.error) console.log("Employee_Info Employee_ID search error:", res.error);
+    if(res.data) return res.data;
+    const possibleCols = ["EMP_CODE","Emp_Code","CARD_NO","Card_No","CardNo","CARDNO"];
+    for(const col of possibleCols){ try{ const r = await supabaseClient.from("Employee_Info").select("*").eq(col, id).maybeSingle(); if(!r.error && r.data) return r.data; }catch(e){} }
+    return null;
+}
+async function addRocketEmployeeByInput(){
+    const input = document.getElementById("rocketEmployeeIdInput"); const id = normalizeRocketId(input ? input.value : "");
+    if(!id){ setRocketStatus("Employee ID লিখুন।", "error"); return; }
+    if(rocketCommitmentRows.some(r => normalizeRocketId(r.employeeId) === id)){ setRocketStatus("এই Employee ID আগে add করা আছে।", "error"); if(input) input.value = ""; return; }
+    setRocketStatus("Loading employee data...");
+    const emp = await findRocketEmployee(id);
+    if(!emp){ setRocketStatus("Employee_Info table এ এই Employee ID পাওয়া যায়নি: " + id, "error"); return; }
+    const employeeId = normalizeRocketId(emp.Employee_ID || emp.EMP_CODE || emp.CARD_NO || id);
+    const name = pickRocketName(emp);
+    const rocketAccount = pickRocketAccount(emp);
+    rocketCommitmentRows.push({employeeId, name, rocketAccount, raw: emp});
+    if(input){ input.value = ""; input.focus(); }
+    setRocketStatus(""); renderRocketCommitmentRows();
+}
+function renderRocketCommitmentRows(){
+    const body = document.getElementById("rocketCommitmentBody"); if(!body) return;
+    if(!rocketCommitmentRows.length){ body.innerHTML = `<tr><td colspan="5">No employee added yet.</td></tr>`; return; }
+    body.innerHTML = rocketCommitmentRows.map((r, i) => `<tr><td>${i + 1}</td><td>${escapeRocketHtml(r.employeeId)}</td><td class="rocket-name-cell">${escapeRocketHtml(r.name || "-")}</td><td class="rocket-account-cell">${escapeRocketHtml(r.rocketAccount || "-")}</td><td><button class="red" onclick="removeRocketCommitmentRow(${i})">Remove</button></td></tr>`).join("");
+}
+function removeRocketCommitmentRow(index){ rocketCommitmentRows.splice(index, 1); renderRocketCommitmentRows(); }
+function clearRocketCommitmentList(){ rocketCommitmentRows = []; renderRocketCommitmentRows(); setRocketStatus(""); }
+function escapeRocketHtml(value){ return String(value ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+function rocketCommitmentFormHtml(row){ const name = escapeRocketHtml(row.name || ""); const account = escapeRocketHtml(row.rocketAccount || ""); return `<div class="rocket-form-box"><h2>অঙ্গীকার নামা</h2><p class="rocket-text">আমি নিম্ন স্বাক্ষরকারী এই মর্মে প্রত্যয়ন করছি যে, আমার নামে রকেট-এ অন্য কোন একাউন্ট নাই এবং ভবিষ্যতে আমি যদি অন্য রকেট একাউন্ট খুলতে চাই তাহলে নিজ থেকে বর্তমান একাউন্টটি বন্ধ করব। তাছাড়া আমি যখনই NID হাতে পাবো রকেট এর অফিসে ফটোকপি জমা দিয়ে আমার তথ্য হালনাগাদ করবো।</p><div class="rocket-line"><span>স্বাক্ষর</span><b>:</b><strong></strong></div><div class="rocket-line"><span>নাম</span><b>:</b><strong>${name}</strong></div><div class="rocket-line"><span>রকেট একাউন্ট নম্বর</span><b>:</b><strong>${account}</strong></div></div>`; }
+function previewRocketCommitment(){
+    if(!rocketCommitmentRows.length){ setRocketStatus("Preview করার আগে Employee ID add করুন।", "error"); return; }
+    const pages = [];
+    for(let i = 0; i < rocketCommitmentRows.length; i += 3){ const pageRows = rocketCommitmentRows.slice(i, i + 3); pages.push(`<div class="rocket-print-page">${pageRows.map(rocketCommitmentFormHtml).join("")}</div>`); }
+    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rocket Commitment</title><style>@page{size:A4;margin:8mm;}*{box-sizing:border-box;}body{margin:0;background:#f5f5f5;color:#000;font-family:Arial,'Noto Sans Bengali','SolaimanLipi',sans-serif;}.print-actions{text-align:center;padding:10px;}.print-actions button{width:auto;padding:9px 18px;margin:0 5px;border:0;border-radius:8px;background:#0754a6;color:#fff;font-weight:bold;cursor:pointer;}.rocket-print-page{width:210mm;min-height:297mm;margin:0 auto 10px auto;background:#fff;padding:5mm 4mm;page-break-after:always;}.rocket-print-page:last-child{page-break-after:auto;}.rocket-form-box{width:100%;height:91mm;border:1.5px solid #000;padding:7mm 4mm 4mm 4mm;margin-bottom:6mm;overflow:hidden;}.rocket-form-box:last-child{margin-bottom:0;}.rocket-form-box h2{text-align:center;font-size:22px;font-weight:900;text-decoration:underline;margin:0 0 8mm 0;}.rocket-text{font-size:17px;line-height:2.05;font-weight:700;text-align:left;margin:0 0 13mm 0;}.rocket-line{display:grid;grid-template-columns:39mm 5mm 1fr;gap:2mm;align-items:end;font-size:16px;font-weight:800;margin-top:7mm;}.rocket-line span{font-weight:900;}.rocket-line strong{min-height:7mm;border-bottom:0;font-weight:900;font-size:17px;}@media print{body{background:#fff;}.print-actions{display:none;}.rocket-print-page{margin:0;padding:5mm 4mm;box-shadow:none;}}</style></head><body><div class="print-actions"><button onclick="window.print()">Print / Save PDF</button><button onclick="window.close()">Close</button></div>${pages.join("")}</body></html>`;
+    const win = window.open("", "_blank"); win.document.write(html); win.document.close();
+}
+
+
+
+/* Rocket Commitment output layout fix - full fields visible */
+function rocketCommitmentFormHtml(row){
+    const name = escapeRocketHtml(row.name || "");
+    const account = escapeRocketHtml(row.rocketAccount || "");
+    return `
+        <div class="rocket-form-box">
+            <h2>অঙ্গীকার নামা</h2>
+            <p class="rocket-text">
+                আমি নিম্ন স্বাক্ষরকারী এই মর্মে প্রত্যয়ন করছি যে, আমার নামে রকেট-এ অন্য কোন একাউন্ট নাই এবং ভবিষ্যতে
+                আমি যদি অন্য রকেট একাউন্ট খুলতে চাই তাহলে নিজ থেকে বর্তমান একাউন্টটি বন্ধ করব। তাছাড়া আমি যখনই
+                NID হাতে পাবো রকেট এর অফিসে ফটোকপি জমা দিয়ে আমার তথ্য হালনাগাদ করবো।
+            </p>
+            <div class="rocket-field-lines">
+                <div class="rocket-line"><span>স্বাক্ষর</span><b>:</b><strong></strong></div>
+                <div class="rocket-line"><span>নাম</span><b>:</b><strong>${name}</strong></div>
+                <div class="rocket-line"><span>রকেট একাউন্ট নম্বর</span><b>:</b><strong>${account}</strong></div>
+            </div>
+        </div>
+    `;
+}
+function previewRocketCommitment(){
+    if(!rocketCommitmentRows.length){
+        setRocketStatus("Preview করার আগে Employee ID add করুন।", "error");
+        return;
+    }
+    const pages = [];
+    for(let i = 0; i < rocketCommitmentRows.length; i += 3){
+        const pageRows = rocketCommitmentRows.slice(i, i + 3);
+        pages.push(`<div class="rocket-print-page">${pageRows.map(rocketCommitmentFormHtml).join("")}</div>`);
+    }
+    const html = `
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rocket Commitment</title>
+<style>
+@page{size:A4;margin:6mm;}
+*{box-sizing:border-box;}
+body{margin:0;background:#f5f5f5;color:#000;font-family:Arial,'Noto Sans Bengali','SolaimanLipi',sans-serif;}
+.print-actions{text-align:center;padding:6px;}
+.print-actions button{width:auto;padding:8px 16px;margin:0 5px;border:0;border-radius:7px;background:#0754a6;color:#fff;font-weight:bold;cursor:pointer;}
+.rocket-print-page{width:210mm;min-height:297mm;margin:0 auto 10px auto;background:#fff;padding:5mm 4mm;page-break-after:always;}
+.rocket-print-page:last-child{page-break-after:auto;}
+.rocket-form-box{width:100%;height:91mm;border:1.4px solid #000;padding:5mm 5mm 4mm 5mm;margin-bottom:6mm;overflow:hidden;display:flex;flex-direction:column;}
+.rocket-form-box:last-child{margin-bottom:0;}
+.rocket-form-box h2{text-align:center;font-size:19px;font-weight:900;text-decoration:underline;margin:0 0 5mm 0;line-height:1.1;}
+.rocket-text{font-size:14px;line-height:1.75;font-weight:700;text-align:left;margin:0;}
+.rocket-field-lines{margin-top:auto;padding-top:4mm;}
+.rocket-line{display:grid;grid-template-columns:40mm 5mm 1fr;gap:2mm;align-items:end;font-size:13.5px;font-weight:800;margin-top:3.2mm;min-height:6mm;}
+.rocket-line span{font-weight:900;}
+.rocket-line b{font-weight:900;text-align:center;}
+.rocket-line strong{display:block;min-height:5.5mm;border-bottom:0;font-weight:900;font-size:13.5px;line-height:1.15;white-space:normal;word-break:break-word;overflow:visible;}
+@media print{body{background:#fff;}.print-actions{display:none;}.rocket-print-page{margin:0;padding:5mm 4mm;box-shadow:none;}}
+</style></head><body>
+<div class="print-actions"><button onclick="window.print()">Print / Save PDF</button><button onclick="window.close()">Close</button></div>
+${pages.join("")}
+</body></html>`;
+    const win = window.open("", "_blank");
+    win.document.write(html);
+    win.document.close();
+}
+
+
+
+/* EMPLOYEE INFO TXT/CSV IMPORT COLUMN FIX - Supabase valid columns only */
+(function(){
+    const originalNormalizeEmployeeImportRow = window.normalizeEmployeeImportRow;
+
+    window.normalizeEmployeeImportRow = function(row){
+        let source = {};
+        if(typeof originalNormalizeEmployeeImportRow === "function"){
+            source = originalNormalizeEmployeeImportRow(row || {});
+        }else{
+            source = {...(row || {})};
+        }
+
+        const out = {};
+
+        function pick(keys){
+            for(const k of keys){
+                if(source[k] !== undefined && source[k] !== null && String(source[k]).trim() !== ""){
+                    return String(source[k]).trim();
+                }
+                if(row && row[k] !== undefined && row[k] !== null && String(row[k]).trim() !== ""){
+                    return String(row[k]).trim();
+                }
+            }
+            return "";
+        }
+
+        // Only send columns that exist/are used in Employee_Info portal table.
+        out.Employee_ID = pick(["Employee_ID","Local ID","UID_NO","EMP_CODE"]);
+        out.Name_OF_Employee = pick(["Name_OF_Employee","Name","EMP_NAME"]);
+        out.Mobile_No = pick(["Mobile_No","Contact","MOBILE"]);
+        out.Salary_Account_No = pick(["Salary_Account_No","Mobile/Bank Account","MOBILE_ACC","BANK_ACCOUNT_NO"]);
+        out.Date_Of_Birth = pick(["Date_Of_Birth","Date of Birth","DOB"]);
+        out.Blood_Group = pick(["Blood_Group","Blood Group","BLOOD_GROUP"]);
+        out.Designation = pick(["Designation","DESIG_NAME","DESIGNATION"]);
+        out.Current_Salary = pick(["Current_Salary","Present Salary","PRESENT_SAL"]);
+        out.Joining_Date = pick(["Joining_Date","Joining Date","JOINING_DATE"]);
+        out.Religion = pick(["Religion","RELIGION","Religion_1"]);
+        out.Department = pick(["Department","DEPT_NAME","LINE_NAME"]);
+        out.Section_Name = pick(["Section_Name","SECTION_NAME","SEC_NAME","Department","DEPT_NAME","LINE_NAME"]);
+
+        // Keep useful employee details only if matching Supabase column exists in user's table.
+        // These are common current/new-join compatible columns from the portal.
+        out.Father_Name = pick(["Father_Name","Father's Name","F_NAME"]);
+        out.Mother_Name = pick(["Mother_Name","Mother's Name","M_NAME"]);
+        out.Spouse_Name = pick(["Spouse_Name","Spouse Name","SPOUSE_NAME"]);
+        out.NID_Birth = pick(["NID_Birth","NID","NID_NO"]);
+        out.Gender = pick(["Gender","GENDER"]);
+        out.Education = pick(["Education","EDU"]);
+        out.Skill_Experience = pick(["Skill_Experience","Skill","JOB_EXP"]);
+        out.Height = pick(["Height","EMP_HIGHT"]);
+
+        out.Per_Vill = pick(["Per_Vill","Permanent Street","PER_VILL"]);
+        out.Per_PO = pick(["Per_PO","Permanent Town","Permanent Area","PER_PO"]);
+        out.Per_PS = pick(["Per_PS","Permanent Thana","PER_PS"]);
+        out.Per_Dist = pick(["Per_Dist","Permanent District","PER_DIST"]);
+
+        out.Pre_Vill = pick(["Pre_Vill","Present Street","M_VILL"]);
+        out.Pre_PO = pick(["Pre_PO","Present Town","Present Area","M_PO"]);
+        out.Pre_PS = pick(["Pre_PS","Present Thana","M_PS"]);
+        out.Pre_Dist = pick(["Pre_Dist","Present District","M_DIST"]);
+
+        // Remove empty fields so missing optional Supabase columns won't be sent.
+        Object.keys(out).forEach(k => {
+            if(out[k] === ""){
+                delete out[k];
+            }
+        });
+
+        if(out.Employee_ID){
+            out.Employee_ID = String(out.Employee_ID).trim().toUpperCase();
+        }
+
+        return out;
+    };
+})();
+
+</script>
+
+<div style="text-align:center; margin-top:20px;">
+<p style="color:white;font-size:14px;font-weight:bold;background:rgba(0,0,0,0.55);display:inline;padding:6px 12px;border-radius:6px;">
+Developed by Robin
+</p>
+</div>
+</body>
+</html>
