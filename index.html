@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A&O Employee Portal</title>
+<title>Employee Services</title>
 <meta name="robots" content="noindex,nofollow">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -312,6 +312,23 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     .employee-info-table td{padding:8px 7px;}
     .employee-info-table th{width:42%;}
 }
+
+/* Professional employee photo upload */
+.professional-header{max-width:1100px;margin:0 auto 18px;text-align:center;padding:12px 10px 6px;}
+.professional-header-line{width:72px;height:3px;margin:0 auto 9px;border-radius:99px;background:linear-gradient(90deg,#b89b52,#e6d19a,#b89b52);}
+.professional-header-title{font-size:18px;font-weight:800;letter-spacing:1.4px;color:#f2f3f5;text-transform:uppercase;}
+.professional-header-subtitle{font-size:11px;margin-top:3px;color:rgba(242,243,245,.68);letter-spacing:.8px;}
+.employee-photo-upload-frame{position:relative;}
+.employee-photo-preview-wrap{width:130px;height:150px;margin:0 auto;border-radius:12px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;}
+.employee-photo-preview-wrap img{width:130px;height:150px;object-fit:cover;border:0 !important;border-radius:0 !important;box-shadow:none !important;}
+.employee-photo-caption{font-size:12px;font-weight:800;letter-spacing:.5px;color:#334155;margin-top:8px;}
+.employee-photo-upload-btn{display:flex;align-items:center;justify-content:center;width:130px;margin:10px auto 0;padding:9px 12px;border-radius:9px;background:linear-gradient(135deg,#111827,#374151);color:#fff;cursor:pointer;font-size:13px;font-weight:800;box-shadow:0 4px 12px rgba(0,0,0,.18);transition:.2s;}
+.employee-photo-upload-btn:hover{transform:translateY(-1px);filter:brightness(1.08);}
+.employee-photo-status{min-height:18px;margin-top:7px;font-size:11px;font-weight:700;text-align:center;line-height:1.35;}
+.employee-photo-status.loading{color:#475569;}
+.employee-photo-status.success{color:#166534 !important;background:transparent !important;border:0 !important;}
+.employee-photo-status.error{color:#b91c1c !important;background:transparent !important;border:0 !important;}
+@media(max-width:700px){.professional-header{margin-bottom:10px;}.professional-header-title{font-size:15px;}.employee-photo-upload-btn{width:130px;}}
 
 /* Accessive OT colorful design */
 .accessive-ot-card{
@@ -825,9 +842,10 @@ a{color:#f0d998 !important;}
 
 <body>
 
-<div class="portal-hero" style="display:flex;flex-direction:column;justify-content:center;align-items:center;margin-bottom:20px;width:100%;">
-    <div class="ao-logo-mark" aria-label="A&O Logo">A&amp;O</div>
-    <div class="portal-title-box"><h1>A&O Employee Portal</h1></div>
+<div class="professional-header">
+    <div class="professional-header-line"></div>
+    <div class="professional-header-title">Employee Services</div>
+    <div class="professional-header-subtitle">Secure Employee Information</div>
 </div>
 
 <div class="container">
@@ -1218,6 +1236,9 @@ let editingTemporaryId = null;
 const ATTENDANCE_PASSWORD = "4321";
 const SUPABASE_DASHBOARD_URL = "https://supabase.com/dashboard/project/hneomxtzhbeseqlyrszh/editor";
 const ATTENDANCE_BUCKET = "attendance-reports";
+const EMPLOYEE_PHOTO_BUCKET = "employee-photos";
+const EMPLOYEE_PHOTO_MAX_BYTES = 20 * 1024;
+
 
 const tableConfig = {
     employee: {
@@ -2233,6 +2254,39 @@ async function employeeLogin(){
     }
 }
 
+function normalizeEmployeePhotoId(employeeId){
+    return String(employeeId || "")
+        .trim()
+        .toLowerCase()
+        .replace(/([a-z]+)0+(\d+)/i,'$1$2')
+        .replace(/[^a-z0-9_-]/g,'');
+}
+
+function getEmployeePhotoPublicUrl(employeeId){
+    const photoId = normalizeEmployeePhotoId(employeeId);
+    if(!photoId) return "";
+    const { data } = supabaseClient.storage
+        .from(EMPLOYEE_PHOTO_BUCKET)
+        .getPublicUrl(photoId + ".jpg");
+    return data && data.publicUrl ? data.publicUrl : "";
+}
+
+function loadEmployeePhotoInto(img, employeeId){
+    const publicUrl = getEmployeePhotoPublicUrl(employeeId);
+    const fallback = "photos/" + normalizeEmployeePhotoId(employeeId) + ".jpg";
+
+    if(publicUrl){
+        img.src = publicUrl + "?t=" + Date.now();
+        img.onerror = function(){
+            img.onerror = function(){ img.src = "photos/no-photo.jpg"; };
+            img.src = fallback;
+        };
+    }else{
+        img.src = fallback;
+        img.onerror = function(){ img.src = "photos/no-photo.jpg"; };
+    }
+}
+
 function showEmployeeInfo(){
     let info = currentEmployee.info;
 
@@ -2241,21 +2295,22 @@ function showEmployeeInfo(){
         return;
     }
 
-    let photoId = "no-photo";
-
-    if(info.Employee_ID){
-        photoId = String(info.Employee_ID)
-        .toLowerCase()
-        .replace(/([a-z]+)0+(\d+)/i,'$1$2');
-    }
+    const employeeId = String(info.Employee_ID || "").trim().toUpperCase();
 
     let html = `
     <div class="employee-info-card">
         <h2 class="employee-info-title">Employee Information</h2>
 
-        <div class="employee-photo-frame">
-            <img src="photos/${photoId}.jpg"
-            onerror="this.src='photos/no-photo.jpg'">
+        <div class="employee-photo-frame employee-photo-upload-frame">
+            <div class="employee-photo-preview-wrap">
+                <img id="employeePhotoPreview" alt="Employee Photo">
+            </div>
+            <div class="employee-photo-caption">Profile Photo</div>
+            <label class="employee-photo-upload-btn" for="employeePhotoInput">
+                <span>Upload Photo</span>
+            </label>
+            <input id="employeePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="handleEmployeePhotoUpload(this)">
+            <div id="employeePhotoStatus" class="employee-photo-status"></div>
         </div>
 
         <div class="employee-info-table-wrap">
@@ -2278,6 +2333,129 @@ function showEmployeeInfo(){
 
     html += "</table></div></div>";
     document.getElementById("employeeView").innerHTML = html;
+
+    const photo = document.getElementById("employeePhotoPreview");
+    if(photo) loadEmployeePhotoInto(photo, employeeId);
+}
+
+function setEmployeePhotoStatus(message, type=""){
+    const el = document.getElementById("employeePhotoStatus");
+    if(!el) return;
+    el.className = "employee-photo-status" + (type ? " " + type : "");
+    el.textContent = message || "";
+}
+
+function canvasToBlob(canvas, quality){
+    return new Promise(resolve => canvas.toBlob(resolve, "image/jpeg", quality));
+}
+
+async function compressEmployeePhoto(file){
+    const bitmap = await createImageBitmap(file);
+
+    let width = bitmap.width;
+    let height = bitmap.height;
+    const maxDimension = 900;
+
+    if(Math.max(width, height) > maxDimension){
+        const scale = maxDimension / Math.max(width, height);
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+    }
+
+    let canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    let ctx = canvas.getContext("2d", {alpha:false});
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(bitmap, 0, 0, width, height);
+    if(bitmap.close) bitmap.close();
+
+    // First pass, then progressively reduce dimensions/quality until <= 20 KB.
+    let quality = 0.82;
+    let blob = await canvasToBlob(canvas, quality);
+
+    for(let attempt = 0; attempt < 18 && blob && blob.size > EMPLOYEE_PHOTO_MAX_BYTES; attempt++){
+        if(quality > 0.30){
+            quality -= 0.06;
+        }else{
+            const nextWidth = Math.max(160, Math.round(canvas.width * 0.82));
+            const nextHeight = Math.max(180, Math.round(canvas.height * 0.82));
+            const resized = document.createElement("canvas");
+            resized.width = nextWidth;
+            resized.height = nextHeight;
+            const rctx = resized.getContext("2d", {alpha:false});
+            rctx.fillStyle = "#ffffff";
+            rctx.fillRect(0,0,nextWidth,nextHeight);
+            rctx.drawImage(canvas, 0, 0, nextWidth, nextHeight);
+            canvas = resized;
+            ctx = rctx;
+        }
+        blob = await canvasToBlob(canvas, quality);
+    }
+
+    if(!blob || blob.size > EMPLOYEE_PHOTO_MAX_BYTES){
+        throw new Error("Could not compress the photo below 20 KB. Please choose another photo.");
+    }
+
+    return blob;
+}
+
+async function handleEmployeePhotoUpload(input){
+    const file = input && input.files ? input.files[0] : null;
+    if(!file) return;
+
+    const employeeId = String(currentEmployee?.info?.Employee_ID || "").trim().toUpperCase();
+    if(!employeeId){
+        setEmployeePhotoStatus("Employee ID not found.", "error");
+        input.value = "";
+        return;
+    }
+
+    if(!/^image\/(jpeg|png|webp)$/.test(file.type)){
+        setEmployeePhotoStatus("Please select JPG, PNG or WEBP image.", "error");
+        input.value = "";
+        return;
+    }
+
+    try{
+        setEmployeePhotoStatus("Preparing photo...", "loading");
+        const compressedBlob = await compressEmployeePhoto(file);
+        const photoId = normalizeEmployeePhotoId(employeeId);
+        const filePath = photoId + ".jpg";
+
+        setEmployeePhotoStatus("Uploading photo...", "loading");
+
+        const { error } = await supabaseClient.storage
+            .from(EMPLOYEE_PHOTO_BUCKET)
+            .upload(filePath, compressedBlob, {
+                cacheControl: "0",
+                upsert: true,
+                contentType: "image/jpeg"
+            });
+
+        if(error){
+            console.error(error);
+            const msg = String(error.message || "Upload failed");
+            if(msg.toLowerCase().includes("bucket") || msg.toLowerCase().includes("not found")){
+                throw new Error("employee-photos Storage bucket পাওয়া যায়নি. Supabase-এ bucket তৈরি করতে হবে.");
+            }
+            throw new Error(msg);
+        }
+
+        const preview = document.getElementById("employeePhotoPreview");
+        if(preview){
+            preview.src = URL.createObjectURL(compressedBlob);
+        }
+
+        const kb = (compressedBlob.size / 1024).toFixed(1);
+        setEmployeePhotoStatus("Uploaded successfully • " + kb + " KB", "success");
+        input.value = "";
+    }catch(error){
+        console.error(error);
+        setEmployeePhotoStatus(error.message || "Photo upload failed.", "error");
+        input.value = "";
+    }
 }
 
 function renderNotPublished(title){
