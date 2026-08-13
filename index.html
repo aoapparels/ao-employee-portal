@@ -645,29 +645,34 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
 
 
 
-/* ===== Modern Olive Dark Portal Redesign (UI only) ===== */
+/* ===== A&O BLACK GLOSSY THEME ===== */
 :root{
-    --ao-olive:#6f7b2f;
-    --ao-olive-dark:#283015;
-    --ao-gold:#d4b85a;
-    --ao-blue:#0754a6;
-    --ao-card:rgba(255,255,255,.94);
-    --ao-glass:rgba(255,255,255,.12);
+    --ao-black:#050607;
+    --ao-black-2:#0b0d10;
+    --ao-panel:rgba(18,20,24,.78);
+    --ao-panel-strong:rgba(10,12,15,.92);
+    --ao-glass:rgba(255,255,255,.065);
+    --ao-border:rgba(255,255,255,.14);
+    --ao-silver:#e9edf2;
+    --ao-muted:#aeb6c1;
+    --ao-gold:#d7b66a;
+    --ao-gold-light:#f0d998;
 }
 body{
     position:relative;
     min-height:100vh;
-    background:#10140d !important;
     padding:22px;
     overflow-x:hidden;
+    color:var(--ao-silver) !important;
+    background:#050607 !important;
 }
 body::before{
     content:"";
     position:fixed;
     inset:0;
     background:url('background.jpg') center/cover no-repeat fixed;
-    opacity:.20;
-    filter:grayscale(12%) contrast(1.08);
+    opacity:.12;
+    filter:grayscale(100%) contrast(1.12) brightness(.42);
     z-index:-3;
 }
 body::after{
@@ -675,223 +680,132 @@ body::after{
     position:fixed;
     inset:0;
     background:
-        radial-gradient(circle at top left,rgba(148,163,55,.38),transparent 34%),
-        radial-gradient(circle at bottom right,rgba(7,84,166,.22),transparent 34%),
-        linear-gradient(135deg,rgba(12,18,8,.92),rgba(50,60,22,.78),rgba(8,12,7,.94));
+        radial-gradient(circle at 15% 8%,rgba(255,255,255,.10),transparent 28%),
+        radial-gradient(circle at 85% 18%,rgba(215,182,106,.09),transparent 30%),
+        linear-gradient(135deg,rgba(2,3,4,.97),rgba(12,14,18,.90),rgba(2,3,4,.98));
     z-index:-2;
     pointer-events:none;
 }
-.container{
-    position:relative;
-    z-index:1;
-}
+.container{position:relative;z-index:1;}
 .portal-hero{
     position:relative;
     z-index:1;
     width:min(1100px,100%);
     margin:0 auto 24px;
     padding:26px 18px 22px;
-    border-radius:24px;
-    background:
-        linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.04)),
-        linear-gradient(135deg,rgba(111,123,47,.55),rgba(7,84,166,.20));
-    border:1px solid rgba(255,255,255,.22);
-    box-shadow:0 18px 45px rgba(0,0,0,.36);
-    backdrop-filter:blur(8px);
+    border-radius:26px;
+    background:linear-gradient(145deg,rgba(255,255,255,.10),rgba(255,255,255,.025)),linear-gradient(135deg,rgba(10,12,15,.94),rgba(35,30,20,.72));
+    border:1px solid var(--ao-border);
+    box-shadow:0 24px 55px rgba(0,0,0,.58),inset 0 1px 0 rgba(255,255,255,.10),0 0 35px rgba(215,182,106,.06);
+    backdrop-filter:blur(16px) saturate(125%);
 }
 .portal-hero img{
-    width:118px !important;
-    height:118px !important;
-    padding:8px;
-    border-radius:24px;
-    background:rgba(255,255,255,.88);
-    box-shadow:0 10px 28px rgba(0,0,0,.34),0 0 0 4px rgba(212,184,90,.22);
+    width:118px !important;height:118px !important;padding:8px;border-radius:24px;
+    background:rgba(10,11,13,.86);
+    border:1px solid rgba(215,182,106,.28);
+    box-shadow:0 14px 32px rgba(0,0,0,.52),0 0 0 4px rgba(215,182,106,.06);
+}
+.ao-logo-mark{
+    background:radial-gradient(circle at 28% 18%,rgba(255,255,255,.18),transparent 25%),linear-gradient(145deg,#1d2025,#090a0c 62%,#17130c);
+    border:1px solid rgba(215,182,106,.38);
+    box-shadow:0 18px 40px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.13),0 0 24px rgba(215,182,106,.08);
+    color:#f5f7fa;
 }
 .portal-title-box{
-    background:linear-gradient(135deg,rgba(43,53,20,.95),rgba(111,123,47,.95),rgba(7,84,166,.72)) !important;
-    border:1px solid rgba(255,255,255,.24);
-    box-shadow:0 12px 34px rgba(0,0,0,.36),0 0 22px rgba(212,184,90,.22) !important;
+    background:linear-gradient(135deg,rgba(5,6,8,.96),rgba(35,30,20,.94),rgba(8,9,11,.98)) !important;
+    border:1px solid rgba(215,182,106,.34) !important;
+    box-shadow:0 14px 35px rgba(0,0,0,.58),inset 0 1px 0 rgba(255,255,255,.10),0 0 22px rgba(215,182,106,.08) !important;
 }
-.portal-title-box h1{
-    letter-spacing:.8px;
-    text-shadow:0 2px 10px rgba(0,0,0,.35);
+.portal-title-box h1{letter-spacing:.8px;animation:none !important;color:#f7f8fa !important;text-shadow:0 2px 12px rgba(0,0,0,.8);}
+.card,#homePage,#adminControlPanel,.admin-subpage,.dashboard-card,.employee-info-card,.accessive-ot-card,.job-history-wrap,#employeeView,.box{
+    background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025)) !important;
+    border:1px solid var(--ao-border) !important;
+    box-shadow:0 20px 48px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.075) !important;
+    backdrop-filter:blur(14px) saturate(120%);
+    color:var(--ao-silver);
 }
-.card{
-    background:var(--ao-card) !important;
-    border:1px solid rgba(255,255,255,.45);
-    box-shadow:0 18px 45px rgba(0,0,0,.28) !important;
-    backdrop-filter:blur(8px);
-}
-#homePage{
-    max-width:650px;
-    margin:0 auto 20px;
-    padding:24px;
-    border-radius:24px;
-    background:
-        linear-gradient(145deg,rgba(255,255,255,.96),rgba(241,246,226,.94)) !important;
-    border:1px solid rgba(212,184,90,.45);
-}
-#homePage::before{
-    content:"WELCOME TO A&O PORTAL";
-    display:block;
-    text-align:center;
-    font-size:13px;
-    font-weight:900;
-    letter-spacing:2px;
-    color:#5f6b22;
-    margin-bottom:12px;
-}
-button{
+#homePage{max-width:650px;margin:0 auto 20px;padding:24px;border-radius:24px;}
+#homePage::before{color:var(--ao-gold-light) !important;text-shadow:0 2px 10px rgba(0,0,0,.75);}
+h1,h2,h3,.card h1,.card h2,.card h3,.employee-info-title,.accessive-ot-title,.dashboard-card h2,.small-note,label{color:#f2f4f7 !important;text-shadow:0 2px 9px rgba(0,0,0,.68);}
+button,
+button.green,button.orange,button.purple,button.red,button.gray,
+#homePage button,#adminControlPanel .menu button,#employeeDashboard .menu button,
+.topbar button,.admin-page-back-top,.job-history-actions button,.print-actions button{
     position:relative;
     overflow:hidden;
+    min-height:48px;
     border-radius:14px !important;
-    letter-spacing:.2px;
-    box-shadow:0 8px 20px rgba(0,0,0,.16);
-    transition:transform .18s ease,box-shadow .18s ease,filter .18s ease;
+    background:linear-gradient(145deg,rgba(42,44,49,.98),rgba(8,9,11,.99)) !important;
+    border:1px solid rgba(215,182,106,.30) !important;
+    color:#f5f6f8 !important;
+    box-shadow:0 12px 28px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.12),0 0 18px rgba(215,182,106,.055) !important;
+    transition:transform .18s ease,box-shadow .18s ease,filter .18s ease,border-color .18s ease;
 }
 button::after{
-    content:"";
-    position:absolute;
-    top:0;
-    left:-120%;
-    width:55%;
-    height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
-    transform:skewX(-18deg);
-    animation:buttonShine 3.8s infinite;
+    content:"";position:absolute;top:0;left:-125%;width:52%;height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.20),transparent);
+    transform:skewX(-18deg);animation:buttonGloss 4.8s infinite;
+    pointer-events:none;
 }
-button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 28px rgba(0,0,0,.24);
-    filter:saturate(1.08);
+button:hover{transform:translateY(-2px);border-color:rgba(240,217,152,.55) !important;box-shadow:0 16px 34px rgba(0,0,0,.58),inset 0 1px 0 rgba(255,255,255,.16),0 0 24px rgba(215,182,106,.12) !important;filter:brightness(1.08);}
+button:active{transform:translateY(0);}
+@keyframes buttonGloss{0%,52%{left:-125%;}68%,100%{left:135%;}}
+.topbar,#adminControlPanel h3,.admin-subpage h3,.box h3,.accessive-ot-table-title,.job-history-table-title{
+    background:linear-gradient(135deg,rgba(7,8,10,.98),rgba(39,35,27,.94),rgba(8,9,11,.99)) !important;
+    border:1px solid rgba(215,182,106,.26) !important;
+    color:#f5f6f8 !important;
+    box-shadow:0 12px 28px rgba(0,0,0,.44),inset 0 1px 0 rgba(255,255,255,.08);
 }
-@keyframes buttonShine{
-    0%,45%{left:-120%;}
-    60%,100%{left:130%;}
-}
-@keyframes softBlinkGlow{
-    0%,100%{box-shadow:0 8px 20px rgba(0,0,0,.16),0 0 0 rgba(212,184,90,0);}
-    50%{box-shadow:0 12px 30px rgba(0,0,0,.22),0 0 18px rgba(212,184,90,.48);}
-}
-#homePage button,
-#adminControlPanel .menu button,
-#employeeDashboard .menu button{
-    animation:softBlinkGlow 2.8s infinite;
-}
-#homePage button:nth-of-type(1){background:linear-gradient(135deg,#34401d,#6f7b2f) !important;}
-#homePage button:nth-of-type(2){background:linear-gradient(135deg,#0754a6,#1976d2) !important;}
-#homePage button:nth-of-type(3){background:linear-gradient(135deg,#2e7d32,#75a843) !important;}
-#homePage button:nth-of-type(4){background:linear-gradient(135deg,#ef6c00,#d4a017) !important;}
-#homePage button:nth-of-type(5){background:linear-gradient(135deg,#5b1b80,#8e24aa) !important;}
-
-.topbar{
-    padding:14px 16px;
-    margin-bottom:16px;
-    border-radius:18px;
-    background:linear-gradient(135deg,#253015,#6f7b2f);
-    color:#fff;
-    box-shadow:0 12px 30px rgba(0,0,0,.24);
-}
-.topbar h2{
-    margin:0;
-    color:#fff;
-    text-align:left;
-    letter-spacing:.4px;
-}
-#adminControlPanel{
-    background:
-        linear-gradient(135deg,rgba(255,255,255,.96),rgba(246,249,236,.96)) !important;
-    border:1px solid rgba(111,123,47,.25);
-    border-radius:22px;
-    box-shadow:0 14px 35px rgba(0,0,0,.18);
-}
-#adminControlPanel h3{
-    background:linear-gradient(135deg,#263015,#6f7b2f,#0754a6) !important;
-    color:#fff !important;
-    font-size:24px;
-    letter-spacing:.5px;
-    text-transform:uppercase;
-    border-radius:16px;
-    padding:16px;
-    box-shadow:0 10px 25px rgba(0,0,0,.24);
-}
-#adminControlPanel .menu{
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:15px;
-    counter-reset:adminCard;
-}
-#adminControlPanel .menu button{
-    min-height:58px;
-    text-align:left;
-    padding:15px 15px 15px 18px;
-    font-size:15px;
-    line-height:1.25;
-    border:1px solid rgba(255,255,255,.35);
-    background:linear-gradient(135deg,#0754a6,#1976d2) !important;
-}
-#adminControlPanel .menu button:nth-child(1){background:linear-gradient(135deg,#173f7a,#1976d2) !important;}
-#adminControlPanel .menu button:nth-child(2){background:linear-gradient(135deg,#2e5d1d,#5c8f28) !important;}
-#adminControlPanel .menu button:nth-child(3){background:linear-gradient(135deg,#673ab7,#8e24aa) !important;}
-#adminControlPanel .menu button:nth-child(4){background:linear-gradient(135deg,#bf5b00,#ef8f00) !important;}
-#adminControlPanel .menu button:nth-child(5){background:linear-gradient(135deg,#004d40,#00897b) !important;}
-#adminControlPanel .menu button:nth-child(6){background:linear-gradient(135deg,#2e7d32,#6f9d38) !important;}
-#adminControlPanel .menu button:nth-child(7){background:linear-gradient(135deg,#9b1c1c,#d32f2f) !important;}
-#adminControlPanel .menu button:nth-child(8){background:linear-gradient(135deg,#1565c0,#42a5f5) !important;}
-#adminControlPanel .menu button:nth-child(9){background:linear-gradient(135deg,#d65f00,#ff9800) !important;}
-#adminControlPanel .menu button:nth-child(10){background:linear-gradient(135deg,#33691e,#7cb342) !important;}
-#adminControlPanel .menu button:nth-child(11){background:linear-gradient(135deg,#4e5d16,#9e9d24) !important;}
-#adminControlPanel .menu button:nth-child(12){background:linear-gradient(135deg,#8e0000,#c62828) !important;}
-#adminControlPanel .menu button:nth-child(13){background:linear-gradient(135deg,#4a148c,#7b1fa2) !important;}
-#adminControlPanel .menu button:nth-child(14){background:linear-gradient(135deg,#7a4200,#ef6c00) !important;}
-#adminControlPanel .small-note{
-    margin-top:16px;
-    background:#f6f8e9;
-    border-left:5px solid var(--ao-olive);
-    padding:12px 14px;
-    border-radius:12px;
-    color:#36420f;
-    font-weight:700;
-}
-.admin-page-back-top,
-button.gray,
-.job-history-actions .gray{
-    background:linear-gradient(135deg,#263015,#4f5d24) !important;
-    border:1px solid rgba(255,255,255,.22);
-}
-.admin-page-back-top{
-    position:sticky;
-    top:10px;
-    z-index:10;
-    box-shadow:0 10px 26px rgba(0,0,0,.25);
-}
-.admin-subpage{
-    background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(240,246,220,.96)) !important;
-    border:1px solid rgba(111,123,47,.30) !important;
-}
-.admin-subpage h3{
-    background:linear-gradient(135deg,#263015,#6f7b2f,#0754a6) !important;
-}
-.box{
-    background:rgba(255,255,255,.90);
-}
+.topbar{padding:14px 16px;margin-bottom:16px;border-radius:18px;}
+.topbar h2{margin:0;color:#f5f6f8 !important;text-align:left;}
+#adminControlPanel{border-radius:22px;}
+#adminControlPanel h3{font-size:24px;letter-spacing:.5px;text-transform:uppercase;border-radius:16px;padding:16px;}
+#adminControlPanel .menu{grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:15px;}
+#adminControlPanel .menu button{min-height:58px;text-align:left;padding:15px 15px 15px 18px;font-size:15px;line-height:1.25;}
+.admin-page-back-top,button.gray,.job-history-actions .gray{background:linear-gradient(145deg,#1c1e22,#08090b) !important;}
+.admin-subpage{border-radius:18px;}
 input,textarea,select{
     border-radius:13px !important;
-    border:1px solid rgba(111,123,47,.32);
-    background:rgba(255,255,255,.96);
+    border:1px solid rgba(215,182,106,.30) !important;
+    background:rgba(245,247,250,.96) !important;
+    color:#111317 !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 5px 18px rgba(0,0,0,.16);
 }
+input::placeholder,textarea::placeholder{color:#737a84 !important;}
 input:focus,select:focus,textarea:focus{
-    border:2px solid #7c8a31;
-    box-shadow:0 0 0 4px rgba(111,123,47,.16),0 0 12px rgba(111,123,47,.25);
+    border:2px solid var(--ao-gold) !important;
+    box-shadow:0 0 0 4px rgba(215,182,106,.13),0 0 18px rgba(215,182,106,.18) !important;
 }
-#employeeDashboard .menu button:nth-child(1){background:linear-gradient(135deg,#0754a6,#1976d2) !important;}
-#employeeDashboard .menu button:nth-child(2){background:linear-gradient(135deg,#2e7d32,#6f9d38) !important;}
-#employeeDashboard .menu button:nth-child(3){background:linear-gradient(135deg,#ef6c00,#d4a017) !important;}
-#employeeDashboard .menu button:nth-child(4){background:linear-gradient(135deg,#4e5d16,#8c9430) !important;}
-#employeeView{
-    border-radius:18px;
-    background:rgba(255,255,255,.92);
-    border:1px solid rgba(111,123,47,.20);
+table,.admin-subpage table,.employee-info-table,.dashboard-table,.accessive-ot-table,.job-history-table{
+    background:rgba(245,247,250,.94) !important;
+    border-color:rgba(215,182,106,.34) !important;
 }
+th,.admin-subpage th,.employee-info-table th,.dashboard-table th,.accessive-ot-table th,.job-history-table th{
+    background:linear-gradient(135deg,#111317,#2a2d32) !important;
+    color:#f4f5f7 !important;
+    border-color:rgba(215,182,106,.30) !important;
+}
+td,.admin-subpage td,.employee-info-table td,.dashboard-table td,.accessive-ot-table td,.job-history-table td{
+    background:rgba(250,251,252,.94) !important;
+    color:#17191d !important;
+    border-color:rgba(60,64,70,.20) !important;
+}
+tr:nth-child(even) td,.admin-subpage tr:nth-child(even) td,.employee-info-table tr:nth-child(even) td,.accessive-ot-table tbody tr:nth-child(even),.job-history-table tbody tr:nth-child(even){background:rgba(232,234,238,.92) !important;}
+.status,.success,.error,.small-note,.not-publish-box{
+    background:rgba(18,20,24,.86) !important;
+    border:1px solid rgba(215,182,106,.25) !important;
+    color:#edf0f3 !important;
+}
+.success{border-color:rgba(112,180,126,.40) !important;}
+.error{border-color:rgba(220,100,100,.42) !important;}
+.not-publish-box h2,.not-publish-box .not-publish-text{color:#f1f3f6 !important;text-shadow:none !important;}
+a{color:#f0d998 !important;}
+#homePage a{color:#d7b66a !important;text-shadow:none;}
+.rocket-commit-card{background:linear-gradient(145deg,rgba(255,255,255,.08),rgba(215,182,106,.07)) !important;border-color:rgba(215,182,106,.28) !important;box-shadow:0 18px 40px rgba(0,0,0,.46),inset 0 1px 0 rgba(255,255,255,.08);}
+.rocket-commit-card h3{background:linear-gradient(135deg,#0a0b0d,#30291d,#0a0b0d) !important;color:#f5f6f8 !important;border-color:rgba(215,182,106,.25) !important;}
+.rocket-help-text{background:rgba(12,14,17,.86) !important;border-color:rgba(215,182,106,.25) !important;color:#e8ebef !important;}
+.rocket-selected-table .rocket-name-cell,.rocket-selected-table .rocket-account-cell{color:#181a1e !important;}
+.status:empty,.small-note:empty,#submittedFormResult:empty,#newJoinStatus:empty,#adminStatus:empty,#rocketCommitmentStatus:empty{display:none!important;}
 @media(max-width:700px){
     body{padding:12px;}
     .portal-hero{border-radius:18px;padding:18px 10px;}
@@ -902,178 +816,8 @@ input:focus,select:focus,textarea:focus{
     .topbar{align-items:flex-start;flex-direction:column;}
     .topbar button{width:100%;}
 }
-
-
-
-/* ===== FINAL A&O OLIVE GLASS THEME OVERRIDE (DESIGN ONLY) ===== */
-:root{
-    --ao-olive-deep:#1f2a12;
-    --ao-olive-dark:#2d3a18;
-    --ao-olive:#5f6f2a;
-    --ao-olive-light:#9aa85a;
-    --ao-olive-soft:#d7dfa3;
-    --ao-glass-olive:rgba(96,111,42,.28);
-    --ao-glass-olive-strong:rgba(67,82,28,.72);
-    --ao-text-cream:#fbffe8;
-}
-body{
-    background:#11170b !important;
-    color:#17210c;
-}
-body::after{
-    background:
-        radial-gradient(circle at 18% 8%,rgba(188,202,104,.35),transparent 32%),
-        radial-gradient(circle at 82% 18%,rgba(100,119,45,.28),transparent 34%),
-        radial-gradient(circle at 50% 100%,rgba(43,58,20,.45),transparent 42%),
-        linear-gradient(135deg,rgba(13,20,8,.94),rgba(63,78,27,.83),rgba(11,16,7,.96)) !important;
-}
-.portal-hero{
-    background:
-        linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,.035)),
-        linear-gradient(135deg,rgba(42,55,19,.78),rgba(113,130,48,.42)) !important;
-    border:1px solid rgba(215,223,163,.34) !important;
-    box-shadow:0 20px 52px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.14) !important;
-}
-.ao-logo-mark{
-    width:142px;
-    height:118px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:15px;
-    border-radius:30px;
-    font-size:44px;
-    font-weight:1000;
-    letter-spacing:-3px;
-    color:#f9ffe5;
-    text-shadow:0 3px 12px rgba(0,0,0,.55),0 0 20px rgba(215,223,163,.26);
-    background:
-        radial-gradient(circle at 30% 20%,rgba(255,255,255,.24),transparent 28%),
-        linear-gradient(145deg,rgba(154,168,90,.95),rgba(47,62,22,.96) 55%,rgba(31,42,18,.98));
-    border:1px solid rgba(231,238,181,.55);
-    box-shadow:0 14px 35px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.26), 0 0 0 5px rgba(215,223,163,.10);
-}
-.portal-title-box{
-    background:linear-gradient(135deg,rgba(31,42,18,.96),rgba(95,111,42,.92),rgba(45,58,24,.96)) !important;
-    border:1px solid rgba(215,223,163,.35) !important;
-}
-.portal-title-box h1,
-.topbar h2,
-button{
-    color:var(--ao-text-cream) !important;
-    text-shadow:0 2px 6px rgba(0,0,0,.55);
-}
-.card,#homePage,#adminControlPanel,.admin-subpage,.dashboard-card,.employee-info-card,.accessive-ot-card,.job-history-wrap,#employeeView,.box{
-    background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(215,223,163,.10)) !important;
-    border:1px solid rgba(215,223,163,.28) !important;
-    box-shadow:0 16px 42px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.12) !important;
-    backdrop-filter:blur(10px);
-}
-#homePage::before,
-h1,h2,h3,.small-note,label{
-    color:#f8ffe0 !important;
-    text-shadow:0 2px 8px rgba(0,0,0,.45);
-}
-button,
-button.green,
-button.orange,
-button.purple,
-button.red,
-button.gray,
-#homePage button,
-#adminControlPanel .menu button,
-#employeeDashboard .menu button,
-.topbar button,
-.admin-page-back-top,
-.job-history-actions button,
-.print-actions button{
-    background:linear-gradient(135deg,rgba(31,42,18,.98),rgba(95,111,42,.94) 52%,rgba(48,62,23,.98)) !important;
-    border:1px solid rgba(215,223,163,.44) !important;
-    color:#fbffe8 !important;
-    box-shadow:0 10px 24px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.18), 0 0 16px rgba(154,168,90,.16) !important;
-}
-button:hover,
-button.green:hover,
-button.orange:hover,
-button.purple:hover,
-button.red:hover,
-button.gray:hover,
-#homePage button:hover,
-#adminControlPanel .menu button:hover,
-#employeeDashboard .menu button:hover{
-    background:linear-gradient(135deg,rgba(46,61,21,.99),rgba(124,139,55,.98) 54%,rgba(55,71,27,.99)) !important;
-    box-shadow:0 14px 31px rgba(0,0,0,.36),0 0 22px rgba(215,223,163,.32) !important;
-}
-.topbar,
-#adminControlPanel h3,
-.admin-subpage h3,
-.box h3,
-.accessive-ot-table-title,
-.job-history-table-title{
-    background:linear-gradient(135deg,rgba(31,42,18,.98),rgba(95,111,42,.94),rgba(42,55,20,.98)) !important;
-    border:1px solid rgba(215,223,163,.35) !important;
-    color:#fbffe8 !important;
-}
-input,textarea,select{
-    background:rgba(251,255,232,.88) !important;
-    border:1px solid rgba(154,168,90,.60) !important;
-    color:#1c260f !important;
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
-}
-input:focus,select:focus,textarea:focus{
-    border:2px solid #bac86b !important;
-    box-shadow:0 0 0 4px rgba(154,168,90,.22),0 0 16px rgba(215,223,163,.32) !important;
-}
-table,.admin-subpage table,.employee-info-table,.dashboard-table,.accessive-ot-table,.job-history-table{
-    background:rgba(251,255,232,.82) !important;
-    border-color:rgba(95,111,42,.65) !important;
-}
-th,.admin-subpage th,.employee-info-table th,.dashboard-table th,.accessive-ot-table th,.job-history-table th{
-    background:linear-gradient(135deg,#273616,#66772f) !important;
-    color:#fbffe8 !important;
-    border-color:rgba(215,223,163,.45) !important;
-}
-td,.admin-subpage td,.employee-info-table td,.dashboard-table td,.accessive-ot-table td,.job-history-table td{
-    background:rgba(250,255,230,.74) !important;
-    color:#15200b !important;
-    border-color:rgba(95,111,42,.45) !important;
-}
-tr:nth-child(even) td,
-.admin-subpage tr:nth-child(even) td,
-.employee-info-table tr:nth-child(even) td,
-.accessive-ot-table tbody tr:nth-child(even),
-.job-history-table tbody tr:nth-child(even){
-    background:rgba(226,235,173,.62) !important;
-}
-.status,.success,.error,.small-note,.not-publish-box{
-    background:rgba(251,255,232,.78) !important;
-    border:1px solid rgba(154,168,90,.45) !important;
-    color:#1d2a0f !important;
-}
-a{color:#e9f5a9 !important;}
-#homePage a{color:#415315 !important;text-shadow:none;}
-
-
-/* ===== Rocket Commitment Module (Admin Only) ===== */
-.rocket-commit-card{background:linear-gradient(145deg,rgba(245,250,226,.92),rgba(111,123,47,.30)) !important;border:1px solid rgba(215,223,163,.42) !important;border-radius:18px;padding:18px;box-shadow:0 14px 34px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.18);}
-.rocket-commit-card h3{background:linear-gradient(135deg,rgba(31,42,18,.98),rgba(95,111,42,.94),rgba(42,55,20,.98)) !important;color:#fbffe8 !important;border:1px solid rgba(215,223,163,.35) !important;}
-.rocket-input-row{display:grid;grid-template-columns:1.2fr auto auto;gap:10px;align-items:end;}
-.rocket-selected-table th,.rocket-selected-table td{text-align:center;vertical-align:middle;}
-.rocket-selected-table .rocket-name-cell,.rocket-selected-table .rocket-account-cell{font-weight:900;color:#1f2a12 !important;}
-.rocket-preview-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
-.rocket-preview-actions button{width:auto;min-width:150px;}
-.rocket-help-text{margin-top:8px;background:rgba(251,255,232,.75);border:1px solid rgba(154,168,90,.45);color:#24300f;padding:10px 12px;border-radius:12px;font-weight:700;line-height:1.5;}
-@media(max-width:700px){.rocket-input-row{grid-template-columns:1fr;}.rocket-preview-actions button{width:100%;}}
-
-
-/* Hide empty instruction/status boxes after note cleanup */
-.status:empty,
-.small-note:empty,
-#submittedFormResult:empty,
-#newJoinStatus:empty,
-#adminStatus:empty,
-#rocketCommitmentStatus:empty{
-    display:none!important;
+@media print{
+    body{background:#fff !important;color:#000 !important;}
 }
 
 </style>
@@ -4260,17 +4004,6 @@ function renderRocketCommitmentRows(){
 function removeRocketCommitmentRow(index){ rocketCommitmentRows.splice(index, 1); renderRocketCommitmentRows(); }
 function clearRocketCommitmentList(){ rocketCommitmentRows = []; renderRocketCommitmentRows(); setRocketStatus(""); }
 function escapeRocketHtml(value){ return String(value ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
-function rocketCommitmentFormHtml(row){ const name = escapeRocketHtml(row.name || ""); const account = escapeRocketHtml(row.rocketAccount || ""); return `<div class="rocket-form-box"><h2>অঙ্গীকার নামা</h2><p class="rocket-text">আমি নিম্ন স্বাক্ষরকারী এই মর্মে প্রত্যয়ন করছি যে, আমার নামে রকেট-এ অন্য কোন একাউন্ট নাই এবং ভবিষ্যতে আমি যদি অন্য রকেট একাউন্ট খুলতে চাই তাহলে নিজ থেকে বর্তমান একাউন্টটি বন্ধ করব। তাছাড়া আমি যখনই NID হাতে পাবো রকেট এর অফিসে ফটোকপি জমা দিয়ে আমার তথ্য হালনাগাদ করবো।</p><div class="rocket-line"><span>স্বাক্ষর</span><b>:</b><strong></strong></div><div class="rocket-line"><span>নাম</span><b>:</b><strong>${name}</strong></div><div class="rocket-line"><span>রকেট একাউন্ট নম্বর</span><b>:</b><strong>${account}</strong></div></div>`; }
-function previewRocketCommitment(){
-    if(!rocketCommitmentRows.length){ setRocketStatus("Preview করার আগে Employee ID add করুন।", "error"); return; }
-    const pages = [];
-    for(let i = 0; i < rocketCommitmentRows.length; i += 3){ const pageRows = rocketCommitmentRows.slice(i, i + 3); pages.push(`<div class="rocket-print-page">${pageRows.map(rocketCommitmentFormHtml).join("")}</div>`); }
-    const html = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rocket Commitment</title><style>@page{size:A4;margin:8mm;}*{box-sizing:border-box;}body{margin:0;background:#f5f5f5;color:#000;font-family:Arial,'Noto Sans Bengali','SolaimanLipi',sans-serif;}.print-actions{text-align:center;padding:10px;}.print-actions button{width:auto;padding:9px 18px;margin:0 5px;border:0;border-radius:8px;background:#0754a6;color:#fff;font-weight:bold;cursor:pointer;}.rocket-print-page{width:210mm;min-height:297mm;margin:0 auto 10px auto;background:#fff;padding:5mm 4mm;page-break-after:always;}.rocket-print-page:last-child{page-break-after:auto;}.rocket-form-box{width:100%;height:91mm;border:1.5px solid #000;padding:7mm 4mm 4mm 4mm;margin-bottom:6mm;overflow:hidden;}.rocket-form-box:last-child{margin-bottom:0;}.rocket-form-box h2{text-align:center;font-size:22px;font-weight:900;text-decoration:underline;margin:0 0 8mm 0;}.rocket-text{font-size:17px;line-height:2.05;font-weight:700;text-align:left;margin:0 0 13mm 0;}.rocket-line{display:grid;grid-template-columns:39mm 5mm 1fr;gap:2mm;align-items:end;font-size:16px;font-weight:800;margin-top:7mm;}.rocket-line span{font-weight:900;}.rocket-line strong{min-height:7mm;border-bottom:0;font-weight:900;font-size:17px;}@media print{body{background:#fff;}.print-actions{display:none;}.rocket-print-page{margin:0;padding:5mm 4mm;box-shadow:none;}}</style></head><body><div class="print-actions"><button onclick="window.print()">Print / Save PDF</button><button onclick="window.close()">Close</button></div>${pages.join("")}</body></html>`;
-    const win = window.open("", "_blank"); win.document.write(html); win.document.close();
-}
-
-
-
 /* Rocket Commitment output layout fix - full fields visible */
 function rocketCommitmentFormHtml(row){
     const name = escapeRocketHtml(row.name || "");
