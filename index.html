@@ -1609,6 +1609,126 @@ body::after{
 }
 
 
+
+/* Employee Support Inbox - visible on Employee Profile */
+.employee-profile-support-box{
+    margin-top:18px;
+    padding:18px;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:14px;
+    align-items:center;
+    background:linear-gradient(135deg,#f7fbff,#edf5fb);
+    border:1px solid rgba(57,92,120,.20);
+    border-radius:16px;
+    box-shadow:0 7px 20px rgba(40,70,95,.08);
+}
+.employee-profile-support-icon{font-size:30px;line-height:1;}
+.employee-profile-support-content h3{margin:0 0 5px;color:#284a63;}
+.employee-profile-support-content p{margin:0;color:#5f7280;font-size:13px;line-height:1.6;}
+.employee-profile-support-btn{
+    position:relative;
+    width:auto !important;
+    min-width:155px !important;
+    margin:0 !important;
+}
+.employee-support-unread{
+    display:none;
+    position:absolute;
+    top:-8px;
+    right:-8px;
+    min-width:24px;
+    height:24px;
+    padding:0 7px;
+    align-items:center;
+    justify-content:center;
+    border-radius:999px;
+    background:#dc2626;
+    color:#fff;
+    font-size:11px;
+    font-weight:900;
+    box-shadow:0 3px 10px rgba(220,38,38,.28);
+}
+.support-inbox-wrap{max-width:900px;margin:0 auto;}
+.support-inbox-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    padding:20px;
+    border-radius:16px;
+    background:linear-gradient(135deg,#f7fbff,#eaf3f9);
+    border:1px solid rgba(57,92,120,.18);
+    margin-bottom:15px;
+}
+.support-inbox-kicker{
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1px;
+    color:#35627e;
+}
+.support-inbox-header h2{margin:4px 0 6px;color:#284a63;}
+.support-inbox-header p{margin:0;color:#5f7280;font-size:13px;}
+.support-inbox-employee{
+    padding:8px 12px;
+    border-radius:999px;
+    background:#fff;
+    border:1px solid #d8e2e9;
+    color:#284a63;
+    font-weight:800;
+    font-size:12px;
+}
+.support-message-card{
+    background:#fff;
+    border:1px solid rgba(57,92,120,.16);
+    border-radius:15px;
+    padding:16px;
+    margin:10px 0;
+    box-shadow:0 5px 16px rgba(0,0,0,.05);
+}
+.support-message-card.has-reply{border-left:4px solid #16a34a;}
+.support-message-card.waiting{border-left:4px solid #d97706;}
+.support-message-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+}
+.support-message-top strong{display:block;color:#284a63;font-size:15px;}
+.support-message-top small{display:block;color:#7b8c98;margin-top:4px;font-size:11px;}
+.support-label{
+    margin-top:13px;
+    margin-bottom:5px;
+    font-size:11px;
+    font-weight:900;
+    color:#35627e;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+}
+.support-complaint-text,.support-reply-text{
+    padding:11px 12px;
+    border-radius:10px;
+    white-space:pre-wrap;
+    line-height:1.6;
+    font-size:13px;
+}
+.support-complaint-text{background:#f7fafc;color:#4d5f6b;}
+.support-reply-text{background:#f1f8f3;color:#31553a;}
+.support-empty{
+    text-align:center;
+    padding:35px 15px;
+    background:#fff;
+    border:1px dashed #b9cbd7;
+    border-radius:14px;
+    color:#6b7d89;
+}
+@media(max-width:700px){
+    .employee-profile-support-box{grid-template-columns:1fr;text-align:center;}
+    .employee-profile-support-btn{width:100% !important;}
+    .support-inbox-header{flex-direction:column;align-items:flex-start;}
+    .support-message-top{flex-direction:column;}
+}
+
 /* Employee Profile - Confidential Complaint Box */
 .employee-profile-complaint-box{
     margin-top:22px;
@@ -3481,6 +3601,18 @@ function showEmployeeInfo(){
             <div id="employeePhotoStatus" class="employee-photo-status"></div>
         </div>
 
+        <div class="employee-profile-support-box">
+            <div class="employee-profile-support-icon">💬</div>
+            <div class="employee-profile-support-content">
+                <h3>Support Inbox</h3>
+                <p>HR / Admin থেকে আপনার অভিযোগের feedback ও update এখানে দেখতে পারবেন।</p>
+            </div>
+            <button type="button" class="employee-profile-support-btn" onclick="showEmployeeSupportInbox()">
+                📥 Support Inbox
+                <span id="employeeSupportUnread" class="employee-support-unread">0</span>
+            </button>
+        </div>
+
         <div class="employee-info-table-wrap">
         <table class="employee-info-table">
     `;
@@ -3514,6 +3646,152 @@ function showEmployeeInfo(){
 
     const photo = document.getElementById("employeePhotoPreview");
     if(photo) loadEmployeePhotoInto(photo, employeeId);
+    refreshEmployeeSupportUnread(employeeId);
+}
+
+function employeeSupportSeenKey(employeeId){
+    return "ao_employee_support_seen_" + String(employeeId || "").trim().toUpperCase();
+}
+
+function getEmployeeSupportSeen(employeeId){
+    return localStorage.getItem(employeeSupportSeenKey(employeeId)) || "";
+}
+
+function setEmployeeSupportSeen(employeeId, timestamp){
+    if(!employeeId || !timestamp) return;
+    localStorage.setItem(employeeSupportSeenKey(employeeId), String(timestamp));
+}
+
+async function fetchEmployeeSupportMessages(employeeId){
+    const id = String(employeeId || "").trim().toUpperCase();
+    if(!id) return [];
+
+    const {data,error} = await supabaseClient
+        .from("Employee_Complaints")
+        .select("*")
+        .eq("employee_id", id)
+        .order("updated_at", {ascending:false})
+        .order("created_at", {ascending:false})
+        .limit(100);
+
+    if(error) throw error;
+    return data || [];
+}
+
+async function refreshEmployeeSupportUnread(employeeId){
+    const badge = document.getElementById("employeeSupportUnread");
+    if(!badge) return;
+
+    try{
+        const rows = await fetchEmployeeSupportMessages(employeeId);
+        const seen = getEmployeeSupportSeen(employeeId);
+
+        const unread = rows.filter(r => {
+            const reply = String(r.admin_reply || "").trim();
+            if(!reply) return false;
+
+            const changed = String(r.updated_at || r.created_at || "");
+            return !seen || changed > seen;
+        }).length;
+
+        badge.textContent = unread > 99 ? "99+" : String(unread);
+        badge.style.display = unread ? "inline-flex" : "none";
+    }catch(error){
+        console.log("Support inbox unread check failed:", error);
+        badge.textContent = "0";
+        badge.style.display = "none";
+    }
+}
+
+async function showEmployeeSupportInbox(){
+    const info = currentEmployee?.info || {};
+    const employeeId = String(info.Employee_ID || "").trim().toUpperCase();
+
+    if(!employeeId){
+        alert("Employee information not found.");
+        return;
+    }
+
+    document.getElementById("employeeView").innerHTML = `
+        <div class="support-inbox-wrap">
+            <button class="gray employee-profile-complaint-back" onclick="showEmployeeInfo()">← Back to Employee Profile</button>
+
+            <div class="support-inbox-header">
+                <div>
+                    <div class="support-inbox-kicker">EMPLOYEE SUPPORT</div>
+                    <h2>Support Inbox</h2>
+                    <p>HR / Admin থেকে আপনার অভিযোগের feedback ও update এখানে দেখতে পারবেন।</p>
+                </div>
+                <div class="support-inbox-employee">${complaintSafe(employeeId)}</div>
+            </div>
+
+            <div id="employeeSupportMessageList">
+                <div class="status">Loading messages...</div>
+            </div>
+        </div>`;
+
+    try{
+        const rows = await fetchEmployeeSupportMessages(employeeId);
+        const repliedRows = rows.filter(r => String(r.admin_reply || "").trim());
+
+        if(repliedRows.length){
+            const latest = repliedRows.reduce((max,r) => {
+                const t = String(r.updated_at || r.created_at || "");
+                return t > max ? t : max;
+            }, "");
+
+            if(latest) setEmployeeSupportSeen(employeeId, latest);
+        }
+
+        const list = document.getElementById("employeeSupportMessageList");
+        if(!list) return;
+
+        if(!rows.length){
+            list.innerHTML = `
+                <div class="support-empty">
+                    এখনও কোনো complaint / support message নেই।
+                </div>`;
+        }else{
+            list.innerHTML = rows.map(r => {
+                const hasReply = String(r.admin_reply || "").trim();
+                const status = String(r.status || "Pending");
+
+                return `
+                    <div class="support-message-card ${hasReply ? "has-reply" : "waiting"}">
+                        <div class="support-message-top">
+                            <div>
+                                <strong>${complaintSafe(r.subject || "General Complaint")}</strong>
+                                <small>Complaint #${complaintSafe(r.complaint_id)} • ${complaintSafe(complaintDate(r.created_at))}</small>
+                            </div>
+                            ${complaintBadge(status)}
+                        </div>
+
+                        <div class="support-label">Your Complaint</div>
+                        <div class="support-complaint-text">${complaintSafe(r.complaint || "")}</div>
+
+                        <div class="support-label">HR / Admin Feedback</div>
+                        <div class="support-reply-text">
+                            ${hasReply
+                                ? complaintSafe(r.admin_reply)
+                                : "আপনার অভিযোগটি পর্যালোচনাধীন। HR / Admin-এর feedback এখানে দেখাবে।"}
+                        </div>
+                    </div>`;
+            }).join("");
+        }
+
+        const badge = document.getElementById("employeeSupportUnread");
+        if(badge){
+            badge.textContent = "0";
+            badge.style.display = "none";
+        }
+
+    }catch(error){
+        const list = document.getElementById("employeeSupportMessageList");
+        if(list){
+            list.innerHTML =
+                `<div class="status error">Support Inbox load failed: ${complaintSafe(error.message)}</div>`;
+        }
+    }
 }
 
 function showEmployeeProfileComplaint(){
@@ -3581,6 +3859,7 @@ async function submitEmployeeProfileComplaint(){
         const { error } = await supabaseClient
             .from("Employee_Complaints")
             .insert([{
+                employee_id: employeeId,
                 employee_name: name,
                 email: email,
                 subject: subject || "Employee Profile Complaint",
