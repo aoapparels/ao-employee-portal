@@ -1610,124 +1610,91 @@ body::after{
 
 
 
-/* Employee Support Inbox - visible on Employee Profile */
-.employee-profile-support-box{
-    margin-top:18px;
-    padding:18px;
-    display:grid;
-    grid-template-columns:auto 1fr auto;
-    gap:14px;
-    align-items:center;
-    background:linear-gradient(135deg,#f7fbff,#edf5fb);
-    border:1px solid rgba(57,92,120,.20);
-    border-radius:16px;
-    box-shadow:0 7px 20px rgba(40,70,95,.08);
-}
-.employee-profile-support-icon{font-size:30px;line-height:1;}
-.employee-profile-support-content h3{margin:0 0 5px;color:#284a63;}
-.employee-profile-support-content p{margin:0;color:#5f7280;font-size:13px;line-height:1.6;}
+/* Employee Support Inbox - compact button only */
 .employee-profile-support-btn{
-    position:relative;
+    position:relative !important;
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:6px !important;
     width:auto !important;
-    min-width:155px !important;
-    margin:0 !important;
+    min-width:118px !important;
+    height:34px !important;
+    margin:6px 0 0 !important;
+    padding:0 11px !important;
+    border-radius:8px !important;
+    font-size:11px !important;
+    font-weight:800 !important;
+    white-space:nowrap !important;
 }
 .employee-support-unread{
     display:none;
     position:absolute;
     top:-8px;
-    right:-8px;
-    min-width:24px;
-    height:24px;
-    padding:0 7px;
+    right:-7px;
+    min-width:22px;
+    height:22px;
+    padding:0 6px;
+    box-sizing:border-box;
     align-items:center;
     justify-content:center;
     border-radius:999px;
     background:#dc2626;
-    color:#fff;
-    font-size:11px;
-    font-weight:900;
-    box-shadow:0 3px 10px rgba(220,38,38,.28);
+    color:#fff !important;
+    border:2px solid #fff;
+    font-size:10px !important;
+    line-height:18px !important;
+    font-weight:900 !important;
+    z-index:20;
+    box-shadow:0 2px 7px rgba(220,38,38,.3);
 }
-.support-inbox-wrap{max-width:900px;margin:0 auto;}
-.support-inbox-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:14px;
-    padding:20px;
-    border-radius:16px;
-    background:linear-gradient(135deg,#f7fbff,#eaf3f9);
-    border:1px solid rgba(57,92,120,.18);
-    margin-bottom:15px;
+.employee-photo-support-wrap{
+    display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin-top:5px;
 }
-.support-inbox-kicker{
-    font-size:11px;
-    font-weight:900;
-    letter-spacing:1px;
-    color:#35627e;
-}
-.support-inbox-header h2{margin:4px 0 6px;color:#284a63;}
-.support-inbox-header p{margin:0;color:#5f7280;font-size:13px;}
-.support-inbox-employee{
-    padding:8px 12px;
-    border-radius:999px;
-    background:#fff;
-    border:1px solid #d8e2e9;
-    color:#284a63;
-    font-weight:800;
-    font-size:12px;
-}
-.support-message-card{
-    background:#fff;
-    border:1px solid rgba(57,92,120,.16);
-    border-radius:15px;
-    padding:16px;
-    margin:10px 0;
-    box-shadow:0 5px 16px rgba(0,0,0,.05);
-}
-.support-message-card.has-reply{border-left:4px solid #16a34a;}
-.support-message-card.waiting{border-left:4px solid #d97706;}
-.support-message-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:10px;
-}
-.support-message-top strong{display:block;color:#284a63;font-size:15px;}
-.support-message-top small{display:block;color:#7b8c98;margin-top:4px;font-size:11px;}
-.support-label{
-    margin-top:13px;
-    margin-bottom:5px;
-    font-size:11px;
-    font-weight:900;
-    color:#35627e;
-    text-transform:uppercase;
-    letter-spacing:.4px;
-}
-.support-complaint-text,.support-reply-text{
-    padding:11px 12px;
-    border-radius:10px;
-    white-space:pre-wrap;
-    line-height:1.6;
-    font-size:13px;
-}
-.support-complaint-text{background:#f7fafc;color:#4d5f6b;}
-.support-reply-text{background:#f1f8f3;color:#31553a;}
-.support-empty{
-    text-align:center;
-    padding:35px 15px;
-    background:#fff;
-    border:1px dashed #b9cbd7;
-    border-radius:14px;
-    color:#6b7d89;
-}
-@media(max-width:700px){
-    .employee-profile-support-box{grid-template-columns:1fr;text-align:center;}
-    .employee-profile-support-btn{width:100% !important;}
-    .support-inbox-header{flex-direction:column;align-items:flex-start;}
-    .support-message-top{flex-direction:column;}
-}
+
+/* Complaint management */
+.complaint-admin-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.complaint-admin-head h3{margin:0;color:#5f4025;}
+.complaint-list-count{font-size:11px;color:#7c6b5a;background:#f7efe6;border:1px solid #e5d6c7;border-radius:999px;padding:5px 9px;font-weight:800;}
+.complaint-list-table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:1px solid rgba(111,74,43,.16);border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(0,0,0,.045);}
+.complaint-list-table th{background:#f6eee5;color:#6a4931;font-size:11px;font-weight:900;text-align:left;padding:10px 9px;border-bottom:1px solid #e4d6c8;white-space:nowrap;}
+.complaint-list-table td{padding:10px 9px;border-bottom:1px solid #eee6df;color:#3e3026;font-size:12px;vertical-align:middle;}
+.complaint-list-table tr:last-child td{border-bottom:0;}
+.complaint-list-table tr:hover td{background:#fffaf5;}
+.complaint-list-subject{font-weight:800;color:#5f4025;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.complaint-list-employee{font-weight:800;color:#3e3026;}
+.complaint-list-actions{display:flex;align-items:center;justify-content:flex-end;gap:5px;white-space:nowrap;}
+.complaint-icon-btn{width:29px !important;height:29px !important;min-width:29px !important;margin:0 !important;padding:0 !important;border-radius:7px !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;font-size:13px !important;line-height:1 !important;}
+.complaint-icon-btn.view{background:#edf5fb !important;color:#285b78 !important;border:1px solid #cfe0ea !important;}
+.complaint-icon-btn.delete{background:#fff0f0 !important;color:#b42318 !important;border:1px solid #f1caca !important;}
+.complaint-icon-btn.print{background:#f4f0ea !important;color:#6a4b32 !important;border:1px solid #ded1c3 !important;}
+.complaint-modal-backdrop{position:fixed;inset:0;background:rgba(20,25,30,.52);display:none;align-items:center;justify-content:center;padding:18px;z-index:99999;}
+.complaint-modal{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:15px;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.complaint-modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:15px 17px;border-bottom:1px solid #e8e0d9;background:#fffaf5;}
+.complaint-modal-head h3{margin:0;color:#5f4025;font-size:16px;}
+.complaint-modal-close{width:30px !important;height:30px !important;min-width:30px !important;padding:0 !important;margin:0 !important;border:0 !important;background:#f0e9e2 !important;color:#5f4025 !important;border-radius:7px !important;font-size:16px !important;}
+.complaint-modal-body{padding:17px;}
+.complaint-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
+.complaint-detail-grid div{background:#f8f5f2;border:1px solid #ebe2da;border-radius:9px;padding:9px 10px;}
+.complaint-detail-grid span{display:block;font-size:9px;color:#8b7868;text-transform:uppercase;font-weight:800;margin-bottom:3px;}
+.complaint-detail-grid strong{font-size:12px;color:#3f3026;}
+.complaint-conversation{background:#eef3f5;border:1px solid #d7e0e4;border-radius:12px;overflow:hidden;}
+.complaint-conversation-head{padding:9px 11px;background:#284a63;color:#fff;display:flex;justify-content:space-between;gap:8px;font-size:11px;font-weight:800;}
+.complaint-conversation-body{padding:11px;max-height:280px;overflow:auto;}
+.complaint-chat-row{display:flex;margin:6px 0;}
+.complaint-chat-row.employee{justify-content:flex-start;}
+.complaint-chat-row.admin{justify-content:flex-end;}
+.complaint-chat-bubble{max-width:78%;padding:8px 10px;border-radius:9px;font-size:12px;line-height:1.5;color:#263b46;white-space:pre-wrap;box-shadow:0 1px 2px rgba(0,0,0,.05);}
+.complaint-chat-row.employee .complaint-chat-bubble{background:#fff;border:1px solid #e0e7ea;border-top-left-radius:3px;}
+.complaint-chat-row.admin .complaint-chat-bubble{background:#dff4e5;border:1px solid #c8e6d0;border-top-right-radius:3px;}
+.complaint-chat-label{display:block;font-size:9px;font-weight:800;color:#71838d;margin-bottom:3px;}
+.complaint-chat-time{display:block;text-align:right;font-size:8px;color:#81919a;margin-top:3px;}
+.complaint-modal-form{margin-top:12px;}
+.complaint-modal-form select,.complaint-modal-form textarea{width:100%;box-sizing:border-box;margin:6px 0 9px;}
+.complaint-modal-actions{display:flex;justify-content:flex-end;gap:7px;flex-wrap:wrap;}
+.complaint-modal-actions button{width:auto !important;min-width:100px !important;height:34px !important;padding:0 12px !important;border-radius:7px !important;font-size:11px !important;margin:0 !important;}
+@media(max-width:700px){.complaint-list-table th:nth-child(4),.complaint-list-table td:nth-child(4){display:none;}.complaint-detail-grid{grid-template-columns:1fr;}.complaint-list-subject{max-width:150px;}}
+@media(max-width:520px){.complaint-list-table th,.complaint-list-table td{padding:8px 6px;font-size:10px;}.complaint-icon-btn{width:27px !important;height:27px !important;min-width:27px !important;}}
 
 /* Employee Profile - Confidential Complaint Box */
 .employee-profile-complaint-box{
@@ -2442,7 +2409,10 @@ async function showComplaintManagement(){
     document.getElementById("adminView").innerHTML = `
         ${adminBackButtonHtml()}
         <div class="complaint-admin-card">
-            <h3>Complaint Box</h3>
+            <div class="complaint-admin-head">
+                <h3>Complaint Box</h3>
+                <span id="complaintListCount" class="complaint-list-count">0 Complaints</span>
+            </div>
             <div class="complaint-admin-tools">
                 <select id="complaintFilter" onchange="loadComplaintManagement()">
                     <option value="">All Status</option>
@@ -2450,10 +2420,16 @@ async function showComplaintManagement(){
                     <option value="In Progress">In Progress</option>
                     <option value="Resolved">Resolved</option>
                 </select>
-                <input id="complaintSearch" placeholder="Search name, email or subject" oninput="filterComplaintManagement()">
+                <input id="complaintSearch" placeholder="Search ID, name, section or subject" oninput="filterComplaintManagement()">
                 <button class="green" onclick="loadComplaintManagement()">Refresh</button>
             </div>
-            <div id="complaintAdminList" class="complaint-admin-list">Loading complaints...</div>
+            <div id="complaintAdminList">Loading complaints...</div>
+        </div>
+
+        <div id="complaintViewModal" class="complaint-modal-backdrop" onclick="closeComplaintModal(event)">
+            <div class="complaint-modal" onclick="event.stopPropagation()">
+                <div id="complaintModalContent"></div>
+            </div>
         </div>`;
     await loadComplaintManagement();
 }
@@ -2478,55 +2454,130 @@ function filterComplaintManagement(){
     const q = String(document.getElementById("complaintSearch")?.value || "").trim().toLowerCase();
     if(!q){ renderComplaintManagement(complaintAdminRows); return; }
     renderComplaintManagement(complaintAdminRows.filter(r =>
-        [r.employee_name,r.email,r.subject,r.complaint,r.status].join(" ").toLowerCase().includes(q)
+        [r.employee_id,r.employee_name,r.section,r.email,r.subject,r.complaint,r.status].join(" ").toLowerCase().includes(q)
     ));
 }
 
 function renderComplaintManagement(rows){
     const box = document.getElementById("complaintAdminList");
     if(!box) return;
+    const count = document.getElementById("complaintListCount");
+    if(count) count.textContent = `${rows.length} Complaint${rows.length === 1 ? "" : "s"}`;
+
     if(!rows.length){
         box.innerHTML = `<div class="status">No complaints found.</div>`;
         return;
     }
 
-    box.innerHTML = rows.map(r => `
-        <div class="complaint-admin-item" style="position:relative;">
-            <div class="complaint-admin-top">
-                <div>
-                    <strong>${complaintSafe(r.subject || "General Complaint")}</strong>
-                    <div class="complaint-meta">
-                        ${complaintSafe(r.employee_name || "")}
-                        ${r.email ? " • " + complaintSafe(r.email) : ""}
-                        • ${complaintSafe(complaintDate(r.created_at))}
-                    </div>
-                </div>
-                ${complaintBadge(r.status)}
-            </div>
-
-            <div class="complaint-text">${complaintSafe(r.complaint || "")}</div>
-
-            <div style="display:block !important;width:100% !important;margin:12px 0 !important;">
-                <button type="button"
-                    onclick="printComplaintForm(${Number(r.complaint_id)})"
-                    style="display:block !important;visibility:visible !important;opacity:1 !important;width:100% !important;min-height:46px !important;background:#8a5a35 !important;color:#ffffff !important;border:0 !important;border-radius:8px !important;padding:12px 16px !important;font-size:14px !important;font-weight:800 !important;cursor:pointer !important;">
-                    🖨 PRINT COMPLAINT FORM
-                </button>
-            </div>
-
-            <select id="complaintStatus_${r.complaint_id}">
-                <option value="Pending" ${r.status === "Pending" ? "selected" : ""}>Pending</option>
-                <option value="In Progress" ${r.status === "In Progress" ? "selected" : ""}>In Progress</option>
-                <option value="Resolved" ${r.status === "Resolved" ? "selected" : ""}>Resolved</option>
-            </select>
-
-            <textarea id="complaintReply_${r.complaint_id}" rows="3" placeholder="Admin / HR reply...">${complaintSafe(r.admin_reply || "")}</textarea>
-
-            <button type="button" class="green" onclick="updateComplaint(${Number(r.complaint_id)})">
-                Save Update
-            </button>
-        </div>`).join("");
+    box.innerHTML = `
+        <div style="overflow-x:auto;">
+            <table class="complaint-list-table">
+                <thead><tr>
+                    <th>ID No</th><th>Employee Name</th><th>Section</th><th>Subject</th><th>Status</th><th style="text-align:right;">Action</th>
+                </tr></thead>
+                <tbody>
+                    ${rows.map(r => `
+                        <tr>
+                            <td class="complaint-list-employee">${complaintSafe(r.employee_id || "-")}</td>
+                            <td>${complaintSafe(r.employee_name || "-")}</td>
+                            <td>${complaintSafe(r.section || r.Section_Name || "-")}</td>
+                            <td class="complaint-list-subject" title="${complaintSafe(r.subject || "General Complaint")}">${complaintSafe(r.subject || "General Complaint")}</td>
+                            <td>${complaintBadge(r.status)}</td>
+                            <td>
+                                <div class="complaint-list-actions">
+                                    <button class="complaint-icon-btn view" title="View / Reply / Update" onclick="viewComplaint(${Number(r.complaint_id)})">👁</button>
+                                    <button class="complaint-icon-btn print" title="Print" onclick="printComplaintForm(${Number(r.complaint_id)})">🖨</button>
+                                    <button class="complaint-icon-btn delete" title="Delete" onclick="deleteComplaint(${Number(r.complaint_id)})">🗑</button>
+                                </div>
+                            </td>
+                        </tr>`).join("")}
+                </tbody>
+            </table>
+        </div>`;
 }
+
+function viewComplaint(id){
+    const row = complaintAdminRows.find(r => String(r.complaint_id) === String(id));
+    const modal = document.getElementById("complaintViewModal");
+    const content = document.getElementById("complaintModalContent");
+    if(!row || !modal || !content){ alert("Complaint data not found."); return; }
+
+    const reply = String(row.admin_reply || "").trim();
+    const section = row.section || row.Section_Name || "-";
+    content.innerHTML = `
+        <div class="complaint-modal-head">
+            <div>
+                <h3>${complaintSafe(row.subject || "General Complaint")}</h3>
+                <div class="complaint-meta">Complaint #${complaintSafe(row.complaint_id)} • ${complaintSafe(complaintDate(row.created_at))}</div>
+            </div>
+            <button class="complaint-modal-close" onclick="closeComplaintModal()">×</button>
+        </div>
+        <div class="complaint-modal-body">
+            <div class="complaint-detail-grid">
+                <div><span>Employee ID</span><strong>${complaintSafe(row.employee_id || "-")}</strong></div>
+                <div><span>Employee Name</span><strong>${complaintSafe(row.employee_name || "-")}</strong></div>
+                <div><span>Section</span><strong>${complaintSafe(section)}</strong></div>
+                <div><span>Status</span><strong>${complaintSafe(row.status || "Pending")}</strong></div>
+            </div>
+
+            <div class="complaint-conversation">
+                <div class="complaint-conversation-head"><span>💬 Complaint Conversation</span><span>#${complaintSafe(row.complaint_id)}</span></div>
+                <div class="complaint-conversation-body">
+                    <div class="complaint-chat-row employee">
+                        <div class="complaint-chat-bubble">
+                            <span class="complaint-chat-label">${complaintSafe(row.employee_name || "Employee")}</span>
+                            ${complaintSafe(row.complaint || "")}
+                            <span class="complaint-chat-time">${complaintSafe(complaintDate(row.created_at))}</span>
+                        </div>
+                    </div>
+                    ${reply ? `<div class="complaint-chat-row admin"><div class="complaint-chat-bubble"><span class="complaint-chat-label">HR / Admin</span>${complaintSafe(reply)}<span class="complaint-chat-time">${complaintSafe(complaintDate(row.updated_at || row.created_at))}</span></div></div>` : ""}
+                </div>
+            </div>
+
+            <div class="complaint-modal-form">
+                <label style="font-size:11px;font-weight:800;color:#6a4931;">Status</label>
+                <select id="modalComplaintStatus_${row.complaint_id}">
+                    <option value="Pending" ${row.status === "Pending" ? "selected" : ""}>Pending</option>
+                    <option value="In Progress" ${row.status === "In Progress" ? "selected" : ""}>In Progress</option>
+                    <option value="Resolved" ${row.status === "Resolved" ? "selected" : ""}>Resolved</option>
+                </select>
+                <label style="font-size:11px;font-weight:800;color:#6a4931;">HR / Admin Reply</label>
+                <textarea id="modalComplaintReply_${row.complaint_id}" rows="4" placeholder="Write reply...">${complaintSafe(reply)}</textarea>
+                <div class="complaint-modal-actions">
+                    <button class="orange" onclick="printComplaintForm(${Number(row.complaint_id)})">🖨 Print</button>
+                    <button class="green" onclick="updateComplaintFromModal(${Number(row.complaint_id)})">Save Update</button>
+                    <button class="gray" onclick="closeComplaintModal()">Close</button>
+                </div>
+            </div>
+        </div>`;
+    modal.style.display = "flex";
+}
+
+function closeComplaintModal(event){
+    if(event && event.target && event.target.id !== "complaintViewModal") return;
+    const modal = document.getElementById("complaintViewModal");
+    if(modal) modal.style.display = "none";
+}
+
+async function updateComplaintFromModal(id){
+    const status = document.getElementById("modalComplaintStatus_"+id)?.value || "Pending";
+    const reply = document.getElementById("modalComplaintReply_"+id)?.value || "";
+    await saveComplaintUpdate(id,status,reply);
+    closeComplaintModal();
+}
+
+async function deleteComplaint(id){
+    const row = complaintAdminRows.find(r => String(r.complaint_id) === String(id));
+    if(!row) return;
+    const ok = confirm(`Delete complaint #${id} from the Complaint List? This cannot be undone.`);
+    if(!ok) return;
+
+    const {error} = await supabaseClient.from("Employee_Complaints").delete().eq("complaint_id",id);
+    if(error){ alert("Delete failed: " + error.message); return; }
+    complaintAdminRows = complaintAdminRows.filter(r => String(r.complaint_id) !== String(id));
+    renderComplaintManagement(complaintAdminRows);
+}
+
 
 function printComplaintForm(id){
     const row = complaintAdminRows.find(r => String(r.complaint_id) === String(id));
@@ -2598,11 +2649,26 @@ body{margin:0;background:#fff;color:#222;font-family:Arial,"Noto Sans Bengali",s
 async function updateComplaint(id){
     const status = document.getElementById("complaintStatus_"+id)?.value || "Pending";
     const reply = document.getElementById("complaintReply_"+id)?.value || "";
-    const {error} = await supabaseClient.from("Employee_Complaints").update({status:status,admin_reply:reply,updated_at:new Date().toISOString()}).eq("complaint_id",id);
-    if(error){ alert("Update failed: " + error.message); return; }
-    alert("Complaint updated successfully.");
-    loadComplaintManagement();
+    await saveComplaintUpdate(id,status,reply);
 }
+
+async function saveComplaintUpdate(id,status,reply){
+    const now = new Date().toISOString();
+    const {data,error} = await supabaseClient
+        .from("Employee_Complaints")
+        .update({status:status,admin_reply:reply,updated_at:now})
+        .eq("complaint_id",id)
+        .select("*")
+        .single();
+    if(error){ alert("Update failed: " + error.message); return; }
+
+    const index = complaintAdminRows.findIndex(r => String(r.complaint_id) === String(id));
+    if(index >= 0) complaintAdminRows[index] = data;
+    else complaintAdminRows.unshift(data);
+    renderComplaintManagement(complaintAdminRows);
+    alert("Complaint updated successfully.");
+}
+
 
 function showAdminLogin(){
     hideAll();
@@ -3601,12 +3667,7 @@ function showEmployeeInfo(){
             <div id="employeePhotoStatus" class="employee-photo-status"></div>
         </div>
 
-        <div class="employee-profile-support-box">
-            <div class="employee-profile-support-icon">💬</div>
-            <div class="employee-profile-support-content">
-                <h3>Support Inbox</h3>
-                <p>HR / Admin থেকে আপনার অভিযোগের feedback ও update এখানে দেখতে পারবেন।</p>
-            </div>
+        <div class="employee-photo-support-wrap">
             <button type="button" class="employee-profile-support-btn" onclick="showEmployeeSupportInbox()">
                 📥 Support Inbox
                 <span id="employeeSupportUnread" class="employee-support-unread">0</span>
@@ -3862,6 +3923,7 @@ async function submitEmployeeProfileComplaint(){
                 employee_id: employeeId,
                 employee_name: name,
                 email: email,
+                section: String(currentEmployee?.info?.Section_Name || currentEmployee?.info?.Section || currentEmployee?.info?.Department || "").trim(),
                 subject: subject || "Employee Profile Complaint",
                 complaint: details,
                 status: "Pending",
