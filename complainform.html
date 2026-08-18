@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A&O Employee Complaint Form</title>
+
+<style>
+    @page {
+        size: A4;
+        margin: 8mm;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: #e9e9e9;
+        color: #222;
+        font-family: Arial, "Segoe UI", sans-serif;
+    }
+
+    .toolbar {
+        text-align: center;
+        padding: 12px;
+    }
+
+    .toolbar button {
+        border: 0;
+        padding: 10px 22px;
+        margin: 0 5px;
+        border-radius: 7px;
+        font-weight: 700;
+        cursor: pointer;
+        color: white;
+        background: #68462f;
+    }
+
+    .toolbar button.secondary {
+        background: #555;
+    }
+
+    .page {
+        width: 194mm;
+        min-height: 281mm;
+        margin: 0 auto 15px;
+        background: white;
+        padding: 8mm;
+        box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    }
+
+    .header {
+        text-align: center;
+        border-bottom: 2px solid #333;
+        padding-bottom: 7px;
+    }
+
+    .header h1 {
+        margin: 0;
+        font-size: 21px;
+        letter-spacing: .4px;
+    }
+
+    .header h2 {
+        margin: 4px 0 0;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 17px;
+        font-weight: 800;
+        text-decoration: underline;
+        margin: 10px 0 12px;
+    }
+
+    .info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 14px;
+        margin-bottom: 9px;
+    }
+
+    .field {
+        min-height: 27px;
+        border-bottom: 1px solid #888;
+        padding: 4px 2px;
+        font-size: 12px;
+    }
+
+    .label {
+        font-weight: 700;
+        display: inline-block;
+        min-width: 82px;
+    }
+
+    .subject {
+        border: 1px solid #888;
+        padding: 7px 9px;
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .subject .label {
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .section {
+        margin-top: 7px;
+    }
+
+    .section-title {
+        background: #f0f0f0;
+        border: 1px solid #888;
+        border-bottom: 0;
+        padding: 5px 8px;
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .details {
+        border: 1px solid #888;
+        min-height: 108mm;
+        padding: 9px;
+        white-space: pre-wrap;
+        line-height: 1.5;
+        font-size: 12px;
+    }
+
+    .remarks {
+        border: 1px solid #888;
+        min-height: 38mm;
+        padding: 9px;
+        white-space: pre-wrap;
+        font-size: 12px;
+    }
+
+    .status {
+        margin-top: 8px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .status-line {
+        display: inline-block;
+        min-width: 105px;
+        border-bottom: 1px solid #555;
+        padding: 3px;
+        margin-left: 5px;
+    }
+
+    .signatures {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15mm 25mm;
+        margin-top: 18mm;
+    }
+
+    .signature {
+        border-top: 1px solid #333;
+        text-align: center;
+        padding-top: 5px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .footer {
+        border-top: 1px solid #bbb;
+        margin-top: 12px;
+        padding-top: 4px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 8px;
+        color: #666;
+    }
+
+    @media print {
+        body {
+            background: white;
+        }
+
+        .toolbar {
+            display: none;
+        }
+
+        .page {
+            width: auto;
+            min-height: 0;
+            margin: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .page {
+            width: calc(100% - 20px);
+            min-height: auto;
+        }
+
+        .info {
+            grid-template-columns: 1fr;
+        }
+
+        .signatures {
+            gap: 15mm;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="toolbar">
+    <button onclick="window.print()">🖨 Print / Save PDF</button>
+    <button class="secondary" onclick="window.close()">Close</button>
+</div>
+
+<div class="page">
+
+    <div class="header">
+        <h1>A&O APPARELS LTD.</h1>
+        <h2>HR &amp; Compliance Department</h2>
+    </div>
+
+    <div class="title">EMPLOYEE COMPLAINT FORM</div>
+
+    <div class="info">
+        <div class="field">
+            <span class="label">Complaint ID:</span>
+            __________________
+        </div>
+
+        <div class="field">
+            <span class="label">Date:</span>
+            __________________
+        </div>
+
+        <div class="field">
+            <span class="label">Employee ID:</span>
+            __________________
+        </div>
+
+        <div class="field">
+            <span class="label">Employee Name:</span>
+            __________________
+        </div>
+
+        <div class="field">
+            <span class="label">Email:</span>
+            __________________
+        </div>
+
+        <div class="field">
+            <span class="label">Department:</span>
+            __________________
+        </div>
+    </div>
+
+    <div class="subject">
+        <span class="label">Subject</span>
+        _________________________________________________
+    </div>
+
+    <div class="section">
+        <div class="section-title">COMPLAINT DETAILS</div>
+        <div class="details"></div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">HR / ADMIN REMARKS</div>
+        <div class="remarks"></div>
+    </div>
+<div class="signatures">
+        <div class="signature">Employee / Complainant</div>
+        <div class="signature">HR &amp; Compliance</div>
+        <div class="signature">Department Head</div>
+        <div class="signature">Authorized Person</div>
+    </div>
+
+    <div class="footer">
+        <span>Employee Complaint Form</span>
+        <span>A&amp;O APPARELS LTD.</span>
+    </div>
+
+</div>
+
+</body>
+</html>
