@@ -358,7 +358,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     grid-template-columns:220px 1fr;
     gap:8px;
     align-items:center;
-    padding:8px 10px;
+    padding:5px 8px;
     border-radius:10px;
     margin-bottom:7px;
     background:rgba(255,255,255,.70);
@@ -581,7 +581,7 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     display:inline-block;
     border-radius:999px;
     padding:3px 7px;
-    font-size:10px;
+    font-size:8px;
     font-weight:900;
     color:#263238;
     background:#eceff1;
@@ -629,12 +629,12 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     }
     .job-history-table{
         min-width:690px;
-        font-size:10px;
+        font-size:8px;
     }
     .job-history-table th,
     .job-history-table td{
         padding:4px 2px;
-        font-size:10px;
+        font-size:8px;
     }
     .job-history-table td.status-cell{font-size:9px;}
     .status-pill{font-size:9px;padding:2px 5px;}
@@ -655,9 +655,9 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     .job-history-actions{display:none !important;}
     .job-history-wrap{box-shadow:none;padding:0;background:white;}
     .job-history-report{max-width:none;box-shadow:none;}
-    .job-history-table{min-width:0;font-size:10px;}
+    .job-history-table{min-width:0;font-size:8px;}
     .job-history-table th,
-    .job-history-table td{padding:3px 2px;font-size:10px;}
+    .job-history-table td{padding:3px 2px;font-size:8px;}
 }
 
 
@@ -934,7 +934,7 @@ body::after{
     margin-top:10px;
     margin-left:3px;
     font-family:Arial,sans-serif;
-    font-size:10px;
+    font-size:8px;
     line-height:1;
     letter-spacing:3px;
     font-weight:700;
@@ -958,7 +958,7 @@ body::after{
 }
 
 .ao-welcome-kicker{
-    font-size:22px;
+    font-size:19px;
     font-weight:400;
     margin-bottom:7px;
     color:#4d3b2b;
@@ -1588,7 +1588,7 @@ body::after{
     text-align:center;
     color:#8b735c;
     font-size:12px;
-    margin-top:14px;
+    margin-top:7px;
     letter-spacing:.5px;
 }
 
@@ -1608,9 +1608,25 @@ body::after{
     }
 }
 
+
+.complaint-action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.complaint-action-row button{width:auto;min-width:130px;display:block !important;visibility:visible !important;opacity:1 !important}
 </style>
 <style>
-
+.complaint-intro{margin:0 0 14px;text-align:center;color:#6f5b49;font-size:14px;}
+.complaint-form-box{max-width:760px;margin:0 auto;padding:20px;background:rgba(255,255,255,.95);border-radius:16px;}
+.complaint-form-box textarea{width:100%;resize:vertical;min-height:190px;}
+.complaint-form-box input,.complaint-form-box textarea{box-sizing:border-box;}
+.complaint-admin-card{padding:4px 0;}
+.complaint-admin-tools{display:grid;grid-template-columns:190px 1fr 110px;gap:10px;margin:12px 0 16px;}
+.complaint-admin-item{background:#fff;border:1px solid rgba(111,74,43,.18);border-radius:14px;padding:15px;margin:10px 0;box-shadow:0 5px 16px rgba(0,0,0,.07);}
+.complaint-admin-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;}
+.complaint-meta{font-size:12px;color:#7c6b5a;margin-top:5px;}
+.complaint-text{white-space:pre-wrap;line-height:1.55;margin:12px 0;color:#2d241d;}
+.complaint-admin-item select,.complaint-admin-item textarea{width:100%;box-sizing:border-box;margin:7px 0;}
+.complaint-badge{display:inline-block;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:800;white-space:nowrap;}
+.complaint-badge.pending{background:#fff0d4;color:#8a5300;}.complaint-badge.progress{background:#e5f0ff;color:#0754a6;}.complaint-badge.resolved{background:#e6f5e8;color:#2e7d32;}
+@media(max-width:700px){.complaint-admin-tools{grid-template-columns:1fr;}.complaint-admin-top{flex-direction:column;}}
 </style>
 </head>
 
@@ -1694,7 +1710,7 @@ body::after{
                 <span class="ao-nav-arrow">›</span>
             </button>
 
-            <button onclick="openExternalComplaintForm()">
+            <button onclick="showComplaintBox()">
                 <span class="ao-nav-icon">
                     <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8A2.5 2.5 0 0 1 17.5 16H10l-4.8 4v-4.2A2.5 2.5 0 0 1 4 13.5z"/><path d="M8 7.5h8M8 11h5"/></svg>
                 </span>
@@ -2009,6 +2025,21 @@ body::after{
     <div id="submittedFormResult" class="box"></div>
 </div>
 
+<div class="card hidden" id="complaintPage">
+    <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
+    <h2>Complaint Box</h2>
+    <div class="complaint-intro">Your complaint will be submitted to HR & Compliance.</div>
+    <div class="box complaint-form-box">
+        <input type="text" id="complaintName" placeholder="Name">
+        <input type="email" id="complaintEmail" placeholder="Email">
+        <input type="text" id="complaintSubject" placeholder="Subject">
+        <textarea id="complaintDetails" rows="9" maxlength="5000" placeholder="Write your complaint here..."></textarea>
+        <button class="orange" onclick="submitComplaint()">Submit Complaint</button>
+        <button class="gray" onclick="goHome()">Back</button>
+        <div id="complaintStatus" class="status"></div>
+    </div>
+</div>
+
 <div class="card hidden" id="adminLoginPage">
     <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
     <h2>Admin Login</h2>
@@ -2043,6 +2074,7 @@ body::after{
             <button class="purple" onclick="showChangePasswordPanel()">13. Change Admin Password</button>
             <button class="orange" onclick="openSupabaseDashboard()">14. Open Supabase Dashboard</button>
             <button class="green" onclick="showRocketCommitment()">15. Rocket Commitment</button>
+            <button class="orange" onclick="showComplaintManagement()">16. Complaint Box</button>
         </div>
 </div>
 
@@ -2089,21 +2121,6 @@ const SUPABASE_DASHBOARD_URL = "https://supabase.com/dashboard/project/hneomxtzh
 const ATTENDANCE_BUCKET = "attendance-reports";
 const EMPLOYEE_PHOTO_BUCKET = "employee-photos";
 const EMPLOYEE_PHOTO_MAX_BYTES = 20 * 1024;
-
-/* ===== External Employee Complaint Form =====
-   Replace the URL below with your GitHub Pages URL.
-   Example:
-   https://yourusername.github.io/your-repo/AO_Employee_Complaint_Form_4_Signatures.html
-*/
-const EXTERNAL_COMPLAINT_FORM_URL = "YOUR_GITHUB_PAGES_COMPLAINT_FORM_URL";
-
-function openExternalComplaintForm(){
-    if(!EXTERNAL_COMPLAINT_FORM_URL || EXTERNAL_COMPLAINT_FORM_URL === "YOUR_GITHUB_PAGES_COMPLAINT_FORM_URL"){
-        alert("Please add your GitHub Pages Complaint Form URL first.");
-        return;
-    }
-    window.open(EXTERNAL_COMPLAINT_FORM_URL, "_blank", "noopener,noreferrer");
-}
 
 
 const tableConfig = {
@@ -2183,6 +2200,251 @@ function showSubmittedFormSearch(){
     document.getElementById("submittedFormResult").innerHTML = "";
 }
 
+function showComplaintBox(){
+    hideAll();
+    document.getElementById("complaintPage").classList.remove("hidden");
+    const status = document.getElementById("complaintStatus");
+    if(status){ status.className = "status"; status.innerHTML = ""; }
+}
+
+async function submitComplaint(){
+    const name = String(document.getElementById("complaintName")?.value || "").trim();
+    const email = String(document.getElementById("complaintEmail")?.value || "").trim();
+    const subject = String(document.getElementById("complaintSubject")?.value || "").trim();
+    const details = String(document.getElementById("complaintDetails")?.value || "").trim();
+    const status = document.getElementById("complaintStatus");
+
+    if(!name && !email){
+        status.className = "status error";
+        status.innerHTML = "Please enter your Name or Email.";
+        return;
+    }
+    if(!details){
+        status.className = "status error";
+        status.innerHTML = "Please write your complaint.";
+        return;
+    }
+
+    status.className = "status";
+    status.innerHTML = "Submitting complaint...";
+
+    try{
+        const { error } = await supabaseClient
+            .from("Employee_Complaints")
+            .insert([{
+                employee_name: name,
+                email: email,
+                subject: subject || "General Complaint",
+                complaint: details,
+                status: "Pending",
+                admin_reply: ""
+            }]);
+
+        if(error){
+            console.log(error);
+            status.className = "status error";
+            status.innerHTML = "Submit failed: " + error.message;
+            return;
+        }
+
+        document.getElementById("complaintName").value = "";
+        document.getElementById("complaintEmail").value = "";
+        document.getElementById("complaintSubject").value = "";
+        document.getElementById("complaintDetails").value = "";
+        status.className = "status success";
+        status.innerHTML = "Complaint submitted successfully.";
+    }catch(error){
+        console.log(error);
+        status.className = "status error";
+        status.innerHTML = "Complaint submit failed: " + error.message;
+    }
+}
+
+function complaintSafe(value){
+    return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+}
+
+function complaintDate(value){
+    if(!value) return "";
+    const d = new Date(value);
+    if(isNaN(d.getTime())) return String(value);
+    return d.toLocaleString("en-GB", {day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+}
+
+function complaintBadge(status){
+    const s = String(status || "Pending");
+    const cls = s === "Resolved" ? "resolved" : (s === "In Progress" ? "progress" : "pending");
+    return `<span class="complaint-badge ${cls}">${complaintSafe(s)}</span>`;
+}
+
+let complaintAdminRows = [];
+
+async function showComplaintManagement(){
+    activateAdminSubPage();
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <div class="complaint-admin-card">
+            <h3>Complaint Box</h3>
+            <div class="complaint-admin-tools">
+                <select id="complaintFilter" onchange="loadComplaintManagement()">
+                    <option value="">All Status</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+                <input id="complaintSearch" placeholder="Search name, email or subject" oninput="filterComplaintManagement()">
+                <button class="green" onclick="loadComplaintManagement()">Refresh</button>
+            </div>
+            <div id="complaintAdminList" class="complaint-admin-list">Loading complaints...</div>
+        </div>`;
+    await loadComplaintManagement();
+}
+
+async function loadComplaintManagement(){
+    const box = document.getElementById("complaintAdminList");
+    if(!box) return;
+    box.innerHTML = `<div class="status">Loading complaints...</div>`;
+    let query = supabaseClient.from("Employee_Complaints").select("*").order("created_at", {ascending:false}).limit(300);
+    const filter = String(document.getElementById("complaintFilter")?.value || "").trim();
+    if(filter) query = query.eq("status", filter);
+    const {data,error} = await query;
+    if(error){
+        box.innerHTML = `<div class="status error">Load failed: ${complaintSafe(error.message)}</div>`;
+        return;
+    }
+    complaintAdminRows = data || [];
+    renderComplaintManagement(complaintAdminRows);
+}
+
+function filterComplaintManagement(){
+    const q = String(document.getElementById("complaintSearch")?.value || "").trim().toLowerCase();
+    if(!q){ renderComplaintManagement(complaintAdminRows); return; }
+    renderComplaintManagement(complaintAdminRows.filter(r =>
+        [r.employee_name,r.email,r.subject,r.complaint,r.status].join(" ").toLowerCase().includes(q)
+    ));
+}
+
+function renderComplaintManagement(rows){
+    const box = document.getElementById("complaintAdminList");
+    if(!box) return;
+    if(!rows.length){
+        box.innerHTML = `<div class="status">No complaints found.</div>`;
+        return;
+    }
+
+    box.innerHTML = rows.map(r => `
+        <div class="complaint-admin-item" style="position:relative;">
+            <div class="complaint-admin-top">
+                <div>
+                    <strong>${complaintSafe(r.subject || "General Complaint")}</strong>
+                    <div class="complaint-meta">
+                        ${complaintSafe(r.employee_name || "")}
+                        ${r.email ? " • " + complaintSafe(r.email) : ""}
+                        • ${complaintSafe(complaintDate(r.created_at))}
+                    </div>
+                </div>
+                ${complaintBadge(r.status)}
+            </div>
+
+            <div class="complaint-text">${complaintSafe(r.complaint || "")}</div>
+
+            <div style="display:block !important;width:100% !important;margin:12px 0 !important;">
+                <button type="button"
+                    onclick="printComplaintForm(${Number(r.complaint_id)})"
+                    style="display:block !important;visibility:visible !important;opacity:1 !important;width:100% !important;min-height:46px !important;background:#8a5a35 !important;color:#ffffff !important;border:0 !important;border-radius:8px !important;padding:12px 16px !important;font-size:14px !important;font-weight:800 !important;cursor:pointer !important;">
+                    🖨 PRINT COMPLAINT FORM
+                </button>
+            </div>
+
+            <select id="complaintStatus_${r.complaint_id}">
+                <option value="Pending" ${r.status === "Pending" ? "selected" : ""}>Pending</option>
+                <option value="In Progress" ${r.status === "In Progress" ? "selected" : ""}>In Progress</option>
+                <option value="Resolved" ${r.status === "Resolved" ? "selected" : ""}>Resolved</option>
+            </select>
+
+            <textarea id="complaintReply_${r.complaint_id}" rows="3" placeholder="Admin / HR reply...">${complaintSafe(r.admin_reply || "")}</textarea>
+
+            <button type="button" class="green" onclick="updateComplaint(${Number(r.complaint_id)})">
+                Save Update
+            </button>
+        </div>`).join("");
+}
+
+function printComplaintForm(id){
+    const row = complaintAdminRows.find(r => String(r.complaint_id) === String(id));
+    if(!row){ alert("Complaint data not found."); return; }
+
+    const esc = value => complaintSafe(value == null ? "" : value);
+    const dateText = complaintDate(row.created_at);
+    const status = String(row.status || "Pending");
+
+    const printHtml = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Employee Complaint Form - #${esc(row.complaint_id)}</title>
+<style>
+@page{size:A4;margin:8mm}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#222;font-family:Arial,"Noto Sans Bengali",sans-serif}
+.print-toolbar{display:flex;justify-content:center;gap:10px;padding:12px;background:#f1f1f1}
+.print-toolbar button{border:0;border-radius:7px;padding:9px 18px;color:#fff;font-weight:700;cursor:pointer}
+.print-btn{background:#6e472d}.close-btn{background:#555}
+.form{width:100%;max-width:182mm;margin:0 auto;border:1px solid #333;padding:12mm;min-height:267mm}
+.header{text-align:center;border-bottom:2px solid #222;padding-bottom:7px;margin-bottom:13px}
+.header h1{margin:0;font-size:19px;letter-spacing:.5px}.header h2{margin:5px 0 0;font-size:14px}
+.title{text-align:center;font-size:19px;font-weight:800;text-decoration:underline;margin:12px 0 18px}
+.info{display:grid;grid-template-columns:1fr 1fr;gap:9px 18px;margin-bottom:13px}
+.field{border-bottom:1px solid #999;padding:5px 2px;min-height:28px}.label{font-weight:700}.value{margin-left:6px;word-break:break-word}
+.subject{border:1px solid #777;padding:10px;margin:12px 0}.subject .label{display:block;margin-bottom:5px}
+.section-title{font-weight:800;background:#f3f3f3;border:1px solid #777;border-bottom:0;padding:8px}
+.details{border:1px solid #777;min-height:82mm;padding:12px;white-space:pre-wrap;line-height:1.55;word-break:break-word}
+.remarks{border:1px solid #777;min-height:34mm;padding:12px;white-space:pre-wrap;line-height:1.5}
+.status{display:inline-block;padding:3px 9px;border-radius:20px;font-size:12px;font-weight:700;border:1px solid #888}
+.signatures{display:grid;grid-template-columns:1fr 1fr;gap:28mm 18mm;margin-top:25mm}.sig{border-top:1px solid #333;text-align:center;padding-top:6px;font-size:12px;font-weight:700}
+.footer{margin-top:15px;border-top:1px solid #aaa;padding-top:6px;display:flex;justify-content:space-between;font-size:8px;color:#555}
+@media print{.print-toolbar{display:none}.form{border:0;max-width:none;margin:0;padding:0}}
+</style>
+</head>
+<body>
+<div class="print-toolbar">
+<button class="print-btn" onclick="window.print()">Print / Save PDF</button>
+<button class="close-btn" onclick="window.close()">Close</button>
+</div>
+<div class="form">
+<div class="header"><h1>A&amp;O APPARELS LTD.</h1><h2>HR &amp; Compliance Department</h2></div>
+<div class="title">EMPLOYEE COMPLAINT FORM</div>
+<div class="info">
+<div class="field"><span class="label">Complaint ID:</span><span class="value">#${esc(row.complaint_id)}</span></div>
+<div class="field"><span class="label">Date:</span><span class="value">${esc(dateText)}</span></div>
+<div class="field"><span class="label">Name:</span><span class="value">${esc(row.employee_name)}</span></div>
+<div class="field"><span class="label">Email:</span><span class="value">${esc(row.email || "")}</span></div>
+<div class="field"><span class="label">Employee ID:</span><span class="value">${esc(row.employee_id || "")}</span></div>
+<div class="field"><span class="label">Status:</span><span class="value"><span class="status">${esc(status)}</span></span></div>
+</div>
+<div class="subject"><span class="label">Subject</span><div class="value">${esc(row.subject || "General Complaint")}</div></div>
+<div><div class="section-title">Complaint Details</div><div class="details">${esc(row.complaint || "")}</div></div>
+<div style="margin-top:7px"><div class="section-title">HR / Admin Remarks</div><div class="remarks">${esc(row.admin_reply || "")}</div></div>
+<div class="signatures"><div class="sig">Employee / Complainant</div><div class="sig">HR &amp; Compliance</div><div class="sig">Department Head</div><div class="sig">Authorized Person</div></div>
+<div class="footer"><span>Complaint ID: #${esc(row.complaint_id)}</span><span>A&amp;O APPARELS LTD. — HR &amp; Compliance</span></div>
+</div>
+</body></html>`;
+
+    const win = window.open("", "_blank");
+    if(!win){ alert("Popup blocked. Please allow pop-ups for the portal."); return; }
+    win.document.open();
+    win.document.write(printHtml);
+    win.document.close();
+}
+
+async function updateComplaint(id){
+    const status = document.getElementById("complaintStatus_"+id)?.value || "Pending";
+    const reply = document.getElementById("complaintReply_"+id)?.value || "";
+    const {error} = await supabaseClient.from("Employee_Complaints").update({status:status,admin_reply:reply,updated_at:new Date().toISOString()}).eq("complaint_id",id);
+    if(error){ alert("Update failed: " + error.message); return; }
+    alert("Complaint updated successfully.");
+    loadComplaintManagement();
+}
 
 function showAdminLogin(){
     hideAll();
@@ -4673,7 +4935,7 @@ function printBasicForm(data){
 <meta charset="UTF-8">
 <title>Basic Form</title>
 <style>
-@page{size:A4;margin:6mm;}
+@page{size:A4;margin:8mm}
 *{box-sizing:border-box;}
 body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;background:#fff;}
 .page{width:100%;min-height:283mm;position:relative;padding:0 6mm 7mm 6mm;border:1.6px solid #1f4e79;background:linear-gradient(180deg,#f7fbff 0%,#ffffff 18%,#ffffff 100%);}
@@ -4683,11 +4945,11 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 .form-title{display:inline-block;font-size:24px;font-weight:900;color:#000;background:transparent;border:0;border-radius:0;padding:2px 22px;margin-top:2px;line-height:1.12;}
 .section-center{text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.15;margin-top:2px;width:100%;}
 .section-center .section-label{font-size:20px;font-weight:900;color:#0b376d;}
-.section-center .section-value{font-size:22px;font-weight:900;color:#000;display:inline-block;max-width:135mm;vertical-align:bottom;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.section-center .section-value{font-size:19px;font-weight:900;color:#000;display:inline-block;max-width:135mm;vertical-align:bottom;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .top-info{display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:5px;font-size:12px;font-weight:bold;}
 .top-info div{border:1px solid #9fbad5;background:#f2f8ff;border-radius:5px;padding:4px 6px;min-height:24px;display:flex;align-items:center;gap:4px;}
 .join-label{font-size:12px;font-weight:800;white-space:nowrap;}
-.join-date-value{font-size:22px;font-weight:900;color:#000;line-height:1;white-space:nowrap;}
+.join-date-value{font-size:19px;font-weight:900;color:#000;line-height:1;white-space:nowrap;}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:0 6mm;margin-top:4px;}
 .full-row{grid-column:1 / -1;}
 .row{display:flex;align-items:flex-end;font-size:11.3px;min-height:19px;margin-bottom:2px;line-height:1.25;}
@@ -4697,7 +4959,7 @@ body{font-family:Arial,'Noto Sans Bengali',sans-serif;margin:0;color:#1b1b1b;bac
 .box-title{text-align:left;font-weight:800;font-size:12.2px;margin:-4px -5px 3px -5px;padding:3px 8px;background:#dceeff;color:#0b376d;border-radius:5px 5px 0 0;border-bottom:1px solid #9fbad5;}
 .mobile-account-row{margin-top:5px;font-size:20px;font-weight:900;line-height:1.35;}
 .mobile-account-row .label{font-size:20px;font-weight:900;color:#0b376d;}
-.mobile-account-row .value{font-size:22px;font-weight:900;border-bottom:1.5px dotted #000;letter-spacing:.5px;}
+.mobile-account-row .value{font-size:19px;font-weight:900;border-bottom:1.5px dotted #000;letter-spacing:.5px;}
 .big-pdf-value{font-size:17px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;overflow:visible!important;text-overflow:clip!important;}
 .big-pdf-value.value{border-bottom:1.5px dotted #000!important;letter-spacing:0!important;}
 .name-fit-value{font-size:17px!important;font-weight:900!important;color:#000!important;line-height:1!important;white-space:nowrap;overflow:visible!important;text-overflow:clip!important;border-bottom:1.5px dotted #000!important;}
@@ -5083,7 +5345,7 @@ function previewRocketCommitment(){
     const html = `
 <!DOCTYPE html><html><head><meta charset="UTF-8"><title>Rocket Commitment</title>
 <style>
-@page{size:A4;margin:6mm;}
+@page{size:A4;margin:8mm}
 *{box-sizing:border-box;}
 body{margin:0;background:#f5f5f5;color:#000;font-family:Arial,'Noto Sans Bengali','SolaimanLipi',sans-serif;}
 .print-actions{text-align:center;padding:6px;}
