@@ -1753,6 +1753,49 @@ body::after{
 .complaint-badge.pending{background:#fff0d4;color:#8a5300;}.complaint-badge.progress{background:#e5f0ff;color:#0754a6;}.complaint-badge.resolved{background:#e6f5e8;color:#2e7d32;}
 @media(max-width:700px){.complaint-admin-tools{grid-template-columns:1fr;}.complaint-admin-top{flex-direction:column;}}
 </style>
+<style>
+
+/* ===== Complaint / Support Inbox readability + conversation update ===== */
+.complaint-badge{display:inline-flex !important;align-items:center !important;justify-content:center !important;min-height:26px !important;padding:4px 10px !important;border-radius:999px !important;font-size:11px !important;font-weight:900 !important;white-space:nowrap !important;border:1px solid transparent !important;}
+.complaint-badge.pending{background:#fee2e2 !important;color:#b91c1c !important;border-color:#fca5a5 !important;}
+.complaint-badge.progress{background:#fef3c7 !important;color:#92400e !important;border-color:#f59e0b !important;}
+.complaint-badge.resolved{background:#dcfce7 !important;color:#166534 !important;border-color:#86efac !important;}
+.complaint-badge.rejected{background:#e5e7eb !important;color:#374151 !important;border-color:#9ca3af !important;}
+
+/* Admin conversation: employee and HR/Admin are intentionally different */
+.complaint-conversation{background:#eef3f5 !important;border:1px solid #cbd8df !important;border-radius:14px !important;overflow:hidden !important;box-shadow:0 6px 18px rgba(35,63,85,.08) !important;}
+.complaint-conversation-body{padding:14px !important;max-height:360px !important;overflow:auto !important;}
+.complaint-chat-row{display:flex !important;margin:9px 0 !important;}
+.complaint-chat-bubble{max-width:80% !important;padding:12px 14px !important;border-radius:14px !important;font-size:13px !important;line-height:1.65 !important;font-weight:650 !important;color:#17232d !important;white-space:pre-wrap !important;box-shadow:0 3px 9px rgba(0,0,0,.08) !important;}
+.complaint-chat-row.employee .complaint-chat-bubble{background:#ffffff !important;border:2px solid #b8c9d2 !important;border-top-left-radius:4px !important;}
+.complaint-chat-row.admin .complaint-chat-bubble{background:#d9f4e2 !important;border:2px solid #8bc89d !important;border-top-right-radius:4px !important;}
+.complaint-chat-label{display:block !important;font-size:10px !important;font-weight:900 !important;color:#214b68 !important;margin-bottom:5px !important;}
+.complaint-chat-row.admin .complaint-chat-label{color:#176b35 !important;}
+.complaint-chat-time{display:block !important;text-align:right !important;font-size:9px !important;color:#52636e !important;margin-top:6px !important;font-weight:700 !important;}
+
+/* Employee Support Inbox */
+.support-inbox-wrap{max-width:900px !important;margin:0 auto !important;color:#17232d !important;}
+.support-inbox-header{background:linear-gradient(135deg,#fff9f0,#f4e5d3) !important;border:1px solid rgba(141,96,56,.18) !important;border-radius:16px !important;padding:18px !important;box-shadow:0 6px 18px rgba(91,59,34,.07) !important;}
+.support-inbox-header h2,.support-inbox-header p,.support-inbox-kicker{color:#3f3024 !important;}
+.support-inbox-employee{background:#fff !important;color:#233f55 !important;border:1px solid #d6c6b6 !important;border-radius:999px !important;padding:7px 11px !important;font-weight:900 !important;}
+.support-message-card{margin-top:14px !important;background:#fff !important;border:1px solid #d8dfe3 !important;border-radius:15px !important;padding:14px !important;box-shadow:0 7px 20px rgba(35,63,85,.09) !important;color:#17232d !important;}
+.support-message-top{display:flex !important;justify-content:space-between !important;align-items:flex-start !important;gap:12px !important;margin-bottom:10px !important;}
+.support-message-top strong{color:#263f52 !important;font-size:14px !important;font-weight:900 !important;}
+.support-message-top small{display:block !important;color:#52636e !important;font-size:10px !important;font-weight:700 !important;margin-top:3px !important;}
+.support-conversation{background:#edf3f5 !important;border:1px solid #cbd8df !important;border-radius:14px !important;padding:12px !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.7) !important;}
+.support-chat-row{display:flex !important;margin:8px 0 !important;}
+.support-chat-row.employee{justify-content:flex-start !important;}
+.support-chat-row.admin{justify-content:flex-end !important;}
+.support-chat-bubble{max-width:82% !important;padding:12px 14px !important;border-radius:14px !important;color:#17232d !important;font-size:13px !important;line-height:1.65 !important;font-weight:650 !important;white-space:pre-wrap !important;box-shadow:0 3px 9px rgba(0,0,0,.08) !important;}
+.support-chat-bubble.employee{background:#fff !important;border:2px solid #b8c9d2 !important;border-top-left-radius:4px !important;}
+.support-chat-bubble.admin{background:#d9f4e2 !important;border:2px solid #8bc89d !important;border-top-right-radius:4px !important;}
+.support-chat-label{display:block !important;font-size:10px !important;font-weight:900 !important;color:#214b68 !important;margin-bottom:5px !important;}
+.support-chat-bubble.admin .support-chat-label{color:#176b35 !important;}
+.support-chat-time{display:block !important;text-align:right !important;color:#52636e !important;font-size:9px !important;font-weight:700 !important;margin-top:6px !important;}
+.support-empty{background:#fff !important;color:#43525c !important;border:1px solid #d7e0e4 !important;border-radius:12px !important;padding:18px !important;text-align:center !important;font-weight:700 !important;}
+@media(max-width:700px){.support-chat-bubble,.complaint-chat-bubble{max-width:92% !important;}.support-message-top{flex-direction:column !important;}.complaint-chat-bubble{font-size:12px !important;}}
+
+</style>
 </head>
 
 <body>
@@ -2398,7 +2441,10 @@ function complaintDate(value){
 
 function complaintBadge(status){
     const s = String(status || "Pending");
-    const cls = s === "Resolved" ? "resolved" : (s === "In Progress" ? "progress" : "pending");
+    let cls = "pending";
+    if(s === "In Progress") cls = "progress";
+    else if(s === "Resolved") cls = "resolved";
+    else if(s === "Request Rejected") cls = "rejected";
     return `<span class="complaint-badge ${cls}">${complaintSafe(s)}</span>`;
 }
 
@@ -2419,6 +2465,7 @@ async function showComplaintManagement(){
                     <option value="Pending">Pending</option>
                     <option value="In Progress">In Progress</option>
                     <option value="Resolved">Resolved</option>
+                    <option value="Request Rejected">Request Rejected</option>
                 </select>
                 <input id="complaintSearch" placeholder="Search ID, name, section or subject" oninput="filterComplaintManagement()">
                 <button class="green" onclick="loadComplaintManagement()">Refresh</button>
@@ -2540,6 +2587,7 @@ function viewComplaint(id){
                     <option value="Pending" ${row.status === "Pending" ? "selected" : ""}>Pending</option>
                     <option value="In Progress" ${row.status === "In Progress" ? "selected" : ""}>In Progress</option>
                     <option value="Resolved" ${row.status === "Resolved" ? "selected" : ""}>Resolved</option>
+                    <option value="Request Rejected" ${row.status === "Request Rejected" ? "selected" : ""}>Request Rejected</option>
                 </select>
                 <label style="font-size:11px;font-weight:800;color:#6a4931;">HR / Admin Reply</label>
                 <textarea id="modalComplaintReply_${row.complaint_id}" rows="4" placeholder="Write reply...">${complaintSafe(reply)}</textarea>
@@ -3827,14 +3875,21 @@ async function showEmployeeSupportInbox(){
                             ${complaintBadge(status)}
                         </div>
 
-                        <div class="support-label">Your Complaint</div>
-                        <div class="support-complaint-text">${complaintSafe(r.complaint || "")}</div>
-
-                        <div class="support-label">HR / Admin Feedback</div>
-                        <div class="support-reply-text">
-                            ${hasReply
-                                ? complaintSafe(r.admin_reply)
-                                : "আপনার অভিযোগটি পর্যালোচনাধীন। HR / Admin-এর feedback এখানে দেখাবে।"}
+                        <div class="support-conversation">
+                            <div class="support-chat-row employee">
+                                <div class="support-chat-bubble employee">
+                                    <span class="support-chat-label">You / Employee</span>
+                                    ${complaintSafe(r.complaint || "")}
+                                    <span class="support-chat-time">${complaintSafe(complaintDate(r.created_at))}</span>
+                                </div>
+                            </div>
+                            <div class="support-chat-row admin">
+                                <div class="support-chat-bubble admin">
+                                    <span class="support-chat-label">HR / Admin</span>
+                                    ${hasReply ? complaintSafe(r.admin_reply) : "আপনার অভিযোগটি পর্যালোচনাধীন। HR / Admin-এর feedback এখানে দেখাবে।"}
+                                    <span class="support-chat-time">${hasReply ? complaintSafe(complaintDate(r.updated_at || r.created_at)) : "Pending"}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>`;
             }).join("");
