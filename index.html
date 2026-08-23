@@ -2073,6 +2073,61 @@ body::after{
     .sc-compose-row .sc-send-btn{flex-basis:64px!important;width:64px!important;min-width:64px!important;}
 }
 </style>
+<style>
+/* ===== Professional chat colors ===== */
+.sc-msg-row.employee .sc-bubble.employee{
+    background:#1877f2!important;
+    color:#fff!important;
+    border:1px solid #1877f2!important;
+}
+.sc-msg-row.admin .sc-bubble.admin{
+    background:#fff!important;
+    color:#2f2a26!important;
+    border:1px solid #e4ddd6!important;
+}
+.ci-bubble-row.employee .ci-bubble.employee{
+    background:#fff!important;
+    color:#2f2a26!important;
+    border:1px solid #e4ddd6!important;
+}
+.ci-bubble-row.admin .ci-bubble.admin{
+    background:#1877f2!important;
+    color:#fff!important;
+    border:1px solid #1877f2!important;
+}
+.sc-msg-row.employee .sc-message-time{color:#eaf3ff!important;}
+.sc-msg-row.admin .sc-message-time,.ci-bubble-row.employee .ci-message-time{color:#8d8178!important;}
+.ci-bubble-row.admin .ci-message-time{color:#eaf3ff!important;}
+
+.sc-refresh-btn,.ci-refresh-btn{
+    width:30px!important;
+    height:30px!important;
+    min-width:30px!important;
+    padding:0!important;
+    margin-left:5px!important;
+    border:1px solid #ddd4cc!important;
+    border-radius:7px!important;
+    background:#fff!important;
+    color:#5e534c!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    cursor:pointer!important;
+    box-shadow:none!important;
+}
+.sc-refresh-btn:hover,.ci-refresh-btn:hover{
+    background:#f5f2ef!important;
+    color:#1877f2!important;
+}
+.sc-refresh-btn svg,.ci-refresh-btn svg{
+    width:15px!important;height:15px!important;
+    fill:none!important;stroke:currentColor!important;
+    stroke-width:2!important;stroke-linecap:round!important;stroke-linejoin:round!important;
+}
+</style>
+<style>
+.sc-head-actions,.ci-head-actions{margin-left:auto;display:flex;align-items:center;gap:5px;}
+</style>
 </head>
 
 <body>
@@ -3076,7 +3131,12 @@ function renderComplainConversation(employeeId){
                 <span>${complaintSafe(section)}</span>
             </div>
             <div class="ci-chat-status">${complaintBadge(latest.status)}</div>
-            <button type="button" class="ci-delete-inbox-btn" title="Delete full conversation" onclick="deleteComplainInboxConversation('${complaintSafe(employeeId).replace(/'/g,"&#39;")}')">🗑 Delete Inbox</button>
+            <div class="ci-head-actions">
+                <button type="button" class="ci-refresh-btn" title="Refresh conversation" onclick="refreshComplainInboxConversation('${complaintSafe(employeeId).replace(/'/g,"&#39;")}')" aria-label="Refresh conversation">
+                    <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.8-4L3 10"/><path d="M3 5v5h5"/><path d="M4 13a8 8 0 0 0 14.8 4L21 14"/><path d="M21 19v-5h-5"/></svg>
+                </button>
+                <button type="button" class="ci-delete-inbox-btn" title="Delete full conversation" onclick="deleteComplainInboxConversation('${complaintSafe(employeeId).replace(/'/g,"&#39;")}')">🗑 Delete Inbox</button>
+            </div>
         </div>
 
         <div class="ci-chat-body" id="ciChatBody">
@@ -3134,11 +3194,17 @@ async function sendComplainInboxReply(employeeId){
 
     const latest = [...rows].sort((a,b) => String(b.created_at || "").localeCompare(String(a.created_at || "")))[0];
     const status = document.getElementById("ciStatus_"+id)?.value || "Pending";
-    const reply = String(document.getElementById("ciReply_"+id)?.value || "").trim();
+    let reply = String(document.getElementById("ciReply_"+id)?.value || "").trim();
     const statusBox = document.getElementById("ciReplyStatus_"+id);
 
-    if(!reply){
-        if(statusBox){ statusBox.className = "ci-reply-status error"; statusBox.textContent = "Write a reply first."; }
+    if(status === "In Progress" && !reply){
+        reply = "Your request is currently in progress. Please wait while HR & Compliance works on it.";
+    }else if(status === "Resolved" && !reply){
+        reply = "Your complaint was successfully resolved. Thank you for connecting with us.";
+    }else if(status === "Request Rejected" && !reply){
+        reply = "Your request has been reviewed and could not be approved at this time.";
+    }else if(!reply){
+        if(statusBox){ statusBox.className = "ci-reply-status error"; statusBox.textContent = "Write a reply first, or select In Progress / Resolved / Request Rejected for an automatic message."; }
         return;
     }
 
@@ -3158,7 +3224,9 @@ async function sendComplainInboxReply(employeeId){
         const index = complainInboxRows.findIndex(r => String(r.complaint_id) === String(latest.complaint_id));
         if(index >= 0) complainInboxRows[index] = data;
 
-        if(statusBox){ statusBox.className = "ci-reply-status success"; statusBox.textContent = "Reply saved successfully."; }
+        const replyBox = document.getElementById("ciReply_"+id);
+        if(replyBox) replyBox.value = "";
+        if(statusBox){ statusBox.className = "ci-reply-status success"; statusBox.textContent = "Status and response sent successfully."; }
         renderComplainInboxThreads(complainInboxRows);
         renderComplainConversation(id);
     }catch(error){
@@ -4192,7 +4260,12 @@ async function showEmployeeSupportCenter(){
                             <strong>A&amp;O HR &amp; Compliance</strong>
                             <span>Support Center • Confidential</span>
                         </div>
-                        <button type="button" class="sc-delete-inbox-btn" title="Delete full conversation" onclick="deleteEmployeeSupportInbox()">🗑 Delete Inbox</button>
+                        <div class="sc-head-actions">
+                            <button type="button" class="sc-refresh-btn" title="Refresh messages" onclick="refreshEmployeeSupportCenter()" aria-label="Refresh messages">
+                                <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.8-4L3 10"/><path d="M3 5v5h5"/><path d="M4 13a8 8 0 0 0 14.8 4L21 14"/><path d="M21 19v-5h-5"/></svg>
+                            </button>
+                            <button type="button" class="sc-delete-inbox-btn" title="Delete full conversation" onclick="deleteEmployeeSupportInbox()">🗑 Delete Inbox</button>
+                        </div>
                     </div>
 
                     <div id="scEmployeeMessages" class="sc-messages">
@@ -4361,6 +4434,35 @@ async function loadEmployeeSupportCenterMessages(employeeId){
 
 
 
+
+async function refreshEmployeeSupportCenter(){
+    const employeeId = String(currentEmployee?.info?.Employee_ID || "").trim().toUpperCase();
+    if(!employeeId) return;
+    await loadEmployeeSupportCenterMessages(employeeId);
+}
+
+async function refreshComplainInboxConversation(employeeId){
+    const id = String(employeeId || "").trim().toUpperCase();
+    if(!id) return;
+
+    try{
+        const {data,error} = await supabaseClient
+            .from("Employee_Complaints")
+            .select("*")
+            .order("created_at", {ascending:false})
+            .limit(1000);
+
+        if(error) throw error;
+
+        complainInboxRows = data || [];
+        renderComplainInboxThreads(complainInboxRows);
+        complainInboxSelectedEmployee = id;
+        renderComplainConversation(id);
+    }catch(error){
+        alert("Refresh failed: " + error.message);
+    }
+}
+
 async function deleteEmployeeSupportInbox(){
     const employeeId = String(currentEmployee?.info?.Employee_ID || "").trim().toUpperCase();
     if(!employeeId) return;
@@ -4378,13 +4480,16 @@ async function deleteEmployeeSupportInbox(){
         for(const row of rows){
             const complaintId = String(row.complaint_id || "").trim();
             if(!complaintId) continue;
-
             const {error} = await supabaseClient
                 .from("Employee_Complaints")
                 .delete()
                 .eq("complaint_id", complaintId);
-
             if(error) throw error;
+        }
+
+        const remaining = await fetchEmployeeSupportMessages(employeeId);
+        if(remaining.length){
+            throw new Error("The database did not allow all messages to be deleted. Please check Supabase DELETE policy for Employee_Complaints.");
         }
 
         await loadEmployeeSupportCenterMessages(employeeId);
@@ -4409,13 +4514,22 @@ async function deleteComplainInboxConversation(employeeId){
         for(const row of rows){
             const complaintId = String(row.complaint_id || "").trim();
             if(!complaintId) continue;
-
             const {error} = await supabaseClient
                 .from("Employee_Complaints")
                 .delete()
                 .eq("complaint_id", complaintId);
-
             if(error) throw error;
+        }
+
+        const {data:remainingRows,error:checkError} = await supabaseClient
+            .from("Employee_Complaints")
+            .select("complaint_id,employee_id")
+            .eq("employee_id", id)
+            .limit(1000);
+
+        if(checkError) throw checkError;
+        if((remainingRows || []).length){
+            throw new Error("The database did not allow this conversation to be deleted. Please check Supabase DELETE policy for Employee_Complaints.");
         }
 
         complainInboxRows = complainInboxRows.filter(r =>
