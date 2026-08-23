@@ -262,6 +262,51 @@ background:linear-gradient(135deg,#43a047,#2e7d32);
     box-shadow:0 4px 12px rgba(0,0,0,.25);
     background:white;
 }
+.employee-support-center-btn{
+    width:100%;
+    margin-top:12px;
+    padding:10px 14px;
+    border:1px solid rgba(255,255,255,.55);
+    border-radius:12px;
+    background:linear-gradient(135deg,#063b78,#0b67b2);
+    color:#fff;
+    font-size:14px;
+    font-weight:900;
+    letter-spacing:.2px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    box-shadow:0 5px 14px rgba(7,84,166,.25);
+    transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.employee-support-center-btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 8px 18px rgba(7,84,166,.32);
+    filter:brightness(1.06);
+}
+.employee-support-center-btn:active{
+    transform:translateY(0);
+}
+.employee-support-center-icon{
+    width:24px;
+    height:24px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    background:rgba(255,255,255,.16);
+}
+.employee-support-center-icon svg{
+    width:16px;
+    height:16px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.9;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+}
 .employee-info-table-wrap{
     width:100%;
     overflow-x:auto;
@@ -1610,6 +1655,159 @@ body::after{
 
 
 
+
+/* Support Center / Facebook-style employee inbox */
+.sc-inbox-page{background:#fff;border:1px solid #e6ddd5;border-radius:16px;overflow:hidden;box-shadow:0 8px 26px rgba(64,43,27,.10);}
+.sc-inbox-topbar{display:flex;align-items:center;gap:14px;padding:13px 15px;background:linear-gradient(135deg,#fffaf4,#f5eee7);border-bottom:1px solid #e5d8cc;}
+.sc-back-btn{margin:0 !important;min-width:auto !important;}
+.sc-title-area{display:flex;align-items:center;gap:10px;min-width:0;flex:1;}
+.sc-title-area h2{margin:0;font-size:19px;color:#4d3625;}
+.sc-title-area p{margin:2px 0 0;color:#8a7563;font-size:11px;}
+.sc-title-icon{width:40px;height:40px;border-radius:12px;background:#1f6fb2;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(31,111,178,.25);}
+.sc-title-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.sc-employee-chip{display:flex;flex-direction:column;align-items:flex-end;font-size:11px;color:#6b5542;}
+.sc-employee-chip strong{font-size:12px;color:#3e3026;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sc-inbox-shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:510px;}
+.sc-thread-panel{background:#faf7f3;border-right:1px solid #e7ddd4;}
+.sc-thread-head{padding:14px;border-bottom:1px solid #e7ddd4;display:flex;justify-content:space-between;align-items:center;color:#4e3828;}
+.sc-thread-head span{font-size:10px;color:#9a8776;}
+.sc-thread-card{margin:10px;padding:10px;border-radius:12px;background:#fff;border:1px solid #dce8f1;display:flex;align-items:center;gap:9px;box-shadow:0 3px 10px rgba(0,0,0,.04);}
+.sc-thread-main{min-width:0;display:flex;flex-direction:column;gap:2px;flex:1;}
+.sc-thread-main strong{font-size:11px;color:#3f3127;}
+.sc-thread-main span{font-size:10px;color:#8b7766;}
+.sc-online-dot{width:8px;height:8px;border-radius:50%;background:#2bb673;box-shadow:0 0 0 3px #e5f7ed;}
+.sc-avatar{width:36px;height:36px;min-width:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#dbeaf6;color:#185b8f;font-weight:900;font-size:13px;}
+.sc-avatar-admin{background:#1f6fb2;color:#fff;}
+.sc-chat-panel{min-width:0;display:flex;flex-direction:column;background:#fff;}
+.sc-chat-head{display:flex;align-items:center;gap:10px;padding:12px 15px;border-bottom:1px solid #eee5dd;background:#fff;}
+.sc-chat-head strong{display:block;color:#3e3026;font-size:13px;}
+.sc-chat-head span{display:block;color:#918072;font-size:10px;margin-top:2px;}
+.sc-messages{flex:1;min-height:280px;max-height:390px;overflow:auto;padding:18px 18px 12px;background:linear-gradient(180deg,#fbfaf9,#fff);}
+.sc-welcome{max-width:480px;margin:45px auto;text-align:center;color:#7c6b5a;}
+.sc-welcome-icon{width:58px;height:58px;margin:0 auto 12px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e9f3fb;color:#1f6fb2;}
+.sc-welcome-icon svg{width:29px;height:29px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
+.sc-welcome h3{margin:0 0 6px;color:#4d3929;font-size:17px;}
+.sc-welcome p{margin:0;line-height:1.6;font-size:12px;}
+.sc-date-row{text-align:center;margin:8px 0 10px;color:#a18f7f;font-size:9px;}
+.sc-date-row span{background:#f2ece6;border-radius:999px;padding:4px 8px;}
+.sc-msg-row{display:flex;gap:7px;margin:9px 0;align-items:flex-end;}
+.sc-msg-row.employee{justify-content:flex-start;}
+.sc-msg-row.admin{justify-content:flex-end;}
+.sc-msg-stack{max-width:min(72%,520px);}
+.sc-msg-row small{display:block;margin:3px 4px 0;color:#a08f80;font-size:9px;}
+.sc-bubble{padding:9px 12px;border-radius:15px;line-height:1.5;font-size:12px;word-break:break-word;white-space:pre-wrap;}
+.sc-bubble.employee{background:#eef4f8;color:#3e3026;border-bottom-left-radius:4px;}
+.sc-bubble.admin{background:#1f6fb2;color:#fff;border-bottom-right-radius:4px;}
+.sc-subject-label{font-size:10px;font-weight:900;color:#765b45;margin:0 0 4px 4px;}
+.sc-pending-note{margin:3px 0 12px 43px;color:#9b8a7a;font-size:10px;}
+.sc-compose{border-top:1px solid #e9e0d8;padding:10px 12px;background:#fff;}
+.sc-compose>input{width:100%;box-sizing:border-box;margin-bottom:7px;}
+.sc-compose>select{
+    width:100%;
+    box-sizing:border-box;
+    margin-bottom:7px;
+    min-height:38px;
+    padding:8px 10px;
+    border:1px solid #d8ccc1;
+    border-radius:8px;
+    background:#fff;
+    color:#493b31;
+    font-size:13px;
+    font-weight:600;
+}
+.sc-compose-row{display:flex;gap:8px;align-items:flex-end;}
+.sc-compose-row textarea{flex:1;min-width:0;resize:vertical;min-height:56px;margin:0;}
+.sc-send-btn{height:44px!important;min-width:78px!important;margin:0!important;padding:0 13px!important;border-radius:11px!important;background:#1f6fb2!important;color:#fff!important;border:0!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;font-weight:900!important;}
+.sc-send-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.sc-send-status{font-size:10px;margin-top:5px;color:#7e6e60;min-height:14px;}
+.sc-message-time,.ci-message-time{display:block;margin-top:4px;font-size:10px;color:#8d7d70;}
+.sc-delete-inbox-btn,.ci-delete-inbox-btn{
+    margin-left:auto;
+    border:1px solid #e5bcbc!important;
+    background:#fff5f5!important;
+    color:#a51d1d!important;
+    border-radius:8px!important;
+    padding:7px 10px!important;
+    font-size:11px!important;
+    font-weight:800!important;
+    cursor:pointer!important;
+    white-space:nowrap;
+}
+.sc-delete-inbox-btn:hover,.ci-delete-inbox-btn:hover{background:#ffe8e8!important;}
+
+.sc-send-status.success{color:#198754}.sc-send-status.error{color:#b42318}
+
+/* Admin Complain Inbox */
+.ci-page{background:#fff;border:1px solid #e2d9d1;border-radius:16px;overflow:hidden;box-shadow:0 9px 30px rgba(50,35,23,.10);}
+.ci-header{padding:15px 16px;background:linear-gradient(135deg,#fffaf4,#f3ebe3);border-bottom:1px solid #e4d8ce;display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.ci-kicker{font-size:9px;letter-spacing:1px;font-weight:900;color:#8a715c;}
+.ci-header h3{margin:3px 0 2px;color:#4c3625;font-size:19px;}
+.ci-header p{margin:0;color:#8b7868;font-size:10px;}
+.ci-header-actions{display:flex;align-items:center;gap:8px;}
+.ci-count-badge{background:#fff;border:1px solid #e1d4c7;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900;color:#6b5543;}
+.ci-shell{display:grid;grid-template-columns:285px minmax(0,1fr);min-height:560px;}
+.ci-list-panel{background:#faf8f6;border-right:1px solid #e5ddd6;min-width:0;}
+.ci-search-wrap{padding:10px;border-bottom:1px solid #e7dfd8;}
+.ci-search-wrap input{width:100%;box-sizing:border-box;margin:0;border-radius:999px!important;padding:9px 12px!important;font-size:11px!important;}
+.ci-thread-list{max-height:600px;overflow:auto;padding:5px;}
+.ci-thread-item{width:100%;border:0;border-bottom:1px solid #eee7e1;background:transparent;padding:10px 8px;display:flex;align-items:center;gap:9px;text-align:left;cursor:pointer;}
+.ci-thread-item:hover,.ci-thread-item.active{background:#eef5fa;}
+.ci-thread-item.active{border-left:3px solid #1f6fb2;padding-left:5px;}
+.ci-thread-copy{min-width:0;display:flex;flex-direction:column;gap:2px;flex:1;}
+.ci-thread-copy strong{font-size:11px;color:#3f3025;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ci-thread-copy small{font-size:9px;color:#1f6fb2;font-weight:800;}
+.ci-thread-copy span{font-size:9px;color:#8b7a6c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ci-thread-meta{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.ci-thread-meta b{background:#e53935;color:#fff;border-radius:999px;min-width:17px;height:17px;display:flex;align-items:center;justify-content:center;font-size:9px;}
+.ci-thread-meta small{font-size:8px;color:#a18f7f;white-space:nowrap;}
+.ci-no-threads{padding:25px 12px;text-align:center;color:#9a8877;font-size:11px;}
+.ci-conversation-panel{min-width:0;display:flex;flex-direction:column;background:#fff;}
+.ci-empty-state{height:100%;min-height:500px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#8c7b6b;padding:20px;}
+.ci-empty-icon{width:58px;height:58px;border-radius:50%;background:#eef5fa;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:10px;}
+.ci-empty-state h3{margin:0 0 5px;color:#4c392a;font-size:16px;}
+.ci-empty-state p{margin:0;max-width:390px;font-size:11px;line-height:1.6;}
+.ci-chat-head{display:flex;align-items:center;gap:10px;padding:12px 15px;border-bottom:1px solid #e9e0d9;background:#fff;}
+.ci-avatar{width:38px;height:38px;min-width:38px;border-radius:50%;background:#dcebf5;color:#1a5b8c;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;}
+.ci-avatar-large{width:42px;height:42px;min-width:42px;}
+.ci-chat-identity{min-width:0;flex:1;display:flex;flex-direction:column;gap:2px;}
+.ci-chat-identity strong{font-size:13px;color:#3d2e24;}
+.ci-chat-identity span{font-size:9px;color:#8d7b6b;}
+.ci-chat-status{font-size:10px;}
+.ci-chat-body{flex:1;max-height:430px;overflow:auto;padding:15px 18px;background:linear-gradient(180deg,#fbfaf9,#fff);}
+.ci-date-line{text-align:center;color:#a18f7e;font-size:9px;margin:8px 0;}
+.ci-bubble-row{display:flex;gap:7px;align-items:flex-end;margin:9px 0;}
+.ci-bubble-row.employee{justify-content:flex-start;}
+.ci-bubble-row.admin{justify-content:flex-end;}
+.ci-bubble-row>div:not(.ci-bubble-avatar){max-width:min(72%,520px);}
+.ci-bubble{padding:9px 12px;border-radius:15px;font-size:12px;line-height:1.5;white-space:pre-wrap;word-break:break-word;}
+.ci-bubble.employee{background:#eef4f8;color:#3d3027;border-bottom-left-radius:4px;}
+.ci-bubble.admin{background:#1f6fb2;color:#fff;border-bottom-right-radius:4px;}
+.ci-bubble-row small{display:block;color:#a08e7f;font-size:8px;margin:3px 4px;}
+.ci-bubble-avatar{width:28px!important;height:28px!important;min-width:28px!important;font-size:9px!important;border-radius:50%;background:#dcebf5;color:#1a5b8c;display:flex;align-items:center;justify-content:center;font-weight:900;}
+.ci-bubble-avatar.admin{background:#1f6fb2;color:#fff;}
+.ci-subject{font-size:9px;font-weight:900;color:#765b45;margin:0 0 4px 4px;}
+.ci-reply-box{border-top:1px solid #e7ded7;padding:10px 12px;background:#fff;}
+.ci-reply-row{display:grid;grid-template-columns:125px minmax(0,1fr) 72px;gap:7px;align-items:end;}
+.ci-reply-row select{margin:0;}
+.ci-reply-row textarea{margin:0;min-height:56px;resize:vertical;}
+.ci-send-reply{height:44px!important;margin:0!important;padding:0 8px!important;border:0!important;border-radius:10px!important;background:#1f6fb2!important;color:#fff!important;font-weight:900!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:4px!important;}
+.ci-send-reply svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.ci-reply-status{font-size:10px;min-height:14px;margin-top:4px;color:#8b7868;}
+.ci-reply-status.success{color:#198754}.ci-reply-status.error{color:#b42318}
+
+@media(max-width:760px){
+    .sc-inbox-topbar,.ci-header{align-items:flex-start;flex-wrap:wrap;}
+    .sc-employee-chip{align-items:flex-start;width:100%;padding-left:50px;}
+    .sc-inbox-shell,.ci-shell{grid-template-columns:1fr;}
+    .sc-thread-panel,.ci-list-panel{border-right:0;border-bottom:1px solid #e5ddd6;}
+    .sc-thread-panel{display:none;}
+    .ci-thread-list{max-height:190px;}
+    .sc-compose-row{flex-direction:column;}
+    .sc-send-btn{width:100%!important;}
+    .ci-reply-row{grid-template-columns:1fr;}
+    .ci-send-reply{width:100%!important;}
+}
+
 /* Complaint management */
 .complaint-admin-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
 .complaint-admin-head h3{margin:0;color:#5f4025;}
@@ -2114,6 +2312,7 @@ body::after{
             <button class="orange" onclick="openSupabaseDashboard()">14. Open Supabase Dashboard</button>
             <button class="green" onclick="showRocketCommitment()">15. Rocket Commitment</button>
             <button class="orange" onclick="showComplaintManagement()">16. Complaint Box</button>
+            <button class="orange" type="button" onclick="showComplainInbox()">17. Complain</button>
         </div>
 </div>
 
@@ -2528,6 +2727,260 @@ async function saveComplaintUpdate(id,status,reply){
     alert("Complaint updated successfully.");
 }
 
+
+
+let complainInboxRows = [];
+let complainInboxSelectedEmployee = "";
+
+async function showComplainInbox(){
+    activateAdminSubPage();
+    document.getElementById("adminView").innerHTML = `
+        ${adminBackButtonHtml()}
+        <div class="ci-page">
+            <div class="ci-header">
+                <div>
+                    <div class="ci-kicker">A&amp;O HR &amp; COMPLIANCE</div>
+                    <h3>Complain Inbox</h3>
+                    <p>Employee Support Center-এর messages এখানে Facebook-style conversation হিসেবে দেখাবে।</p>
+                </div>
+                <div class="ci-header-actions">
+                    <span id="ciTotalBadge" class="ci-count-badge">0 Messages</span>
+                    <button class="green" onclick="loadComplainInbox()">Refresh</button>
+                </div>
+            </div>
+
+            <div class="ci-shell">
+                <aside class="ci-list-panel">
+                    <div class="ci-search-wrap">
+                        <input id="ciSearch" placeholder="Search employee, ID or message..." oninput="filterComplainInbox()">
+                    </div>
+                    <div id="ciThreadList" class="ci-thread-list">
+                        <div class="status">Loading...</div>
+                    </div>
+                </aside>
+
+                <section class="ci-conversation-panel">
+                    <div id="ciConversation">
+                        <div class="ci-empty-state">
+                            <div class="ci-empty-icon">💬</div>
+                            <h3>Select a conversation</h3>
+                            <p>Employee Support Center থেকে আসা message দেখতে বাম পাশ থেকে একজন employee নির্বাচন করুন।</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>`;
+    await loadComplainInbox();
+}
+
+async function loadComplainInbox(){
+    const list = document.getElementById("ciThreadList");
+    if(!list) return;
+    list.innerHTML = `<div class="status">Loading messages...</div>`;
+
+    const {data,error} = await supabaseClient
+        .from("Employee_Complaints")
+        .select("*")
+        .order("created_at", {ascending:false})
+        .limit(500);
+
+    if(error){
+        list.innerHTML = `<div class="status error">Load failed: ${complaintSafe(error.message)}</div>`;
+        return;
+    }
+
+    complainInboxRows = data || [];
+    const total = document.getElementById("ciTotalBadge");
+    if(total) total.textContent = `${complainInboxRows.length} Message${complainInboxRows.length === 1 ? "" : "s"}`;
+
+    renderComplainInboxThreads(complainInboxRows);
+
+    if(complainInboxSelectedEmployee){
+        const exists = complainInboxRows.some(r => String(r.employee_id || "").trim().toUpperCase() === complainInboxSelectedEmployee);
+        if(exists) renderComplainConversation(complainInboxSelectedEmployee);
+    }
+}
+
+function groupComplainInboxRows(rows){
+    const map = new Map();
+    rows.forEach(r => {
+        const id = String(r.employee_id || r.email || r.employee_name || "UNKNOWN").trim().toUpperCase();
+        if(!map.has(id)) map.set(id, []);
+        map.get(id).push(r);
+    });
+    return Array.from(map.entries()).map(([employeeId, messages]) => {
+        messages.sort((a,b) => String(b.created_at || "").localeCompare(String(a.created_at || "")));
+        return {employeeId, messages, latest: messages[0]};
+    }).sort((a,b) =>
+        String(b.latest?.created_at || "").localeCompare(String(a.latest?.created_at || ""))
+    );
+}
+
+function filterComplainInbox(){
+    const q = String(document.getElementById("ciSearch")?.value || "").trim().toLowerCase();
+    const filtered = !q ? complainInboxRows : complainInboxRows.filter(r =>
+        [r.employee_id,r.employee_name,r.email,r.section,r.subject,r.complaint,r.status].join(" ").toLowerCase().includes(q)
+    );
+    renderComplainInboxThreads(filtered);
+}
+
+function renderComplainInboxThreads(rows){
+    const list = document.getElementById("ciThreadList");
+    if(!list) return;
+
+    const groups = groupComplainInboxRows(rows);
+    if(!groups.length){
+        list.innerHTML = `<div class="ci-no-threads">No messages found.</div>`;
+        return;
+    }
+
+    list.innerHTML = groups.map(g => {
+        const name = String(g.latest.employee_name || "Employee").trim();
+        const id = String(g.employeeId || "").trim();
+        const initials = (name.charAt(0) || "E").toUpperCase();
+        const pending = g.messages.filter(r => String(r.status || "Pending") === "Pending").length;
+        return `
+            <button type="button" class="ci-thread-item ${g.employeeId === complainInboxSelectedEmployee ? "active" : ""}" onclick="selectComplainThread('${complaintSafe(id).replace(/'/g,"&#39;")}')">
+                <span class="ci-avatar">${complaintSafe(initials)}</span>
+                <span class="ci-thread-copy">
+                    <strong>${complaintSafe(name)}</strong>
+                    <small>${complaintSafe(id)}</small>
+                    <span>${complaintSafe(g.latest.subject || g.latest.complaint || "New message")}</span>
+                </span>
+                <span class="ci-thread-meta">
+                    ${pending ? `<b>${pending}</b>` : ""}
+                    <small>${complaintSafe(complaintDate(g.latest.created_at))}</small>
+                </span>
+            </button>`;
+    }).join("");
+}
+
+function selectComplainThread(employeeId){
+    complainInboxSelectedEmployee = String(employeeId || "").trim().toUpperCase();
+    renderComplainInboxThreads(
+        document.getElementById("ciSearch")?.value
+            ? complainInboxRows.filter(r => [r.employee_id,r.employee_name,r.email,r.section,r.subject,r.complaint,r.status].join(" ").toLowerCase().includes(String(document.getElementById("ciSearch").value).trim().toLowerCase()))
+            : complainInboxRows
+    );
+    renderComplainConversation(complainInboxSelectedEmployee);
+}
+
+function renderComplainConversation(employeeId){
+    const box = document.getElementById("ciConversation");
+    if(!box) return;
+
+    const rows = complainInboxRows
+        .filter(r => String(r.employee_id || r.email || r.employee_name || "").trim().toUpperCase() === employeeId)
+        .sort((a,b) => String(a.created_at || "").localeCompare(String(b.created_at || "")));
+
+    if(!rows.length){
+        box.innerHTML = `<div class="ci-empty-state"><h3>Conversation not found</h3></div>`;
+        return;
+    }
+
+    const latest = rows[rows.length - 1];
+    const name = String(latest.employee_name || "Employee").trim();
+    const section = String(latest.section || latest.Section_Name || "-").trim();
+
+    box.innerHTML = `
+        <div class="ci-chat-head">
+            <div class="ci-avatar ci-avatar-large">${complaintSafe((name.charAt(0) || "E").toUpperCase())}</div>
+            <div class="ci-chat-identity">
+                <strong>${complaintSafe(name)}</strong>
+                <span>ID No: ${complaintSafe(employeeId)}</span>
+                <span>${complaintSafe(section)}</span>
+            </div>
+            <div class="ci-chat-status">${complaintBadge(latest.status)}</div>
+            <button type="button" class="ci-delete-inbox-btn" title="Delete full conversation" onclick="deleteComplainInboxConversation('${complaintSafe(employeeId).replace(/'/g,"&#39;")}')">🗑 Delete Inbox</button>
+        </div>
+
+        <div class="ci-chat-body" id="ciChatBody">
+            ${rows.map(r => {
+                const reply = String(r.admin_reply || "").trim();
+                return `
+                    <div class="ci-date-line">${complaintSafe(complaintDate(r.created_at))}</div>
+                    <div class="ci-bubble-row employee">
+                        <div class="ci-bubble-avatar">${complaintSafe((name.charAt(0) || "E").toUpperCase())}</div>
+                        <div>
+                            ${r.subject ? `<div class="ci-subject">${complaintSafe(r.subject)}</div>` : ""}
+                            <div class="ci-bubble employee">${complaintSafe(r.complaint || "")}</div>
+                            <small class="ci-message-time">${complaintSafe(complaintDate(r.created_at))}</small>
+                        </div>
+                    </div>
+                    ${reply ? `
+                        <div class="ci-bubble-row admin">
+                            <div>
+                                <div class="ci-bubble admin">${complaintSafe(reply)}</div>
+                                <small class="ci-message-time">${complaintSafe(complaintDate(r.updated_at || r.created_at))}</small>
+                            </div>
+                            <div class="ci-bubble-avatar admin">AO</div>
+                        </div>` : ""}
+                `;
+            }).join("")}
+        </div>
+
+        <div class="ci-reply-box">
+            <div class="ci-reply-row">
+                <select id="ciStatus_${complaintSafe(employeeId)}">
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                    <option value="Request Rejected">Request Rejected</option>
+                </select>
+                <textarea id="ciReply_${complaintSafe(employeeId)}" rows="3" placeholder="Write reply to ${complaintSafe(name)}..."></textarea>
+                <button class="ci-send-reply" onclick="sendComplainInboxReply('${complaintSafe(employeeId).replace(/'/g,"&#39;")}')">
+                    <svg viewBox="0 0 24 24"><path d="M3 4.8 21 12 3 19.2 6.2 13 15 12 6.2 11z"/></svg>
+                    Reply
+                </button>
+            </div>
+            <div id="ciReplyStatus_${complaintSafe(employeeId)}" class="ci-reply-status"></div>
+        </div>`;
+
+    const statusSelect = document.getElementById("ciStatus_"+employeeId);
+    if(statusSelect) statusSelect.value = String(latest.status || "Pending");
+    const body = document.getElementById("ciChatBody");
+    if(body) body.scrollTop = body.scrollHeight;
+}
+
+async function sendComplainInboxReply(employeeId){
+    const id = String(employeeId || "").trim().toUpperCase();
+    const rows = complainInboxRows.filter(r => String(r.employee_id || r.email || r.employee_name || "").trim().toUpperCase() === id);
+    if(!rows.length) return;
+
+    const latest = [...rows].sort((a,b) => String(b.created_at || "").localeCompare(String(a.created_at || "")))[0];
+    const status = document.getElementById("ciStatus_"+id)?.value || "Pending";
+    const reply = String(document.getElementById("ciReply_"+id)?.value || "").trim();
+    const statusBox = document.getElementById("ciReplyStatus_"+id);
+
+    if(!reply){
+        if(statusBox){ statusBox.className = "ci-reply-status error"; statusBox.textContent = "Write a reply first."; }
+        return;
+    }
+
+    if(statusBox){ statusBox.className = "ci-reply-status"; statusBox.textContent = "Saving..."; }
+
+    try{
+        const now = new Date().toISOString();
+        const {data,error} = await supabaseClient
+            .from("Employee_Complaints")
+            .update({status:status, admin_reply:reply, updated_at:now})
+            .eq("complaint_id", latest.complaint_id)
+            .select("*")
+            .single();
+
+        if(error) throw error;
+
+        const index = complainInboxRows.findIndex(r => String(r.complaint_id) === String(latest.complaint_id));
+        if(index >= 0) complainInboxRows[index] = data;
+
+        if(statusBox){ statusBox.className = "ci-reply-status success"; statusBox.textContent = "Reply saved successfully."; }
+        renderComplainInboxThreads(complainInboxRows);
+        renderComplainConversation(id);
+    }catch(error){
+        console.log("Complain inbox reply error:", error);
+        if(statusBox){ statusBox.className = "ci-reply-status error"; statusBox.textContent = "Reply failed: " + error.message; }
+    }
+}
 
 function showAdminLogin(){
     hideAll();
@@ -3500,6 +3953,95 @@ function loadEmployeePhotoInto(img, employeeId){
     }
 }
 
+async function showEmployeeSupportCenter(){
+    const info = currentEmployee?.info || {};
+    const employeeId = String(info.Employee_ID || "").trim().toUpperCase();
+    const employeeName = String(info.Name_OF_Employee || info.Name_Of_Employee || info.NAME_OF_EMPLOYEE || "").trim();
+    const employeeEmail = String(info.Email || info.Email_Address || info.EMAIL || "").trim();
+    const section = String(info.Section_Name || info.Section || info.Department || "").trim();
+
+    if(!employeeId){
+        alert("Employee information not found.");
+        return;
+    }
+
+    document.getElementById("employeeView").innerHTML = `
+        <div class="sc-inbox-page">
+            <div class="sc-inbox-topbar">
+                <button class="gray sc-back-btn" onclick="showEmployeeInfo()">← Back</button>
+                <div class="sc-title-area">
+                    <div class="sc-title-icon">
+                        <svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3.2V17H6.5A2.5 2.5 0 0 1 4 14.5z"/><path d="M8 9h8M8 12h5"/></svg>
+                    </div>
+                    <div>
+                        <h2>Support Center</h2>
+                        <p>HR &amp; Compliance Support</p>
+                    </div>
+                </div>
+                <div class="sc-employee-chip">
+                    <strong>${complaintSafe(employeeName || "Employee")}</strong>
+                    <span>${complaintSafe(employeeId)}</span>
+                </div>
+            </div>
+
+            <div class="sc-inbox-shell">
+                <aside class="sc-thread-panel">
+                    <div class="sc-thread-head">
+                        <strong>Support Inbox</strong>
+                        <span>Messages</span>
+                    </div>
+                    <div class="sc-thread-card active">
+                        <div class="sc-avatar">${complaintSafe((employeeName || "E").charAt(0).toUpperCase())}</div>
+                        <div class="sc-thread-main">
+                            <strong>A&amp;O HR &amp; Compliance</strong>
+                            <span>Support Center</span>
+                        </div>
+                        <span class="sc-online-dot"></span>
+                    </div>
+                </aside>
+
+                <section class="sc-chat-panel">
+                    <div class="sc-chat-head">
+                        <div class="sc-avatar sc-avatar-admin">AO</div>
+                        <div>
+                            <strong>A&amp;O HR &amp; Compliance</strong>
+                            <span>Support Center • Confidential</span>
+                        </div>
+                        <button type="button" class="sc-delete-inbox-btn" title="Delete full conversation" onclick="deleteEmployeeSupportInbox()">🗑 Delete Inbox</button>
+                    </div>
+
+                    <div id="scEmployeeMessages" class="sc-messages">
+                        <div class="status">Loading conversation...</div>
+                    </div>
+
+                    <form class="sc-compose" onsubmit="sendEmployeeSupportMessage(event)">
+                        <input type="hidden" id="scEmployeeId" value="${complaintSafe(employeeId)}">
+                        <input type="hidden" id="scEmployeeName" value="${complaintSafe(employeeName)}">
+                        <input type="hidden" id="scEmployeeEmail" value="${complaintSafe(employeeEmail)}">
+                        <input type="hidden" id="scEmployeeSection" value="${complaintSafe(section)}">
+                        <input id="scSubject" maxlength="120" placeholder="Subject (optional)">
+                        <select id="scMessageType" aria-label="Message Type">
+                            <option value="Complaint">Complaint</option>
+                            <option value="Support Request">Support Request</option>
+                            <option value="Suggestion">Suggestion</option>
+                            <option value="General Inquiry">General Inquiry</option>
+                        </select>
+                        <div class="sc-compose-row">
+                            <textarea id="scMessage" rows="3" maxlength="3000" placeholder="Write a message to HR &amp; Compliance..." required></textarea>
+                            <button class="sc-send-btn" type="submit" title="Send Message">
+                                <svg viewBox="0 0 24 24"><path d="M3 4.8 21 12 3 19.2 6.2 13 15 12 6.2 11z"/></svg>
+                                <span>Send</span>
+                            </button>
+                        </div>
+                        <div id="scSendStatus" class="sc-send-status" aria-live="polite"></div>
+                    </form>
+                </section>
+            </div>
+        </div>`;
+
+    await loadEmployeeSupportCenterMessages(employeeId);
+}
+
 function showEmployeeInfo(){
     let info = currentEmployee.info;
 
@@ -3524,6 +4066,18 @@ function showEmployeeInfo(){
             </label>
             <input id="employeePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="handleEmployeePhotoUpload(this)">
             <div id="employeePhotoStatus" class="employee-photo-status"></div>
+
+            <button type="button" class="employee-support-center-btn" onclick="showEmployeeSupportCenter()">
+                <span class="employee-support-center-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 13v-1a8 8 0 0 1 16 0v1"/>
+                        <path d="M4 13h3v6H5.5A1.5 1.5 0 0 1 4 17.5V13Z"/>
+                        <path d="M20 13h-3v6h1.5a1.5 1.5 0 0 0 1.5-1.5V13Z"/>
+                        <path d="M9 20h4"/>
+                    </svg>
+                </span>
+                <span>Support Center</span>
+            </button>
         </div>
 
         <div class="employee-info-table-wrap">
@@ -3553,6 +4107,191 @@ function showEmployeeInfo(){
     if(photo) loadEmployeePhotoInto(photo, employeeId);
 }
 
+
+
+
+async function fetchEmployeeSupportMessages(employeeId){
+    const id = String(employeeId || "").trim().toUpperCase();
+    if(!id) return [];
+    const {data,error} = await supabaseClient
+        .from("Employee_Complaints")
+        .select("*")
+        .eq("employee_id", id)
+        .order("created_at", {ascending:true})
+        .limit(300);
+    if(error) throw error;
+    return data || [];
+}
+
+async function loadEmployeeSupportCenterMessages(employeeId){
+    const box = document.getElementById("scEmployeeMessages");
+    if(!box) return;
+    try{
+        const rows = await fetchEmployeeSupportMessages(employeeId);
+        if(!rows.length){
+            box.innerHTML = `
+                <div class="sc-welcome">
+                    <div class="sc-welcome-icon">
+                        <svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3.2V17H6.5A2.5 2.5 0 0 1 4 14.5z"/><path d="M8 9h8M8 12h5"/></svg>
+                    </div>
+                    <h3>Welcome to Support Center</h3>
+                    <p>আপনার কোনো সমস্যা, প্রয়োজন বা অভিযোগ থাকলে নিচে message পাঠান। আপনার <strong>Name</strong> এবং <strong>Employee ID</strong> স্বয়ংক্রিয়ভাবে HR &amp; Compliance-এর Complain Inbox-এ যাবে।</p>
+                </div>`;
+            return;
+        }
+
+        const ordered = [...rows].sort((a,b) =>
+            String(a.created_at || "").localeCompare(String(b.created_at || ""))
+        );
+
+        box.innerHTML = ordered.map(r => {
+            const reply = String(r.admin_reply || "").trim();
+            return `
+                <div class="sc-date-row"><span>${complaintSafe(complaintDate(r.created_at))}</span></div>
+                <div class="sc-msg-row employee">
+                    <div class="sc-msg-avatar">${complaintSafe((String(r.employee_name || "E").trim().charAt(0) || "E").toUpperCase())}</div>
+                    <div class="sc-msg-stack">
+                        ${r.subject ? `<div class="sc-subject-label">${complaintSafe(r.subject)}</div>` : ""}
+                        <div class="sc-bubble employee">${complaintSafe(r.complaint || "")}</div>
+                        <small class="sc-message-time">${complaintSafe(complaintDate(r.created_at))} • ${complaintSafe(r.status || "Pending")}</small>
+                    </div>
+                </div>
+                ${reply ? `
+                <div class="sc-msg-row admin">
+                    <div class="sc-msg-avatar sc-avatar-admin">AO</div>
+                    <div class="sc-msg-stack">
+                        <div class="sc-bubble admin">${complaintSafe(reply)}</div>
+                        <small>${complaintSafe(complaintDate(r.updated_at || r.created_at))} • HR &amp; Compliance</small>
+                    </div>
+                </div>` : `
+                <div class="sc-pending-note">Your message is pending review by HR &amp; Compliance.</div>`}
+            `;
+        }).join("");
+
+        box.scrollTop = box.scrollHeight;
+    }catch(error){
+        box.innerHTML = `<div class="status error">Support Center load failed: ${complaintSafe(error.message)}</div>`;
+    }
+}
+
+
+
+async function deleteEmployeeSupportInbox(){
+    const employeeId = String(currentEmployee?.info?.Employee_ID || "").trim().toUpperCase();
+    if(!employeeId) return;
+
+    const ok = confirm("Delete the full Support Center inbox? All messages and HR/Admin replies will be permanently removed.");
+    if(!ok) return;
+
+    try{
+        const {error} = await supabaseClient
+            .from("Employee_Complaints")
+            .delete()
+            .eq("employee_id", employeeId);
+
+        if(error) throw error;
+        await loadEmployeeSupportCenterMessages(employeeId);
+    }catch(error){
+        console.log("Employee inbox delete error:", error);
+        alert("Inbox delete failed: " + error.message);
+    }
+}
+
+async function deleteComplainInboxConversation(employeeId){
+    const id = String(employeeId || "").trim().toUpperCase();
+    if(!id) return;
+
+    const ok = confirm("Delete the full conversation for this employee? All messages and HR/Admin replies will be permanently removed.");
+    if(!ok) return;
+
+    try{
+        const {error} = await supabaseClient
+            .from("Employee_Complaints")
+            .delete()
+            .eq("employee_id", id);
+
+        if(error) throw error;
+
+        complainInboxRows = complainInboxRows.filter(r =>
+            String(r.employee_id || "").trim().toUpperCase() !== id
+        );
+        complainInboxSelectedEmployee = "";
+
+        const total = document.getElementById("ciTotalBadge");
+        if(total) total.textContent = `${complainInboxRows.length} Message${complainInboxRows.length === 1 ? "" : "s"}`;
+
+        renderComplainInboxThreads(complainInboxRows);
+
+        const box = document.getElementById("ciConversation");
+        if(box){
+            box.innerHTML = `
+                <div class="ci-empty-state">
+                    <div class="ci-empty-icon">💬</div>
+                    <h3>Select a conversation</h3>
+                    <p>The selected conversation has been deleted.</p>
+                </div>`;
+        }
+    }catch(error){
+        console.log("Complain inbox delete error:", error);
+        alert("Conversation delete failed: " + error.message);
+    }
+}
+
+async function sendEmployeeSupportMessage(event){
+    event.preventDefault();
+
+    const employeeId = String(document.getElementById("scEmployeeId")?.value || "").trim().toUpperCase();
+    const employeeName = String(document.getElementById("scEmployeeName")?.value || "").trim();
+    const employeeEmail = String(document.getElementById("scEmployeeEmail")?.value || "").trim();
+    const section = String(document.getElementById("scEmployeeSection")?.value || "").trim();
+    const subjectText = String(document.getElementById("scSubject")?.value || "").trim();
+    const messageType = String(document.getElementById("scMessageType")?.value || "Complaint").trim();
+    const subject = subjectText ? `[${messageType}] ${subjectText}` : messageType;
+    const message = String(document.getElementById("scMessage")?.value || "").trim();
+    const status = document.getElementById("scSendStatus");
+
+    if(!employeeId || !employeeName){
+        if(status){ status.className = "sc-send-status error"; status.textContent = "Employee information is missing."; }
+        return;
+    }
+    if(!message){
+        if(status){ status.className = "sc-send-status error"; status.textContent = "Please write a message."; }
+        return;
+    }
+
+    if(status){ status.className = "sc-send-status"; status.textContent = "Sending..."; }
+
+    try{
+        const {data,error} = await supabaseClient
+            .from("Employee_Complaints")
+            .insert([{
+                employee_id: employeeId,
+                employee_name: employeeName,
+                email: employeeEmail,
+                section: section,
+                subject: subject || "Support Center Message",
+                complaint: message,
+                status: "Pending",
+                admin_reply: ""
+            }])
+            .select("*")
+            .single();
+
+        if(error) throw error;
+
+        document.getElementById("scSubject").value = "";
+        document.getElementById("scMessage").value = "";
+        if(status){ status.className = "sc-send-status success"; status.textContent = "Message sent to HR & Compliance."; }
+
+        await loadEmployeeSupportCenterMessages(employeeId);
+    }catch(error){
+        console.log("Support Center send error:", error);
+        if(status){
+            status.className = "sc-send-status error";
+            status.textContent = "Message send failed: " + error.message;
+        }
+    }
+}
 
 async function submitEmployeeProfileComplaint(){
     const employeeId = String(document.getElementById("profileComplaintEmployeeId")?.value || "").trim();
