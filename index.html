@@ -1706,8 +1706,9 @@ body::after{
     width:100%;
     box-sizing:border-box;
     margin-bottom:7px;
-    min-height:38px;
-    padding:8px 10px;
+    min-height:34px;
+    height:34px;
+    padding:6px 9px;
     border:1px solid #d8ccc1;
     border-radius:8px;
     background:#fff;
@@ -1887,6 +1888,190 @@ body::after{
 .complaint-chat-row.admin .complaint-chat-label{color:#176b35 !important;}
 .complaint-chat-time{display:block !important;text-align:right !important;font-size:9px !important;color:#52636e !important;margin-top:6px !important;font-weight:700 !important;}
 
+</style>
+<style>
+/* ===== Support Center / Complain Inbox — Professional Compact UI ===== */
+.sc-chat-head{
+    min-height:52px!important;
+    padding:10px 12px!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:10px!important;
+    border-bottom:1px solid #e8e0d8!important;
+    background:linear-gradient(180deg,#fff,#faf8f5)!important;
+}
+.sc-chat-head>div:nth-child(2){min-width:0;}
+.sc-chat-head strong{font-size:13px!important;color:#2f2a26!important;display:block!important;line-height:1.2!important;}
+.sc-chat-head span{font-size:10px!important;color:#8a7b70!important;display:block!important;margin-top:2px!important;}
+.sc-avatar.sc-avatar-admin{
+    width:34px!important;height:34px!important;min-width:34px!important;
+    border-radius:10px!important;font-size:11px!important;
+    box-shadow:none!important;
+}
+.sc-delete-inbox-btn,.ci-delete-inbox-btn{
+    margin-left:auto!important;
+    width:auto!important;
+    min-width:0!important;
+    height:30px!important;
+    padding:0 9px!important;
+    border:1px solid #e8caca!important;
+    border-radius:7px!important;
+    background:#fff!important;
+    color:#a52a2a!important;
+    font-size:10px!important;
+    font-weight:800!important;
+    line-height:28px!important;
+    white-space:nowrap!important;
+    box-shadow:none!important;
+}
+.sc-delete-inbox-btn:hover,.ci-delete-inbox-btn:hover{
+    background:#fff5f5!important;
+    border-color:#dcaeae!important;
+}
+.sc-message-time,.ci-message-time{
+    display:block!important;
+    margin-top:3px!important;
+    font-size:9px!important;
+    line-height:1.2!important;
+    color:#9a8d83!important;
+}
+.sc-bubble,.ci-bubble{
+    max-width:min(78%,620px)!important;
+    padding:8px 10px!important;
+    border-radius:11px!important;
+    font-size:12px!important;
+    line-height:1.45!important;
+    box-shadow:none!important;
+}
+.sc-bubble.employee,.ci-bubble.employee{border-radius:11px 11px 11px 4px!important;}
+.sc-bubble.admin,.ci-bubble.admin{border-radius:11px 11px 4px 11px!important;}
+.sc-msg-row,.ci-bubble-row{margin-bottom:9px!important;}
+.sc-compose{
+    padding:9px!important;
+    border-top:1px solid #e8e0d8!important;
+    background:#fff!important;
+}
+.sc-compose>input,.sc-compose>select{
+    height:34px!important;
+    min-height:34px!important;
+    margin-bottom:6px!important;
+    padding:7px 9px!important;
+    border-radius:7px!important;
+    border:1px solid #ddd3ca!important;
+    font-size:11px!important;
+}
+.sc-compose-row{
+    display:flex!important;
+    align-items:flex-end!important;
+    gap:6px!important;
+}
+.sc-compose-row{
+    display:flex!important;
+    align-items:flex-end!important;
+    gap:7px!important;
+    width:100%!important;
+}
+.sc-compose-row textarea{
+    flex:1 1 auto!important;
+    width:auto!important;
+    min-width:0!important;
+    min-height:58px!important;
+    height:58px!important;
+    max-height:120px!important;
+    padding:8px 9px!important;
+    border-radius:8px!important;
+    border:1px solid #ddd3ca!important;
+    font-size:11px!important;
+    display:block!important;
+}
+.sc-compose-row .sc-send-btn{
+    flex:0 0 70px!important;
+    width:70px!important;
+    min-width:70px!important;
+    height:34px!important;
+    padding:0 8px!important;
+    margin:0!important;
+    border-radius:7px!important;
+}
+.sc-compose-row button{
+    height:34px!important;
+    min-width:62px!important;
+    padding:0 11px!important;
+    border-radius:7px!important;
+    font-size:10px!important;
+    font-weight:800!important;
+}
+
+/* Admin inbox */
+.ci-shell{
+    border:1px solid #e6ddd5!important;
+    border-radius:12px!important;
+    overflow:hidden!important;
+    background:#fff!important;
+    box-shadow:0 3px 12px rgba(55,43,32,.06)!important;
+}
+.ci-head{
+    padding:10px 12px!important;
+    min-height:48px!important;
+    display:flex!important;
+    align-items:center!important;
+    gap:8px!important;
+    border-bottom:1px solid #e8e0d8!important;
+}
+.ci-head h3{font-size:14px!important;margin:0!important;}
+.ci-head p{font-size:10px!important;margin:2px 0 0!important;color:#8a7b70!important;}
+.ci-list{background:#fbfaf8!important;}
+.ci-thread{
+    padding:8px 10px!important;
+    min-height:48px!important;
+    border-bottom:1px solid #eee8e2!important;
+}
+.ci-thread strong{font-size:11px!important;}
+.ci-thread small{font-size:9px!important;}
+.ci-thread.active{background:#f2f7fb!important;}
+.ci-chat-head{
+    min-height:54px!important;
+    padding:9px 11px!important;
+    gap:9px!important;
+    border-bottom:1px solid #e8e0d8!important;
+    background:linear-gradient(180deg,#fff,#faf8f5)!important;
+}
+.ci-avatar.ci-avatar-large{
+    width:34px!important;height:34px!important;min-width:34px!important;
+    border-radius:10px!important;font-size:11px!important;
+}
+.ci-chat-identity strong{font-size:12px!important;}
+.ci-chat-identity span{font-size:9px!important;}
+.ci-chat-status{font-size:9px!important;}
+.ci-delete-inbox-btn{font-size:9px!important;height:28px!important;line-height:26px!important;}
+.ci-conversation{
+    padding:12px!important;
+    background:#f8f6f3!important;
+}
+.ci-reply-box{
+    padding:8px!important;
+    border-top:1px solid #e8e0d8!important;
+    background:#fff!important;
+}
+.ci-reply-box textarea{
+    min-height:42px!important;
+    padding:8px 9px!important;
+    border:1px solid #ddd3ca!important;
+    border-radius:8px!important;
+    font-size:11px!important;
+}
+.ci-reply-box button{
+    height:32px!important;
+    padding:0 10px!important;
+    border-radius:7px!important;
+    font-size:10px!important;
+    font-weight:800!important;
+}
+@media(max-width:700px){
+    .sc-delete-inbox-btn,.ci-delete-inbox-btn{padding:0 7px!important;font-size:9px!important;}
+    .sc-bubble,.ci-bubble{max-width:88%!important;}
+    .sc-compose-row .sc-send-btn{flex-basis:64px!important;width:64px!important;min-width:64px!important;}
+}
 </style>
 </head>
 
@@ -4184,12 +4369,24 @@ async function deleteEmployeeSupportInbox(){
     if(!ok) return;
 
     try{
-        const {error} = await supabaseClient
-            .from("Employee_Complaints")
-            .delete()
-            .eq("employee_id", employeeId);
+        const rows = await fetchEmployeeSupportMessages(employeeId);
+        if(!rows.length){
+            await loadEmployeeSupportCenterMessages(employeeId);
+            return;
+        }
 
-        if(error) throw error;
+        for(const row of rows){
+            const complaintId = String(row.complaint_id || "").trim();
+            if(!complaintId) continue;
+
+            const {error} = await supabaseClient
+                .from("Employee_Complaints")
+                .delete()
+                .eq("complaint_id", complaintId);
+
+            if(error) throw error;
+        }
+
         await loadEmployeeSupportCenterMessages(employeeId);
     }catch(error){
         console.log("Employee inbox delete error:", error);
@@ -4205,12 +4402,21 @@ async function deleteComplainInboxConversation(employeeId){
     if(!ok) return;
 
     try{
-        const {error} = await supabaseClient
-            .from("Employee_Complaints")
-            .delete()
-            .eq("employee_id", id);
+        const rows = complainInboxRows.filter(r =>
+            String(r.employee_id || "").trim().toUpperCase() === id
+        );
 
-        if(error) throw error;
+        for(const row of rows){
+            const complaintId = String(row.complaint_id || "").trim();
+            if(!complaintId) continue;
+
+            const {error} = await supabaseClient
+                .from("Employee_Complaints")
+                .delete()
+                .eq("complaint_id", complaintId);
+
+            if(error) throw error;
+        }
 
         complainInboxRows = complainInboxRows.filter(r =>
             String(r.employee_id || "").trim().toUpperCase() !== id
