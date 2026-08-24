@@ -14,8 +14,39 @@ body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;backg
 .thread-list{padding:6px;overflow:auto}.thread{width:100%;display:flex;align-items:center;gap:9px;text-align:left;padding:10px;border:1px solid transparent;border-radius:10px;background:transparent;cursor:pointer;margin:3px 0}.thread:hover{background:#f7fbff}.thread.active{background:#edf5fc;border-color:#d7e6f3}.avatar{width:34px;height:34px;min-width:34px;border-radius:10px;background:#dceeff;color:#315b82;display:grid;place-items:center;font-weight:900;font-size:11px}.thread-copy{min-width:0;flex:1}.thread-copy strong{display:block;font-size:11px;color:#29445f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.thread-copy small{display:block;color:#8090a0;font-size:8px;margin-top:2px}.thread-copy span{display:block;color:#718096;font-size:9px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.thread-meta{text-align:right}.thread-meta b{display:inline-grid;place-items:center;min-width:17px;height:17px;border-radius:999px;background:#dc2626;color:#fff;font-size:8px}.thread-meta small{display:block;color:#8b98a6;font-size:8px;margin-top:5px}
 .chat{display:flex;flex-direction:column;min-height:680px}.chat-head{padding:13px 15px;border-bottom:1px solid #edf2f6;display:flex;align-items:center;justify-content:space-between;gap:10px}.person{display:flex;align-items:center;gap:9px}.person strong{display:block;color:var(--brown);font-size:13px}.person small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.person-meta{font-size:9px;color:#718096;margin-top:2px}.head-actions{display:flex;align-items:center;gap:5px}.refresh,.delete{height:29px;border-radius:7px;padding:0 9px;font-size:9px;font-weight:800;cursor:pointer}.refresh{border:1px solid var(--line);background:#fff;color:#315b82}.delete{border:1px solid #e8caca;background:#fff;color:#a52a2a}.status-badge{display:inline-flex;align-items:center;justify-content:center;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:900}.pending{background:#fee2e2;color:#b91c1c}.progress{background:#fff1c7;color:#9a6700}.resolved{background:#dcf4e4;color:#176b35}.rejected{background:#e5e7eb;color:#4b5563}
 .messages{flex:1;min-height:450px;max-height:calc(100vh - 255px);overflow:auto;padding:17px;background:linear-gradient(#fff,#f8fafc)}.day{text-align:center;color:#8b98a6;font-size:8px;margin:2px 0 14px}.row{display:flex;margin:9px 0}.row.employee{justify-content:flex-start}.row.admin{justify-content:flex-end}.bubble{max-width:min(75%,620px);padding:9px 11px;border-radius:11px;font-size:11px;line-height:1.55;box-shadow:0 2px 8px rgba(40,70,95,.05)}.bubble.employee{background:#fff;border:1px solid #dbe4ee;border-radius:11px 11px 11px 4px}.bubble.admin{background:#dceeff;border:1px solid #c7def2;border-radius:11px 11px 4px 11px}.label{display:block;color:#315b82;font-size:8px;font-weight:900;margin-bottom:4px}.time{display:block;text-align:right;color:#8090a0;font-size:7px;margin-top:5px}.waiting{color:#718096;font-size:10px;font-style:italic}
+
+.msg-actions{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-end!important;
+  margin-top:4px!important;
+}
 .reply{border-top:1px solid #dbe4ee;background:#fff;padding:10px}.reply-grid{display:grid;grid-template-columns:150px 1fr 70px;gap:7px;align-items:stretch}.reply select,.reply textarea{border:1px solid #d4dee8;border-radius:8px;outline:none;background:#fff;color:#263442;font-size:10px;padding:9px}.reply textarea{min-height:55px;resize:vertical}.reply textarea:focus,.reply select:focus{border-color:#1877f2;box-shadow:0 0 0 3px rgba(24,119,242,.07)}.send{border:0;border-radius:8px;background:linear-gradient(135deg,#1877f2,#063b78);color:#fff;font-size:10px;font-weight:900;cursor:pointer}.send:disabled{opacity:.6}.reply-status{font-size:9px;min-height:16px;margin-top:5px}.reply-status.success{color:#238b45}.reply-status.error{color:#b42318}.empty{height:100%;min-height:680px;display:grid;place-items:center;text-align:center;color:#718096;padding:30px}.empty-icon{font-size:34px;margin-bottom:7px}.empty h3{margin:0;color:#315b82;font-size:14px}.empty p{font-size:10px;max-width:330px;line-height:1.5}
 @media(max-width:800px){.layout{grid-template-columns:1fr}.list-panel{max-height:300px}.chat{min-height:620px}.messages{max-height:55vh}.reply-grid{grid-template-columns:1fr}.send{min-height:38px}.top-actions{display:none}}
+</style>
+<style>
+.msg-more-wrap{position:relative;display:inline-flex;align-items:center;margin-left:4px}
+.msg-more{
+  width:24px!important;height:24px!important;min-width:24px!important;
+  padding:0!important;border:0!important;background:transparent!important;
+  color:#7b8794!important;border-radius:6px!important;cursor:pointer!important;
+  font-size:18px!important;line-height:20px!important;
+}
+.msg-more:hover{background:#eef4f9!important;color:#1877f2!important}
+.msg-menu{
+  position:absolute;right:0;bottom:28px;z-index:30;
+  min-width:115px;padding:5px;background:#fff;
+  border:1px solid #dbe4ee;border-radius:8px;
+  box-shadow:0 8px 24px rgba(38,52,66,.14);
+  display:none;
+}
+.msg-menu.open{display:block}
+.msg-menu button{
+  width:100%;border:0;background:transparent;text-align:left;
+  padding:8px 9px;border-radius:6px;color:#b42318;
+  font-size:10px;font-weight:800;cursor:pointer;
+}
+.msg-menu button:hover{background:#fff4f4}
 </style>
 </head>
 <body>
@@ -40,10 +71,304 @@ function groups(source){const m=new Map();source.forEach(r=>{const id=String(r.e
 function filterInbox(){renderThreads();}
 function renderThreads(){const q=String(document.getElementById("search")?.value||"").trim().toLowerCase();const source=!q?rows:rows.filter(r=>[r.employee_id,r.employee_name,r.complaint,r.status].join(" ").toLowerCase().includes(q));const gs=groups(source);const list=document.getElementById("threadList");document.getElementById("count").textContent=gs.length;if(!gs.length){list.innerHTML='<div class="empty" style="min-height:220px">No messages found.</div>';return;}list.innerHTML=gs.map(g=>{const n=String(g.latest.employee_name||"Employee").trim();const pending=g.rows.filter(r=>String(r.status||"Pending")==="Pending").length;return `<button class="thread ${selected===g.id?'active':''}" onclick="selectEmployee('${safe(g.id).replace(/'/g,"&#39;")}')"><span class="avatar">${safe((n.charAt(0)||'E').toUpperCase())}</span><span class="thread-copy"><strong>${safe(n)}</strong><small>Card No: ${safe(g.id)}</small><span>${safe(g.latest.complaint||"New support message")}</span></span><span class="thread-meta">${pending?`<b>${pending}</b>`:""}<small>${safe(dateText(g.latest.created_at))}</small></span></button>`}).join("");}
 function selectEmployee(id){selected=String(id||"").trim().toUpperCase();renderThreads();renderConversation();}
-function renderConversation(){const panel=document.getElementById("chatPanel");const rs=rows.filter(r=>String(r.employee_id||"").trim().toUpperCase()===selected).sort((a,b)=>String(a.created_at||"").localeCompare(String(b.created_at||"")));if(!rs.length){panel.innerHTML='<div class="empty"><div><div class="empty-icon">💬</div><h3>Conversation not found</h3></div></div>';return;}const latest=rs[rs.length-1],name=String(latest.employee_name||"Employee"),status=String(latest.status||"Pending");panel.innerHTML=`<div class="chat-head"><div class="person"><div class="avatar">${safe((name.charAt(0)||'E').toUpperCase())}</div><div><strong>${safe(name)}</strong><small>Card No: ${safe(selected)}</small><div class="person-meta">${safe(latest.category||"Support Request")}</div></div></div><div class="head-actions">${badge(status)}<button class="refresh" onclick="loadInbox()">↻</button><button class="delete" onclick="deleteConversation()">Delete</button></div></div><div id="messages" class="messages"><div class="day">SUPPORT CONVERSATION</div>${rs.map(r=>`<div class="row employee"><div class="bubble employee"><span class="label">${safe(r.employee_name||"Employee")}</span>${safe(r.complaint||"")}<span class="time">${safe(dateText(r.created_at))}</span></div></div><div class="row admin"><div class="bubble admin"><span class="label">HR / Admin</span>${String(r.admin_reply||"").trim()?safe(r.admin_reply):'<span class="waiting">Awaiting HR / Compliance response…</span>'}<span class="time">${String(r.admin_reply||"").trim()?safe(dateText(r.updated_at||r.created_at)):"Pending"}</span></div></div>`).join("")}</div><div class="reply"><div class="reply-grid"><select id="status"><option>Pending</option><option>In Progress</option><option>Resolved</option><option>Request Rejected</option></select><textarea id="replyText" placeholder="Write a reply..."></textarea><button id="sendBtn" class="send" onclick="sendReply()">Send</button></div><div id="replyStatus" class="reply-status"></div></div>`;document.getElementById("status").value=status;const mb=document.getElementById("messages");mb.scrollTop=mb.scrollHeight;}
+
+let generatedReply = "";
+
+function automaticReplyForStatus(status){
+  const s = String(status || "Pending");
+  if(s === "In Progress"){
+    return "Your request is currently in progress. Please wait while HR & Compliance works on it.";
+  }
+  if(s === "Resolved"){
+    return "Your complaint was successfully resolved. Thank you for connecting with us.";
+  }
+  if(s === "Request Rejected"){
+    return "Your request has been reviewed and could not be approved at this time. If you need further clarification, please contact HR & Compliance.";
+  }
+  return "";
+}
+
+function handleStatusChange(){
+  const status = document.getElementById("status");
+  const box = document.getElementById("replyText");
+  if(!status || !box) return;
+
+  const nextAuto = automaticReplyForStatus(status.value);
+  const current = String(box.value || "").trim();
+
+  // Never overwrite a message typed by Admin.
+  // Only replace a previously auto-generated message or an empty box.
+  if(!current || current === generatedReply){
+    box.value = nextAuto;
+    generatedReply = nextAuto;
+  }
+}
+
+function renderConversation(){
+  const panel = document.getElementById("chatPanel");
+  const rs = rows
+    .filter(r => String(r.employee_id || "").trim().toUpperCase() === selected)
+    .sort((a,b) => String(a.created_at || "").localeCompare(String(b.created_at || "")));
+
+  if(!rs.length){
+    panel.innerHTML = '<div class="empty"><div><div class="empty-icon">💬</div><h3>Conversation not found</h3></div></div>';
+    return;
+  }
+
+  const latest = rs[rs.length - 1];
+  const name = String(latest.employee_name || "Employee");
+  const status = String(latest.status || "Pending");
+
+  panel.innerHTML = `
+    <div class="chat-head">
+      <div class="person">
+        <div class="avatar">${safe((name.charAt(0) || "E").toUpperCase())}</div>
+        <div>
+          <strong>${safe(name)}</strong>
+          <small>Card No: ${safe(selected)}</small>
+          <div class="person-meta">${safe(latest.category || "Support Request")}</div>
+        </div>
+      </div>
+      <div class="head-actions">
+        ${badge(status)}
+        <button class="refresh" onclick="loadInbox()" title="Refresh">↻</button>
+        <button class="delete" onclick="deleteConversation()" title="Delete full conversation">Delete</button>
+      </div>
+    </div>
+
+    <div id="messages" class="messages">
+      <div class="day">SUPPORT CONVERSATION</div>
+      ${rs.map(r => {
+        const hasReply = String(r.admin_reply || "").trim();
+        return `
+          <div class="row employee">
+            <div class="bubble employee">
+              <span class="label">${safe(r.employee_name || "Employee")}</span>
+              ${safe(r.complaint || "")}
+              <div class="msg-actions">
+                <span class="time">${safe(dateText(r.created_at))}</span>
+                <span class="msg-more-wrap">
+                  <button class="msg-more" title="More" onclick="toggleMsgMenu(event, ${Number(r.complaint_id)})">⋯</button>
+                  <span class="msg-menu" id="msgMenu_${Number(r.complaint_id)}">
+                    <button onclick="deleteSingleMessage(${Number(r.complaint_id)})">Delete message</button>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row admin">
+            <div class="bubble admin">
+              <span class="label">HR / Admin</span>
+              ${hasReply ? safe(r.admin_reply) : '<span class="waiting">Awaiting HR / Compliance response…</span>'}
+              <div class="msg-actions">
+                <span class="time">${hasReply ? safe(dateText(r.updated_at || r.created_at)) : "Pending"}</span>
+                ${hasReply ? `<span class="msg-more-wrap">
+                  <button class="msg-more" title="More" onclick="toggleMsgMenu(event, ${Number(r.complaint_id)})">⋯</button>
+                  <span class="msg-menu" id="msgMenu_admin_${Number(r.complaint_id)}">
+                    <button onclick="deleteSingleMessage(${Number(r.complaint_id)})">Delete message</button>
+                  </span>
+                </span>` : ""}
+              </div>
+            </div>
+          </div>`;
+      }).join("")}
+    </div>
+
+    <div class="reply">
+      <div class="reply-grid">
+        <select id="status" onchange="handleStatusChange()">
+          <option value="Pending">Pending</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Resolved">Resolved</option>
+          <option value="Request Rejected">Request Rejected</option>
+        </select>
+        <textarea id="replyText" placeholder="Write a reply..." oninput="generatedReply = ''"></textarea>
+        <button id="sendBtn" class="send" onclick="sendReply()">Send</button>
+      </div>
+      <div id="replyStatus" class="reply-status"></div>
+    </div>`;
+
+  document.getElementById("status").value = status;
+  generatedReply = "";
+
+  const mb = document.getElementById("messages");
+  if(mb) mb.scrollTop = mb.scrollHeight;
+}
+
+
 async function loadInbox(){const list=document.getElementById("threadList");list.innerHTML='<div class="empty" style="min-height:180px">Loading...</div>';const {data,error}=await supabaseClient.from("Employee_Complaints").select("*").order("created_at",{ascending:false}).limit(500);if(error){list.innerHTML=`<div class="empty" style="min-height:180px"><div>${safe(error.message)}</div></div>`;return;}rows=data||[];renderThreads();if(selected)renderConversation();}
-async function sendReply(){if(!selected)return;const rs=rows.filter(r=>String(r.employee_id||"").trim().toUpperCase()===selected);if(!rs.length)return;const latest=[...rs].sort((a,b)=>String(b.created_at||"").localeCompare(String(a.created_at||"")))[0];const status=document.getElementById("status")?.value||"Pending";let reply=String(document.getElementById("replyText")?.value||"").trim();const box=document.getElementById("replyStatus"),btn=document.getElementById("sendBtn");if(status==="In Progress"&&!reply)reply="Your request is currently in progress. Please wait while HR & Compliance works on it.";else if(status==="Resolved"&&!reply)reply="Your complaint was successfully resolved. Thank you for connecting with us.";else if(status==="Request Rejected"&&!reply)reply="Your request has been reviewed and could not be approved at this time.";else if(!reply){box.className="reply-status error";box.textContent="Write a reply first, or select a status with an automatic response.";return;}btn.disabled=true;box.className="reply-status";box.textContent="Sending...";const {data,error}=await supabaseClient.from("Employee_Complaints").update({status,admin_reply:reply,updated_at:new Date().toISOString()}).eq("complaint_id",latest.complaint_id).select("*").single();if(error){box.className="reply-status error";box.textContent="Reply failed: "+error.message;btn.disabled=false;return;}const i=rows.findIndex(r=>String(r.complaint_id)===String(latest.complaint_id));if(i>=0)rows[i]=data;box.className="reply-status success";box.textContent="Response sent successfully.";document.getElementById("replyText").value="";btn.disabled=false;renderThreads();renderConversation();}
-async function deleteConversation(){if(!selected)return;if(!confirm("Delete the full conversation for this employee?"))return;const rs=rows.filter(r=>String(r.employee_id||"").trim().toUpperCase()===selected);for(const r of rs){const {error}=await supabaseClient.from("Employee_Complaints").delete().eq("complaint_id",r.complaint_id);if(error){alert("Delete failed: "+error.message);return;}}rows=rows.filter(r=>String(r.employee_id||"").trim().toUpperCase()!==selected);selected="";renderThreads();document.getElementById("chatPanel").innerHTML='<div class="empty"><div><div class="empty-icon">💬</div><h3>Select an employee</h3><p>Conversation deleted.</p></div></div>';}
+async function sendReply(){
+  if(!selected) return;
+
+  const rs = rows
+    .filter(r => String(r.employee_id || "").trim().toUpperCase() === selected);
+
+  if(!rs.length) return;
+
+  const latest = [...rs].sort((a,b) =>
+    String(b.created_at || "").localeCompare(String(a.created_at || ""))
+  )[0];
+
+  const status = document.getElementById("status")?.value || "Pending";
+  const box = document.getElementById("replyText");
+  const statusBox = document.getElementById("replyStatus");
+  const btn = document.getElementById("sendBtn");
+
+  let reply = String(box?.value || "").trim();
+
+  // Only generate automatically when Admin has not written anything.
+  // A manually typed message is NEVER replaced.
+  if(!reply){
+    reply = automaticReplyForStatus(status);
+  }
+
+  if(!reply){
+    statusBox.className = "reply-status error";
+    statusBox.textContent = "Write a reply first.";
+    return;
+  }
+
+  btn.disabled = true;
+  statusBox.className = "reply-status";
+  statusBox.textContent = "Sending...";
+
+  try{
+    const {data,error} = await supabaseClient
+      .from("Employee_Complaints")
+      .update({
+        status: status,
+        admin_reply: reply,
+        updated_at: new Date().toISOString()
+      })
+      .eq("complaint_id", latest.complaint_id)
+      .select("*")
+      .single();
+
+    if(error) throw error;
+
+    const i = rows.findIndex(r =>
+      String(r.complaint_id) === String(latest.complaint_id)
+    );
+
+    if(i >= 0) rows[i] = data;
+
+    generatedReply = "";
+    statusBox.className = "reply-status success";
+    statusBox.textContent = "Response sent successfully.";
+    box.value = "";
+    btn.disabled = false;
+
+    renderThreads();
+    renderConversation();
+
+    const newStatusBox = document.getElementById("replyStatus");
+    if(newStatusBox){
+      newStatusBox.className = "reply-status success";
+      newStatusBox.textContent = "Response sent successfully.";
+    }
+  }catch(error){
+    console.log("Support reply error:", error);
+    statusBox.className = "reply-status error";
+    statusBox.textContent = "Reply failed: " + error.message;
+    btn.disabled = false;
+  }
+}
+
+
+function toggleMsgMenu(event, complaintId){
+  event.stopPropagation();
+  document.querySelectorAll(".msg-menu.open").forEach(menu => menu.classList.remove("open"));
+
+  const id = String(complaintId);
+  const menu = document.getElementById("msgMenu_"+id) ||
+               document.getElementById("msgMenu_admin_"+id);
+  if(menu) menu.classList.toggle("open");
+}
+
+document.addEventListener("click", function(){
+  document.querySelectorAll(".msg-menu.open").forEach(menu => menu.classList.remove("open"));
+});
+
+async function deleteSingleMessage(complaintId){
+  const id = String(complaintId || "").trim();
+  if(!id) return;
+
+  if(!confirm("Delete this support message and its reply?")) return;
+
+  try{
+    const {error} = await supabaseClient
+      .from("Employee_Complaints")
+      .delete()
+      .eq("complaint_id", id);
+
+    if(error) throw error;
+
+    rows = rows.filter(r => String(r.complaint_id) !== id);
+
+    if(!rows.some(r => String(r.employee_id || "").trim().toUpperCase() === selected)){
+      selected = "";
+      renderThreads();
+      document.getElementById("chatPanel").innerHTML =
+        '<div class="empty"><div><div class="empty-icon">💬</div><h3>Select an employee</h3><p>Message deleted.</p></div></div>';
+    }else{
+      renderThreads();
+      renderConversation();
+    }
+  }catch(error){
+    console.log("Single support message delete error:", error);
+    alert("Delete failed: " + error.message);
+  }
+}
+
+
+async function deleteConversation(){
+  if(!selected) return;
+
+  if(!confirm("Delete the full conversation for this employee?")) return;
+
+  const rs = rows.filter(r =>
+    String(r.employee_id || "").trim().toUpperCase() === selected
+  );
+
+  const ids = rs.map(r => r.complaint_id).filter(Boolean);
+  if(!ids.length) return;
+
+  try{
+    const {error} = await supabaseClient
+      .from("Employee_Complaints")
+      .delete()
+      .in("complaint_id", ids);
+
+    if(error) throw error;
+
+    const {data:remaining,error:checkError} = await supabaseClient
+      .from("Employee_Complaints")
+      .select("complaint_id")
+      .in("complaint_id", ids);
+
+    if(checkError) throw checkError;
+
+    if((remaining || []).length){
+      throw new Error("Database did not delete all messages. Check the DELETE RLS policy for Employee_Complaints.");
+    }
+
+    rows = rows.filter(r =>
+      String(r.employee_id || "").trim().toUpperCase() !== selected
+    );
+
+    selected = "";
+    renderThreads();
+
+    document.getElementById("chatPanel").innerHTML =
+      '<div class="empty"><div><div class="empty-icon">💬</div><h3>Select an employee</h3><p>Conversation deleted.</p></div></div>';
+  }catch(error){
+    console.log("Conversation delete error:", error);
+    alert("Delete failed: " + error.message);
+  }
+}
+
+
 function goBack(){window.location.href="index.html";}
 loadInbox();
 </script>
