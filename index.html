@@ -1656,88 +1656,6 @@ body::after{
 
 
 
-/* Support Center / Facebook-style employee inbox */
-.sc-inbox-page{background:#fff;border:1px solid #e6ddd5;border-radius:16px;overflow:hidden;box-shadow:0 8px 26px rgba(64,43,27,.10);}
-.sc-inbox-topbar{display:flex;align-items:center;gap:14px;padding:13px 15px;background:linear-gradient(135deg,#fffaf4,#f5eee7);border-bottom:1px solid #e5d8cc;}
-.sc-back-btn{margin:0 !important;min-width:auto !important;}
-.sc-title-area{display:flex;align-items:center;gap:10px;min-width:0;flex:1;}
-.sc-title-area h2{margin:0;font-size:19px;color:#4d3625;}
-.sc-title-area p{margin:2px 0 0;color:#8a7563;font-size:11px;}
-.sc-title-icon{width:40px;height:40px;border-radius:12px;background:#1f6fb2;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(31,111,178,.25);}
-.sc-title-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.sc-employee-chip{display:flex;flex-direction:column;align-items:flex-end;font-size:11px;color:#6b5542;}
-.sc-employee-chip strong{font-size:12px;color:#3e3026;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.sc-inbox-shell{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:510px;}
-.sc-thread-panel{background:#faf7f3;border-right:1px solid #e7ddd4;}
-.sc-thread-head{padding:14px;border-bottom:1px solid #e7ddd4;display:flex;justify-content:space-between;align-items:center;color:#4e3828;}
-.sc-thread-head span{font-size:10px;color:#9a8776;}
-.sc-thread-card{margin:10px;padding:10px;border-radius:12px;background:#fff;border:1px solid #dce8f1;display:flex;align-items:center;gap:9px;box-shadow:0 3px 10px rgba(0,0,0,.04);}
-.sc-thread-main{min-width:0;display:flex;flex-direction:column;gap:2px;flex:1;}
-.sc-thread-main strong{font-size:11px;color:#3f3127;}
-.sc-thread-main span{font-size:10px;color:#8b7766;}
-.sc-online-dot{width:8px;height:8px;border-radius:50%;background:#2bb673;box-shadow:0 0 0 3px #e5f7ed;}
-.sc-avatar{width:36px;height:36px;min-width:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#dbeaf6;color:#185b8f;font-weight:900;font-size:13px;}
-.sc-avatar-admin{background:#1f6fb2;color:#fff;}
-.sc-chat-panel{min-width:0;display:flex;flex-direction:column;background:#fff;}
-.sc-chat-head{display:flex;align-items:center;gap:10px;padding:12px 15px;border-bottom:1px solid #eee5dd;background:#fff;}
-.sc-chat-head strong{display:block;color:#3e3026;font-size:13px;}
-.sc-chat-head span{display:block;color:#918072;font-size:10px;margin-top:2px;}
-.sc-messages{flex:1;min-height:280px;max-height:390px;overflow:auto;padding:18px 18px 12px;background:linear-gradient(180deg,#fbfaf9,#fff);}
-.sc-welcome{max-width:480px;margin:45px auto;text-align:center;color:#7c6b5a;}
-.sc-welcome-icon{width:58px;height:58px;margin:0 auto 12px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#e9f3fb;color:#1f6fb2;}
-.sc-welcome-icon svg{width:29px;height:29px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
-.sc-welcome h3{margin:0 0 6px;color:#4d3929;font-size:17px;}
-.sc-welcome p{margin:0;line-height:1.6;font-size:12px;}
-.sc-date-row{text-align:center;margin:8px 0 10px;color:#a18f7f;font-size:9px;}
-.sc-date-row span{background:#f2ece6;border-radius:999px;padding:4px 8px;}
-.sc-msg-row{display:flex;gap:7px;margin:9px 0;align-items:flex-end;}
-.sc-msg-row.employee{justify-content:flex-start;}
-.sc-msg-row.admin{justify-content:flex-end;}
-.sc-msg-stack{max-width:min(72%,520px);}
-.sc-msg-row small{display:block;margin:3px 4px 0;color:#a08f80;font-size:9px;}
-.sc-bubble{padding:9px 12px;border-radius:15px;line-height:1.5;font-size:12px;word-break:break-word;white-space:pre-wrap;}
-.sc-bubble.employee{background:#eef4f8;color:#3e3026;border-bottom-left-radius:4px;}
-.sc-bubble.admin{background:#1f6fb2;color:#fff;border-bottom-right-radius:4px;}
-.sc-subject-label{font-size:10px;font-weight:900;color:#765b45;margin:0 0 4px 4px;}
-.sc-pending-note{margin:3px 0 12px 43px;color:#9b8a7a;font-size:10px;}
-.sc-compose{border-top:1px solid #e9e0d8;padding:10px 12px;background:#fff;}
-.sc-compose>input{width:100%;box-sizing:border-box;margin-bottom:7px;}
-.sc-compose>select{
-    width:100%;
-    box-sizing:border-box;
-    margin-bottom:7px;
-    min-height:34px;
-    height:34px;
-    padding:6px 9px;
-    border:1px solid #d8ccc1;
-    border-radius:8px;
-    background:#fff;
-    color:#493b31;
-    font-size:13px;
-    font-weight:600;
-}
-.sc-compose-row{display:flex;gap:8px;align-items:flex-end;}
-.sc-compose-row textarea{flex:1;min-width:0;resize:vertical;min-height:56px;margin:0;}
-.sc-send-btn{height:44px!important;min-width:78px!important;margin:0!important;padding:0 13px!important;border-radius:11px!important;background:#1f6fb2!important;color:#fff!important;border:0!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;font-weight:900!important;}
-.sc-send-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.sc-send-status{font-size:10px;margin-top:5px;color:#7e6e60;min-height:14px;}
-.sc-message-time,.ci-message-time{display:block;margin-top:4px;font-size:10px;color:#8d7d70;}
-.sc-delete-inbox-btn,.ci-delete-inbox-btn{
-    margin-left:auto;
-    border:1px solid #e5bcbc!important;
-    background:#fff5f5!important;
-    color:#a51d1d!important;
-    border-radius:8px!important;
-    padding:7px 10px!important;
-    font-size:11px!important;
-    font-weight:800!important;
-    cursor:pointer!important;
-    white-space:nowrap;
-}
-.sc-delete-inbox-btn:hover,.ci-delete-inbox-btn:hover{background:#ffe8e8!important;}
-
-.sc-send-status.success{color:#198754}.sc-send-status.error{color:#b42318}
-
 /* Admin Complain Inbox */
 .ci-page{background:#fff;border:1px solid #e2d9d1;border-radius:16px;overflow:hidden;box-shadow:0 9px 30px rgba(50,35,23,.10);}
 .ci-header{padding:15px 16px;background:linear-gradient(135deg,#fffaf4,#f3ebe3);border-bottom:1px solid #e4d8ce;display:flex;align-items:center;justify-content:space-between;gap:12px;}
@@ -4206,100 +4124,6 @@ function loadEmployeePhotoInto(img, employeeId){
     }
 }
 
-async function showEmployeeSupportCenter(){
-    const info = currentEmployee?.info || {};
-    const employeeId = String(info.Employee_ID || "").trim().toUpperCase();
-    const employeeName = String(info.Name_OF_Employee || info.Name_Of_Employee || info.NAME_OF_EMPLOYEE || "").trim();
-    const employeeEmail = String(info.Email || info.Email_Address || info.EMAIL || "").trim();
-    const section = String(info.Section_Name || info.Section || info.Department || "").trim();
-
-    if(!employeeId){
-        alert("Employee information not found.");
-        return;
-    }
-
-    document.getElementById("employeeView").innerHTML = `
-        <div class="sc-inbox-page">
-            <div class="sc-inbox-topbar">
-                <button class="gray sc-back-btn" onclick="showEmployeeInfo()">← Back</button>
-                <div class="sc-title-area">
-                    <div class="sc-title-icon">
-                        <svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3.2V17H6.5A2.5 2.5 0 0 1 4 14.5z"/><path d="M8 9h8M8 12h5"/></svg>
-                    </div>
-                    <div>
-                        <h2>Support Center</h2>
-                        <p>HR &amp; Compliance Support</p>
-                    </div>
-                </div>
-                <div class="sc-employee-chip">
-                    <strong>${complaintSafe(employeeName || "Employee")}</strong>
-                    <span>${complaintSafe(employeeId)}</span>
-                </div>
-            </div>
-
-            <div class="sc-inbox-shell">
-                <aside class="sc-thread-panel">
-                    <div class="sc-thread-head">
-                        <strong>Support Inbox</strong>
-                        <span>Messages</span>
-                    </div>
-                    <div class="sc-thread-card active">
-                        <div class="sc-avatar">${complaintSafe((employeeName || "E").charAt(0).toUpperCase())}</div>
-                        <div class="sc-thread-main">
-                            <strong>A&amp;O HR &amp; Compliance</strong>
-                            <span>Support Center</span>
-                        </div>
-                        <span class="sc-online-dot"></span>
-                    </div>
-                </aside>
-
-                <section class="sc-chat-panel">
-                    <div class="sc-chat-head">
-                        <div class="sc-avatar sc-avatar-admin">AO</div>
-                        <div>
-                            <strong>A&amp;O HR &amp; Compliance</strong>
-                            <span>Support Center • Confidential</span>
-                        </div>
-                        <div class="sc-head-actions">
-                            <button type="button" class="sc-refresh-btn" title="Refresh messages" onclick="refreshEmployeeSupportCenter()" aria-label="Refresh messages">
-                                <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.8-4L3 10"/><path d="M3 5v5h5"/><path d="M4 13a8 8 0 0 0 14.8 4L21 14"/><path d="M21 19v-5h-5"/></svg>
-                            </button>
-                            <button type="button" class="sc-delete-inbox-btn" title="Delete full conversation" onclick="deleteEmployeeSupportInbox()">🗑 Delete Inbox</button>
-                        </div>
-                    </div>
-
-                    <div id="scEmployeeMessages" class="sc-messages">
-                        <div class="status">Loading conversation...</div>
-                    </div>
-
-                    <form class="sc-compose" onsubmit="sendEmployeeSupportMessage(event)">
-                        <input type="hidden" id="scEmployeeId" value="${complaintSafe(employeeId)}">
-                        <input type="hidden" id="scEmployeeName" value="${complaintSafe(employeeName)}">
-                        <input type="hidden" id="scEmployeeEmail" value="${complaintSafe(employeeEmail)}">
-                        <input type="hidden" id="scEmployeeSection" value="${complaintSafe(section)}">
-                        <input id="scSubject" maxlength="120" placeholder="Subject (optional)">
-                        <select id="scMessageType" aria-label="Message Type">
-                            <option value="Complaint">Complaint</option>
-                            <option value="Support Request">Support Request</option>
-                            <option value="Suggestion">Suggestion</option>
-                            <option value="General Inquiry">General Inquiry</option>
-                        </select>
-                        <div class="sc-compose-row">
-                            <textarea id="scMessage" rows="3" maxlength="3000" placeholder="Write a message to HR &amp; Compliance..." required></textarea>
-                            <button class="sc-send-btn" type="submit" title="Send Message">
-                                <svg viewBox="0 0 24 24"><path d="M3 4.8 21 12 3 19.2 6.2 13 15 12 6.2 11z"/></svg>
-                                <span>Send</span>
-                            </button>
-                        </div>
-                        <div id="scSendStatus" class="sc-send-status" aria-live="polite"></div>
-                    </form>
-                </section>
-            </div>
-        </div>`;
-
-    await loadEmployeeSupportCenterMessages(employeeId);
-}
-
 function showEmployeeInfo(){
     let info = currentEmployee.info;
 
@@ -4325,7 +4149,7 @@ function showEmployeeInfo(){
             <input id="employeePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="handleEmployeePhotoUpload(this)">
             <div id="employeePhotoStatus" class="employee-photo-status"></div>
 
-            <button type="button" class="employee-support-center-btn" onclick="showEmployeeSupportCenter()">
+            <button type="button" class="employee-support-center-btn" onclick="window.location.href='support.html'">
                 <span class="employee-support-center-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24">
                         <path d="M4 13v-1a8 8 0 0 1 16 0v1"/>
@@ -4368,78 +4192,11 @@ function showEmployeeInfo(){
 
 
 
-async function fetchEmployeeSupportMessages(employeeId){
-    const id = String(employeeId || "").trim().toUpperCase();
-    if(!id) return [];
-    const {data,error} = await supabaseClient
-        .from("Employee_Complaints")
-        .select("*")
-        .eq("employee_id", id)
-        .order("created_at", {ascending:true})
-        .limit(300);
-    if(error) throw error;
-    return data || [];
-}
-
-async function loadEmployeeSupportCenterMessages(employeeId){
-    const box = document.getElementById("scEmployeeMessages");
-    if(!box) return;
-    try{
-        const rows = await fetchEmployeeSupportMessages(employeeId);
-        if(!rows.length){
-            box.innerHTML = `
-                <div class="sc-welcome">
-                    <div class="sc-welcome-icon">
-                        <svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3.2V17H6.5A2.5 2.5 0 0 1 4 14.5z"/><path d="M8 9h8M8 12h5"/></svg>
-                    </div>
-                    <h3>Welcome to Support Center</h3>
-                    <p>আপনার কোনো সমস্যা, প্রয়োজন বা অভিযোগ থাকলে নিচে message পাঠান। আপনার <strong>Name</strong> এবং <strong>Employee ID</strong> স্বয়ংক্রিয়ভাবে HR &amp; Compliance-এর Complain Inbox-এ যাবে।</p>
-                </div>`;
-            return;
-        }
-
-        const ordered = [...rows].sort((a,b) =>
-            String(a.created_at || "").localeCompare(String(b.created_at || ""))
-        );
-
-        box.innerHTML = ordered.map(r => {
-            const reply = String(r.admin_reply || "").trim();
-            return `
-                <div class="sc-date-row"><span>${complaintSafe(complaintDate(r.created_at))}</span></div>
-                <div class="sc-msg-row employee">
-                    <div class="sc-msg-avatar">${complaintSafe((String(r.employee_name || "E").trim().charAt(0) || "E").toUpperCase())}</div>
-                    <div class="sc-msg-stack">
-                        ${r.subject ? `<div class="sc-subject-label">${complaintSafe(r.subject)}</div>` : ""}
-                        <div class="sc-bubble employee">${complaintSafe(r.complaint || "")}</div>
-                        <small class="sc-message-time">${complaintSafe(complaintDate(r.created_at))} • ${complaintSafe(r.status || "Pending")}</small>
-                    </div>
-                </div>
-                ${reply ? `
-                <div class="sc-msg-row admin">
-                    <div class="sc-msg-avatar sc-avatar-admin">AO</div>
-                    <div class="sc-msg-stack">
-                        <div class="sc-bubble admin">${complaintSafe(reply)}</div>
-                        <small>${complaintSafe(complaintDate(r.updated_at || r.created_at))} • HR &amp; Compliance</small>
-                    </div>
-                </div>` : `
-                <div class="sc-pending-note">Your message is pending review by HR &amp; Compliance.</div>`}
-            `;
-        }).join("");
-
-        box.scrollTop = box.scrollHeight;
-    }catch(error){
-        box.innerHTML = `<div class="status error">Support Center load failed: ${complaintSafe(error.message)}</div>`;
-    }
-}
 
 
 
 
-async function refreshEmployeeSupportCenter(){
-    const employeeId = String(currentEmployee?.info?.Employee_ID || "").trim().toUpperCase();
-    if(!employeeId) return;
-    await loadEmployeeSupportCenterMessages(employeeId);
-}
+
 
 async function refreshComplainInboxConversation(employeeId){
     const id = String(employeeId || "").trim().toUpperCase();
@@ -4463,41 +4220,6 @@ async function refreshComplainInboxConversation(employeeId){
     }
 }
 
-async function deleteEmployeeSupportInbox(){
-    const employeeId = String(currentEmployee?.info?.Employee_ID || "").trim().toUpperCase();
-    if(!employeeId) return;
-
-    const ok = confirm("Delete the full Support Center inbox? All messages and HR/Admin replies will be permanently removed.");
-    if(!ok) return;
-
-    try{
-        const rows = await fetchEmployeeSupportMessages(employeeId);
-        if(!rows.length){
-            await loadEmployeeSupportCenterMessages(employeeId);
-            return;
-        }
-
-        for(const row of rows){
-            const complaintId = String(row.complaint_id || "").trim();
-            if(!complaintId) continue;
-            const {error} = await supabaseClient
-                .from("Employee_Complaints")
-                .delete()
-                .eq("complaint_id", complaintId);
-            if(error) throw error;
-        }
-
-        const remaining = await fetchEmployeeSupportMessages(employeeId);
-        if(remaining.length){
-            throw new Error("The database did not allow all messages to be deleted. Please check Supabase DELETE policy for Employee_Complaints.");
-        }
-
-        await loadEmployeeSupportCenterMessages(employeeId);
-    }catch(error){
-        console.log("Employee inbox delete error:", error);
-        alert("Inbox delete failed: " + error.message);
-    }
-}
 
 async function deleteComplainInboxConversation(employeeId){
     const id = String(employeeId || "").trim().toUpperCase();
@@ -4557,61 +4279,6 @@ async function deleteComplainInboxConversation(employeeId){
     }
 }
 
-async function sendEmployeeSupportMessage(event){
-    event.preventDefault();
-
-    const employeeId = String(document.getElementById("scEmployeeId")?.value || "").trim().toUpperCase();
-    const employeeName = String(document.getElementById("scEmployeeName")?.value || "").trim();
-    const employeeEmail = String(document.getElementById("scEmployeeEmail")?.value || "").trim();
-    const section = String(document.getElementById("scEmployeeSection")?.value || "").trim();
-    const subjectText = String(document.getElementById("scSubject")?.value || "").trim();
-    const messageType = String(document.getElementById("scMessageType")?.value || "Complaint").trim();
-    const subject = subjectText ? `[${messageType}] ${subjectText}` : messageType;
-    const message = String(document.getElementById("scMessage")?.value || "").trim();
-    const status = document.getElementById("scSendStatus");
-
-    if(!employeeId || !employeeName){
-        if(status){ status.className = "sc-send-status error"; status.textContent = "Employee information is missing."; }
-        return;
-    }
-    if(!message){
-        if(status){ status.className = "sc-send-status error"; status.textContent = "Please write a message."; }
-        return;
-    }
-
-    if(status){ status.className = "sc-send-status"; status.textContent = "Sending..."; }
-
-    try{
-        const {data,error} = await supabaseClient
-            .from("Employee_Complaints")
-            .insert([{
-                employee_id: employeeId,
-                employee_name: employeeName,
-                email: employeeEmail,
-                section: section,
-                subject: subject || "Support Center Message",
-                complaint: message,
-                status: "Pending",
-                admin_reply: ""
-            }])
-            .select("*")
-            .single();
-
-        if(error) throw error;
-
-        document.getElementById("scSubject").value = "";
-        document.getElementById("scMessage").value = "";
-        if(status){ status.className = "sc-send-status success"; status.textContent = "Message sent to HR & Compliance."; }
-
-        await loadEmployeeSupportCenterMessages(employeeId);
-    }catch(error){
-        console.log("Support Center send error:", error);
-        if(status){
-            status.className = "sc-send-status error";
-            status.textContent = "Message send failed: " + error.message;
-        }
-    }
-}
 
 async function submitEmployeeProfileComplaint(){
     const employeeId = String(document.getElementById("profileComplaintEmployeeId")?.value || "").trim();
