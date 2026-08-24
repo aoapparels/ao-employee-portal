@@ -2,350 +2,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A&O Apparels — Support Center</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>A&O Apparels — Support Inbox</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box}
-:root{
-  --brown:#063b78;
-  --brown2:#0b67b2;
-  --brown3:#1877f2;
-  --cream:#f5f9ff;
-  --cream2:#e6eef7;
-  --paper:#ffffff;
-  --line:#dbe4ee;
-  --text:#263442;
-  --muted:#718096;
-  --pending:#dc2626;
-  --progress:#d99000;
-  --resolved:#238b45;
-  --rejected:#6b7280;
-}
-body{
-  margin:0;
-  min-height:100vh;
-  font-family:Inter,Segoe UI,Arial,sans-serif;
-  background:#f4f7fa;
-  color:var(--text);
-}
-button,input{font:inherit}
-.app{
-  max-width:1450px;
-  margin:0 auto;
-  min-height:100vh;
-  padding:22px;
-}
-.topbar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  margin-bottom:18px;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-.brand-mark{
-  width:45px;height:45px;border-radius:13px;
-  display:grid;place-items:center;
-  background:linear-gradient(135deg,var(--brown3),var(--brown));
-  color:white;font-weight:900;font-size:17px;
-  box-shadow:0 7px 18px rgba(95,64,37,.18);
-}
-.brand h1{margin:0;color:var(--brown);font-size:21px}
-.brand p{margin:3px 0 0;color:var(--muted);font-size:12px}
-.top-actions{display:flex;align-items:center;gap:8px}
-.soft-btn{
-  border:1px solid var(--line);background:#ffffff;color:var(--brown);
-  border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer;
-}
-.inbox-layout{
-  display:grid;
-  grid-template-columns:285px minmax(420px,1fr) 250px;
-  gap:14px;
-  align-items:stretch;
-}
-.panel{
-  background:rgba(255,253,249,.94);
-  border:1px solid rgba(111,74,43,.15);
-  border-radius:17px;
-  box-shadow:0 8px 24px rgba(67,52,37,.07);
-  overflow:hidden;
-}
-.panel-head{
-  padding:16px;
-  border-bottom:1px solid #eee4da;
-}
-.panel-title{
-  display:flex;justify-content:space-between;align-items:center;gap:8px;
-}
-.panel-title h2{margin:0;color:var(--brown);font-size:16px}
-.count{
-  background:#e8f0f8;color:var(--brown);border-radius:999px;
-  padding:4px 8px;font-size:10px;font-weight:900;
-}
-.search{
-  width:100%;margin-top:12px;border:1px solid #d4dee8;
-  background:#fff;border-radius:10px;padding:9px 10px;outline:none;
-  color:var(--text);
-}
-.search:focus{border-color:#b38b66;box-shadow:0 0 0 3px rgba(166,116,69,.10)}
-.thread-list{padding:7px}
-.thread{
-  position:relative;padding:13px 12px;margin:4px 0;border-radius:12px;
-  cursor:pointer;border:1px solid transparent;transition:.15s;
-}
-.thread:hover{background:#f7fbff}
-.thread.active{background:#edf5fc;border-color:#d7e6f3}
-.thread.pending{border-left:3px solid var(--pending)}
-.thread.progress{border-left:3px solid var(--progress)}
-.thread.resolved{border-left:3px solid var(--resolved)}
-.thread.rejected{border-left:3px solid var(--rejected)}
-.thread-top{display:flex;justify-content:space-between;gap:8px}
-.thread strong{font-size:12px;color:#29445f}
-.thread small{display:block;color:#718096;font-size:9px;margin-top:4px}
-.thread-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:9px}
-.dept{font-size:9px;color:#718096;font-weight:700}
-.badge{
-  display:inline-flex;align-items:center;justify-content:center;
-  padding:4px 7px;border-radius:999px;font-size:9px;font-weight:900;
-}
-.badge.pending{background:#fee2e2;color:#b91c1c}
-.badge.progress{background:#fff1c7;color:#9a6700}
-.badge.resolved{background:#dcf4e4;color:#176b35}
-.badge.rejected{background:#e5e7eb;color:#4b5563}
-.unread{
-  min-width:19px;height:19px;border-radius:999px;display:grid;place-items:center;
-  background:#dc2626;color:white;font-size:9px;font-weight:900;
-}
-.chat{
-  display:flex;flex-direction:column;min-height:670px;
-}
-.chat-head{
-  padding:16px 18px;border-bottom:1px solid #eee4da;
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-}
-.chat-person{display:flex;align-items:center;gap:11px}
-.avatar{
-  width:39px;height:39px;border-radius:12px;display:grid;place-items:center;
-  background:#dceeff;color:var(--brown);font-weight:900;font-size:13px;
-}
-.chat-person strong{font-size:14px;color:var(--brown)}
-.chat-person small{display:block;color:var(--muted);font-size:10px;margin-top:3px}
-.chat-body{
-  flex:1;padding:20px;background:linear-gradient(#ffffff,#f8fafc);
-  overflow:auto;
-}
-.day{text-align:center;font-size:9px;color:#8b98a6;margin:2px 0 18px}
-.msg-row{display:flex;margin:12px 0}
-.msg-row.you{justify-content:flex-end}
-.msg{
-  max-width:72%;padding:12px 14px;border-radius:14px;
-  box-shadow:0 3px 10px rgba(70,55,40,.06);
-  font-size:12px;line-height:1.6;
-}
-.msg.admin{background:#ffffff;border:1px solid #dbe4ee;border-top-left-radius:4px}
-.msg.you{background:#dceeff;border:1px solid #c7def2;border-top-right-radius:4px}
-.msg-label{display:block;font-size:9px;font-weight:900;margin-bottom:5px;color:#315b82}
-.msg-time{display:block;text-align:right;font-size:8px;color:#8090a0;margin-top:6px}
-.composer{
-  padding:12px;border-top:1px solid #eee4da;background:#ffffff;
-  display:flex;gap:8px;align-items:center;
-}
-.attach{
-  width:38px;height:38px;border:1px solid var(--line);background:#fff;
-  border-radius:10px;color:var(--brown);cursor:pointer;
-}
-.composer input{
-  flex:1;border:1px solid #d4dee8;border-radius:10px;padding:10px 12px;
-  outline:none;background:#fff;
-}
-.send{
-  width:42px;height:38px;border:0;border-radius:10px;
-  background:linear-gradient(135deg,var(--brown3),var(--brown));
-  color:white;cursor:pointer;font-weight:900;
-}
-.side-card{padding:16px}
-.side-card h3{margin:0;color:var(--brown);font-size:13px}
-.side-card p{margin:5px 0 14px;color:var(--muted);font-size:10px;line-height:1.5}
-.guide{
-  padding:11px;border:1px solid #eadfd4;border-radius:11px;margin-top:8px;
-  background:#fffaf5;
-}
-.guide-top{display:flex;align-items:center;justify-content:space-between;gap:6px}
-.guide strong{font-size:10px;color:#594331}
-.dot{width:8px;height:8px;border-radius:50%}
-.dot.red{background:var(--pending)} .dot.yellow{background:var(--progress)}
-.dot.green{background:var(--resolved)} .dot.gray{background:var(--rejected)}
-.guide span{display:block;color:#718096;font-size:9px;margin-top:5px;line-height:1.45}
-.info{
-  margin-top:16px;padding:12px;border-radius:12px;
-  background:#edf4fa;border:1px solid #d8e5f0;
-}
-.info b{font-size:10px;color:var(--brown)}
-.info p{font-size:9px;color:#718096;line-height:1.5;margin:6px 0 0}
-@media(max-width:1050px){
-  .inbox-layout{grid-template-columns:250px minmax(0,1fr)}
-  .right-panel{display:none}
-}
-@media(max-width:720px){
-  .app{padding:12px}
-  .topbar{align-items:flex-start}
-  .top-actions{display:none}
-  .inbox-layout{grid-template-columns:1fr}
-  .left-panel{display:none}
-  .chat{min-height:78vh}
-  .msg{max-width:88%}
-}
+*{box-sizing:border-box} :root{--brown:#063b78;--brown2:#0b67b2;--brown3:#1877f2;--paper:#fff;--line:#dbe4ee;--text:#263442;--muted:#718096;--pending:#dc2626;--progress:#d99000;--resolved:#238b45;--rejected:#6b7280}
+body{margin:0;min-height:100vh;font-family:Inter,Segoe UI,Arial,sans-serif;background:#f4f7fa;color:var(--text)}button,input,textarea,select{font:inherit}.app{max-width:1450px;margin:0 auto;min-height:100vh;padding:20px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:15px}.brand{display:flex;align-items:center;gap:11px}.brand-mark{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--brown3),var(--brown));color:#fff;font-weight:900;font-size:16px;box-shadow:0 6px 16px rgba(7,84,166,.18)}.brand h1{margin:0;color:var(--brown);font-size:20px}.brand p{margin:3px 0 0;color:var(--muted);font-size:11px}.top-actions{display:flex;gap:7px}.soft-btn{border:1px solid var(--line);background:#fff;color:var(--brown);border-radius:8px;padding:8px 11px;font-size:10px;font-weight:800;cursor:pointer}
+.panel{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 7px 22px rgba(40,70,95,.07);overflow:hidden}.layout{display:grid;grid-template-columns:300px minmax(450px,1fr);gap:13px;min-height:calc(100vh - 105px)}
+.list-head{padding:14px;border-bottom:1px solid #edf2f6}.title-line{display:flex;align-items:center;justify-content:space-between}.title-line h2{margin:0;color:var(--brown);font-size:15px}.count{padding:4px 8px;border-radius:999px;background:#e8f0f8;color:var(--brown);font-size:9px;font-weight:900}.search{width:100%;margin-top:10px;padding:9px 10px;border:1px solid #d4dee8;border-radius:9px;outline:none;font-size:11px}.search:focus{border-color:#1877f2;box-shadow:0 0 0 3px rgba(24,119,242,.08)}
+.thread-list{padding:6px;overflow:auto}.thread{width:100%;display:flex;align-items:center;gap:9px;text-align:left;padding:10px;border:1px solid transparent;border-radius:10px;background:transparent;cursor:pointer;margin:3px 0}.thread:hover{background:#f7fbff}.thread.active{background:#edf5fc;border-color:#d7e6f3}.avatar{width:34px;height:34px;min-width:34px;border-radius:10px;background:#dceeff;color:#315b82;display:grid;place-items:center;font-weight:900;font-size:11px}.thread-copy{min-width:0;flex:1}.thread-copy strong{display:block;font-size:11px;color:#29445f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.thread-copy small{display:block;color:#8090a0;font-size:8px;margin-top:2px}.thread-copy span{display:block;color:#718096;font-size:9px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.thread-meta{text-align:right}.thread-meta b{display:inline-grid;place-items:center;min-width:17px;height:17px;border-radius:999px;background:#dc2626;color:#fff;font-size:8px}.thread-meta small{display:block;color:#8b98a6;font-size:8px;margin-top:5px}
+.chat{display:flex;flex-direction:column;min-height:680px}.chat-head{padding:13px 15px;border-bottom:1px solid #edf2f6;display:flex;align-items:center;justify-content:space-between;gap:10px}.person{display:flex;align-items:center;gap:9px}.person strong{display:block;color:var(--brown);font-size:13px}.person small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.person-meta{font-size:9px;color:#718096;margin-top:2px}.head-actions{display:flex;align-items:center;gap:5px}.refresh,.delete{height:29px;border-radius:7px;padding:0 9px;font-size:9px;font-weight:800;cursor:pointer}.refresh{border:1px solid var(--line);background:#fff;color:#315b82}.delete{border:1px solid #e8caca;background:#fff;color:#a52a2a}.status-badge{display:inline-flex;align-items:center;justify-content:center;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:900}.pending{background:#fee2e2;color:#b91c1c}.progress{background:#fff1c7;color:#9a6700}.resolved{background:#dcf4e4;color:#176b35}.rejected{background:#e5e7eb;color:#4b5563}
+.messages{flex:1;min-height:450px;max-height:calc(100vh - 255px);overflow:auto;padding:17px;background:linear-gradient(#fff,#f8fafc)}.day{text-align:center;color:#8b98a6;font-size:8px;margin:2px 0 14px}.row{display:flex;margin:9px 0}.row.employee{justify-content:flex-start}.row.admin{justify-content:flex-end}.bubble{max-width:min(75%,620px);padding:9px 11px;border-radius:11px;font-size:11px;line-height:1.55;box-shadow:0 2px 8px rgba(40,70,95,.05)}.bubble.employee{background:#fff;border:1px solid #dbe4ee;border-radius:11px 11px 11px 4px}.bubble.admin{background:#dceeff;border:1px solid #c7def2;border-radius:11px 11px 4px 11px}.label{display:block;color:#315b82;font-size:8px;font-weight:900;margin-bottom:4px}.time{display:block;text-align:right;color:#8090a0;font-size:7px;margin-top:5px}.waiting{color:#718096;font-size:10px;font-style:italic}
+.reply{border-top:1px solid #dbe4ee;background:#fff;padding:10px}.reply-grid{display:grid;grid-template-columns:150px 1fr 70px;gap:7px;align-items:stretch}.reply select,.reply textarea{border:1px solid #d4dee8;border-radius:8px;outline:none;background:#fff;color:#263442;font-size:10px;padding:9px}.reply textarea{min-height:55px;resize:vertical}.reply textarea:focus,.reply select:focus{border-color:#1877f2;box-shadow:0 0 0 3px rgba(24,119,242,.07)}.send{border:0;border-radius:8px;background:linear-gradient(135deg,#1877f2,#063b78);color:#fff;font-size:10px;font-weight:900;cursor:pointer}.send:disabled{opacity:.6}.reply-status{font-size:9px;min-height:16px;margin-top:5px}.reply-status.success{color:#238b45}.reply-status.error{color:#b42318}.empty{height:100%;min-height:680px;display:grid;place-items:center;text-align:center;color:#718096;padding:30px}.empty-icon{font-size:34px;margin-bottom:7px}.empty h3{margin:0;color:#315b82;font-size:14px}.empty p{font-size:10px;max-width:330px;line-height:1.5}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.list-panel{max-height:300px}.chat{min-height:620px}.messages{max-height:55vh}.reply-grid{grid-template-columns:1fr}.send{min-height:38px}.top-actions{display:none}}
 </style>
 </head>
 <body>
 <div class="app">
-  <div class="topbar">
-    <div class="brand">
-      <div class="brand-mark">A&O</div>
-      <div>
-        <h1>Support Center</h1>
-        <p>Employee complaints & HR support</p>
-      </div>
-    </div>
-    <div class="top-actions">
-      <button class="soft-btn" onclick="history.back()">← Employee Profile</button>
-      <button class="soft-btn">Refresh</button>
-    </div>
-  </div>
-
-  <div class="inbox-layout">
-    <section class="panel left-panel">
-      <div class="panel-head">
-        <div class="panel-title">
-          <h2>Inbox</h2><span class="count">3 Active</span>
-        </div>
-        <input class="search" id="search" placeholder="Search conversations..." oninput="filterThreads()">
-      </div>
-      <div class="thread-list" id="threads">
-        <div class="thread active progress" onclick="openThread('Feedback & Update','In Progress','HR / Admin','18 Aug 2026, 16:01')">
-          <div class="thread-top"><strong>Feedback & Update</strong><span class="unread">2</span></div>
-          <small>Complaint #CMP-1024 • 18 Aug 2026</small>
-          <div class="thread-bottom"><span class="dept">HR / Admin</span><span class="badge progress">In Progress</span></div>
-        </div>
-        <div class="thread pending" onclick="openThread('System Access Issue','Pending','IT Support','18 Aug 2026, 11:20')">
-          <div class="thread-top"><strong>System Access Issue</strong><span class="unread">1</span></div>
-          <small>Complaint #CMP-1021 • 18 Aug 2026</small>
-          <div class="thread-bottom"><span class="dept">IT Support</span><span class="badge pending">Pending</span></div>
-        </div>
-        <div class="thread resolved" onclick="openThread('Machine Problem','Resolved','Production','17 Aug 2026, 09:15')">
-          <div class="thread-top"><strong>Machine Problem</strong></div>
-          <small>Complaint #CMP-1018 • 17 Aug 2026</small>
-          <div class="thread-bottom"><span class="dept">Production</span><span class="badge resolved">Resolved</span></div>
-        </div>
-        <div class="thread rejected" onclick="openThread('Leave Request Issue','Request Rejected','HR / Admin','15 Aug 2026, 14:30')">
-          <div class="thread-top"><strong>Leave Request Issue</strong></div>
-          <small>Complaint #CMP-1012 • 15 Aug 2026</small>
-          <div class="thread-bottom"><span class="dept">HR / Admin</span><span class="badge rejected">Rejected</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="panel chat">
-      <div class="chat-head">
-        <div class="chat-person">
-          <div class="avatar" id="avatar">HR</div>
-          <div>
-            <strong id="chatTitle">Feedback & Update</strong>
-            <small id="chatDept">HR / Admin • Complaint #CMP-1024</small>
-          </div>
-        </div>
-        <span class="badge progress" id="chatStatus">In Progress</span>
-      </div>
-
-      <div class="chat-body" id="chatBody">
-        <div class="day">18 AUG 2026</div>
-        <div class="msg-row you">
-          <div class="msg you">
-            <span class="msg-label">You / Employee</span>
-            I submitted feedback regarding the current process. Please let me know after review.
-            <span class="msg-time">16:01</span>
-          </div>
-        </div>
-        <div class="msg-row">
-          <div class="msg admin">
-            <span class="msg-label">HR / Admin</span>
-            Thank you for your feedback. We are reviewing the matter and will update you after the review.
-            <span class="msg-time">16:20</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="composer">
-        <button class="attach" title="Attachment">＋</button>
-        <input id="message" placeholder="Type your message..." onkeydown="if(event.key==='Enter')sendMessage()">
-        <button class="send" onclick="sendMessage()">➤</button>
-      </div>
-    </section>
-
-    <aside class="panel right-panel">
-      <div class="side-card">
-        <h3>STATUS GUIDE</h3>
-        <p>Complaint status automatically reflects the current HR / Admin action.</p>
-
-        <div class="guide">
-          <div class="guide-top"><strong>Pending</strong><i class="dot red"></i></div>
-          <span>Automatically set when employee submits a complaint.</span>
-        </div>
-        <div class="guide">
-          <div class="guide-top"><strong>In Progress</strong><i class="dot yellow"></i></div>
-          <span>HR / Admin is reviewing or working on the issue.</span>
-        </div>
-        <div class="guide">
-          <div class="guide-top"><strong>Resolved</strong><i class="dot green"></i></div>
-          <span>The complaint has been completed or resolved.</span>
-        </div>
-        <div class="guide">
-          <div class="guide-top"><strong>Request Rejected</strong><i class="dot gray"></i></div>
-          <span>The request was reviewed and rejected by Admin.</span>
-        </div>
-
-        <div class="info">
-          <b>EMPLOYEE SUPPORT</b>
-          <p>Only the employee's own complaints and HR / Admin replies will appear here.</p>
-        </div>
-      </div>
-    </aside>
+  <div class="topbar"><div class="brand"><div class="brand-mark">A&O</div><div><h1>Support Inbox</h1><p>A&O HR &amp; Compliance — Employee Support</p></div></div><div class="top-actions"><button class="soft-btn" onclick="loadInbox()">↻ Refresh</button><button class="soft-btn" onclick="goBack()">← Admin Panel</button></div></div>
+  <div class="layout">
+    <section class="panel list-panel"><div class="list-head"><div class="title-line"><h2>Employee Messages</h2><span id="count" class="count">0</span></div><input id="search" class="search" placeholder="Search employee, card no or message..." oninput="filterInbox()"></div><div id="threadList" class="thread-list"><div class="empty" style="min-height:180px">Loading...</div></div></section>
+    <section class="panel chat" id="chatPanel"><div class="empty"><div><div class="empty-icon">💬</div><h3>Select an employee</h3><p>Employee Support Center থেকে আসা messages দেখতে বাম পাশ থেকে একজন employee নির্বাচন করুন।</p></div></div></section>
   </div>
 </div>
-
 <script>
-function openThread(title,status,dept,date){
-  document.getElementById('chatTitle').textContent=title;
-  document.getElementById('chatDept').textContent=dept+' • Complaint #CMP-1024';
-  const s=document.getElementById('chatStatus');
-  s.textContent=status;
-  s.className='badge '+({
-    'Pending':'pending','In Progress':'progress','Resolved':'resolved','Request Rejected':'rejected'
-  }[status]||'pending');
-}
-function filterThreads(){
-  const q=document.getElementById('search').value.toLowerCase();
-  document.querySelectorAll('.thread').forEach(t=>{
-    t.style.display=t.innerText.toLowerCase().includes(q)?'block':'none';
-  });
-}
-function sendMessage(){
-  const input=document.getElementById('message');
-  const text=input.value.trim();
-  if(!text)return;
-  const row=document.createElement('div');
-  row.className='msg-row you';
-  row.innerHTML='<div class="msg you"><span class="msg-label">You / Employee</span>'+
-    text.replace(/</g,'&lt;').replace(/>/g,'&gt;')+
-    '<span class="msg-time">Just now</span></div>';
-  document.getElementById('chatBody').appendChild(row);
-  input.value='';
-  document.getElementById('chatBody').scrollTop=document.getElementById('chatBody').scrollHeight;
-}
+if(sessionStorage.getItem("ao_admin_support_access") !== "1"){ window.location.replace("index.html"); }
+const supabaseUrl="https://hneomxtzhbeseqlyrszh.supabase.co";
+const supabaseKey="sb_publishable_oT6uhXtknOi9PfP6QIu9gw_6hdgrb7Z";
+const supabaseClient=supabase.createClient(supabaseUrl,supabaseKey);
+let rows=[];let selected="";
+function safe(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function dateText(v){if(!v)return "";const d=new Date(v);return Number.isNaN(d.getTime())?String(v):d.toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});}
+function cls(status){const s=String(status||"Pending");return s==="In Progress"?"progress":s==="Resolved"?"resolved":s==="Request Rejected"?"rejected":"pending";}
+function badge(status){return `<span class="status-badge ${cls(status)}">${safe(status||"Pending")}</span>`;}
+function groups(source){const m=new Map();source.forEach(r=>{const id=String(r.employee_id||r.employee_name||"UNKNOWN").trim().toUpperCase();if(!m.has(id))m.set(id,[]);m.get(id).push(r)});return [...m.entries()].map(([id,rs])=>{rs.sort((a,b)=>String(b.created_at||"").localeCompare(String(a.created_at||"")));return {id,rows:rs,latest:rs[0]}}).sort((a,b)=>String(b.latest.created_at||"").localeCompare(String(a.latest.created_at||"")));}
+function filterInbox(){renderThreads();}
+function renderThreads(){const q=String(document.getElementById("search")?.value||"").trim().toLowerCase();const source=!q?rows:rows.filter(r=>[r.employee_id,r.employee_name,r.complaint,r.status].join(" ").toLowerCase().includes(q));const gs=groups(source);const list=document.getElementById("threadList");document.getElementById("count").textContent=gs.length;if(!gs.length){list.innerHTML='<div class="empty" style="min-height:220px">No messages found.</div>';return;}list.innerHTML=gs.map(g=>{const n=String(g.latest.employee_name||"Employee").trim();const pending=g.rows.filter(r=>String(r.status||"Pending")==="Pending").length;return `<button class="thread ${selected===g.id?'active':''}" onclick="selectEmployee('${safe(g.id).replace(/'/g,"&#39;")}')"><span class="avatar">${safe((n.charAt(0)||'E').toUpperCase())}</span><span class="thread-copy"><strong>${safe(n)}</strong><small>Card No: ${safe(g.id)}</small><span>${safe(g.latest.complaint||"New support message")}</span></span><span class="thread-meta">${pending?`<b>${pending}</b>`:""}<small>${safe(dateText(g.latest.created_at))}</small></span></button>`}).join("");}
+function selectEmployee(id){selected=String(id||"").trim().toUpperCase();renderThreads();renderConversation();}
+function renderConversation(){const panel=document.getElementById("chatPanel");const rs=rows.filter(r=>String(r.employee_id||"").trim().toUpperCase()===selected).sort((a,b)=>String(a.created_at||"").localeCompare(String(b.created_at||"")));if(!rs.length){panel.innerHTML='<div class="empty"><div><div class="empty-icon">💬</div><h3>Conversation not found</h3></div></div>';return;}const latest=rs[rs.length-1],name=String(latest.employee_name||"Employee"),status=String(latest.status||"Pending");panel.innerHTML=`<div class="chat-head"><div class="person"><div class="avatar">${safe((name.charAt(0)||'E').toUpperCase())}</div><div><strong>${safe(name)}</strong><small>Card No: ${safe(selected)}</small><div class="person-meta">${safe(latest.category||"Support Request")}</div></div></div><div class="head-actions">${badge(status)}<button class="refresh" onclick="loadInbox()">↻</button><button class="delete" onclick="deleteConversation()">Delete</button></div></div><div id="messages" class="messages"><div class="day">SUPPORT CONVERSATION</div>${rs.map(r=>`<div class="row employee"><div class="bubble employee"><span class="label">${safe(r.employee_name||"Employee")}</span>${safe(r.complaint||"")}<span class="time">${safe(dateText(r.created_at))}</span></div></div><div class="row admin"><div class="bubble admin"><span class="label">HR / Admin</span>${String(r.admin_reply||"").trim()?safe(r.admin_reply):'<span class="waiting">Awaiting HR / Compliance response…</span>'}<span class="time">${String(r.admin_reply||"").trim()?safe(dateText(r.updated_at||r.created_at)):"Pending"}</span></div></div>`).join("")}</div><div class="reply"><div class="reply-grid"><select id="status"><option>Pending</option><option>In Progress</option><option>Resolved</option><option>Request Rejected</option></select><textarea id="replyText" placeholder="Write a reply..."></textarea><button id="sendBtn" class="send" onclick="sendReply()">Send</button></div><div id="replyStatus" class="reply-status"></div></div>`;document.getElementById("status").value=status;const mb=document.getElementById("messages");mb.scrollTop=mb.scrollHeight;}
+async function loadInbox(){const list=document.getElementById("threadList");list.innerHTML='<div class="empty" style="min-height:180px">Loading...</div>';const {data,error}=await supabaseClient.from("Employee_Complaints").select("*").order("created_at",{ascending:false}).limit(500);if(error){list.innerHTML=`<div class="empty" style="min-height:180px"><div>${safe(error.message)}</div></div>`;return;}rows=data||[];renderThreads();if(selected)renderConversation();}
+async function sendReply(){if(!selected)return;const rs=rows.filter(r=>String(r.employee_id||"").trim().toUpperCase()===selected);if(!rs.length)return;const latest=[...rs].sort((a,b)=>String(b.created_at||"").localeCompare(String(a.created_at||"")))[0];const status=document.getElementById("status")?.value||"Pending";let reply=String(document.getElementById("replyText")?.value||"").trim();const box=document.getElementById("replyStatus"),btn=document.getElementById("sendBtn");if(status==="In Progress"&&!reply)reply="Your request is currently in progress. Please wait while HR & Compliance works on it.";else if(status==="Resolved"&&!reply)reply="Your complaint was successfully resolved. Thank you for connecting with us.";else if(status==="Request Rejected"&&!reply)reply="Your request has been reviewed and could not be approved at this time.";else if(!reply){box.className="reply-status error";box.textContent="Write a reply first, or select a status with an automatic response.";return;}btn.disabled=true;box.className="reply-status";box.textContent="Sending...";const {data,error}=await supabaseClient.from("Employee_Complaints").update({status,admin_reply:reply,updated_at:new Date().toISOString()}).eq("complaint_id",latest.complaint_id).select("*").single();if(error){box.className="reply-status error";box.textContent="Reply failed: "+error.message;btn.disabled=false;return;}const i=rows.findIndex(r=>String(r.complaint_id)===String(latest.complaint_id));if(i>=0)rows[i]=data;box.className="reply-status success";box.textContent="Response sent successfully.";document.getElementById("replyText").value="";btn.disabled=false;renderThreads();renderConversation();}
+async function deleteConversation(){if(!selected)return;if(!confirm("Delete the full conversation for this employee?"))return;const rs=rows.filter(r=>String(r.employee_id||"").trim().toUpperCase()===selected);for(const r of rs){const {error}=await supabaseClient.from("Employee_Complaints").delete().eq("complaint_id",r.complaint_id);if(error){alert("Delete failed: "+error.message);return;}}rows=rows.filter(r=>String(r.employee_id||"").trim().toUpperCase()!==selected);selected="";renderThreads();document.getElementById("chatPanel").innerHTML='<div class="empty"><div><div class="empty-icon">💬</div><h3>Select an employee</h3><p>Conversation deleted.</p></div></div>';}
+function goBack(){window.location.href="index.html";}
+loadInbox();
 </script>
 </body>
 </html>
