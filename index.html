@@ -2046,6 +2046,36 @@ body::after{
 <style>
 .sc-head-actions,.ci-head-actions{margin-left:auto;display:flex;align-items:center;gap:5px;}
 </style>
+
+<style>
+/* ===== Standalone-style Employee Support Center inside Employee Profile ===== */
+.employee-support-page{max-width:980px;margin:0 auto;padding:2px 0 18px;}
+.employee-support-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;margin-bottom:12px;border:1px solid #dbe4ee;border-radius:14px;background:#fff;box-shadow:0 5px 18px rgba(40,70,95,.06);}
+.employee-support-head h2{margin:0;color:#063b78;font-size:18px;}
+.employee-support-head p{margin:3px 0 0;color:#718096;font-size:11px;}
+.employee-support-identity{padding:7px 10px;border:1px solid #dbe4ee;border-radius:999px;background:#f5f9ff;color:#315b82;font-size:10px;font-weight:800;white-space:nowrap;}
+.employee-support-chat{background:#fff;border:1px solid #dbe4ee;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px rgba(40,70,95,.06);}
+.employee-support-messages{min-height:280px;max-height:470px;overflow:auto;padding:16px;background:linear-gradient(#fff,#f8fafc);}
+.employee-support-empty{text-align:center;padding:65px 20px;color:#718096;font-size:12px;}
+.employee-support-row{display:flex;margin:9px 0;}
+.employee-support-row.employee{justify-content:flex-end;}
+.employee-support-bubble{max-width:76%;padding:10px 12px;border-radius:12px;font-size:12px;line-height:1.55;box-shadow:0 2px 8px rgba(40,70,95,.05);}
+.employee-support-bubble.employee{background:#dceeff;border:1px solid #c7def2;border-radius:12px 12px 4px 12px;color:#263442;}
+.employee-support-bubble.admin{background:#fff;border:1px solid #dbe4ee;border-radius:12px 12px 12px 4px;color:#263442;}
+.employee-support-label{display:block;color:#315b82;font-size:9px;font-weight:900;margin-bottom:4px;}
+.employee-support-time{display:block;text-align:right;color:#8090a0;font-size:8px;margin-top:5px;}
+.employee-support-status{display:flex;align-items:center;gap:7px;padding:9px 12px;border-top:1px solid #eef2f6;background:#fbfdff;font-size:10px;}
+.employee-support-status-dot{width:7px;height:7px;border-radius:50%;background:#d99000;}
+.employee-support-compose{border-top:1px solid #dbe4ee;padding:11px;background:#fff;display:flex;gap:8px;align-items:flex-end;}
+.employee-support-compose textarea{flex:1;min-height:70px;max-height:160px;resize:vertical;border:1px solid #d4dee8;border-radius:10px;padding:10px 11px;outline:none;color:#263442;background:#fff;font-size:12px;}
+.employee-support-compose textarea:focus{border-color:#1877f2;box-shadow:0 0 0 3px rgba(24,119,242,.08);}
+.employee-support-submit{border:0;border-radius:9px;padding:10px 14px;background:linear-gradient(135deg,#1877f2,#063b78);color:#fff;font-weight:800;font-size:11px;cursor:pointer;min-width:78px;}
+.employee-support-submit:disabled{opacity:.6;cursor:not-allowed;}
+.employee-support-back{border:1px solid #dbe4ee;background:#fff;color:#315b82;border-radius:8px;padding:7px 10px;font-size:10px;font-weight:800;cursor:pointer;margin-bottom:9px;}
+.employee-support-notice{margin:10px 0;padding:11px 12px;border-radius:10px;background:#edf4fa;border:1px solid #d8e5f0;color:#315b82;font-size:10px;line-height:1.5;display:none;}
+.employee-support-notice.show{display:block;}
+@media(max-width:620px){.employee-support-head{align-items:flex-start}.employee-support-identity{display:none}.employee-support-bubble{max-width:88%}.employee-support-compose{flex-direction:column}.employee-support-submit{width:100%;}}
+</style>
 </head>
 
 <body>
@@ -2469,8 +2499,7 @@ body::after{
             <button class="purple" onclick="showChangePasswordPanel()">13. Change Admin Password</button>
             <button class="orange" onclick="openSupabaseDashboard()">14. Open Supabase Dashboard</button>
             <button class="green" onclick="showRocketCommitment()">15. Rocket Commitment</button>
-            <button class="orange" onclick="showComplaintManagement()">16. Complaint Box</button>
-            <button class="orange" type="button" onclick="showComplainInbox()">17. Complain</button>
+            <button class="orange" type="button" onclick="openSupportInbox()">16. Support Inbox</button>
         </div>
 </div>
 
@@ -2887,272 +2916,6 @@ async function saveComplaintUpdate(id,status,reply){
 
 
 
-let complainInboxRows = [];
-let complainInboxSelectedEmployee = "";
-
-async function showComplainInbox(){
-    activateAdminSubPage();
-    document.getElementById("adminView").innerHTML = `
-        ${adminBackButtonHtml()}
-        <div class="ci-page">
-            <div class="ci-header">
-                <div>
-                    <div class="ci-kicker">A&amp;O HR &amp; COMPLIANCE</div>
-                    <h3>Complain Inbox</h3>
-                    <p>Employee Support Center-এর messages এখানে Facebook-style conversation হিসেবে দেখাবে।</p>
-                </div>
-                <div class="ci-header-actions">
-                    <span id="ciTotalBadge" class="ci-count-badge">0 Messages</span>
-                    <button class="green" onclick="loadComplainInbox()">Refresh</button>
-                </div>
-            </div>
-
-            <div class="ci-shell">
-                <aside class="ci-list-panel">
-                    <div class="ci-search-wrap">
-                        <input id="ciSearch" placeholder="Search employee, ID or message..." oninput="filterComplainInbox()">
-                    </div>
-                    <div id="ciThreadList" class="ci-thread-list">
-                        <div class="status">Loading...</div>
-                    </div>
-                </aside>
-
-                <section class="ci-conversation-panel">
-                    <div id="ciConversation">
-                        <div class="ci-empty-state">
-                            <div class="ci-empty-icon">💬</div>
-                            <h3>Select a conversation</h3>
-                            <p>Employee Support Center থেকে আসা message দেখতে বাম পাশ থেকে একজন employee নির্বাচন করুন।</p>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>`;
-    await loadComplainInbox();
-}
-
-async function loadComplainInbox(){
-    const list = document.getElementById("ciThreadList");
-    if(!list) return;
-    list.innerHTML = `<div class="status">Loading messages...</div>`;
-
-    const {data,error} = await supabaseClient
-        .from("Employee_Complaints")
-        .select("*")
-        .order("created_at", {ascending:false})
-        .limit(500);
-
-    if(error){
-        list.innerHTML = `<div class="status error">Load failed: ${complaintSafe(error.message)}</div>`;
-        return;
-    }
-
-    complainInboxRows = data || [];
-    const total = document.getElementById("ciTotalBadge");
-    if(total) total.textContent = `${complainInboxRows.length} Message${complainInboxRows.length === 1 ? "" : "s"}`;
-
-    renderComplainInboxThreads(complainInboxRows);
-
-    if(complainInboxSelectedEmployee){
-        const exists = complainInboxRows.some(r => String(r.employee_id || "").trim().toUpperCase() === complainInboxSelectedEmployee);
-        if(exists) renderComplainConversation(complainInboxSelectedEmployee);
-    }
-}
-
-function groupComplainInboxRows(rows){
-    const map = new Map();
-    rows.forEach(r => {
-        const id = String(r.employee_id || r.email || r.employee_name || "UNKNOWN").trim().toUpperCase();
-        if(!map.has(id)) map.set(id, []);
-        map.get(id).push(r);
-    });
-    return Array.from(map.entries()).map(([employeeId, messages]) => {
-        messages.sort((a,b) => String(b.created_at || "").localeCompare(String(a.created_at || "")));
-        return {employeeId, messages, latest: messages[0]};
-    }).sort((a,b) =>
-        String(b.latest?.created_at || "").localeCompare(String(a.latest?.created_at || ""))
-    );
-}
-
-function filterComplainInbox(){
-    const q = String(document.getElementById("ciSearch")?.value || "").trim().toLowerCase();
-    const filtered = !q ? complainInboxRows : complainInboxRows.filter(r =>
-        [r.employee_id,r.employee_name,r.email,r.section,r.subject,r.complaint,r.status].join(" ").toLowerCase().includes(q)
-    );
-    renderComplainInboxThreads(filtered);
-}
-
-function renderComplainInboxThreads(rows){
-    const list = document.getElementById("ciThreadList");
-    if(!list) return;
-
-    const groups = groupComplainInboxRows(rows);
-    if(!groups.length){
-        list.innerHTML = `<div class="ci-no-threads">No messages found.</div>`;
-        return;
-    }
-
-    list.innerHTML = groups.map(g => {
-        const name = String(g.latest.employee_name || "Employee").trim();
-        const id = String(g.employeeId || "").trim();
-        const initials = (name.charAt(0) || "E").toUpperCase();
-        const pending = g.messages.filter(r => String(r.status || "Pending") === "Pending").length;
-        return `
-            <button type="button" class="ci-thread-item ${g.employeeId === complainInboxSelectedEmployee ? "active" : ""}" onclick="selectComplainThread('${complaintSafe(id).replace(/'/g,"&#39;")}')">
-                <span class="ci-avatar">${complaintSafe(initials)}</span>
-                <span class="ci-thread-copy">
-                    <strong>${complaintSafe(name)}</strong>
-                    <small>${complaintSafe(id)}</small>
-                    <span>${complaintSafe(g.latest.subject || g.latest.complaint || "New message")}</span>
-                </span>
-                <span class="ci-thread-meta">
-                    ${pending ? `<b>${pending}</b>` : ""}
-                    <small>${complaintSafe(complaintDate(g.latest.created_at))}</small>
-                </span>
-            </button>`;
-    }).join("");
-}
-
-function selectComplainThread(employeeId){
-    complainInboxSelectedEmployee = String(employeeId || "").trim().toUpperCase();
-    renderComplainInboxThreads(
-        document.getElementById("ciSearch")?.value
-            ? complainInboxRows.filter(r => [r.employee_id,r.employee_name,r.email,r.section,r.subject,r.complaint,r.status].join(" ").toLowerCase().includes(String(document.getElementById("ciSearch").value).trim().toLowerCase()))
-            : complainInboxRows
-    );
-    renderComplainConversation(complainInboxSelectedEmployee);
-}
-
-function renderComplainConversation(employeeId){
-    const box = document.getElementById("ciConversation");
-    if(!box) return;
-
-    const rows = complainInboxRows
-        .filter(r => String(r.employee_id || r.email || r.employee_name || "").trim().toUpperCase() === employeeId)
-        .sort((a,b) => String(a.created_at || "").localeCompare(String(b.created_at || "")));
-
-    if(!rows.length){
-        box.innerHTML = `<div class="ci-empty-state"><h3>Conversation not found</h3></div>`;
-        return;
-    }
-
-    const latest = rows[rows.length - 1];
-    const name = String(latest.employee_name || "Employee").trim();
-    const section = String(latest.section || latest.Section_Name || "-").trim();
-
-    box.innerHTML = `
-        <div class="ci-chat-head">
-            <div class="ci-avatar ci-avatar-large">${complaintSafe((name.charAt(0) || "E").toUpperCase())}</div>
-            <div class="ci-chat-identity">
-                <strong>${complaintSafe(name)}</strong>
-                <span>ID No: ${complaintSafe(employeeId)}</span>
-                <span>${complaintSafe(section)}</span>
-            </div>
-            <div class="ci-chat-status">${complaintBadge(latest.status)}</div>
-            <div class="ci-head-actions">
-                <button type="button" class="ci-refresh-btn" title="Refresh conversation" onclick="refreshComplainInboxConversation('${complaintSafe(employeeId).replace(/'/g,"&#39;")}')" aria-label="Refresh conversation">
-                    <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14.8-4L3 10"/><path d="M3 5v5h5"/><path d="M4 13a8 8 0 0 0 14.8 4L21 14"/><path d="M21 19v-5h-5"/></svg>
-                </button>
-                <button type="button" class="ci-delete-inbox-btn" title="Delete full conversation" onclick="deleteComplainInboxConversation('${complaintSafe(employeeId).replace(/'/g,"&#39;")}')">🗑 Delete Inbox</button>
-            </div>
-        </div>
-
-        <div class="ci-chat-body" id="ciChatBody">
-            ${rows.map(r => {
-                const reply = String(r.admin_reply || "").trim();
-                return `
-                    <div class="ci-date-line">${complaintSafe(complaintDate(r.created_at))}</div>
-                    <div class="ci-bubble-row employee">
-                        <div class="ci-bubble-avatar">${complaintSafe((name.charAt(0) || "E").toUpperCase())}</div>
-                        <div>
-                            ${r.subject ? `<div class="ci-subject">${complaintSafe(r.subject)}</div>` : ""}
-                            <div class="ci-bubble employee">${complaintSafe(r.complaint || "")}</div>
-                            <small class="ci-message-time">${complaintSafe(complaintDate(r.created_at))}</small>
-                        </div>
-                    </div>
-                    ${reply ? `
-                        <div class="ci-bubble-row admin">
-                            <div>
-                                <div class="ci-bubble admin">${complaintSafe(reply)}</div>
-                                <small class="ci-message-time">${complaintSafe(complaintDate(r.updated_at || r.created_at))}</small>
-                            </div>
-                            <div class="ci-bubble-avatar admin">AO</div>
-                        </div>` : ""}
-                `;
-            }).join("")}
-        </div>
-
-        <div class="ci-reply-box">
-            <div class="ci-reply-row">
-                <select id="ciStatus_${complaintSafe(employeeId)}">
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Resolved">Resolved</option>
-                    <option value="Request Rejected">Request Rejected</option>
-                </select>
-                <textarea id="ciReply_${complaintSafe(employeeId)}" rows="3" placeholder="Write reply to ${complaintSafe(name)}..."></textarea>
-                <button class="ci-send-reply" onclick="sendComplainInboxReply('${complaintSafe(employeeId).replace(/'/g,"&#39;")}')">
-                    <svg viewBox="0 0 24 24"><path d="M3 4.8 21 12 3 19.2 6.2 13 15 12 6.2 11z"/></svg>
-                    Reply
-                </button>
-            </div>
-            <div id="ciReplyStatus_${complaintSafe(employeeId)}" class="ci-reply-status"></div>
-        </div>`;
-
-    const statusSelect = document.getElementById("ciStatus_"+employeeId);
-    if(statusSelect) statusSelect.value = String(latest.status || "Pending");
-    const body = document.getElementById("ciChatBody");
-    if(body) body.scrollTop = body.scrollHeight;
-}
-
-async function sendComplainInboxReply(employeeId){
-    const id = String(employeeId || "").trim().toUpperCase();
-    const rows = complainInboxRows.filter(r => String(r.employee_id || r.email || r.employee_name || "").trim().toUpperCase() === id);
-    if(!rows.length) return;
-
-    const latest = [...rows].sort((a,b) => String(b.created_at || "").localeCompare(String(a.created_at || "")))[0];
-    const status = document.getElementById("ciStatus_"+id)?.value || "Pending";
-    let reply = String(document.getElementById("ciReply_"+id)?.value || "").trim();
-    const statusBox = document.getElementById("ciReplyStatus_"+id);
-
-    if(status === "In Progress" && !reply){
-        reply = "Your request is currently in progress. Please wait while HR & Compliance works on it.";
-    }else if(status === "Resolved" && !reply){
-        reply = "Your complaint was successfully resolved. Thank you for connecting with us.";
-    }else if(status === "Request Rejected" && !reply){
-        reply = "Your request has been reviewed and could not be approved at this time.";
-    }else if(!reply){
-        if(statusBox){ statusBox.className = "ci-reply-status error"; statusBox.textContent = "Write a reply first, or select In Progress / Resolved / Request Rejected for an automatic message."; }
-        return;
-    }
-
-    if(statusBox){ statusBox.className = "ci-reply-status"; statusBox.textContent = "Saving..."; }
-
-    try{
-        const now = new Date().toISOString();
-        const {data,error} = await supabaseClient
-            .from("Employee_Complaints")
-            .update({status:status, admin_reply:reply, updated_at:now})
-            .eq("complaint_id", latest.complaint_id)
-            .select("*")
-            .single();
-
-        if(error) throw error;
-
-        const index = complainInboxRows.findIndex(r => String(r.complaint_id) === String(latest.complaint_id));
-        if(index >= 0) complainInboxRows[index] = data;
-
-        const replyBox = document.getElementById("ciReply_"+id);
-        if(replyBox) replyBox.value = "";
-        if(statusBox){ statusBox.className = "ci-reply-status success"; statusBox.textContent = "Status and response sent successfully."; }
-        renderComplainInboxThreads(complainInboxRows);
-        renderComplainConversation(id);
-    }catch(error){
-        console.log("Complain inbox reply error:", error);
-        if(statusBox){ statusBox.className = "ci-reply-status error"; statusBox.textContent = "Reply failed: " + error.message; }
-    }
-}
-
 function showAdminLogin(){
     hideAll();
     document.getElementById("adminLoginPage").classList.remove("hidden");
@@ -3182,6 +2945,7 @@ async function adminLogin(){
 
         if(data && String(data.password || "") === pass){
             currentAdminUser = user;
+            sessionStorage.setItem("ao_admin_support_access", "1");
             hideAll();
             document.getElementById("adminDashboard").classList.remove("hidden");
             showAdminMainPanel();
@@ -3196,6 +2960,7 @@ async function adminLogin(){
 
 function adminLogout(){
     currentAdminUser = null;
+    sessionStorage.removeItem("ao_admin_support_access");
     document.getElementById("adminUser").value = "";
     document.getElementById("adminPass").value = "";
     goHome();
@@ -4149,7 +3914,7 @@ function showEmployeeInfo(){
             <input id="employeePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="handleEmployeePhotoUpload(this)">
             <div id="employeePhotoStatus" class="employee-photo-status"></div>
 
-            <button type="button" class="employee-support-center-btn" onclick="window.location.href='support.html'">
+            <button type="button" class="employee-support-center-btn" onclick="showEmployeeSupportCenter()">
                 <span class="employee-support-center-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24">
                         <path d="M4 13v-1a8 8 0 0 1 16 0v1"/>
@@ -4280,63 +4045,151 @@ async function deleteComplainInboxConversation(employeeId){
 }
 
 
-async function submitEmployeeProfileComplaint(){
-    const employeeId = String(document.getElementById("profileComplaintEmployeeId")?.value || "").trim();
-    const name = String(document.getElementById("profileComplaintEmployeeName")?.value || "").trim();
-    const email = String(document.getElementById("profileComplaintEmail")?.value || "").trim();
-    const subject = String(document.getElementById("profileComplaintSubject")?.value || "").trim();
-    const details = String(document.getElementById("profileComplaintDetails")?.value || "").trim();
-    const status = document.getElementById("profileComplaintStatus");
 
-    if(!details){
-        if(status){
-            status.className = "status error";
-            status.innerHTML = "অনুগ্রহ করে আপনার অভিযোগ বা বক্তব্য লিখুন।";
-        }
+function employeeSupportSafe(value){
+    return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function employeeSupportDate(value){
+    if(!value) return "";
+    const d = new Date(value);
+    if(Number.isNaN(d.getTime())) return String(value);
+    return d.toLocaleString("en-GB", {day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+}
+function employeeSupportStatusClass(status){
+    const s=String(status||"Pending");
+    if(s==="In Progress") return "progress";
+    if(s==="Resolved") return "resolved";
+    if(s==="Request Rejected") return "rejected";
+    return "pending";
+}
+function employeeSupportStatusBadge(status){
+    const cls=employeeSupportStatusClass(status);
+    return `<span class="complaint-badge ${cls}">${employeeSupportSafe(status||"Pending")}</span>`;
+}
+
+async function fetchEmployeeSupportCenterMessages(employeeId){
+    const id=String(employeeId||"").trim().toUpperCase();
+    if(!id) return [];
+    const {data,error}=await supabaseClient
+        .from("Employee_Complaints")
+        .select("*")
+        .eq("employee_id",id)
+        .order("created_at",{ascending:true})
+        .limit(200);
+    if(error) throw error;
+    return data||[];
+}
+
+function renderEmployeeSupportMessages(rows){
+    const box=document.getElementById("employeeSupportMessages");
+    if(!box) return;
+    if(!rows.length){
+        box.innerHTML=`<div class="employee-support-empty"><strong>No messages yet.</strong><br>Send your message to HR &amp; Compliance below.</div>`;
+        const status=document.getElementById("employeeSupportStatusText");
+        if(status) status.innerHTML=`<span class="employee-support-status-dot"></span>Ready to receive your support request`;
         return;
     }
+    box.innerHTML=rows.map(r=>{
+        const employeeMsg=employeeSupportSafe(r.complaint||"");
+        const reply=String(r.admin_reply||"").trim();
+        const status=String(r.status||"Pending");
+        return `
+            <div class="employee-support-row employee">
+                <div class="employee-support-bubble employee">
+                    <span class="employee-support-label">You / Employee</span>
+                    ${employeeMsg}
+                    <span class="employee-support-time">${employeeSupportSafe(employeeSupportDate(r.created_at))}</span>
+                </div>
+            </div>
+            <div class="employee-support-row">
+                <div class="employee-support-bubble admin">
+                    <span class="employee-support-label">HR / Admin</span>
+                    ${reply ? employeeSupportSafe(reply) : "Your message has been received. HR &amp; Compliance will review it and update you here."}
+                    <span class="employee-support-time">${reply ? employeeSupportSafe(employeeSupportDate(r.updated_at||r.created_at)) : "Pending review"}</span>
+                </div>
+            </div>`;
+    }).join("");
+    const latest=rows[rows.length-1];
+    const status=document.getElementById("employeeSupportStatusText");
+    if(status) status.innerHTML=`${employeeSupportStatusBadge(latest.status)} <span style="margin-left:4px;">Current request status</span>`;
+    box.scrollTop=box.scrollHeight;
+}
 
-    if(status){
-        status.className = "status";
-        status.innerHTML = "অভিযোগ জমা হচ্ছে...";
-    }
-
+async function loadEmployeeSupportCenter(){
+    const info=currentEmployee?.info||{};
+    const employeeId=String(info.Employee_ID||"").trim().toUpperCase();
+    if(!employeeId) return;
+    const box=document.getElementById("employeeSupportMessages");
+    if(box) box.innerHTML=`<div class="status">Loading messages...</div>`;
     try{
-        const { error } = await supabaseClient
-            .from("Employee_Complaints")
-            .insert([{
-                employee_id: employeeId,
-                employee_name: name,
-                email: email,
-                section: String(currentEmployee?.info?.Section_Name || currentEmployee?.info?.Section || currentEmployee?.info?.Department || "").trim(),
-                subject: subject || "Employee Profile Complaint",
-                complaint: details,
-                status: "Pending",
-                admin_reply: ""
-            }]);
-
-        if(error){
-            console.log(error);
-            if(status){
-                status.className = "status error";
-                status.innerHTML = "অভিযোগ জমা দেওয়া যায়নি: " + complaintSafe(error.message);
-            }
-            return;
-        }
-
-        document.getElementById("profileComplaintSubject").value = "";
-        document.getElementById("profileComplaintDetails").value = "";
-        if(status){
-            status.className = "status success";
-            status.innerHTML = "আপনার অভিযোগ সফলভাবে জমা হয়েছে। ধন্যবাদ।";
-        }
+        const rows=await fetchEmployeeSupportCenterMessages(employeeId);
+        renderEmployeeSupportMessages(rows);
     }catch(error){
-        console.log(error);
-        if(status){
-            status.className = "status error";
-            status.innerHTML = "অভিযোগ জমা দিতে সমস্যা হয়েছে: " + complaintSafe(error.message);
-        }
+        if(box) box.innerHTML=`<div class="status error">Support Center load failed: ${employeeSupportSafe(error.message)}</div>`;
     }
+}
+
+function showEmployeeSupportCenter(){
+    const info=currentEmployee?.info||{};
+    const employeeId=String(info.Employee_ID||"").trim().toUpperCase();
+    const employeeName=String(info.Name_OF_Employee||employeeId||"Employee").trim();
+    if(!employeeId){alert("Employee information not found.");return;}
+    document.getElementById("employeeView").innerHTML=`
+        <div class="employee-support-page">
+            <button class="employee-support-back" type="button" onclick="showEmployeeInfo()">← Back to Employee Profile</button>
+            <div class="employee-support-head">
+                <div><h2>Support Center</h2><p>Contact HR &amp; Compliance and follow your support requests.</p></div>
+                <div class="employee-support-identity">${employeeSupportSafe(employeeName)} • ${employeeSupportSafe(employeeId)}</div>
+            </div>
+            <div id="employeeSupportNotice" class="employee-support-notice"></div>
+            <div class="employee-support-chat">
+                <div id="employeeSupportMessages" class="employee-support-messages"><div class="status">Loading messages...</div></div>
+                <div id="employeeSupportStatusText" class="employee-support-status"><span class="employee-support-status-dot"></span>Ready</div>
+                <div class="employee-support-compose">
+                    <textarea id="employeeSupportText" placeholder="Your message..."></textarea>
+                    <button id="employeeSupportSubmit" class="employee-support-submit" type="button" onclick="submitEmployeeSupportCenterMessage()">Submit</button>
+                </div>
+            </div>
+        </div>`;
+    loadEmployeeSupportCenter();
+}
+
+async function submitEmployeeSupportCenterMessage(){
+    const info=currentEmployee?.info||{};
+    const employeeId=String(info.Employee_ID||"").trim().toUpperCase();
+    const employeeName=String(info.Name_OF_Employee||"").trim();
+    const input=document.getElementById("employeeSupportText");
+    const button=document.getElementById("employeeSupportSubmit");
+    const notice=document.getElementById("employeeSupportNotice");
+    const message=String(input?.value||"").trim();
+    if(!message){
+        if(notice){notice.className="employee-support-notice show";notice.textContent="Please write your message before submitting.";}
+        return;
+    }
+    if(button){button.disabled=true;button.textContent="Sending...";}
+    try{
+        const {error}=await supabaseClient.from("Employee_Complaints").insert([{
+            employee_id:employeeId,
+            employee_name:employeeName,
+            category:"Support Request",
+            subject:"Support Request",
+            complaint:message,
+            status:"Pending",
+            admin_reply:""
+        }]);
+        if(error) throw error;
+        if(input) input.value="";
+        if(notice){notice.className="employee-support-notice show";notice.innerHTML="Thank you for contacting A&amp;O HR &amp; Compliance. Your message has been successfully submitted. Our team will review your request and get back to you shortly.";}
+        await loadEmployeeSupportCenter();
+    }catch(error){
+        if(notice){notice.className="employee-support-notice show";notice.textContent="Message could not be submitted: "+error.message;}
+    }finally{
+        if(button){button.disabled=false;button.textContent="Submit";}
+    }
+}
+
+function openSupportInbox(){
+    window.location.href="support.html";
 }
 
 function setEmployeePhotoStatus(message, type=""){
