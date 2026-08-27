@@ -2203,6 +2203,36 @@ body::after{
     .employee-support-submit{width:100%!important;flex:0 0 auto!important;}
 }
 </style>
+
+<style>
+.registration-search-card{max-width:1050px;margin:0 auto;}
+.registration-search-head{padding:18px 18px 10px;text-align:center;}
+.registration-search-kicker{font-size:11px;font-weight:800;letter-spacing:1.2px;color:#2e7650;}
+.registration-search-head h2{margin:6px 0;color:#184f35;}
+.registration-search-head p{margin:0;color:#6b7280;font-size:13px;}
+.registration-search-row{display:grid;grid-template-columns:1fr 150px;gap:10px;align-items:end;margin:15px 0;}
+.registration-search-row button{margin-top:10px;}
+.registration-result{margin-top:16px;background:#fff;border:1px solid #dfe9e3;border-radius:14px;overflow:hidden;}
+.registration-result-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 16px;background:#eef8f2;border-bottom:1px solid #d7e9dd;}
+.registration-result-id{font-size:17px;font-weight:900;color:#1769aa;}
+.registration-result-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.registration-result-actions button{width:auto;margin:0;padding:9px 14px;font-size:13px;}
+.registration-result table{width:100%;border-collapse:collapse;}
+.registration-result th,.registration-result td{border:1px solid #e1e5e8;padding:9px 10px;text-align:left;vertical-align:top;font-size:13px;}
+.registration-result th{width:31%;background:#f7faf8;color:#365d49;}
+@media(max-width:650px){.registration-search-row{grid-template-columns:1fr;}.registration-result-head{flex-direction:column;align-items:flex-start;}.registration-result-actions{width:100%;}.registration-result-actions button{flex:1;}}
+.employee-joining-list-card{width:100%;overflow-x:auto;}
+.employee-joining-list-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;}
+.employee-joining-list-tools{display:flex;gap:8px;align-items:center;margin-bottom:14px;}
+.employee-joining-list-tools input{margin:0;flex:1;}
+.employee-joining-list-tools button{width:auto;margin:0;}
+.employee-joining-table{width:100%;border-collapse:collapse;min-width:820px;background:#fff;}
+.employee-joining-table th,.employee-joining-table td{border:1px solid #dfe5e1;padding:8px;font-size:12px;text-align:left;}
+.employee-joining-table th{background:#eaf6ef;color:#205b3d;font-weight:800;}
+.employee-joining-table tr:nth-child(even){background:#fafdfb;}
+.employee-joining-actions{white-space:nowrap;}
+.employee-joining-actions button{width:auto;margin:0 3px 3px 0;padding:7px 10px;font-size:11px;}
+</style>
 </head>
 
 <body>
@@ -2274,6 +2304,14 @@ body::after{
             
 
 
+            <button onclick="showEmployeeRegistrationSearch()">
+                <span class="ao-nav-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 5h16v14H4z"/><circle cx="10.5" cy="10.5" r="3"/><path d="m13 13 4 4"/></svg>
+                </span>
+                <span class="ao-nav-label">Find Registration</span>
+                <span class="ao-nav-arrow">›</span>
+            </button>
+
             <button onclick="showAdminLogin()">
                 <span class="ao-nav-icon">
                     <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c.7-3.5 3-5.5 7-5.5s6.3 2 7 5.5"/></svg>
@@ -2295,6 +2333,24 @@ body::after{
 
 <!-- Original homepage element is kept hidden so existing goHome()/hideAll() logic remains intact. -->
 <div class="card" id="homePage" aria-hidden="true"></div>
+
+
+<div class="card hidden" id="employeeRegistrationSearchPage">
+    <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
+    <div class="registration-search-card">
+        <div class="registration-search-head">
+            <div class="registration-search-kicker">A&amp;O HR &amp; COMPLIANCE</div>
+            <h2>Find Registration</h2>
+            <p>Search an employee registration using the Temporary ID.</p>
+        </div>
+        <div class="registration-search-row">
+            <input type="text" id="registrationSearchId" inputmode="numeric" maxlength="9" placeholder="Enter Temporary ID e.g. 125566445" onkeydown="if(event.key==='Enter') searchEmployeeRegistration()">
+            <button class="green" onclick="searchEmployeeRegistration()">Search</button>
+        </div>
+        <div id="registrationSearchStatus" class="status"></div>
+        <div id="registrationSearchResult"></div>
+    </div>
+</div>
 
 <div class="card hidden" id="employeeLoginPage">
     <button class="gray admin-page-back-top" onclick="goHome()">← Back</button>
@@ -2331,15 +2387,16 @@ body::after{
             <button onclick="showSupabaseUpload('jobCardTotalHistory')">05. Job Card Total History</button>
             <button class="green" onclick="openSalaryReconciliation()">06. Salary Reconciliation</button>
             <button class="red" onclick="showOutEmployeePanel()">07. Out Employee Remove</button>
+                        <button class="green" onclick="showEmployeeJoiningList()">08. Employee Joining List</button>
             
             
             
-            <button class="green" onclick="openAllFormate()">11. All Formate</button>
+            <button class="green" onclick="openAllFormate()">09. All Formate</button>
             
-            <button class="purple" onclick="showChangePasswordPanel()">13. Change Admin Password</button>
-            <button class="orange" onclick="openSupabaseDashboard()">14. Open Supabase Dashboard</button>
-            <button class="green" onclick="showRocketCommitment()">15. Rocket Commitment</button>
-            <button class="orange" type="button" onclick="openSupportInbox()">16. Support Inbox</button>
+            <button class="purple" onclick="showChangePasswordPanel()">10. Change Admin Password</button>
+            <button class="orange" onclick="openSupabaseDashboard()">11. Open Supabase Dashboard</button>
+            <button class="green" onclick="showRocketCommitment()">12. Rocket Commitment</button>
+            <button class="orange" type="button" onclick="openSupportInbox()">13. Support Inbox</button>
         </div>
 </div>
 
@@ -4514,6 +4571,105 @@ ${pages.join("")}
 Developed by Robin
 </p>
 </div>
+
+
+<script>
+/* ===== Employee Registration Database Module ===== */
+const EMP_REG_TABLE = "Employee_Registration";
+const EMP_REG_FIELDS = [
+    ["1. Name of Employee","employee_name"],
+    ["2. Father's Name","father_name"],
+    ["3. Spouse Name","spouse_name"],
+    ["4. Care Of","care_of"],
+    ["5. Date of Birth","date_of_birth"],
+    ["6. NID / Birth ID","nid_birth_id"],
+    ["7. Present Address","present_address"],
+    ["8. Permanent Address","permanent_address"],
+    ["9. Mobile No.","mobile"],
+    ["10. Blood Group","blood_group"],
+    ["11. Emergency Number","emergency_number"],
+    ["Emergency Contact Relation","emergency_relation"],
+    ["12. Identifier's Number","identifier_number"],
+    ["Identifier's Name","identifier_name"],
+    ["Identifier Relation","identifier_relation"],
+    ["13. Educational Qualification","education"],
+    ["14. Employment Experience","employment_experience"],
+    ["Institute Name","institute_name"],
+    ["No. of Sons","sons"],
+    ["No. of Daughters","daughters"],
+    ["Height","height"],
+    ["Weight","weight"]
+];
+
+function employeeRegEsc(value){
+    return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+}
+function employeeRegDisplay(value){
+    if(value === null || value === undefined || String(value).trim() === "") return "—";
+    return employeeRegEsc(value).replace(/\n/g,"<br>");
+}
+function employeeRegPrintHtml(data){
+    const rows = EMP_REG_FIELDS.map(([label,key]) => `<tr><th>${employeeRegEsc(label)}</th><td>${employeeRegDisplay(data[key])}</td></tr>`).join("");
+    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Employee Registration - ${employeeRegEsc(data.temporary_id || "")}</title><style>
+        @page{size:A4;margin:14mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#111;margin:0;font-size:12px}.head{text-align:center;border-bottom:2px solid #222;padding-bottom:12px;margin-bottom:16px}.head h1{margin:0;font-size:21px}.head h2{margin:5px 0 0;font-size:16px}.temp{margin:10px auto 0;font-weight:800;font-size:15px}.info{width:100%;border-collapse:collapse}.info th,.info td{border:1px solid #999;padding:7px 8px;text-align:left;vertical-align:top}.info th{width:32%;background:#f1f3f4}.sign{display:flex;justify-content:space-between;margin-top:55px}.sig{width:28%;text-align:center;border-top:1px solid #222;padding-top:5px}</style></head><body>
+        <div class="head"><h1>A&amp;O Apparels Pvt. Ltd.</h1><h2>Employee Registration</h2><div class="temp">Temporary ID: ${employeeRegEsc(data.temporary_id || "")}</div></div><table class="info">${rows}</table><div class="sign"><div class="sig">Employee Signature</div><div class="sig">HR / Authorized Person</div><div class="sig">Approved By</div></div><script>window.onload=function(){setTimeout(function(){window.print()},250)}<\/script></body></html>`;
+}
+function printEmployeeRegistration(data){
+    const win=window.open("","_blank","width=900,height=1000");
+    if(!win){alert("Please allow pop-ups for printing.");return;}
+    win.document.open();win.document.write(employeeRegPrintHtml(data));win.document.close();
+}
+function editEmployeeRegistration(id){
+    window.location.href="empdataentry.html?temporary_id="+encodeURIComponent(id);
+}
+function showEmployeeRegistrationSearch(){
+    hideAll();
+    document.getElementById("employeeRegistrationSearchPage").classList.remove("hidden");
+    const input=document.getElementById("registrationSearchId");
+    if(input) setTimeout(()=>input.focus(),80);
+}
+async function searchEmployeeRegistration(){
+    const input=document.getElementById("registrationSearchId");
+    const status=document.getElementById("registrationSearchStatus");
+    const result=document.getElementById("registrationSearchResult");
+    const id=String(input?.value||"").trim();
+    if(!/^\d{9}$/.test(id)){
+        status.className="status error";status.textContent="Please enter a valid 9-digit Temporary ID.";result.innerHTML="";return;
+    }
+    status.className="status";status.textContent="Searching...";result.innerHTML="";
+    const {data,error}=await supabaseClient.from(EMP_REG_TABLE).select("*").eq("temporary_id",id).maybeSingle();
+    if(error){status.className="status error";status.textContent="Search failed: "+error.message;return;}
+    if(!data){status.className="status error";status.textContent="No registration found for Temporary ID: "+id;return;}
+    status.className="status success";status.textContent="Registration found.";
+    const rows=EMP_REG_FIELDS.map(([label,key])=>`<tr><th>${employeeRegEsc(label)}</th><td>${employeeRegDisplay(data[key])}</td></tr>`).join("");
+    result.innerHTML=`<div class="registration-result"><div class="registration-result-head"><div><div style="font-size:11px;color:#5f7467;font-weight:700;">TEMPORARY ID</div><div class="registration-result-id">${employeeRegEsc(data.temporary_id)}</div></div><div class="registration-result-actions"><button class="orange" onclick='editEmployeeRegistration(${JSON.stringify(String(data.temporary_id))})'>Edit</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Print</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Download PDF</button></div></div><div style="overflow-x:auto"><table>${rows}</table></div></div>`;
+}
+
+let employeeJoiningRows=[];
+async function showEmployeeJoiningList(){
+    activateAdminSubPage();
+    document.getElementById("adminView").innerHTML=`${adminBackButtonHtml()}<div class="employee-joining-list-card"><div class="employee-joining-list-head"><h3>Employee Joining List</h3><span id="employeeJoiningCount" class="status">Loading...</span></div><div class="employee-joining-list-tools"><input id="employeeJoiningSearch" placeholder="Search Temporary ID, name, mobile..." oninput="filterEmployeeJoiningList()"><button class="green" onclick="loadEmployeeJoiningList()">Refresh</button></div><div id="employeeJoiningTableWrap"></div></div>`;
+    await loadEmployeeJoiningList();
+}
+async function loadEmployeeJoiningList(){
+    const box=document.getElementById("employeeJoiningTableWrap");if(!box)return;
+    box.innerHTML='<div class="status">Loading employee registrations...</div>';
+    const {data,error}=await supabaseClient.from(EMP_REG_TABLE).select("*").order("created_at",{ascending:false}).limit(1000);
+    if(error){box.innerHTML=`<div class="status error">Load failed: ${employeeRegEsc(error.message)}</div>`;return;}
+    employeeJoiningRows=data||[];renderEmployeeJoiningList(employeeJoiningRows);
+}
+function filterEmployeeJoiningList(){
+    const q=String(document.getElementById("employeeJoiningSearch")?.value||"").trim().toLowerCase();
+    if(!q){renderEmployeeJoiningList(employeeJoiningRows);return;}
+    renderEmployeeJoiningList(employeeJoiningRows.filter(r=>[r.temporary_id,r.employee_name,r.father_name,r.mobile,r.nid_birth_id].join(" ").toLowerCase().includes(q)));
+}
+function renderEmployeeJoiningList(rows){
+    const box=document.getElementById("employeeJoiningTableWrap");if(!box)return;
+    const count=document.getElementById("employeeJoiningCount");if(count)count.textContent=`${rows.length} Registration${rows.length===1?"":"s"}`;
+    if(!rows.length){box.innerHTML='<div class="status">No employee registration found.</div>';return;}
+    box.innerHTML=`<table class="employee-joining-table"><thead><tr><th>SL</th><th>Temporary ID</th><th>Employee Name</th><th>Father's Name</th><th>Mobile</th><th>Date of Birth</th><th>Education</th><th>Action</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td><b>${employeeRegEsc(r.temporary_id||"")}</b></td><td>${employeeRegEsc(r.employee_name||"")}</td><td>${employeeRegEsc(r.father_name||"")}</td><td>${employeeRegEsc(r.mobile||"")}</td><td>${employeeRegEsc(r.date_of_birth||"")}</td><td>${employeeRegEsc(r.education||"")}</td><td class="employee-joining-actions"><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(r)})'>Print</button><button class="orange" onclick='editEmployeeRegistration(${JSON.stringify(String(r.temporary_id||""))})'>Edit</button></td></tr>`).join("")}</tbody></table>`;
+}
+</script>
 
 <script>
 /* A&O homepage navigation bridge — keeps existing portal logic untouched. */
