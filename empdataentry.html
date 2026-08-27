@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>New Employee Data Entry</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabaseUrl = "https://hneomxtzhbeseqlyrszh.supabase.co";
+const supabaseKey = "sb_publishable_oT6uhXtknOi9PfP6QIu9gw_6hdgrb7Z";
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+</script>
 
 <style>
     * {
@@ -204,6 +210,8 @@
     <div class="page-header">
         <h1>New Employee Data Entry</h1>
         <p>Employee Personal &amp; Employment Information</p>
+        <div id="temporaryIdBox" style="display:none;margin-top:12px;padding:10px 14px;border-radius:6px;background:#eaf6ff;border:1px solid #b9ddf7;color:#075b91;font-weight:700;text-align:center;">Temporary ID: <span id="temporaryIdValue"></span></div>
+        <div id="saveStatus" style="display:none;margin-top:8px;padding:9px 12px;border-radius:6px;font-size:13px;text-align:center;"></div>
     </div>
 
     <div class="form-body">
@@ -437,31 +445,108 @@
     });
 
 
-    function saveEntry() {
+    let editingTemporaryId = new URLSearchParams(window.location.search).get("temporary_id") || "";
 
+    function showSaveStatus(message, type="success") {
+        const el = document.getElementById("saveStatus");
+        if(!el) return;
+        el.style.display = "block";
+        el.style.background = type === "error" ? "#fff0f0" : "#eef9f1";
+        el.style.border = type === "error" ? "1px solid #f0b8b8" : "1px solid #b9dfc3";
+        el.style.color = type === "error" ? "#a12626" : "#23743a";
+        el.textContent = message;
+    }
+
+    function showTemporaryId(id) {
+        const box = document.getElementById("temporaryIdBox");
+        const value = document.getElementById("temporaryIdValue");
+        if(box && value && id){
+            value.textContent = id;
+            box.style.display = "block";
+        }
+    }
+
+    function collectFormData() {
+        const data = {};
+        document.querySelectorAll("input[name], select[name], textarea[name]").forEach(field => {
+            data[field.name] = field.value;
+        });
+        return data;
+    }
+
+    function fillFormData(data) {
+        document.querySelectorAll("input[name], select[name], textarea[name]").forEach(field => {
+            if(Object.prototype.hasOwnProperty.call(data, field.name) && data[field.name] !== null && data[field.name] !== undefined){
+                field.value = data[field.name];
+            }
+        });
+    }
+
+    async function loadExistingRegistration() {
+        if(!editingTemporaryId) return;
+        showSaveStatus("Loading registration for editing...", "success");
+        const { data, error } = await supabaseClient
+            .from("Employee_Registration")
+            .select("*")
+            .eq("temporary_id", editingTemporaryId)
+            .maybeSingle();
+        if(error || !data){
+            showSaveStatus(error ? "Load failed: " + error.message : "Registration not found.", "error");
+            return;
+        }
+        fillFormData(data);
+        showTemporaryId(data.temporary_id);
+        document.querySelector(".btn-save").textContent = "Update Entry";
+        showSaveStatus("Editing Temporary ID: " + data.temporary_id, "success");
+    }
+
+    async function saveEntry() {
         const requiredFields = document.querySelectorAll('[required]');
         let valid = true;
-
         requiredFields.forEach(field => {
-
-            if (!field.value.trim()) {
+            if (!String(field.value || '').trim()) {
                 field.focus();
                 valid = false;
             }
-
         });
-
         if (!valid) {
-            alert('Please fill in all required fields.');
+            showSaveStatus("Please fill in all required fields.", "error");
             return;
         }
 
-        /*
-         * এখানে পরবর্তীতে Database/Supabase/Oracle API
-         * এর সাথে Save করার functionality যোগ করা যাবে।
-         */
-
-        alert('Employee entry saved successfully.');
+        const button = document.querySelector('.btn-save');
+        if(button) button.disabled = true;
+        try {
+            const formData = collectFormData();
+            if(editingTemporaryId){
+                const { data, error } = await supabaseClient
+                    .from("Employee_Registration")
+                    .update(formData)
+                    .eq("temporary_id", editingTemporaryId)
+                    .select("*")
+                    .single();
+                if(error) throw error;
+                showTemporaryId(data.temporary_id);
+                showSaveStatus("Employee registration updated successfully. Temporary ID: " + data.temporary_id);
+            }else{
+                const { data, error } = await supabaseClient
+                    .from("Employee_Registration")
+                    .insert([formData])
+                    .select("*")
+                    .single();
+                if(error) throw error;
+                editingTemporaryId = String(data.temporary_id || "");
+                showTemporaryId(editingTemporaryId);
+                history.replaceState(null, "", "empdataentry.html?temporary_id=" + encodeURIComponent(editingTemporaryId));
+                if(button) button.textContent = "Update Entry";
+                showSaveStatus("Employee registration saved successfully. Temporary ID: " + editingTemporaryId);
+            }
+        } catch(error) {
+            console.error(error);
+            showSaveStatus("Save failed: " + (error.message || error), "error");
+        } finally {
+            if(button) button.disabled = false;
+        }
     }
 
 
@@ -709,6 +794,10 @@
 
         printWindow.document.close();
     }
+
+    document.addEventListener("DOMContentLoaded", function(){
+        loadExistingRegistration();
+    });
 
 </script>
 
