@@ -677,9 +677,6 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
             ["4. Care Of", "care_of"],
             ["5. Date of Birth", "date_of_birth"],
             ["6. NID / Birth ID", "nid_birth_id"],
-            ["13. Joining Date", "joining_date"],
-            ["14. Designation", "designation"],
-            ["15. Section", "section"],
             ["7. Present Address", "present_address"],
             ["8. Permanent Address", "permanent_address"],
             ["9. Mobile No.", "mobile"],
@@ -787,6 +784,41 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
         font-weight: 700;
     }
 
+    .employment-summary {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1.35fr 1fr;
+        gap: 0;
+        margin: 0 0 10px 0;
+        border: 1px solid #999;
+    }
+
+    .employment-summary-item {
+        min-height: 42px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 7px 9px;
+        border-right: 1px solid #999;
+    }
+
+    .employment-summary-item:last-child {
+        border-right: 0;
+    }
+
+    .employment-label {
+        font-size: 14px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .employment-value {
+        font-size: 14px;
+        font-weight: 800;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
     table {
         width: 100%;
         border-collapse: collapse;
@@ -870,6 +902,22 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
     </div>
 
     <div class="section-title">Employee Information</div>
+
+    <div class="employment-summary">
+        <div class="employment-summary-item">
+            <span class="employment-label">Date :</span>
+            <span class="employment-value">${esc(getValue("joining_date")) || "&nbsp;"}</span>
+        </div>
+        <div class="employment-summary-item">
+            <span class="employment-label">Designation :</span>
+            <span class="employment-value">${esc(getValue("designation")) || "&nbsp;"}</span>
+        </div>
+        <div class="employment-summary-item">
+            <span class="employment-label">Section :</span>
+            <span class="employment-value">${esc(getValue("section")) || "&nbsp;"}</span>
+        </div>
+    </div>
+
     <table>
         ${rows}
     </table>
