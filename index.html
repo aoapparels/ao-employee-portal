@@ -1735,6 +1735,10 @@ body::after{
 
 .complaint-action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .complaint-action-row button{width:auto;min-width:130px;display:block !important;visibility:visible !important;opacity:1 !important}
+
+.registration-employment-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid #cfd8d3;margin:14px 0 12px;border-radius:6px;overflow:hidden;background:#f8fbf9}
+.registration-employment-summary>div{padding:10px 12px;border-right:1px solid #cfd8d3;font-size:14px;font-weight:700}
+.registration-employment-summary>div:last-child{border-right:0}
 </style>
 <style>
 .complaint-admin-card{padding:4px 0;}
@@ -4577,7 +4581,7 @@ Developed by Robin
 /* ===== Employee Registration Database Module ===== */
 const EMP_REG_TABLE = "Employee_Registration";
 const EMP_REG_FIELDS = [
-    ["1. Name of Employee","employee_name"],
+["1. Name of Employee","employee_name"],
     ["2. Father's Name","father_name"],
     ["3. Spouse Name","spouse_name"],
     ["4. Care Of","care_of"],
@@ -4609,10 +4613,82 @@ function employeeRegDisplay(value){
     return employeeRegEsc(value).replace(/\n/g,"<br>");
 }
 function employeeRegPrintHtml(data){
-    const rows = EMP_REG_FIELDS.map(([label,key]) => `<tr><th>${employeeRegEsc(label)}</th><td>${employeeRegDisplay(data[key])}</td></tr>`).join("");
-    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Employee Registration - ${employeeRegEsc(data.temporary_id || "")}</title><style>
-        @page{size:A4;margin:14mm}*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#111;margin:0;font-size:12px}.head{text-align:center;border-bottom:2px solid #222;padding-bottom:12px;margin-bottom:16px}.head h1{margin:0;font-size:21px}.head h2{margin:5px 0 0;font-size:16px}.temp{margin:10px auto 0;font-weight:800;font-size:15px}.info{width:100%;border-collapse:collapse}.info th,.info td{border:1px solid #999;padding:7px 8px;text-align:left;vertical-align:top}.info th{width:32%;background:#f1f3f4}.sign{display:flex;justify-content:space-between;margin-top:55px}.sig{width:28%;text-align:center;border-top:1px solid #222;padding-top:5px}</style></head><body>
-        <div class="head"><h1>A&amp;O Apparels Pvt. Ltd.</h1><h2>Employee Registration</h2><div class="temp">Temporary ID: ${employeeRegEsc(data.temporary_id || "")}</div></div><table class="info">${rows}</table><div class="sign"><div class="sig">Employee Signature</div><div class="sig">HR / Authorized Person</div><div class="sig">Approved By</div></div><script>window.onload=function(){setTimeout(function(){window.print()},250)}<\/script></body></html>`;
+    const rows = EMP_REG_FIELDS.map(([label,key]) =>
+        `<tr><td class="label">${employeeRegEsc(label)}</td><td>${employeeRegDisplay(data[key])}</td></tr>`
+    ).join("");
+
+    const joiningDate = employeeRegDisplay(data.joining_date);
+    const designation = employeeRegDisplay(data.designation);
+    const section = employeeRegDisplay(data.section);
+
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Preliminary Verification Form - ${employeeRegEsc(data.temporary_id || "")}</title>
+<style>
+@page{size:A4;margin:16mm}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff;font-size:13px}
+.print-page{width:100%}
+.heading{margin-bottom:22px;padding-bottom:10px;border-bottom:2px solid #222}
+.heading-content{display:flex;align-items:center;justify-content:center;gap:18px}
+.heading-text{text-align:center}
+.company-name{margin:0;font-size:21px;font-weight:700;letter-spacing:.3px}
+.form-title{margin:5px 0 0;font-size:17px;font-weight:700;letter-spacing:.2px}
+.temp{margin-top:8px;font-size:13px;font-weight:700}
+.section-title{margin:18px 0 8px;padding:7px 9px;background:#f1f1f1;border:1px solid #bdbdbd;font-size:14px;font-weight:700}
+.employment-row{width:100%;display:grid;grid-template-columns:1fr 1fr 1fr;border:1px solid #999;margin-bottom:8px}
+.employment-cell{padding:9px 10px;border-right:1px solid #999;font-size:14px;font-weight:700;min-height:36px}
+.employment-cell:last-child{border-right:0}
+.info{width:100%;border-collapse:collapse;table-layout:fixed}
+.info td{border:1px solid #999;padding:7px 8px;vertical-align:top}
+.info td.label{width:35%;font-weight:600;background:#fafafa}
+.signature{margin-top:55px;display:flex;justify-content:space-between;gap:70px}
+.signature-box{width:45%;text-align:center;border-top:1px solid #333;padding-top:7px;font-size:12px}
+.footer-note{margin-top:22px;font-size:10px;color:#666;text-align:center}
+.print-controls{position:fixed;top:15px;right:15px}
+.print-controls button{padding:8px 16px;border:0;background:#1769aa;color:#fff;border-radius:4px;cursor:pointer;font-weight:600}
+@media print{.print-controls{display:none}}
+</style>
+</head>
+<body>
+<div class="print-controls"><button onclick="window.print()">Print</button></div>
+
+<div class="print-page">
+    <div class="heading">
+        <div class="heading-content">
+            <div class="heading-text">
+                <div class="company-name">A&amp;O Apparels Pvt Ltd</div>
+                <div class="form-title">Preliminary Verification Form</div>
+                <div class="temp">Temporary ID: ${employeeRegEsc(data.temporary_id || "")}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">Employee Information</div>
+
+    <div class="employment-row">
+        <div class="employment-cell">Date : ${joiningDate}</div>
+        <div class="employment-cell">Designation : ${designation}</div>
+        <div class="employment-cell">Section : ${section}</div>
+    </div>
+
+    <table class="info">${rows}</table>
+
+    <div class="signature">
+        <div class="signature-box">Employee Signature</div>
+        <div class="signature-box">HR / Authorized Person</div>
+    </div>
+
+    <div class="footer-note">Preliminary Verification Form</div>
+</div>
+
+<script>
+window.onload=function(){setTimeout(function(){window.print()},300)};
+<\/script>
+</body>
+</html>`;
 }
 function printEmployeeRegistration(data){
     const win=window.open("","_blank","width=900,height=1000");
@@ -4642,7 +4718,11 @@ async function searchEmployeeRegistration(){
     if(!data){status.className="status error";status.textContent="No registration found for Temporary ID: "+id;return;}
     status.className="status success";status.textContent="Registration found.";
     const rows=EMP_REG_FIELDS.map(([label,key])=>`<tr><th>${employeeRegEsc(label)}</th><td>${employeeRegDisplay(data[key])}</td></tr>`).join("");
-    result.innerHTML=`<div class="registration-result"><div class="registration-result-head"><div><div style="font-size:11px;color:#5f7467;font-weight:700;">TEMPORARY ID</div><div class="registration-result-id">${employeeRegEsc(data.temporary_id)}</div></div><div class="registration-result-actions"><button class="orange" onclick='editEmployeeRegistration(${JSON.stringify(String(data.temporary_id))})'>Edit</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Print</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Download PDF</button><button class="red" onclick='deleteEmployeeRegistration(${JSON.stringify(String(data.temporary_id))}, this)'>Delete</button></div></div><div style="overflow-x:auto"><table>${rows}</table></div></div>`;
+    result.innerHTML=`<div class="registration-result"><div class="registration-result-head"><div><div style="font-size:11px;color:#5f7467;font-weight:700;">TEMPORARY ID</div><div class="registration-result-id">${employeeRegEsc(data.temporary_id)}</div></div><div class="registration-result-actions"><button class="orange" onclick='editEmployeeRegistration(${JSON.stringify(String(data.temporary_id))})'>Edit</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Print</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Download PDF</button><button class="red" onclick='deleteEmployeeRegistration(${JSON.stringify(String(data.temporary_id))}, this)'>Delete</button></div></div><div class="registration-employment-summary">
+<div><b>Date :</b> ${employeeRegDisplay(data.joining_date)}</div>
+<div><b>Designation :</b> ${employeeRegDisplay(data.designation)}</div>
+<div><b>Section :</b> ${employeeRegDisplay(data.section)}</div>
+</div><div style="overflow-x:auto"><table>${rows}</table></div></div>`;
 }
 
 async function deleteEmployeeRegistration(temporaryId, buttonEl){
