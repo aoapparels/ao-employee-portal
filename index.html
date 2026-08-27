@@ -4642,13 +4642,75 @@ async function searchEmployeeRegistration(){
     if(!data){status.className="status error";status.textContent="No registration found for Temporary ID: "+id;return;}
     status.className="status success";status.textContent="Registration found.";
     const rows=EMP_REG_FIELDS.map(([label,key])=>`<tr><th>${employeeRegEsc(label)}</th><td>${employeeRegDisplay(data[key])}</td></tr>`).join("");
-    result.innerHTML=`<div class="registration-result"><div class="registration-result-head"><div><div style="font-size:11px;color:#5f7467;font-weight:700;">TEMPORARY ID</div><div class="registration-result-id">${employeeRegEsc(data.temporary_id)}</div></div><div class="registration-result-actions"><button class="orange" onclick='editEmployeeRegistration(${JSON.stringify(String(data.temporary_id))})'>Edit</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Print</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Download PDF</button></div></div><div style="overflow-x:auto"><table>${rows}</table></div></div>`;
+    result.innerHTML=`<div class="registration-result"><div class="registration-result-head"><div><div style="font-size:11px;color:#5f7467;font-weight:700;">TEMPORARY ID</div><div class="registration-result-id">${employeeRegEsc(data.temporary_id)}</div></div><div class="registration-result-actions"><button class="orange" onclick='editEmployeeRegistration(${JSON.stringify(String(data.temporary_id))})'>Edit</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Print</button><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(data)})'>Download PDF</button><button class="red" onclick='deleteEmployeeRegistration(${JSON.stringify(String(data.temporary_id))}, this)'>Delete</button></div></div><div style="overflow-x:auto"><table>${rows}</table></div></div>`;
+}
+
+async function deleteEmployeeRegistration(temporaryId, buttonEl){
+    const id = String(temporaryId || "").trim();
+    if(!/^\d{9}$/.test(id)){
+        alert("Invalid Temporary ID.");
+        return;
+    }
+
+    const confirmed = confirm(
+        "Are you sure you want to delete this employee registration?\n\n" +
+        "Temporary ID: " + id +
+        "\n\nThis will permanently delete the record from the database."
+    );
+    if(!confirmed) return;
+
+    const originalText = buttonEl ? buttonEl.textContent : "Delete";
+    if(buttonEl){
+        buttonEl.disabled = true;
+        buttonEl.textContent = "Deleting...";
+    }
+
+    try{
+        const { error } = await supabaseClient
+            .from(EMP_REG_TABLE)
+            .delete()
+            .eq("temporary_id", id);
+
+        if(error) throw error;
+
+        alert("Employee registration deleted successfully.");
+
+        // If the Admin Joining List is currently open, remove it immediately from the list.
+        if(Array.isArray(window.employeeJoiningRows)){
+            window.employeeJoiningRows = window.employeeJoiningRows.filter(
+                r => String(r?.temporary_id || "") !== id
+            );
+            if(typeof renderEmployeeJoiningList === "function"){
+                renderEmployeeJoiningList(window.employeeJoiningRows);
+            }
+        }
+
+        // Clear the Find Registration result if it is showing the deleted record.
+        const result = document.getElementById("registrationSearchResult");
+        const input = document.getElementById("registrationSearchId");
+        if(result && input && String(input.value || "").trim() === id){
+            result.innerHTML = "";
+            input.value = "";
+            const status = document.getElementById("registrationSearchStatus");
+            if(status){
+                status.className = "status";
+                status.textContent = "Registration deleted.";
+            }
+        }
+    }catch(error){
+        alert("Delete failed: " + (error?.message || error));
+        if(buttonEl){
+            buttonEl.disabled = false;
+            buttonEl.textContent = originalText;
+        }
+    }
 }
 
 let employeeJoiningRows=[];
+window.employeeJoiningRows = employeeJoiningRows;
 async function showEmployeeJoiningList(){
     activateAdminSubPage();
-    document.getElementById("adminView").innerHTML=`${adminBackButtonHtml()}<div class="employee-joining-list-card"><div class="employee-joining-list-head"><h3>Employee Joining List</h3><span id="employeeJoiningCount" class="status">Loading...</span></div><div class="employee-joining-list-tools"><input id="employeeJoiningSearch" placeholder="Search Temporary ID, name, mobile..." oninput="filterEmployeeJoiningList()"><button class="green" onclick="loadEmployeeJoiningList()">Refresh</button></div><div id="employeeJoiningTableWrap"></div></div>`;
+    document.getElementById("adminView").innerHTML=`${adminBackButtonHtml()}<div class="employee-joining-list-card"><div class="employee-joining-list-head"><h3>Employee Joining List</h3><span id="employeeJoiningCount" class="status">Loading...</span></div><div class="employee-joining-list-tools"><input id="employeeJoiningSearch" placeholder="Search Temporary ID, name, mobile..." oninput="filterEmployeeJoiningList()"></div><div id="employeeJoiningTableWrap"></div></div>`;
     await loadEmployeeJoiningList();
 }
 async function loadEmployeeJoiningList(){
@@ -4656,7 +4718,7 @@ async function loadEmployeeJoiningList(){
     box.innerHTML='<div class="status">Loading employee registrations...</div>';
     const {data,error}=await supabaseClient.from(EMP_REG_TABLE).select("*").order("created_at",{ascending:false}).limit(1000);
     if(error){box.innerHTML=`<div class="status error">Load failed: ${employeeRegEsc(error.message)}</div>`;return;}
-    employeeJoiningRows=data||[];renderEmployeeJoiningList(employeeJoiningRows);
+    employeeJoiningRows=data||[];window.employeeJoiningRows=employeeJoiningRows;renderEmployeeJoiningList(employeeJoiningRows);
 }
 function filterEmployeeJoiningList(){
     const q=String(document.getElementById("employeeJoiningSearch")?.value||"").trim().toLowerCase();
@@ -4667,7 +4729,7 @@ function renderEmployeeJoiningList(rows){
     const box=document.getElementById("employeeJoiningTableWrap");if(!box)return;
     const count=document.getElementById("employeeJoiningCount");if(count)count.textContent=`${rows.length} Registration${rows.length===1?"":"s"}`;
     if(!rows.length){box.innerHTML='<div class="status">No employee registration found.</div>';return;}
-    box.innerHTML=`<table class="employee-joining-table"><thead><tr><th>SL</th><th>Temporary ID</th><th>Employee Name</th><th>Father's Name</th><th>Mobile</th><th>Date of Birth</th><th>Education</th><th>Action</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td><b>${employeeRegEsc(r.temporary_id||"")}</b></td><td>${employeeRegEsc(r.employee_name||"")}</td><td>${employeeRegEsc(r.father_name||"")}</td><td>${employeeRegEsc(r.mobile||"")}</td><td>${employeeRegEsc(r.date_of_birth||"")}</td><td>${employeeRegEsc(r.education||"")}</td><td class="employee-joining-actions"><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(r)})'>Print</button><button class="orange" onclick='editEmployeeRegistration(${JSON.stringify(String(r.temporary_id||""))})'>Edit</button></td></tr>`).join("")}</tbody></table>`;
+    box.innerHTML=`<table class="employee-joining-table"><thead><tr><th>SL</th><th>Temporary ID</th><th>Employee Name</th><th>Father's Name</th><th>Mobile</th><th>Date of Birth</th><th>Education</th><th>Action</th></tr></thead><tbody>${rows.map((r,i)=>`<tr><td>${i+1}</td><td><b>${employeeRegEsc(r.temporary_id||"")}</b></td><td>${employeeRegEsc(r.employee_name||"")}</td><td>${employeeRegEsc(r.father_name||"")}</td><td>${employeeRegEsc(r.mobile||"")}</td><td>${employeeRegEsc(r.date_of_birth||"")}</td><td>${employeeRegEsc(r.education||"")}</td><td class="employee-joining-actions"><button class="green" onclick='printEmployeeRegistration(${JSON.stringify(r)})'>Print</button><button class="orange" onclick='editEmployeeRegistration(${JSON.stringify(String(r.temporary_id||""))})'>Edit</button><button class="red" onclick='deleteEmployeeRegistration(${JSON.stringify(String(r.temporary_id||""))}, this)'>Delete</button></td></tr>`).join("")}</tbody></table>`;
 }
 </script>
 
