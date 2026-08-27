@@ -120,6 +120,88 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
         gap: 17px 25px;
     }
 
+    .employment-header {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        width: 100%;
+        margin: 4px 0 22px;
+        padding: 6px 0 2px;
+    }
+
+    .employment-header-date {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+
+    .employment-header-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 25px;
+        width: 100%;
+    }
+
+    .employment-header-field {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+    }
+
+    .employment-header-field label,
+    .employment-header-date label {
+        margin: 0;
+        white-space: nowrap;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .employment-header-field input,
+    .employment-header-date input {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        box-sizing: border-box;
+        flex: 1;
+        min-width: 0;
+        height: 40px;
+        max-width: none;
+        border: 1px solid #cfd4da;
+        border-radius: 4px;
+        background: #fff;
+        padding: 9px 10px;
+        font-size: 14px;
+        font-family: inherit;
+    }
+
+    .employment-header-date input {
+        flex: 0 0 220px;
+    }
+
+    .employment-header-field.designation-field label {
+        font-size: 15px;
+        font-weight: 800;
+    }
+
+    @media (max-width: 750px) {
+        .employment-header-date {
+            justify-content: flex-start;
+        }
+
+        .employment-header-row {
+            grid-template-columns: 1fr;
+            gap: 14px;
+        }
+
+        .employment-header-date input {
+            flex: 1;
+        }
+    }
+
     .button-area {
         display: flex;
         justify-content: flex-end;
@@ -322,13 +404,33 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         </div>
 
+        <!-- Employment Header -->
+        <div class="employment-header">
+            <div class="employment-header-date">
+                <label for="joining_date">Date :</label>
+                <input id="joining_date" type="date" name="joining_date">
+            </div>
+
+            <div class="employment-header-row">
+                <div class="employment-header-field designation-field">
+                    <label for="designation">Designation :</label>
+                    <input id="designation" type="text" name="designation" placeholder="Enter designation">
+                </div>
+
+                <div class="employment-header-field">
+                    <label for="section">Section :</label>
+                    <input id="section" type="text" name="section" placeholder="Enter section">
+                </div>
+            </div>
+        </div>
+
         <!-- Education & Experience -->
         <div class="section-title">Education &amp; Employment Experience</div>
 
         <div class="form-grid">
 
             <div class="form-group">
-                <label>13. Educational Qualification</label>
+                <label>16. Educational Qualification</label>
                 <select name="education">
                     <option value="">Select Qualification</option>
                     <option>One To Ten</option>
@@ -344,7 +446,7 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
             </div>
 
             <div class="form-group">
-                <label>14. Employment Experience</label>
+                <label>17. Employment Experience</label>
                 <input type="text" name="employment_experience"
                        placeholder="e.g. 2 Years">
             </div>
@@ -575,6 +677,9 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
             ["4. Care Of", "care_of"],
             ["5. Date of Birth", "date_of_birth"],
             ["6. NID / Birth ID", "nid_birth_id"],
+            ["13. Joining Date", "joining_date"],
+            ["14. Designation", "designation"],
+            ["15. Section", "section"],
             ["7. Present Address", "present_address"],
             ["8. Permanent Address", "permanent_address"],
             ["9. Mobile No.", "mobile"],
@@ -584,8 +689,8 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
             ["12. Identifier's Number", "identifier_number"],
             ["Identifier's Name", "identifier_name"],
             ["Identifier Relation", "identifier_relation"],
-            ["13. Educational Qualification", "education"],
-            ["14. Employment Experience", "employment_experience"],
+            ["16. Educational Qualification", "education"],
+            ["17. Employment Experience", "employment_experience"],
             ["Institute Name", "institute_name"],
             ["No. of Sons", "sons"],
             ["No. of Daughters", "daughters"],
