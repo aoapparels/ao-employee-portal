@@ -304,8 +304,8 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
         <div class="form-grid">
 
             <div class="form-group">
-                <label>1. Name of Employee <span>*</span></label>
-                <input type="text" name="employee_name" required>
+                <label>1. Name of Employee</label>
+                <input type="text" name="employee_name">
             </div>
 
             <div class="form-group">
@@ -414,12 +414,79 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
             <div class="employment-header-row">
                 <div class="employment-header-field designation-field">
                     <label for="designation">Designation :</label>
-                    <input id="designation" type="text" name="designation" placeholder="Enter designation">
+                    <select id="designation" name="designation" onchange="toggleOtherField('designation')">
+                        <option value="">Select Designation</option>
+                        <option>Cleaner</option>
+                        <option>Driver</option>
+                        <option>Asstt. Cutter</option>
+                        <option>Cutting</option>
+                        <option>Staff</option>
+                        <option>Loader</option>
+                        <option>Jr. Quality Inspector</option>
+                        <option>Finishing Asst.</option>
+                        <option>Jr. Folder</option>
+                        <option>Jr. Ironman</option>
+                        <option>Line Ironman</option>
+                        <option>Needle Detector Operator</option>
+                        <option>Packer</option>
+                        <option>Jr. Packer</option>
+                        <option>Inputman</option>
+                        <option>Jr. S/M Operator</option>
+                        <option>S/M Operator</option>
+                        <option>Manager</option>
+                        <option>PM</option>
+                        <option>Production Manager</option>
+                        <option>Knitting Manager</option>
+                        <option>IT Officer</option>
+                        <option>Officer - HR &amp; Compliance</option>
+                        <option>Compliance Manager</option>
+                        <option>IE Manager</option>
+                        <option>Management Trainee</option>
+                        <option>Civil Supervisor</option>
+                        <option>Project Manager</option>
+                        <option>Electrical Engineer</option>
+                        <option>Jr. Electrician</option>
+                        <option>Poly Man</option>
+                        <option>Security Guard</option>
+                        <option>Jr. Security Guard</option>
+                        <option>Security In-Charge</option>
+                        <option>Cooker</option>
+                        <option>Office Peon</option>
+                        <option value="__OTHER__">Others</option>
+                    </select>
+                    <input id="designation_other" type="text" placeholder="Enter designation" style="display:none;margin-top:6px;">
                 </div>
 
                 <div class="employment-header-field">
                     <label for="section">Section :</label>
-                    <input id="section" type="text" name="section" placeholder="Enter section">
+                    <select id="section" name="section" onchange="toggleOtherField('section')">
+                        <option value="">Select Section</option>
+                        <option>Sewing A</option>
+                        <option>Sewing - B</option>
+                        <option>Quality Assurance</option>
+                        <option>Cutting</option>
+                        <option>Admin &amp; HR</option>
+                        <option>Security</option>
+                        <option>Civil</option>
+                        <option>Electric</option>
+                        <option>Finishing</option>
+                        <option>Maintenance</option>
+                        <option>Laser</option>
+                        <option>Management</option>
+                        <option>Management Combine</option>
+                        <option>Store</option>
+                        <option>Cleaning Knit</option>
+                        <option>Cutting Knit</option>
+                        <option>Finishing Knit</option>
+                        <option>Lab Knit</option>
+                        <option>Maintenance Knit</option>
+                        <option>Sewing Knit A</option>
+                        <option>Sewing Knit B</option>
+                        <option>Store Knit</option>
+                        <option>Embroidery</option>
+                        <option value="__OTHER__">Others</option>
+                    </select>
+                    <input id="section_other" type="text" placeholder="Enter section" style="display:none;margin-top:6px;">
                 </div>
             </div>
         </div>
@@ -490,7 +557,7 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
         </div>
 
         <div class="required-note">
-            * Required field &nbsp; | &nbsp; Press <b>Enter</b> to move to the next field.
+            Press <b>Enter</b> to move to the next field.
         </div>
 
         <!-- Buttons -->
@@ -571,8 +638,34 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
     function collectFormData() {
         const data = {};
         document.querySelectorAll("input[name], select[name], textarea[name]").forEach(field => {
-            data[field.name] = field.value;
+            let value = field.value;
+
+            // Empty values are sent as NULL so PostgreSQL date/number columns
+            // never receive an invalid empty string ("").
+            if (value === "") value = null;
+
+            // Safely handle numeric fields when left blank.
+            if (field.type === "number" && value !== null) {
+                value = Number(value);
+                if (Number.isNaN(value)) value = null;
+            }
+
+            data[field.name] = value;
         });
+
+        // If Others is selected, save the manually entered value instead.
+        const designation = document.getElementById("designation");
+        const designationOther = document.getElementById("designation_other");
+        if (designation && designation.value === "__OTHER__") {
+            data.designation = String(designationOther?.value || "").trim() || null;
+        }
+
+        const section = document.getElementById("section");
+        const sectionOther = document.getElementById("section_other");
+        if (section && section.value === "__OTHER__") {
+            data.section = String(sectionOther?.value || "").trim() || null;
+        }
+
         return data;
     }
 
@@ -582,6 +675,31 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
                 field.value = data[field.name];
             }
         });
+
+        // Restore custom Others values when editing an existing record.
+        ["designation", "section"].forEach(name => {
+            const select = document.getElementById(name);
+            const other = document.getElementById(name + "_other");
+            if (!select || !other || data[name] === null || data[name] === undefined) return;
+
+            const value = String(data[name]);
+            const exists = Array.from(select.options).some(option => option.value === value);
+            if (!exists && value.trim() !== "") {
+                select.value = "__OTHER__";
+                other.value = value;
+                other.style.display = "block";
+            }
+        });
+    }
+
+    function toggleOtherField(name) {
+        const select = document.getElementById(name);
+        const other = document.getElementById(name + "_other");
+        if (!select || !other) return;
+
+        const isOther = select.value === "__OTHER__";
+        other.style.display = isOther ? "block" : "none";
+        if (!isOther) other.value = "";
     }
 
     async function loadExistingRegistration() {
@@ -603,19 +721,6 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
     }
 
     async function saveEntry() {
-        const requiredFields = document.querySelectorAll('[required]');
-        let valid = true;
-        requiredFields.forEach(field => {
-            if (!String(field.value || '').trim()) {
-                field.focus();
-                valid = false;
-            }
-        });
-        if (!valid) {
-            showSaveStatus("Please fill in all required fields.", "error");
-            return;
-        }
-
         const button = document.querySelector('.btn-save');
         if(button) button.disabled = true;
         try {
