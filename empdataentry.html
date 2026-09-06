@@ -238,6 +238,82 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
         background: #444;
     }
 
+    .btn-back {
+        background: #777;
+        color: white;
+    }
+
+    .btn-back:hover {
+        background: #666;
+    }
+
+    .success-dashboard {
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 35px 20px;
+    }
+
+    .success-card {
+        width: min(520px, 100%);
+        text-align: center;
+        background: #fff;
+        border: 1px solid #dce5ee;
+        border-radius: 14px;
+        padding: 42px 28px 34px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .success-tick {
+        width: 76px;
+        height: 76px;
+        margin: 0 auto 18px;
+        border-radius: 50%;
+        background: #eaf7ee;
+        color: #1f9d55;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 52px;
+        font-weight: 800;
+        border: 3px solid #42b96f;
+    }
+
+    .success-card h2 {
+        margin: 0;
+        color: #1769aa;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .success-temp-label {
+        margin-top: 24px;
+        color: #6b7280;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .7px;
+    }
+
+    .success-temp-id {
+        margin-top: 6px;
+        color: #1769aa;
+        font-size: 25px;
+        font-weight: 800;
+    }
+
+    .btn-success-back {
+        margin-top: 28px;
+        background: #1769aa;
+        color: #fff;
+        min-width: 110px;
+    }
+
+    .btn-success-back:hover {
+        background: #12588f;
+    }
+
     .required-note {
         margin-top: 12px;
         font-size: 12px;
@@ -286,6 +362,16 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 </head>
 
 <body>
+
+<div id="successDashboard" class="success-dashboard" style="display:none;">
+    <div class="success-card">
+        <div class="success-tick" aria-hidden="true">✓</div>
+        <h2>Your registration Successfully Saved</h2>
+        <div class="success-temp-label">Temp ID</div>
+        <div id="successTempId" class="success-temp-id"></div>
+        <button type="button" class="btn-success-back" onclick="goToPortalHome()">Back</button>
+    </div>
+</div>
 
 <div class="container">
 
@@ -414,79 +500,16 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
             <div class="employment-header-row">
                 <div class="employment-header-field designation-field">
                     <label for="designation">Designation :</label>
-                    <select id="designation" name="designation" onchange="toggleOtherField('designation')">
-                        <option value="">Select Designation</option>
-                        <option>Cleaner</option>
-                        <option>Driver</option>
-                        <option>Asstt. Cutter</option>
-                        <option>Cutting</option>
-                        <option>Staff</option>
-                        <option>Loader</option>
-                        <option>Jr. Quality Inspector</option>
-                        <option>Finishing Asst.</option>
-                        <option>Jr. Folder</option>
-                        <option>Jr. Ironman</option>
-                        <option>Line Ironman</option>
-                        <option>Needle Detector Operator</option>
-                        <option>Packer</option>
-                        <option>Jr. Packer</option>
-                        <option>Inputman</option>
-                        <option>Jr. S/M Operator</option>
-                        <option>S/M Operator</option>
-                        <option>Manager</option>
-                        <option>PM</option>
-                        <option>Production Manager</option>
-                        <option>Knitting Manager</option>
-                        <option>IT Officer</option>
-                        <option>Officer - HR &amp; Compliance</option>
-                        <option>Compliance Manager</option>
-                        <option>IE Manager</option>
-                        <option>Management Trainee</option>
-                        <option>Civil Supervisor</option>
-                        <option>Project Manager</option>
-                        <option>Electrical Engineer</option>
-                        <option>Jr. Electrician</option>
-                        <option>Poly Man</option>
-                        <option>Security Guard</option>
-                        <option>Jr. Security Guard</option>
-                        <option>Security In-Charge</option>
-                        <option>Cooker</option>
-                        <option>Office Peon</option>
-                        <option value="__OTHER__">Others</option>
-                    </select>
-                    <input id="designation_other" type="text" placeholder="Enter designation" style="display:none;margin-top:6px;">
+                    <input id="designation" name="designation" type="text" list="designationOptions"
+                           placeholder="Select or type designation" autocomplete="off">
+                    <datalist id="designationOptions"><option value="Cleaner"><option value="Driver"><option value="Asstt. Cutter"><option value="Cutting"><option value="Staff"><option value="Loader"><option value="Jr. Quality Inspector"><option value="Finishing Asst."><option value="Jr. Folder"><option value="Jr. Ironman"><option value="Line Ironman"><option value="Needle Detector Operator"><option value="Packer"><option value="Jr. Packer"><option value="Inputman"><option value="Jr. S/M Operator"><option value="S/M Operator"><option value="Manager"><option value="PM"><option value="Production Manager"><option value="Knitting Manager"><option value="IT Officer"><option value="Officer - HR &amp; Compliance"><option value="Compliance Manager"><option value="IE Manager"><option value="Management Trainee"><option value="Civil Supervisor"><option value="Project Manager"><option value="Electrical Engineer"><option value="Jr. Electrician"><option value="Poly Man"><option value="Security Guard"><option value="Jr. Security Guard"><option value="Security In-Charge"><option value="Cooker"><option value="Office Peon"><option value="Others"></datalist>
                 </div>
 
                 <div class="employment-header-field">
                     <label for="section">Section :</label>
-                    <select id="section" name="section" onchange="toggleOtherField('section')">
-                        <option value="">Select Section</option>
-                        <option>Sewing A</option>
-                        <option>Sewing - B</option>
-                        <option>Quality Assurance</option>
-                        <option>Cutting</option>
-                        <option>Admin &amp; HR</option>
-                        <option>Security</option>
-                        <option>Civil</option>
-                        <option>Electric</option>
-                        <option>Finishing</option>
-                        <option>Maintenance</option>
-                        <option>Laser</option>
-                        <option>Management</option>
-                        <option>Management Combine</option>
-                        <option>Store</option>
-                        <option>Cleaning Knit</option>
-                        <option>Cutting Knit</option>
-                        <option>Finishing Knit</option>
-                        <option>Lab Knit</option>
-                        <option>Maintenance Knit</option>
-                        <option>Sewing Knit A</option>
-                        <option>Sewing Knit B</option>
-                        <option>Store Knit</option>
-                        <option>Embroidery</option>
-                        <option value="__OTHER__">Others</option>
-                    </select>
-                    <input id="section_other" type="text" placeholder="Enter section" style="display:none;margin-top:6px;">
+                    <input id="section" name="section" type="text" list="sectionOptions"
+                           placeholder="Select or type section" autocomplete="off">
+                    <datalist id="sectionOptions"><option value="Sewing A"><option value="Sewing - B"><option value="Quality Assurance"><option value="Cutting"><option value="Admin &amp; HR"><option value="Security"><option value="Civil"><option value="Electric"><option value="Finishing"><option value="Maintenance"><option value="Laser"><option value="Management"><option value="Management Combine"><option value="Store"><option value="Cleaning Knit"><option value="Cutting Knit"><option value="Finishing Knit"><option value="Lab Knit"><option value="Maintenance Knit"><option value="Sewing Knit A"><option value="Sewing Knit B"><option value="Store Knit"><option value="Embroidery"><option value="Others"></datalist>
                 </div>
             </div>
         </div>
@@ -569,6 +592,10 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
             <button type="button" class="btn-save" onclick="saveEntry()">
                 Save Entry
             </button>
+
+            <button type="button" class="btn-back" onclick="goToPortalHome()">
+                Back
+            </button>
         </div>
 
     </div>
@@ -639,12 +666,8 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
         const data = {};
         document.querySelectorAll("input[name], select[name], textarea[name]").forEach(field => {
             let value = field.value;
-
-            // Empty values are sent as NULL so PostgreSQL date/number columns
-            // never receive an invalid empty string ("").
             if (value === "") value = null;
 
-            // Safely handle numeric fields when left blank.
             if (field.type === "number" && value !== null) {
                 value = Number(value);
                 if (Number.isNaN(value)) value = null;
@@ -652,54 +675,16 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
             data[field.name] = value;
         });
-
-        // If Others is selected, save the manually entered value instead.
-        const designation = document.getElementById("designation");
-        const designationOther = document.getElementById("designation_other");
-        if (designation && designation.value === "__OTHER__") {
-            data.designation = String(designationOther?.value || "").trim() || null;
-        }
-
-        const section = document.getElementById("section");
-        const sectionOther = document.getElementById("section_other");
-        if (section && section.value === "__OTHER__") {
-            data.section = String(sectionOther?.value || "").trim() || null;
-        }
-
         return data;
     }
 
     function fillFormData(data) {
         document.querySelectorAll("input[name], select[name], textarea[name]").forEach(field => {
-            if(Object.prototype.hasOwnProperty.call(data, field.name) && data[field.name] !== null && data[field.name] !== undefined){
+            if (Object.prototype.hasOwnProperty.call(data, field.name) &&
+                data[field.name] !== null && data[field.name] !== undefined) {
                 field.value = data[field.name];
             }
         });
-
-        // Restore custom Others values when editing an existing record.
-        ["designation", "section"].forEach(name => {
-            const select = document.getElementById(name);
-            const other = document.getElementById(name + "_other");
-            if (!select || !other || data[name] === null || data[name] === undefined) return;
-
-            const value = String(data[name]);
-            const exists = Array.from(select.options).some(option => option.value === value);
-            if (!exists && value.trim() !== "") {
-                select.value = "__OTHER__";
-                other.value = value;
-                other.style.display = "block";
-            }
-        });
-    }
-
-    function toggleOtherField(name) {
-        const select = document.getElementById(name);
-        const other = document.getElementById(name + "_other");
-        if (!select || !other) return;
-
-        const isOther = select.value === "__OTHER__";
-        other.style.display = isOther ? "block" : "none";
-        if (!isOther) other.value = "";
     }
 
     async function loadExistingRegistration() {
@@ -720,11 +705,28 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
         showSaveStatus("Editing Temporary ID: " + data.temporary_id, "success");
     }
 
+    function goToPortalHome() {
+        window.location.href = "https://portal.aoapparels.com/";
+    }
+
+    function showSuccessDashboard(tempId) {
+        const formContainer = document.querySelector(".container");
+        const dashboard = document.getElementById("successDashboard");
+        const tempIdEl = document.getElementById("successTempId");
+
+        if (tempIdEl) tempIdEl.textContent = tempId || "N/A";
+        if (formContainer) formContainer.style.display = "none";
+        if (dashboard) dashboard.style.display = "flex";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
     async function saveEntry() {
         const button = document.querySelector('.btn-save');
         if(button) button.disabled = true;
+
         try {
             const formData = collectFormData();
+
             if(editingTemporaryId){
                 const { data, error } = await supabaseClient
                     .from("Employee_Registration")
@@ -732,22 +734,23 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
                     .eq("temporary_id", editingTemporaryId)
                     .select("*")
                     .single();
+
                 if(error) throw error;
-                showTemporaryId(data.temporary_id);
-                showSaveStatus("Employee registration updated successfully. Temporary ID: " + data.temporary_id);
+                editingTemporaryId = String(data.temporary_id || editingTemporaryId);
+                showSuccessDashboard(editingTemporaryId);
+
             }else{
                 const { data, error } = await supabaseClient
                     .from("Employee_Registration")
                     .insert([formData])
                     .select("*")
                     .single();
+
                 if(error) throw error;
                 editingTemporaryId = String(data.temporary_id || "");
-                showTemporaryId(editingTemporaryId);
-                history.replaceState(null, "", "empdataentry.html?temporary_id=" + encodeURIComponent(editingTemporaryId));
-                if(button) button.textContent = "Update Entry";
-                showSaveStatus("Employee registration saved successfully. Temporary ID: " + editingTemporaryId);
+                showSuccessDashboard(editingTemporaryId);
             }
+
         } catch(error) {
             console.error(error);
             showSaveStatus("Save failed: " + (error.message || error), "error");
@@ -965,6 +968,16 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
         text-align: center;
     }
 
+    .print-temp-id {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        font-size: 8px;
+        line-height: 1;
+        color: #555;
+        font-weight: 400;
+    }
+
     .print-controls {
         position: fixed;
         top: 15px;
@@ -1034,6 +1047,10 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
     <div class="footer-note">
         Preliminary Verification Form
+    </div>
+
+    <div class="print-temp-id">
+        Temp ID: ${esc(editingTemporaryId || "N/A")}
     </div>
 
 </div>
