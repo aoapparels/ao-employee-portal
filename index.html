@@ -1739,6 +1739,33 @@ body::after{
 .registration-employment-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid #cfd8d3;margin:14px 0 12px;border-radius:6px;overflow:hidden;background:#f8fbf9}
 .registration-employment-summary>div{padding:10px 12px;border-right:1px solid #cfd8d3;font-size:14px;font-weight:700}
 .registration-employment-summary>div:last-child{border-right:0}
+
+/* ===== Integrated Salary Sheet ===== */
+.salary-module{background:#fff;color:#17191d;border:1px solid #d6dce5;border-radius:18px;padding:20px;box-shadow:0 10px 28px rgba(0,0,0,.16)}
+.salary-module h3{color:#063b78!important;background:#e8eef7!important;text-shadow:none!important}
+.salary-toolbar{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.salary-toolbar label{color:#24364d!important;text-shadow:none!important;font-weight:800}
+.salary-toolbar input{margin-top:4px;background:#fff!important;color:#111!important}
+.salary-status{min-height:26px;padding:8px 10px;margin:12px 0;border-radius:9px;background:#eef5ff;color:#123d6e;font-weight:700}
+.salary-entry-table-wrap{overflow:auto;border:1px solid #ccd5e2;border-radius:12px}
+.salary-entry-table{width:100%;min-width:1150px;border-collapse:collapse;margin:0}
+.salary-entry-table th{background:#0754a6!important;color:#fff!important;padding:8px}
+.salary-entry-table td{padding:7px;background:#fff!important;color:#111!important;border:1px solid #d5dce5}
+.salary-entry-table input{margin:0;width:90px;background:#fff!important;color:#111!important}
+.salary-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.salary-actions button{width:auto;min-width:145px}
+.salary-result{margin-top:18px}
+.salary-result table{min-width:1450px;background:#fff!important}
+.salary-result th{background:#111827!important;color:#fff!important}
+.salary-result td{background:#fff!important;color:#111!important}
+@media(max-width:700px){.salary-toolbar{grid-template-columns:1fr}.salary-module{padding:12px}}
+@media print{
+ body *{visibility:hidden!important}
+ #salarySheetPrintArea,#salarySheetPrintArea *{visibility:visible!important}
+ #salarySheetPrintArea{position:absolute;left:0;top:0;width:100%;background:#fff!important}
+ .salary-actions,.salary-entry-section,.salary-toolbar,.salary-status{display:none!important}
+}
+
 </style>
 <style>
 .complaint-admin-card{padding:4px 0;}
@@ -2401,7 +2428,7 @@ body::after{
             <button class="orange" onclick="openSupabaseDashboard()">11. Open Supabase Dashboard</button>
             <button class="green" onclick="showRocketCommitment()">12. Rocket Commitment</button>
             <button class="orange" type="button" onclick="openSupportInbox()">13. Support Inbox</button>
-            <button class="green" type="button" onclick="openSalarySheetGenerator()">14. Salary Sheet Generate</button>
+            <button class="green" type="button" onclick="showSalarySheetPanel()">14. Salary Sheet</button>
         </div>
 </div>
 
@@ -2825,16 +2852,7 @@ function adminLogout(){
 }
 
 
-function openSalarySheetGenerator(){
-    // Open salarydata.html from the SAME GitHub Pages folder as this portal.
-    // new URL() prevents relative-path problems when the portal is hosted in a subfolder.
-    const salaryUrl = new URL("./salarydata.html", window.location.href).href;
-    const salaryWindow = window.open(salaryUrl, "_blank");
-
-    if(!salaryWindow){
-        alert("Salary Sheet page open hoyni. Browser popup block koreche. Please allow pop-ups for this site.");
-    }
-}
+function openSalarySheetGenerator(){ showSalarySheetPanel(); }
 
 function showAdminMainPanel(){
     const controlPanel = document.getElementById("adminControlPanel");
@@ -4385,6 +4403,130 @@ goHome();
 
 
 
+
+
+/* ===== Salary Sheet Admin Module ===== */
+let salarySheetRows=[];
+
+function salaryEsc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function salaryNum(v){const n=Number(v);return Number.isFinite(n)?n:0;}
+function salaryMoney(v){return salaryNum(v).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});}
+function salaryId(v){return String(v||"").trim().toUpperCase();}
+function salaryPick(r,keys){for(const k of keys){if(r&&r[k]!=null&&String(r[k]).trim()!=="")return String(r[k]).trim();}return "";}
+function salaryDate(v){if(!v)return "";const d=new Date(v);return isNaN(d)?String(v):d.toLocaleDateString("en-GB");}
+function salaryStatus(msg,type=""){const e=document.getElementById("salarySheetStatus");if(e){e.textContent=msg||"";e.className="salary-status"+(type?" "+type:"");}}
+function salaryMonth(){const v=document.getElementById("salaryMonthInput")?.value;if(!v)return null;const [y,m]=v.split("-").map(Number);return {y,m,start:new Date(y,m-1,1),end:new Date(y,m,0)};}
+
+async function salaryFindEmployee(card){
+    const id=salaryId(card);
+    const cols=["Employee_ID","EMP_CODE","Emp_Code","CARD_NO","Card_No","CardNo","CARDNO"];
+    for(const col of cols){
+        try{
+            const {data,error}=await supabaseClient.from("Employee_Info").select("*").eq(col,id).maybeSingle();
+            if(!error&&data)return data;
+        }catch(e){}
+    }
+    return null;
+}
+function salaryMap(r){
+    return {
+        cardNo:salaryId(salaryPick(r,["CARD_NO","Card_No","CardNo","CARDNO","Employee_ID","EMP_CODE","Emp_Code"])),
+        employeeId:salaryId(salaryPick(r,["Employee_ID","EMP_CODE","Emp_Code","CARD_NO","Card_No","CardNo","CARDNO"])),
+        name:salaryPick(r,["Name_OF_Employee","Name_Of_Employee","NAME_OF_EMPLOYEE","EMP_NAME","Employee_Name","Name"]),
+        designation:salaryPick(r,["Designation","DESIG_NAME","DESIGNATION"]),
+        joining:salaryPick(r,["Joining_Date","Joining Date","JOINING_DATE"]),
+        outDate:salaryPick(r,["EMP_OUT_DATE","Out_Date","Employee_Out_Date","OUT_DATE"]),
+        salary:salaryNum(salaryPick(r,["Current_Salary","Present Salary","PRESENT_SAL","CURRENT_SALARY"])),
+        section:salaryPick(r,["Section_Name","SECTION_NAME","SEC_NAME","Department","DEPT_NAME","LINE_NAME"]),
+        absent:0,ot:0
+    };
+}
+function salaryEligible(r,m){
+    if(!m)return false;
+    const j=r.joining?new Date(r.joining):null,o=r.outDate?new Date(r.outDate):null;
+    if(j&&!isNaN(j)&&j>m.end)return false;
+    if(o&&!isNaN(o)&&o<m.start)return false;
+    return true;
+}
+function salaryRender(){
+    const b=document.getElementById("salaryEntryBody");if(!b)return;
+    if(!salarySheetRows.length){b.innerHTML='<tr><td colspan="11" style="text-align:center">No employee added yet.</td></tr>';return;}
+    b.innerHTML=salarySheetRows.map((r,i)=>`
+      <tr><td>${i+1}</td><td>${salaryEsc(r.cardNo)}</td><td>${salaryEsc(r.name)}</td>
+      <td>${salaryEsc(r.designation)}</td><td>${salaryEsc(salaryDate(r.joining))}</td>
+      <td>${salaryEsc(salaryDate(r.outDate))}</td><td>${salaryMoney(r.salary)}</td><td>${salaryEsc(r.section)}</td>
+      <td><input type="number" min="0" step=".5" value="${r.absent}" onchange="salarySheetRows[${i}].absent=salaryNum(this.value)"></td>
+      <td><input type="number" min="0" step=".5" value="${r.ot}" onchange="salarySheetRows[${i}].ot=salaryNum(this.value)"></td>
+      <td><button class="red" style="width:auto" onclick="salarySheetRows.splice(${i},1);salaryRender()">Remove</button></td></tr>`).join("");
+}
+function salaryAdd(){
+    const card=document.getElementById("salaryCardNoInput")?.value;
+    const m=salaryMonth();
+    if(!m){salaryStatus("Salary Month select করুন।","error");return;}
+    if(!card){salaryStatus("Card No দিন।","error");return;}
+    const id=salaryId(card);
+    if(salarySheetRows.some(r=>r.cardNo===id||r.employeeId===id)){salaryStatus("এই employee already added আছে।","error");return;}
+    salaryStatus("Employee data loading...");
+    salaryFindEmployee(id).then(emp=>{
+        if(!emp){salaryStatus("Employee_Info table-এ এই Card No পাওয়া যায়নি: "+id,"error");return;}
+        const r=salaryMap(emp);
+        if(!salaryEligible(r,m)){salaryStatus("এই employee selected month-এর জন্য eligible নয়।","error");return;}
+        salarySheetRows.push(r);salaryRender();salaryStatus(r.name+" added successfully.","success");
+        document.getElementById("salaryCardNoInput").value="";
+        document.getElementById("salaryCardNoInput").focus();
+    });
+}
+function salaryEnter(e){if(e.key==="Enter"){e.preventDefault();salaryAdd();}}
+
+function salaryCalc(r,m){
+    const days=m.end.getDate(), sal=r.salary;
+    const j=r.joining?new Date(r.joining):null,o=r.outDate?new Date(r.outDate):null;
+    let grossDed=0;
+    if(j&&!isNaN(j)&&j>m.start)grossDed+=(j.getDate()-1)*(sal/30);
+    if(o&&!isNaN(o)&&o>=m.start&&o<=m.end)grossDed+=(days-o.getDate())*(sal/30);
+    const basic=sal; // centralized placeholder until exact company Basic/Gross split is finalized
+    const basicDed=salaryNum(r.absent)*(basic/30);
+    const otAmount=salaryNum(r.ot)*(basic/104);
+    return {...r,basic,gross:sal,grossDed,basicDed,otAmount,payable:Math.max(0,sal-grossDed-basicDed+otAmount)};
+}
+function salaryView(){
+    const m=salaryMonth();
+    if(!m){salaryStatus("Salary Month select করুন।","error");return;}
+    if(!salarySheetRows.length){salaryStatus("Employee add করুন।","error");return;}
+    const data=salarySheetRows.map(r=>salaryCalc(r,m));
+    const label=new Date(m.y,m.m-1,1).toLocaleDateString("en-US",{month:"long",year:"numeric"});
+    let sums={sal:0,grossDed:0,basicDed:0,ot:0,pay:0};
+    data.forEach(r=>{sums.sal+=r.gross;sums.grossDed+=r.grossDed;sums.basicDed+=r.basicDed;sums.ot+=r.otAmount;sums.pay+=r.payable;});
+    document.getElementById("salarySheetResult").innerHTML=`
+      <div id="salarySheetPrintArea" class="salary-result">
+       <h3 style="color:#063b78!important;text-align:center">A&O Apparels — Salary Sheet</h3>
+       <div style="text-align:center;font-weight:800;margin-bottom:12px">${salaryEsc(label)}</div>
+       <div class="salary-entry-table-wrap"><table>
+       <thead><tr><th>SL</th><th>Card No</th><th>Name</th><th>Designation</th><th>Joining</th><th>Out</th><th>Present Salary</th><th>Absent</th><th>OT</th><th>Basic</th><th>Gross Deduction</th><th>Basic Deduction</th><th>OT Amount</th><th>Payable</th></tr></thead>
+       <tbody>${data.map((r,i)=>`<tr><td>${i+1}</td><td>${salaryEsc(r.cardNo)}</td><td>${salaryEsc(r.name)}</td><td>${salaryEsc(r.designation)}</td><td>${salaryEsc(salaryDate(r.joining))}</td><td>${salaryEsc(salaryDate(r.outDate))}</td><td>${salaryMoney(r.salary)}</td><td>${salaryMoney(r.absent)}</td><td>${salaryMoney(r.ot)}</td><td>${salaryMoney(r.basic)}</td><td>${salaryMoney(r.grossDed)}</td><td>${salaryMoney(r.basicDed)}</td><td>${salaryMoney(r.otAmount)}</td><td><b>${salaryMoney(r.payable)}</b></td></tr>`).join("")}
+       <tr><th colspan="6">TOTAL</th><th>${salaryMoney(sums.sal)}</th><th colspan="2"></th><th>${salaryMoney(sums.sal)}</th><th>${salaryMoney(sums.grossDed)}</th><th>${salaryMoney(sums.basicDed)}</th><th>${salaryMoney(sums.ot)}</th><th>${salaryMoney(sums.pay)}</th></tr>
+       </tbody></table></div></div>
+       <div class="salary-actions"><button class="green" onclick="window.print()">Print Salary Sheet</button></div>`;
+}
+function showSalarySheetPanel(){
+    activateAdminSubPage();salarySheetRows=[];
+    document.getElementById("adminView").innerHTML=`
+      ${adminBackButtonHtml()}
+      <div class="salary-module">
+       <h3>Salary Sheet</h3>
+       <div class="salary-toolbar">
+        <div><label>Salary Month</label><input type="month" id="salaryMonthInput"></div>
+        <div><label>Card No</label><input type="text" id="salaryCardNoInput" placeholder="Card No লিখে Enter চাপুন" onkeydown="salaryEnter(event)"></div>
+       </div>
+       <div class="salary-actions"><button class="green" onclick="salaryAdd()">Add Employee</button><button class="orange" onclick="salaryView()">View Salary Sheet</button><button class="red" onclick="salarySheetRows=[];salaryRender();document.getElementById('salarySheetResult').innerHTML=''">Clear List</button></div>
+       <div id="salarySheetStatus" class="salary-status"></div>
+       <div class="salary-entry-section"><h4 style="color:#063b78;margin:15px 0 8px">Salary Data Entry</h4>
+        <div class="salary-entry-table-wrap"><table class="salary-entry-table"><thead><tr><th>SL</th><th>Card No</th><th>Name</th><th>Designation</th><th>Joining</th><th>Out</th><th>Present Salary</th><th>Section</th><th>Absent Days</th><th>OT Hours</th><th>Action</th></tr></thead><tbody id="salaryEntryBody"></tbody></table></div>
+       </div>
+       <div id="salarySheetResult"></div>
+      </div>`;
+    salaryRender();setTimeout(()=>document.getElementById("salaryMonthInput")?.focus(),80);
+}
 
 /* ===== Rocket Commitment Module (Admin Only) ===== */
 let rocketCommitmentRows = [];
