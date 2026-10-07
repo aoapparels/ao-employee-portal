@@ -2401,6 +2401,7 @@ body::after{
             <button class="orange" onclick="openSupabaseDashboard()">11. Open Supabase Dashboard</button>
             <button class="green" onclick="showRocketCommitment()">12. Rocket Commitment</button>
             <button class="orange" type="button" onclick="openSupportInbox()">13. Support Inbox</button>
+            <button class="green" type="button" onclick="openSalarySheetGenerator()">14. Salary Sheet Generate</button>
         </div>
 </div>
 
@@ -2823,6 +2824,11 @@ function adminLogout(){
     goHome();
 }
 
+
+function openSalarySheetGenerator(){
+    // salarydata.html will be kept in the same portal folder.
+    window.open("salarydata.html", "_blank", "noopener");
+}
 
 function showAdminMainPanel(){
     const controlPanel = document.getElementById("adminControlPanel");
