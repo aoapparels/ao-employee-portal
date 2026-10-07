@@ -2826,8 +2826,14 @@ function adminLogout(){
 
 
 function openSalarySheetGenerator(){
-    // salarydata.html will be kept in the same portal folder.
-    window.open("salarydata.html", "_blank", "noopener");
+    // Open salarydata.html from the SAME GitHub Pages folder as this portal.
+    // new URL() prevents relative-path problems when the portal is hosted in a subfolder.
+    const salaryUrl = new URL("./salarydata.html", window.location.href).href;
+    const salaryWindow = window.open(salaryUrl, "_blank");
+
+    if(!salaryWindow){
+        alert("Salary Sheet page open hoyni. Browser popup block koreche. Please allow pop-ups for this site.");
+    }
 }
 
 function showAdminMainPanel(){
