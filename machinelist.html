@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Machine List Management | A&O Apparels</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+:root{--green:#176b4d;--green2:#23845f;--ink:#18252e;--muted:#64748b;--line:#dce5e1;--bg:#f4f7f6;--white:#fff;--red:#b42318;--amber:#946200}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:linear-gradient(120deg,#124b39,#21815d);color:white;padding:22px max(18px,calc((100% - 1200px)/2));display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+header h1{font-size:23px;margin:0 0 6px}header p{margin:0;opacity:.86;font-size:13px}.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+main{max-width:1200px;margin:22px auto;padding:0 16px 36px}.notice{padding:12px 14px;border-radius:10px;margin-bottom:14px;font-size:13px;line-height:1.5}.notice.warn{background:#fff4d6;border:1px solid #f1d58a;color:#6e5100}.notice.info{background:#eaf4ef;border:1px solid #c7e2d4;color:#18583f}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}.toolbar input{flex:1;min-width:220px}.toolbar select{min-width:135px}
+input,select,textarea{font:inherit;width:100%;padding:10px 11px;border:1px solid #cbd5d1;border-radius:8px;background:white;color:var(--ink);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--green2);box-shadow:0 0 0 3px #23845f1a}
+button,.file-label{border:0;border-radius:8px;padding:10px 13px;font-weight:600;cursor:pointer;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+button:disabled{opacity:.55;cursor:not-allowed}.primary{background:var(--green);color:white}.secondary{background:#e8efeb;color:#23483a}.outline{background:white;color:#29453a;border:1px solid #cad9d1}.danger{background:#fff0ef;color:var(--red);border:1px solid #f1c5c1}.small{padding:7px 9px;font-size:12px}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:15px 0}.card{background:white;border:1px solid var(--line);border-radius:12px;padding:16px}.card .label{color:var(--muted);font-size:12px}.card .value{font-size:27px;font-weight:700;margin-top:6px}
+.panel{background:white;border:1px solid var(--line);border-radius:12px;overflow:hidden}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:15px 16px;border-bottom:1px solid var(--line)}.panel-head h2{font-size:16px;margin:0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:900px}th,td{text-align:left;padding:11px 12px;border-bottom:1px solid #edf1ef;font-size:13px;vertical-align:middle}th{background:#f7faf8;color:#52645c;font-size:11px;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}tr:last-child td{border-bottom:0}.id{font-weight:700;color:#176b4d;white-space:nowrap}.badge{display:inline-block;padding:4px 7px;border-radius:20px;font-size:11px;background:#e8efeb;color:#315444}.badge.running{background:#e3f5e9;color:#17623a}.badge.repair{background:#fff1d1;color:#8a5b00}.badge.idle{background:#e8edf5;color:#405778}.badge.scrap{background:#ffebe9;color:#9e2f27}.actions{display:flex;gap:5px;white-space:nowrap}.empty{text-align:center;color:var(--muted);padding:32px}
+.modal-backdrop{position:fixed;inset:0;background:#0b2018a8;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal-backdrop.open{display:flex}.modal{width:min(760px,100%);max-height:92vh;overflow:auto;background:white;border-radius:14px;box-shadow:0 18px 70px #0003}.modal-head{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-head h2{margin:0;font-size:18px}.modal-body{padding:20px}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field label{display:block;font-size:12px;font-weight:700;color:#4b5c54;margin-bottom:6px}.field.full{grid-column:1/-1}.hint{font-size:11px;color:var(--muted);margin-top:5px}.modal-foot{display:flex;justify-content:flex-end;gap:8px;padding:14px 20px;border-top:1px solid var(--line)}.id-choice{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.id-choice label{display:flex;align-items:center;gap:6px;font-size:13px}.id-choice input{width:auto}
+.status{font-size:12px;color:var(--muted);padding:10px 0}.pagination{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;flex-wrap:wrap}.hidden{display:none!important}
+@media(max-width:700px){.cards{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}header h1{font-size:20px}}
+@media print{
+ @page{size:A4 portrait;margin:10mm}
+ body{background:white;color:#111;font-size:10px}header{background:white!important;color:#111;padding:0 0 10px;border-bottom:2px solid #176b4d}
+ header h1{font-size:17px}header p{color:#333;opacity:1}.no-print,main .notice,.cards,.toolbar,.status,.pagination,.actions,.panel-head .no-print{display:none!important}
+ main{max-width:none;margin:10px 0 0;padding:0}.panel{border:0;border-radius:0}.panel-head{padding:0 0 8px;border:0}.panel-head h2{font-size:13px}
+ table{min-width:0;width:100%;table-layout:auto}th,td{padding:5px 4px;font-size:8px;border:1px solid #cbd5d1}th{background:#edf3ef!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .print-footer{display:flex!important;justify-content:space-between;margin-top:28px;font-size:10px}.id{color:#111}
+}
+.print-footer{display:none}
+</style>
+</head>
+<body>
+<header>
+ <div><h1>Machine List Management</h1><p>A&O Apparels Pvt. Ltd. · Knit &amp; Woven</p></div>
+ <div class="header-actions no-print">
+  <button class="secondary" id="refreshBtn">↻ Refresh</button>
+  <button class="outline" id="printBtn">▤ Print A4 Report</button>
+  <button class="primary" id="addBtn">＋ Add Machine</button>
+ </div>
+</header>
+<main>
+ <div class="notice warn" id="configNotice"><b>Setup required:</b> Add your Supabase Project URL and anon/publishable key in the CONFIG section of this HTML file, then run the supplied SQL in Supabase. Do not put a service-role key in this file.</div>
+ <div class="notice info" id="message" role="status">Ready. Connect Supabase to load and save the machine list.</div>
+ <section class="cards">
+  <div class="card"><div class="label">Machine Records</div><div class="value" id="totalRecords">0</div></div>
+  <div class="card"><div class="label">Total Quantity</div><div class="value" id="totalQty">0</div></div>
+  <div class="card"><div class="label">Under Repair</div><div class="value" id="repairCount">0</div></div>
+ </section>
+ <div class="toolbar no-print">
+  <input id="searchInput" placeholder="Search Machine ID, name, brand, model..." aria-label="Search machines">
+  <select id="divisionFilter"><option value="">All divisions</option><option>Knit</option><option>Woven</option><option>Common</option></select>
+  <select id="categoryFilter"><option value="">All categories</option></select>
+  <select id="conditionFilter"><option value="">All conditions</option><option>Running</option><option>Under Repair</option><option>Idle</option><option>Scrap</option></select>
+ </div>
+ <section class="panel">
+  <div class="panel-head"><h2 id="reportTitle">Machine Summary Report</h2><div class="no-print"><button class="secondary" id="csvBtn">Export CSV</button></div></div>
+  <div class="table-wrap">
+   <table>
+    <thead><tr><th>Machine ID</th><th>Machine Name</th><th>Category</th><th>Brand / Model</th><th>Division</th><th>Floor / Dept.</th><th>Qty</th><th>Condition</th><th class="no-print">Actions</th></tr></thead>
+    <tbody id="machineRows"><tr><td colspan="9" class="empty">No data loaded.</td></tr></tbody>
+   </table>
+  </div>
+  <div class="pagination no-print"><span id="resultCount">0 records</span><span>Search filters the list; print uses the filtered results.</span></div>
+ </section>
+ <div class="print-footer"><span>Prepared By: __________________</span><span>Approved By: __________________</span></div>
+</main>
+
+<div class="modal-backdrop" id="machineModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <div class="modal">
+  <div class="modal-head"><h2 id="modalTitle">Add Machine</h2><button class="outline small" id="closeModalBtn">✕ Close</button></div>
+  <form id="machineForm">
+   <div class="modal-body">
+    <div class="field full"><label>Machine ID Type</label><div class="id-choice">
+     <label><input type="radio" name="idMode" value="auto" checked> Auto Generate</label>
+     <label><input type="radio" name="idMode" value="manual"> Manual ID</label>
+    </div></div>
+    <div class="form-grid">
+     <div class="field"><label for="machine_id">Machine ID *</label><input id="machine_id" name="machine_id" placeholder="Auto generated on save" maxlength="60"><div class="hint" id="idHint">ID will be generated by the database when saved.</div></div>
+     <div class="field"><label for="machine_name">Machine Name *</label><input id="machine_name" name="machine_name" required maxlength="150" placeholder="e.g. Single Needle"></div>
+     <div class="field"><label for="category">Category</label><input id="category" name="category" maxlength="100" placeholder="e.g. Sewing"></div>
+     <div class="field"><label for="brand">Brand</label><input id="brand" name="brand" maxlength="100" placeholder="e.g. Zoje"></div>
+     <div class="field"><label for="model">Model</label><input id="model" name="model" maxlength="100"></div>
+     <div class="field"><label for="division">Division *</label><select id="division" name="division" required><option>Knit</option><option>Woven</option><option>Common</option></select></div>
+     <div class="field"><label for="floor_department">Floor / Department</label><input id="floor_department" name="floor_department" maxlength="120" placeholder="e.g. 1st Floor - Sewing"></div>
+     <div class="field"><label for="quantity">Quantity *</label><input id="quantity" name="quantity" type="number" min="0" step="1" value="1" required></div>
+     <div class="field"><label for="condition">Condition</label><select id="condition" name="condition"><option>Running</option><option>Under Repair</option><option>Idle</option><option>Scrap</option></select></div>
+     <div class="field"><label for="product_type">Product Type</label><select id="product_type" name="product_type"><option value="">Not specified</option><option>Knit</option><option>Woven</option><option>Woven+Knit</option></select></div>
+     <div class="field full"><label for="remarks">Remarks</label><textarea id="remarks" name="remarks" rows="2" maxlength="1000"></textarea></div>
+    </div>
+   </div>
+   <div class="modal-foot"><button type="button" class="outline" id="cancelBtn">Cancel</button><button type="submit" class="primary" id="saveBtn">Save Machine</button></div>
+  </form>
+ </div>
+</div>
+
+<script>
+/* CONFIG: Replace these two values with your Supabase project URL and anon/publishable key.
+   Never use the Supabase service_role key in browser HTML. */
+const SUPABASE_URL = "https://YOUR-PROJECT.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_OR_PUBLISHABLE_KEY";
+const TABLE = "machine_list";
+let db = null, machines = [], editingId = null;
+const $ = id => document.getElementById(id);
+const escapeHtml = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+function notify(text, type="info"){ $("message").textContent=text; $("message").className="notice "+(type==="error"?"warn":"info"); }
+function isConfigured(){return SUPABASE_URL.startsWith("https://") && !SUPABASE_URL.includes("YOUR-PROJECT") && SUPABASE_ANON_KEY && !SUPABASE_ANON_KEY.includes("YOUR_SUPABASE");}
+function initDb(){
+ if(!isConfigured() || !window.supabase){ $("configNotice").classList.remove("hidden"); return false; }
+ db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY); $("configNotice").classList.add("hidden"); return true;
+}
+async function loadMachines(){
+ if(!db && !initDb()){notify("Add Supabase URL and anon/publishable key in the HTML CONFIG section.","error");return;}
+ notify("Loading machine list...");
+ const {data,error}=await db.from(TABLE).select("*").eq("is_archived",false).order("machine_name").limit(5000);
+ if(error){notify("Could not load data: "+error.message+" — check SQL, RLS policies and Supabase configuration.","error");return;}
+ machines=data||[]; populateCategories(); render(); notify("Machine list loaded successfully.");
+}
+function populateCategories(){
+ const el=$("categoryFilter"), old=el.value;
+ const cats=[...new Set(machines.map(m=>m.category).filter(Boolean))].sort();
+ el.innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+ if(cats.includes(old))el.value=old;
+}
+function filtered(){
+ const q=$("searchInput").value.trim().toLowerCase(), div=$("divisionFilter").value, cat=$("categoryFilter").value, cond=$("conditionFilter").value;
+ return machines.filter(m=>{
+  const hay=[m.machine_id,m.machine_name,m.category,m.brand,m.model,m.floor_department,m.division,m.remarks].join(" ").toLowerCase();
+  return (!q||hay.includes(q))&&(!div||m.division===div)&&(!cat||m.category===cat)&&(!cond||m.condition===cond);
+ });
+}
+function render(){
+ const list=filtered();
+ $("totalRecords").textContent=machines.length;
+ $("totalQty").textContent=machines.reduce((n,m)=>n+Number(m.quantity||0),0);
+ $("repairCount").textContent=machines.filter(m=>m.condition==="Under Repair").reduce((n,m)=>n+Number(m.quantity||0),0);
+ $("resultCount").textContent=`${list.length} records`;
+ $("reportTitle").textContent=`Machine Summary Report${$("divisionFilter").value?" — "+$("divisionFilter").value:""}`;
+ if(!list.length){$("machineRows").innerHTML='<tr><td colspan="9" class="empty">No matching machine records found.</td></tr>';return;}
+ $("machineRows").innerHTML=list.map(m=>`<tr>
+ <td class="id">${escapeHtml(m.machine_id)}</td><td>${escapeHtml(m.machine_name)}</td><td>${escapeHtml(m.category||"—")}</td>
+ <td>${escapeHtml([m.brand,m.model].filter(Boolean).join(" / ")||"—")}</td><td>${escapeHtml(m.division)}</td>
+ <td>${escapeHtml(m.floor_department||"—")}</td><td>${Number(m.quantity||0)}</td>
+ <td><span class="badge ${m.condition==="Running"?"running":m.condition==="Under Repair"?"repair":m.condition==="Scrap"?"scrap":"idle"}">${escapeHtml(m.condition||"—")}</span></td>
+ <td class="no-print"><div class="actions"><button class="secondary small" data-edit="${escapeHtml(m.machine_id)}">Edit</button><button class="danger small" data-delete="${escapeHtml(m.machine_id)}">Remove</button></div></td></tr>`).join("");
+}
+function openModal(machine=null){
+ editingId=machine?machine.machine_id:null;
+ $("machineForm").reset(); $("modalTitle").textContent=machine?"Edit Machine":"Add Machine";
+ document.querySelector('input[name="idMode"][value="auto"]').checked=true;
+ $("machine_id").disabled=false; $("machine_id").value=machine?.machine_id||"";
+ $("machine_name").value=machine?.machine_name||"";$("category").value=machine?.category||"";
+ $("brand").value=machine?.brand||"";$("model").value=machine?.model||"";
+ $("division").value=machine?.division||"Knit";$("floor_department").value=machine?.floor_department||"";
+ $("quantity").value=machine?.quantity??1;$("condition").value=machine?.condition||"Running";
+ $("product_type").value=machine?.product_type||"";$("remarks").value=machine?.remarks||"";
+ document.querySelectorAll('input[name="idMode"]').forEach(r=>r.disabled=!!machine);
+ if(machine){$("machine_id").disabled=true;$("idHint").textContent="Machine ID is locked during edit to preserve history.";}
+ else updateIdMode();
+ $("machineModal").classList.add("open");
+}
+function closeModal(){$("machineModal").classList.remove("open");}
+function updateIdMode(){
+ const mode=document.querySelector('input[name="idMode"]:checked').value;
+ $("machine_id").disabled=mode==="auto"; $("machine_id").required=mode==="manual";
+ $("machine_id").placeholder=mode==="auto"?"Generated by database":"Enter unique machine ID";
+ $("idHint").textContent=mode==="auto"?"ID will be generated by the database when saved.":"Enter an existing or custom unique ID. Duplicate IDs are rejected.";
+}
+async function saveMachine(event){
+ event.preventDefault();if(!db&&!initDb()){notify("Configure Supabase first.","error");return;}
+ const mode=document.querySelector('input[name="idMode"]:checked').value;
+ const payload={
+  machine_name:$("machine_name").value.trim(),category:$("category").value.trim()||null,
+  brand:$("brand").value.trim()||null,model:$("model").value.trim()||null,
+  division:$("division").value,floor_department:$("floor_department").value.trim()||null,
+  quantity:Number($("quantity").value),condition:$("condition").value,
+  product_type:$("product_type").value||null,remarks:$("remarks").value.trim()||null
+ };
+ if(!payload.machine_name){notify("Machine Name is required.","error");return;}
+ if(!editingId && mode==="manual"){payload.machine_id=$("machine_id").value.trim();if(!payload.machine_id){notify("Enter a Machine ID.","error");return;}}
+ $("saveBtn").disabled=true;
+ let result;
+ if(editingId) result=await db.from(TABLE).update(payload).eq("machine_id",editingId).select().single();
+ else result=await db.from(TABLE).insert(payload).select().single();
+ $("saveBtn").disabled=false;
+ if(result.error){notify("Save failed: "+result.error.message+" — check for duplicate ID and permissions.","error");return;}
+ closeModal();await loadMachines();notify(editingId?"Machine updated successfully.":"Machine saved successfully.");
+}
+async function removeMachine(id){
+ const m=machines.find(x=>x.machine_id===id);if(!m)return;
+ if(!confirm(`Archive this machine record?\n\nID: ${m.machine_id}\nName: ${m.machine_name}\n\nIt will be hidden from the active list, not permanently erased.`))return;
+ const {error}=await db.from(TABLE).update({is_archived:true}).eq("machine_id",id);
+ if(error){notify("Remove failed: "+error.message,"error");return;}
+ await loadMachines();notify("Machine archived. History is retained.");
+}
+function exportCsv(){
+ const rows=filtered(), headers=["Machine ID","Machine Name","Category","Brand","Model","Division","Floor / Department","Quantity","Condition","Product Type","Remarks"];
+ const keys=["machine_id","machine_name","category","brand","model","division","floor_department","quantity","condition","product_type","remarks"];
+ const quote=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+ const csv=[headers.map(quote).join(","),...rows.map(r=>keys.map(k=>quote(r[k])).join(","))].join("\r\n");
+ const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8;"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="AO-Machine-List.csv";a.click();URL.revokeObjectURL(url);
+}
+$("addBtn").addEventListener("click",()=>openModal());
+$("refreshBtn").addEventListener("click",loadMachines);$("printBtn").addEventListener("click",()=>window.print());
+$("csvBtn").addEventListener("click",exportCsv);$("closeModalBtn").addEventListener("click",closeModal);$("cancelBtn").addEventListener("click",closeModal);
+$("machineForm").addEventListener("submit",saveMachine);
+document.querySelectorAll('input[name="idMode"]').forEach(r=>r.addEventListener("change",updateIdMode));
+["searchInput","divisionFilter","categoryFilter","conditionFilter"].forEach(id=>$(id).addEventListener("input",render));
+$("machineRows").addEventListener("click",e=>{
+ const edit=e.target.closest("[data-edit]"),del=e.target.closest("[data-delete]");
+ if(edit){const m=machines.find(x=>x.machine_id===edit.dataset.edit);if(m)openModal(m);}
+ if(del)removeMachine(del.dataset.delete);
+});
+$("machineModal").addEventListener("click",e=>{if(e.target===$("machineModal"))closeModal();});
+initDb();updateIdMode();
+</script>
+</body>
+</html>
