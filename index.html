@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>A&O Portal</title>
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#241a12">
@@ -44,6 +44,7 @@ input, textarea {
 body {
     min-height: 100vh;
     padding: 0;
+    padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 35px);
     overflow-x: hidden;
     background: radial-gradient(circle at 10% 8%, rgba(255,255,255,.42), transparent 30%),
                 radial-gradient(circle at 78% 92%, rgba(125,82,43,.18), transparent 34%),
@@ -51,10 +52,10 @@ body {
     color: #2d241c;
 }
 
-.container { max-width: 1100px; margin: auto; padding: 20px; }
+.container { max-width: 1100px; margin: auto; padding: 18px; }
 .card {
     background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(255,250,243,.90));
-    padding: 24px;
+    padding: 22px;
     border-radius: 18px;
     box-shadow: 0 10px 30px rgba(72,45,25,.12);
     border: 1px solid rgba(117,78,43,.15);
@@ -106,41 +107,8 @@ button.orange { background: linear-gradient(135deg, #ef6c00, #b25000); color: #f
     background: linear-gradient(135deg, #2d2118, #47311f);
     color: #fffaf3;
 }
-.topbar h2 { margin: 0; color: #fffaf3; text-align: left; }
-.topbar button { width: auto; padding: 9px 18px; }
-
-/* Topbar Notification Icon */
-.topbar-right { display: flex; align-items: center; gap: 10px; }
-.ao-bell-btn {
-    position: relative;
-    background: rgba(255,255,255,.12);
-    border: 1px solid rgba(215,182,106,.35);
-    border-radius: 50%;
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 18px;
-    color: #fff;
-}
-.ao-bell-badge {
-    position: absolute;
-    top: -3px;
-    right: -3px;
-    background: #e53935;
-    color: #fff;
-    font-size: 10px;
-    font-weight: 900;
-    border-radius: 50%;
-    width: 17px;
-    height: 17px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 6px rgba(229,57,53,.8);
-}
+.topbar h2 { margin: 0; color: #fffaf3; text-align: left; font-size: 18px; }
+.topbar button { width: auto; padding: 8px 16px; font-size: 13px; }
 
 .status {
     padding: 11px 14px;
@@ -257,15 +225,10 @@ button.orange { background: linear-gradient(135deg, #ef6c00, #b25000); color: #f
     border-radius: 14px;
     padding: 12px 16px;
     margin-bottom: 16px;
-    box-shadow: 0 4px 15px rgba(239,108,0,.15);
+    box-shadow: 0 4px 15px rgba(239,108,0,.12);
     display: flex;
     align-items: center;
     gap: 12px;
-    animation: notifSlide 0.4s ease-out;
-}
-@keyframes notifSlide {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 .ao-notif-icon {
     width: 36px;
@@ -281,6 +244,43 @@ button.orange { background: linear-gradient(135deg, #ef6c00, #b25000); color: #f
 }
 .ao-notif-text strong { font-size: 14px; color: #b25000; display: block; margin-bottom: 2px; }
 .ao-notif-text span { font-size: 12px; color: #553d26; line-height: 1.35; display: block; }
+
+/* ===== 4 BUTTON EMPLOYEE MENU GRID ===== */
+.employee-menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 14px;
+}
+.employee-menu-card {
+    background: linear-gradient(145deg, #fffaf3, #f5e7d5);
+    border: 1.5px solid rgba(117,78,43,.22);
+    border-radius: 18px;
+    padding: 24px 14px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(72,45,25,.08);
+    transition: transform .18s ease, filter .18s ease;
+}
+.employee-menu-card:active { transform: scale(.96); filter: brightness(1.05); }
+.employee-menu-card .menu-icon { font-size: 34px; margin-bottom: 8px; display: block; }
+.employee-menu-card .menu-label { font-size: 16px; font-weight: 800; color: #3b281b; }
+.employee-menu-card .menu-desc { font-size: 11px; color: #785a44; margin-top: 4px; }
+
+/* Subpage Back Button */
+.ao-subpage-back {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    width: auto !important;
+    padding: 8px 18px !important;
+    margin-bottom: 14px !important;
+    border-radius: 999px !important;
+    background: linear-gradient(135deg, #47311f, #2d2118) !important;
+    color: #fff !important;
+    font-size: 13px !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,.15) !important;
+}
 
 /* ===== HOMEPAGE MODERN WARM EDITION ===== */
 .ao-home-shell {
@@ -303,22 +303,8 @@ button.orange { background: linear-gradient(135deg, #ef6c00, #b25000); color: #f
                 linear-gradient(135deg, #ead6bd 0%, #d7b894 100%);
 }
 .ao-brand { display: flex; align-items: center; gap: 18px; color: #30251c; }
-.ao-brand-logo {
-    font-family: Georgia, serif;
-    font-size: 40px;
-    font-weight: 500;
-    color: #775233;
-    line-height: .78;
-}
-.ao-brand-logo::after {
-    content: "APPARELS";
-    display: block;
-    margin-top: 8px;
-    font-family: Arial, sans-serif;
-    font-size: 8px;
-    letter-spacing: 3px;
-    font-weight: 700;
-}
+.ao-brand-logo { font-family: Georgia, serif; font-size: 40px; font-weight: 500; color: #775233; line-height: .78; }
+.ao-brand-logo::after { content: "APPARELS"; display: block; margin-top: 8px; font-family: Arial, sans-serif; font-size: 8px; letter-spacing: 3px; font-weight: 700; }
 .ao-brand-divider { width: 1px; height: 44px; background: rgba(67,43,25,.34); }
 .ao-brand-title { font-size: 29px; font-weight: 500; color: #2f241b; }
 
@@ -520,44 +506,6 @@ tr:nth-child(even) td { background: #f8fbff; }
 .employee-support-compose textarea { flex: 1; min-height: 60px; margin: 0; resize: vertical; }
 .employee-support-compose button { flex: 0 0 90px; margin: 0; height: auto; }
 
-/* ===== MOBILE BOTTOM APP NAVIGATION BAR ===== */
-.ao-bottom-bar {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 64px;
-    background: linear-gradient(180deg, #2d2118 0%, #1f1711 100%);
-    border-top: 1px solid rgba(215,182,106,.30);
-    box-shadow: 0 -5px 20px rgba(0,0,0,.35);
-    z-index: 99999;
-    padding: 0 6px;
-    justify-content: space-around;
-    align-items: center;
-}
-.ao-bottom-btn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    height: 100%;
-    background: transparent !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    color: #d8c2ad !important;
-    font-size: 10px !important;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0 !important;
-    margin: 0 !important;
-}
-.ao-bottom-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.ao-bottom-btn.active, .ao-bottom-btn:hover { color: #f7edd7 !important; }
-.ao-bottom-btn.active svg { stroke: #d7b66a; }
-
 /* ===== ROCKET COMMITMENT ===== */
 .rocket-commit-card { background: #fff; padding: 22px; border-radius: 16px; border: 1px solid #bbdefb; }
 .rocket-input-row { display: grid; grid-template-columns: 1fr 140px 140px; gap: 10px; align-items: end; margin-bottom: 14px; }
@@ -590,16 +538,10 @@ tr:nth-child(even) td { background: #f8fbff; }
     .rocket-input-row { grid-template-columns: 1fr; }
     .salary-toolbar { grid-template-columns: 1fr; }
     .registration-search-row { grid-template-columns: 1fr; }
-    
-    /* Show Bottom Bar on Mobile when logged in */
-    body.is-employee-logged-in .ao-bottom-bar { display: flex; }
-    body.is-employee-logged-in #employeeDashboard { padding-bottom: 74px; }
-    #employeeDashboard .menu { display: none; } /* Replaced by bottom bar on mobile */
 }
-
 @media print {
     body { background: #fff !important; color: #000 !important; }
-    .ao-home-shell, .topbar, button, .menu, .ao-bottom-bar, .ao-splash-screen { display: none !important; }
+    .ao-home-shell, .topbar, button, .menu, .ao-splash-screen { display: none !important; }
 }
 </style>
 </head>
@@ -768,13 +710,7 @@ tr:nth-child(even) td { background: #f8fbff; }
 <div class="card hidden" id="employeeDashboard">
     <div class="topbar">
         <h2 id="welcomeText">Welcome</h2>
-        <div class="topbar-right">
-            <div class="ao-bell-btn" title="Notifications" onclick="toggleNotificationCard()">
-                🔔
-                <span id="notifBadge" class="ao-bell-badge">2</span>
-            </div>
-            <button class="red" onclick="logout()">Logout</button>
-        </div>
+        <button class="red" onclick="logout()">Logout</button>
     </div>
 
     <!-- IN-APP NOTIFICATION BANNER -->
@@ -782,42 +718,44 @@ tr:nth-child(even) td { background: #f8fbff; }
         <div class="ao-notif-icon">📢</div>
         <div class="ao-notif-text">
             <strong>নতুন নোটিফিকেশন!</strong>
-            <span>আপনার নতুন মাসের <b>জব কার্ড (Job Card)</b> ও <b>পে-স্লিপ (Pay Slip)</b> প্রকাশিত হয়েছে। বিস্তারিত দেখতে নিচে অপশন সিলেক্ট করুন।</span>
+            <span>আপনার নতুন মাসের <b>Job Card</b> ও <b>Pay Slip</b> প্রকাশিত হয়েছে। বিস্তারিত দেখতে নিচে বাটনে ট্যাপ করুন।</span>
         </div>
     </div>
 
-    <div class="menu">
-        <button onclick="showEmployeeInfo()">Employee Info</button>
-        <button onclick="showJobCard()">Job Card</button>
-        <button onclick="showPaySlip()">Pay Slip</button>
-        <button onclick="showMore()">More</button>
+    <!-- 4 MAIN BUTTONS GRID (HOME PANEL) -->
+    <div id="employeeMainPanel">
+        <div class="employee-menu-grid">
+            <div class="employee-menu-card" onclick="openEmployeeSubWindow('personal')">
+                <span class="menu-icon">👤</span>
+                <div class="menu-label">Personal Info</div>
+                <div class="menu-desc">Profile &amp; Details</div>
+            </div>
+
+            <div class="employee-menu-card" onclick="openEmployeeSubWindow('jobcard')">
+                <span class="menu-icon">📋</span>
+                <div class="menu-label">Job Card</div>
+                <div class="menu-desc">Attendance &amp; Hours</div>
+            </div>
+
+            <div class="employee-menu-card" onclick="openEmployeeSubWindow('payslip')">
+                <span class="menu-icon">💰</span>
+                <div class="menu-label">Pay Slip</div>
+                <div class="menu-desc">Salary &amp; Bonus</div>
+            </div>
+
+            <div class="employee-menu-card" onclick="openEmployeeSubWindow('more')">
+                <span class="menu-icon">⚡</span>
+                <div class="menu-label">More</div>
+                <div class="menu-desc">OT &amp; Punch History</div>
+            </div>
+        </div>
     </div>
 
-    <div id="employeeView" class="box" style="margin-top:16px;">Select Option</div>
-</div>
-
-<!-- MOBILE BOTTOM APP NAVIGATION BAR -->
-<div class="ao-bottom-bar" id="aoBottomBar">
-    <button class="ao-bottom-btn active" id="btnBottomInfo" onclick="switchBottomTab('info')">
-        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>Profile</span>
-    </button>
-    <button class="ao-bottom-btn" id="btnBottomJob" onclick="switchBottomTab('job')">
-        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        <span>Job Card</span>
-    </button>
-    <button class="ao-bottom-btn" id="btnBottomPay" onclick="switchBottomTab('pay')">
-        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <span>Pay Slip</span>
-    </button>
-    <button class="ao-bottom-btn" id="btnBottomMore" onclick="switchBottomTab('more')">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-        <span>More</span>
-    </button>
-    <button class="ao-bottom-btn" id="btnBottomSupport" onclick="switchBottomTab('support')">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span>Support</span>
-    </button>
+    <!-- DEDICATED SEPARATE SUB-WINDOW -->
+    <div id="employeeSubWindow" class="hidden">
+        <button class="ao-subpage-back" onclick="backToEmployeeMenu()">← Back to Menu</button>
+        <div id="employeeSubContent"></div>
+    </div>
 </div>
 
 <script>
@@ -874,13 +812,56 @@ async function attemptAutoLogin(id, phone){
 
         currentEmployee = { info, job, pay, totalOvertime };
         hideAll();
-        document.body.classList.add("is-employee-logged-in");
         document.getElementById("employeeDashboard").classList.remove("hidden");
         document.getElementById("welcomeText").innerText = "Welcome " + (info.Name_OF_Employee || id);
-        showEmployeeInfo();
+        backToEmployeeMenu();
+        
+        // Request phone status-bar notification permission
+        requestMobileNotificationPermission();
         return true;
     } catch(e) {
         return false;
+    }
+}
+
+/* ===== MOBILE SYSTEM PUSH NOTIFICATION ===== */
+function requestMobileNotificationPermission(){
+    if ("Notification" in window && Notification.permission !== "granted" && Notification.permission !== "denied") {
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                checkAndTriggerMobileNotification();
+            }
+        });
+    } else if ("Notification" in window && Notification.permission === "granted") {
+        checkAndTriggerMobileNotification();
+    }
+}
+
+function checkAndTriggerMobileNotification(){
+    if (!currentEmployee) return;
+    const hasJob = currentEmployee.job && currentEmployee.job.DASHBOARD;
+    const hasPay = currentEmployee.pay && currentEmployee.pay.DASHBOARD;
+    
+    const notifKey = "ao_notif_seen_" + (currentEmployee.info?.Employee_ID || "");
+    const alreadySeen = sessionStorage.getItem(notifKey);
+
+    if ((hasJob || hasPay) && !alreadySeen) {
+        sessionStorage.setItem(notifKey, "1");
+        showSystemStatusBarNotification("A&O Portal", "🔔 আপনার নতুন Job Card / Pay Slip প্রকাশিত হয়েছে!");
+    }
+}
+
+function showSystemStatusBarNotification(title, message){
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    try {
+        new Notification(title, {
+            body: message,
+            icon: "background.jpg",
+            badge: "background.jpg",
+            vibrate: [200, 100, 200]
+        });
+    } catch(e) {
+        console.log("System notification error:", e);
     }
 }
 
@@ -893,7 +874,6 @@ function hideAll(){
     document.getElementById("employeeDashboard").classList.add("hidden");
     document.getElementById("adminLoginPage").classList.add("hidden");
     document.getElementById("adminDashboard").classList.add("hidden");
-    document.body.classList.remove("is-employee-logged-in");
 }
 
 function goHome(){
@@ -920,34 +900,34 @@ function showEmployeeRegistrationSearch(){
     if(input) setTimeout(() => input.focus(), 80);
 }
 
-function toggleNotificationCard(){
-    const banner = document.getElementById("aoNotifBanner");
-    if(banner){
-        banner.style.display = banner.style.display === "none" ? "flex" : "none";
+/* ===== EMPLOYEE SUB-WINDOW CONTROLLER ===== */
+function openEmployeeSubWindow(type){
+    const main = document.getElementById("employeeMainPanel");
+    const sub = document.getElementById("employeeSubWindow");
+    const content = document.getElementById("employeeSubContent");
+    if(!main || !sub || !content) return;
+
+    main.classList.add("hidden");
+    sub.classList.remove("hidden");
+    content.innerHTML = `<div class="status">Loading...</div>`;
+    window.scrollTo({top: 0, behavior: "smooth"});
+
+    if(type === 'personal'){
+        renderEmployeePersonalInfo(content);
+    } else if(type === 'jobcard'){
+        renderEmployeeJobCard(content);
+    } else if(type === 'payslip'){
+        renderEmployeePaySlip(content);
+    } else if(type === 'more'){
+        renderEmployeeMore(content);
     }
 }
 
-/* Mobile Bottom Navigation Handler */
-function switchBottomTab(tab){
-    const buttons = document.querySelectorAll(".ao-bottom-btn");
-    buttons.forEach(b => b.classList.remove("active"));
-
-    if(tab === 'info'){
-        document.getElementById("btnBottomInfo")?.classList.add("active");
-        showEmployeeInfo();
-    } else if(tab === 'job'){
-        document.getElementById("btnBottomJob")?.classList.add("active");
-        showJobCard();
-    } else if(tab === 'pay'){
-        document.getElementById("btnBottomPay")?.classList.add("active");
-        showPaySlip();
-    } else if(tab === 'more'){
-        document.getElementById("btnBottomMore")?.classList.add("active");
-        showMore();
-    } else if(tab === 'support'){
-        document.getElementById("btnBottomSupport")?.classList.add("active");
-        showEmployeeSupportCenter();
-    }
+function backToEmployeeMenu(){
+    const main = document.getElementById("employeeMainPanel");
+    const sub = document.getElementById("employeeSubWindow");
+    if(main) main.classList.remove("hidden");
+    if(sub) sub.classList.add("hidden");
     window.scrollTo({top: 0, behavior: "smooth"});
 }
 
@@ -1257,10 +1237,12 @@ async function employeeLogin(){
 
         currentEmployee = { info, job, pay, totalOvertime };
         hideAll();
-        document.body.classList.add("is-employee-logged-in");
         document.getElementById("employeeDashboard").classList.remove("hidden");
         document.getElementById("welcomeText").innerText = "Welcome " + (info.Name_OF_Employee || id);
-        showEmployeeInfo();
+        backToEmployeeMenu();
+
+        // Request Phone Status Bar Notification Permission
+        requestMobileNotificationPermission();
     }catch(error){
         alert("Connection failed: " + error.message);
     }
@@ -1268,7 +1250,6 @@ async function employeeLogin(){
 
 function logout(){
     currentEmployee = null;
-    // Clear Saved Session
     localStorage.removeItem("ao_saved_emp_id");
     localStorage.removeItem("ao_saved_emp_phone");
     goHome();
@@ -1292,14 +1273,15 @@ function loadEmployeePhotoInto(img, employeeId){
     img.onerror = function(){ img.src = "photos/no-photo.jpg"; };
 }
 
-function showEmployeeInfo(){
+/* ===== RENDERING EMPLOYEE SUB-WINDOWS ===== */
+function renderEmployeePersonalInfo(container){
     let info = currentEmployee?.info;
-    if(!info){ document.getElementById("employeeView").innerHTML = "<h3>No Employee Information Found</h3>"; return; }
+    if(!info){ container.innerHTML = "<h3>No Employee Information Found</h3>"; return; }
     const employeeId = String(info.Employee_ID || "").trim().toUpperCase();
 
     let html = `
     <div class="employee-info-card">
-        <h2 class="employee-info-title">Employee Information</h2>
+        <h2 class="employee-info-title">Personal Information</h2>
         <div class="employee-photo-frame">
             <div class="employee-photo-preview-wrap">
                 <img id="employeePhotoPreview" alt="Employee Photo">
@@ -1311,8 +1293,8 @@ function showEmployeeInfo(){
             <input id="employeePhotoInput" type="file" accept="image/jpeg,image/png,image/webp" hidden onchange="handleEmployeePhotoUpload(this)">
             <div id="employeePhotoStatus" class="employee-photo-status"></div>
 
-            <button type="button" class="employee-support-center-btn" onclick="showEmployeeSupportCenter()">
-                Support Center
+            <button type="button" class="employee-support-center-btn" onclick="showEmployeeSupportCenterInSub()">
+                💬 Support Center
             </button>
         </div>
         <div style="overflow-x:auto">
@@ -1326,7 +1308,7 @@ function showEmployeeInfo(){
     });
 
     html += `</table></div></div>`;
-    document.getElementById("employeeView").innerHTML = html;
+    container.innerHTML = html;
     const photo = document.getElementById("employeePhotoPreview");
     if(photo) loadEmployeePhotoInto(photo, employeeId);
 }
@@ -1335,16 +1317,16 @@ function renderNotPublished(title){
     return `<div class="not-publish-box"><h2>${title}</h2><div class="not-publish-text">Not publish yet</div></div>`;
 }
 
-function showJobCard(){
+function renderEmployeeJobCard(container){
     let job = currentEmployee?.job;
-    if(!job) { document.getElementById("employeeView").innerHTML = renderNotPublished("Job Card"); return; }
+    if(!job) { container.innerHTML = renderNotPublished("Job Card"); return; }
     let text = job.DASHBOARD || "";
     if(!text){
         let html = `<div class="dashboard-card"><h2>Job Card</h2><table class="dashboard-table">`;
         Object.keys(job).forEach(key => {
             if(key !== "id" && key !== "created_at") html += `<tr><th>${key}</th><td>${formatValue(job[key])}</td></tr>`;
         });
-        document.getElementById("employeeView").innerHTML = html + "</table></div>";
+        container.innerHTML = html + "</table></div>";
         return;
     }
 
@@ -1356,7 +1338,7 @@ function showJobCard(){
     let leave = (text.match(/Leave-(\d+)/i) || [,"0"])[1];
     let late = (text.match(/Late-(\d+)/i) || [,"0"])[1];
 
-    document.getElementById("employeeView").innerHTML = `
+    container.innerHTML = `
     <div class="dashboard-card">
         <h2>Job Card</h2>
         <table class="dashboard-table">
@@ -1371,16 +1353,16 @@ function showJobCard(){
     </div>`;
 }
 
-function showPaySlip(){
+function renderEmployeePaySlip(container){
     let pay = currentEmployee?.pay;
-    if(!pay) { document.getElementById("employeeView").innerHTML = renderNotPublished("Pay Slip"); return; }
+    if(!pay) { container.innerHTML = renderNotPublished("Pay Slip"); return; }
     let text = pay.DASHBOARD || "";
     if(!text){
         let html = `<div class="dashboard-card"><h2>Pay Slip</h2><table class="dashboard-table">`;
         Object.keys(pay).forEach(key => {
             if(key !== "id" && key !== "created_at") html += `<tr><th>${key}</th><td>${formatValue(pay[key])}</td></tr>`;
         });
-        document.getElementById("employeeView").innerHTML = html + "</table></div>";
+        container.innerHTML = html + "</table></div>";
         return;
     }
 
@@ -1396,7 +1378,7 @@ function showPaySlip(){
     let stamp = (text.match(/Stm=([^;]*)/i) || [,"0"])[1];
     let net = (text.match(/NetSalary=([^ ]*)/i) || [,"0"])[1];
 
-    document.getElementById("employeeView").innerHTML = `
+    container.innerHTML = `
     <div class="dashboard-card">
         <h2>Pay Slip</h2>
         <table class="dashboard-table">
@@ -1413,19 +1395,21 @@ function showPaySlip(){
     </div>`;
 }
 
-function showMore(){
-    document.getElementById("employeeView").innerHTML = `
-    <div style="background:white;padding:25px;border-radius:12px;">
+function renderEmployeeMore(container){
+    container.innerHTML = `
+    <div style="background:white;padding:25px;border-radius:14px;border:1px solid #bbdefb;">
         <h2 style="color:#0754a6;margin-bottom:20px;">More Services</h2>
-        <button onclick="showTotalOvertime()">Accessive OT</button>
-        <button onclick="showJobCardTotalHistory()" class="green" style="margin-top:12px;">Job Card Total History</button>
+        <button onclick="renderSubTotalOvertime()">Accessive OT</button>
+        <button onclick="renderSubJobCardTotalHistory()" class="green" style="margin-top:12px;">Job Card Total History</button>
     </div>`;
 }
 
-function showTotalOvertime(){
+function renderSubTotalOvertime(){
+    const container = document.getElementById("employeeSubContent");
+    if(!container) return;
     let overtime = currentEmployee?.totalOvertime;
     if(!overtime){
-        document.getElementById("employeeView").innerHTML = `${renderNotPublished("Accessive OT")}<button onclick="showMore()" style="margin-top:15px;">Back</button>`;
+        container.innerHTML = `${renderNotPublished("Accessive OT")}<button onclick="openEmployeeSubWindow('more')" style="margin-top:15px;" class="gray">Back</button>`;
         return;
     }
 
@@ -1440,7 +1424,7 @@ function showTotalOvertime(){
     const totalOT = Number(String(overtime.TOTAL_OT || 0).replace(/,/g,"")) || 0;
     const totalAmount = (otRate * totalOT).toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2});
 
-    document.getElementById("employeeView").innerHTML = `
+    container.innerHTML = `
     <div class="dashboard-card">
         <h2>Accessive OT</h2>
         <table class="dashboard-table" style="margin-bottom:15px;">
@@ -1450,7 +1434,7 @@ function showTotalOvertime(){
             <tr><td>Total Amount:</td><td><b>${totalAmount}</b></td></tr>
         </table>
         <table><thead><tr><th>Day</th><th>Hours</th></tr></thead><tbody>${rows}</tbody></table>
-        <button onclick="showMore()" style="margin-top:15px;">Back</button>
+        <button onclick="openEmployeeSubWindow('more')" style="margin-top:15px;" class="gray">Back</button>
     </div>`;
 }
 
@@ -1484,15 +1468,17 @@ function excelSerialToTime(value){
     return `${String(hour).padStart(2,"0")}:${String(minute).padStart(2,"0")} ${ampm}`;
 }
 
-async function showJobCardTotalHistory(){
+async function renderSubJobCardTotalHistory(){
+    const container = document.getElementById("employeeSubContent");
+    if(!container) return;
     const empId = String(currentEmployee?.info?.Employee_ID || "").trim().toUpperCase();
     if(!empId){ alert("Employee ID not found"); return; }
 
-    document.getElementById("employeeView").innerHTML = `<div class="status">Loading data...</div>`;
+    container.innerHTML = `<div class="status">Loading data...</div>`;
     try{
         const { data, error } = await supabaseClient.from("Job_Card_Total_History").select("*").eq("EMP_CODE", empId).order("TRANS_DATE", { ascending:true });
         if(error || !data?.length){
-            document.getElementById("employeeView").innerHTML = `${renderNotPublished("Job Card Total History")}<button onclick="showMore()" style="margin-top:15px;">Back</button>`;
+            container.innerHTML = `${renderNotPublished("Job Card Total History")}<button onclick="openEmployeeSubWindow('more')" style="margin-top:15px;" class="gray">Back</button>`;
             return;
         }
 
@@ -1509,7 +1495,7 @@ async function showJobCardTotalHistory(){
                 <td>${row.STATUS || ""}</td>
             </tr>`).join("");
 
-        document.getElementById("employeeView").innerHTML = `
+        container.innerHTML = `
         <div class="dashboard-card">
             <h2>Job Card History — ${empId}</h2>
             <div style="overflow-x:auto;">
@@ -1520,11 +1506,11 @@ async function showJobCardTotalHistory(){
             </div>
             <div style="display:flex; gap:10px; margin-top:14px;">
                 <button onclick="window.print()" class="green">Print</button>
-                <button onclick="showMore()" class="gray">Back</button>
+                <button onclick="openEmployeeSubWindow('more')" class="gray">Back</button>
             </div>
         </div>`;
     }catch(e){
-        document.getElementById("employeeView").innerHTML = renderNotPublished("Job Card Total History");
+        container.innerHTML = renderNotPublished("Job Card Total History");
     }
 }
 
@@ -1571,15 +1557,17 @@ async function handleEmployeePhotoUpload(input){
     }
 }
 
-/* ===== SUPPORT CENTER ===== */
-async function showEmployeeSupportCenter(){
+/* ===== SUPPORT CENTER IN SUB-WINDOW ===== */
+async function showEmployeeSupportCenterInSub(){
+    const container = document.getElementById("employeeSubContent");
+    if(!container) return;
     const info = currentEmployee?.info;
     const employeeId = info?.Employee_ID;
     if(!employeeId) return;
 
-    document.getElementById("employeeView").innerHTML = `
+    container.innerHTML = `
         <div class="employee-info-card">
-            <button class="gray admin-page-back-top" onclick="showEmployeeInfo()">← Back to Profile</button>
+            <button class="ao-subpage-back" onclick="openEmployeeSubWindow('personal')">← Back to Personal Info</button>
             <div class="employee-support-head">
                 <h2>Support Center</h2>
                 <span>${info.Name_OF_Employee || ""} (${employeeId})</span>
