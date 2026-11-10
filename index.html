@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>A&O Portal</title>
 <meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#241a12">
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -14,7 +15,7 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 </script>
 
 <style>
-/* ===== CORE SYSTEM STYLING ===== */
+/* ===== CORE SYSTEM & APP FEEL ===== */
 :root {
     --ao-warm-bg: #d8bea0;
     --ao-warm-light: #ead6bd;
@@ -22,12 +23,23 @@ const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
     --ao-brown-dark: #2b2119;
     --ao-brown-mid: #8c633d;
     --ao-cream: #fffaf3;
-    --ao-line: rgba(74,48,28,.16);
-    --ao-primary: #0754a6;
-    --ao-primary-dark: #003f7f;
+    --ao-gold: #d7b66a;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+input, textarea {
+    user-select: text !important;
+    -webkit-user-select: text !important;
+}
 
 body {
     min-height: 100vh;
@@ -41,7 +53,7 @@ body {
 
 .container { max-width: 1100px; margin: auto; padding: 20px; }
 .card {
-    background: linear-gradient(145deg, rgba(255,255,255,.92), rgba(255,250,243,.88));
+    background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(255,250,243,.90));
     padding: 24px;
     border-radius: 18px;
     box-shadow: 0 10px 30px rgba(72,45,25,.12);
@@ -80,7 +92,6 @@ button:hover { transform: translateY(-1px); filter: brightness(1.08); }
 button:active { transform: translateY(0); }
 button.red { background: linear-gradient(135deg, #c62828, #8e0000); color: #fff; }
 button.gray { background: #d9c7b2; color: #493522; }
-button.purple { background: linear-gradient(135deg, #6a1b9a, #4a148c); color: #fff; }
 button.green { background: linear-gradient(135deg, #3b9b62, #236b45); color: #fff; }
 button.orange { background: linear-gradient(135deg, #ef6c00, #b25000); color: #fff; }
 
@@ -98,6 +109,39 @@ button.orange { background: linear-gradient(135deg, #ef6c00, #b25000); color: #f
 .topbar h2 { margin: 0; color: #fffaf3; text-align: left; }
 .topbar button { width: auto; padding: 9px 18px; }
 
+/* Topbar Notification Icon */
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.ao-bell-btn {
+    position: relative;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(215,182,106,.35);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 18px;
+    color: #fff;
+}
+.ao-bell-badge {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    background: #e53935;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 900;
+    border-radius: 50%;
+    width: 17px;
+    height: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 6px rgba(229,57,53,.8);
+}
+
 .status {
     padding: 11px 14px;
     border-radius: 10px;
@@ -110,6 +154,133 @@ button.orange { background: linear-gradient(135deg, #ef6c00, #b25000); color: #f
 .status.success { background: #eef9f2; border-color: #cfe7d7; color: #166534; }
 .status.error { background: #fff0f0; border-color: #fca5a5; color: #b91c1c; }
 .status:empty { display: none !important; }
+
+/* ===== APP SPLASH SCREEN ANIMATION ===== */
+.ao-splash-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: radial-gradient(circle at 50% 38%, rgba(215,182,106,.15), transparent 45%),
+                linear-gradient(145deg, #1f1812 0%, #3a281a 50%, #201710 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity .65s ease, visibility .65s ease;
+}
+.ao-splash-screen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.ao-splash-box {
+    text-align: center;
+    animation: splashZoomIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 20px;
+}
+@keyframes splashZoomIn {
+    0% { opacity: 0; transform: scale(.84) translateY(18px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+.ao-splash-logo-wrap {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 16px;
+    border-radius: 26px;
+    background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.22), transparent 40%),
+                linear-gradient(135deg, #3d2816, #160e08);
+    border: 2px solid rgba(215,182,106,.55);
+    box-shadow: 0 16px 40px rgba(0,0,0,.65), 0 0 30px rgba(215,182,106,.32);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: logoPulse 2s infinite ease-in-out;
+}
+@keyframes logoPulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 16px 40px rgba(0,0,0,.65), 0 0 24px rgba(215,182,106,.25); }
+    50% { transform: scale(1.05); box-shadow: 0 20px 48px rgba(0,0,0,.75), 0 0 38px rgba(215,182,106,.55); }
+}
+.ao-splash-logo-text {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: #f7edd7;
+    line-height: .9;
+    letter-spacing: -2px;
+}
+.ao-splash-logo-sub {
+    font-size: 7px;
+    letter-spacing: 3px;
+    font-weight: 800;
+    color: #d7b66a;
+    margin-top: 4px;
+}
+.ao-splash-title {
+    font-size: 27px;
+    font-weight: 800;
+    color: #fffaf3;
+    letter-spacing: .5px;
+    margin-bottom: 4px;
+    text-shadow: 0 3px 12px rgba(0,0,0,.6);
+}
+.ao-splash-tagline {
+    font-size: 13px;
+    color: #d7b66a;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.ao-splash-loader {
+    width: 140px;
+    height: 4px;
+    border-radius: 99px;
+    background: rgba(255,255,255,.15);
+    margin: 28px auto 0;
+    overflow: hidden;
+}
+.ao-splash-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #d7b66a, #fff);
+    border-radius: 99px;
+    animation: splashProgress 1.6s ease forwards;
+}
+@keyframes splashProgress {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+/* ===== IN-APP NOTIFICATION BANNER ===== */
+.ao-notif-banner {
+    background: linear-gradient(135deg, #fffaf2, #ffeccc);
+    border: 1px solid #f5ba5d;
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px rgba(239,108,0,.15);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    animation: notifSlide 0.4s ease-out;
+}
+@keyframes notifSlide {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.ao-notif-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    background: #ef6c00;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+.ao-notif-text strong { font-size: 14px; color: #b25000; display: block; margin-bottom: 2px; }
+.ao-notif-text span { font-size: 12px; color: #553d26; line-height: 1.35; display: block; }
 
 /* ===== HOMEPAGE MODERN WARM EDITION ===== */
 .ao-home-shell {
@@ -349,6 +520,44 @@ tr:nth-child(even) td { background: #f8fbff; }
 .employee-support-compose textarea { flex: 1; min-height: 60px; margin: 0; resize: vertical; }
 .employee-support-compose button { flex: 0 0 90px; margin: 0; height: auto; }
 
+/* ===== MOBILE BOTTOM APP NAVIGATION BAR ===== */
+.ao-bottom-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: linear-gradient(180deg, #2d2118 0%, #1f1711 100%);
+    border-top: 1px solid rgba(215,182,106,.30);
+    box-shadow: 0 -5px 20px rgba(0,0,0,.35);
+    z-index: 99999;
+    padding: 0 6px;
+    justify-content: space-around;
+    align-items: center;
+}
+.ao-bottom-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: 100%;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    color: #d8c2ad !important;
+    font-size: 10px !important;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.ao-bottom-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ao-bottom-btn.active, .ao-bottom-btn:hover { color: #f7edd7 !important; }
+.ao-bottom-btn.active svg { stroke: #d7b66a; }
+
 /* ===== ROCKET COMMITMENT ===== */
 .rocket-commit-card { background: #fff; padding: 22px; border-radius: 16px; border: 1px solid #bbdefb; }
 .rocket-input-row { display: grid; grid-template-columns: 1fr 140px 140px; gap: 10px; align-items: end; margin-bottom: 14px; }
@@ -381,15 +590,36 @@ tr:nth-child(even) td { background: #f8fbff; }
     .rocket-input-row { grid-template-columns: 1fr; }
     .salary-toolbar { grid-template-columns: 1fr; }
     .registration-search-row { grid-template-columns: 1fr; }
+    
+    /* Show Bottom Bar on Mobile when logged in */
+    body.is-employee-logged-in .ao-bottom-bar { display: flex; }
+    body.is-employee-logged-in #employeeDashboard { padding-bottom: 74px; }
+    #employeeDashboard .menu { display: none; } /* Replaced by bottom bar on mobile */
 }
+
 @media print {
     body { background: #fff !important; color: #000 !important; }
-    .ao-home-shell, .topbar, button, .menu { display: none !important; }
+    .ao-home-shell, .topbar, button, .menu, .ao-bottom-bar, .ao-splash-screen { display: none !important; }
 }
 </style>
 </head>
 
 <body>
+
+<!-- LUXURY APP SPLASH SCREEN -->
+<div id="aoSplashScreen" class="ao-splash-screen">
+    <div class="ao-splash-box">
+        <div class="ao-splash-logo-wrap">
+            <span class="ao-splash-logo-text">A&O</span>
+            <span class="ao-splash-logo-sub">APPARELS</span>
+        </div>
+        <h1 class="ao-splash-title">A&O Apparels Ltd.</h1>
+        <p class="ao-splash-tagline">Excellence &amp; Integrity</p>
+        <div class="ao-splash-loader">
+            <div class="ao-splash-bar"></div>
+        </div>
+    </div>
+</div>
 
 <!-- HOMEPAGE -->
 <div class="ao-home-shell" id="aoHomeShell">
@@ -538,7 +768,22 @@ tr:nth-child(even) td { background: #f8fbff; }
 <div class="card hidden" id="employeeDashboard">
     <div class="topbar">
         <h2 id="welcomeText">Welcome</h2>
-        <button class="red" onclick="logout()">Logout</button>
+        <div class="topbar-right">
+            <div class="ao-bell-btn" title="Notifications" onclick="toggleNotificationCard()">
+                🔔
+                <span id="notifBadge" class="ao-bell-badge">2</span>
+            </div>
+            <button class="red" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- IN-APP NOTIFICATION BANNER -->
+    <div id="aoNotifBanner" class="ao-notif-banner">
+        <div class="ao-notif-icon">📢</div>
+        <div class="ao-notif-text">
+            <strong>নতুন নোটিফিকেশন!</strong>
+            <span>আপনার নতুন মাসের <b>জব কার্ড (Job Card)</b> ও <b>পে-স্লিপ (Pay Slip)</b> প্রকাশিত হয়েছে। বিস্তারিত দেখতে নিচে অপশন সিলেক্ট করুন।</span>
+        </div>
     </div>
 
     <div class="menu">
@@ -549,6 +794,30 @@ tr:nth-child(even) td { background: #f8fbff; }
     </div>
 
     <div id="employeeView" class="box" style="margin-top:16px;">Select Option</div>
+</div>
+
+<!-- MOBILE BOTTOM APP NAVIGATION BAR -->
+<div class="ao-bottom-bar" id="aoBottomBar">
+    <button class="ao-bottom-btn active" id="btnBottomInfo" onclick="switchBottomTab('info')">
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Profile</span>
+    </button>
+    <button class="ao-bottom-btn" id="btnBottomJob" onclick="switchBottomTab('job')">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>Job Card</span>
+    </button>
+    <button class="ao-bottom-btn" id="btnBottomPay" onclick="switchBottomTab('pay')">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <span>Pay Slip</span>
+    </button>
+    <button class="ao-bottom-btn" id="btnBottomMore" onclick="switchBottomTab('more')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+        <span>More</span>
+    </button>
+    <button class="ao-bottom-btn" id="btnBottomSupport" onclick="switchBottomTab('support')">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span>Support</span>
+    </button>
 </div>
 
 <script>
@@ -566,6 +835,55 @@ const tableConfig = {
     jobCardTotalHistory: { title: "Job Card Total History", table: "Job_Card_Total_History", key: "EMP_CODE", conflict: "EMP_CODE,TRANS_DATE" }
 };
 
+/* ===== APP SPLASH & AUTO-LOGIN STARTUP ===== */
+window.addEventListener("DOMContentLoaded", function(){
+    setTimeout(async () => {
+        const savedId = localStorage.getItem("ao_saved_emp_id");
+        const savedPhone = localStorage.getItem("ao_saved_emp_phone");
+
+        if(savedId && savedPhone){
+            const success = await attemptAutoLogin(savedId, savedPhone);
+            if(success){
+                dismissSplash();
+                return;
+            }
+        }
+        dismissSplash();
+    }, 1800);
+});
+
+function dismissSplash(){
+    const splash = document.getElementById("aoSplashScreen");
+    if(splash){
+        splash.classList.add("fade-out");
+        setTimeout(() => splash.remove(), 700);
+    }
+}
+
+async function attemptAutoLogin(id, phone){
+    try {
+        const { data: info, error } = await supabaseClient.from("Employee_Info").select("*").eq("Employee_ID", id).maybeSingle();
+        if(error || !info) return false;
+
+        let dbPhone = cleanMobile(info.Mobile_No || "");
+        if(!(dbPhone === phone || dbPhone.slice(-10) === phone.slice(-10))) return false;
+
+        let job = await fetchOneByEmployeeId("Jobcard", id);
+        let pay = await fetchOneByEmployeeId("Payslip", id);
+        let totalOvertime = await fetchOneByEmployeeId("Total_Overtime", id);
+
+        currentEmployee = { info, job, pay, totalOvertime };
+        hideAll();
+        document.body.classList.add("is-employee-logged-in");
+        document.getElementById("employeeDashboard").classList.remove("hidden");
+        document.getElementById("welcomeText").innerText = "Welcome " + (info.Name_OF_Employee || id);
+        showEmployeeInfo();
+        return true;
+    } catch(e) {
+        return false;
+    }
+}
+
 /* ===== NAVIGATION CONTROLS ===== */
 function hideAll(){
     const shell = document.getElementById("aoHomeShell");
@@ -575,6 +893,7 @@ function hideAll(){
     document.getElementById("employeeDashboard").classList.add("hidden");
     document.getElementById("adminLoginPage").classList.add("hidden");
     document.getElementById("adminDashboard").classList.add("hidden");
+    document.body.classList.remove("is-employee-logged-in");
 }
 
 function goHome(){
@@ -601,20 +920,45 @@ function showEmployeeRegistrationSearch(){
     if(input) setTimeout(() => input.focus(), 80);
 }
 
+function toggleNotificationCard(){
+    const banner = document.getElementById("aoNotifBanner");
+    if(banner){
+        banner.style.display = banner.style.display === "none" ? "flex" : "none";
+    }
+}
+
+/* Mobile Bottom Navigation Handler */
+function switchBottomTab(tab){
+    const buttons = document.querySelectorAll(".ao-bottom-btn");
+    buttons.forEach(b => b.classList.remove("active"));
+
+    if(tab === 'info'){
+        document.getElementById("btnBottomInfo")?.classList.add("active");
+        showEmployeeInfo();
+    } else if(tab === 'job'){
+        document.getElementById("btnBottomJob")?.classList.add("active");
+        showJobCard();
+    } else if(tab === 'pay'){
+        document.getElementById("btnBottomPay")?.classList.add("active");
+        showPaySlip();
+    } else if(tab === 'more'){
+        document.getElementById("btnBottomMore")?.classList.add("active");
+        showMore();
+    } else if(tab === 'support'){
+        document.getElementById("btnBottomSupport")?.classList.add("active");
+        showEmployeeSupportCenter();
+    }
+    window.scrollTo({top: 0, behavior: "smooth"});
+}
+
 /* ===== ADMIN AUTH & WORKFLOWS ===== */
 async function adminLogin(){
     let user = document.getElementById("adminUser").value.trim();
     let pass = document.getElementById("adminPass").value.trim();
-
     if(!user || !pass){ alert("Please enter Admin ID and Password"); return; }
 
     try{
-        const { data, error } = await supabaseClient
-            .from("admin_settings")
-            .select("*")
-            .eq("username", user)
-            .maybeSingle();
-
+        const { data, error } = await supabaseClient.from("admin_settings").select("*").eq("username", user).maybeSingle();
         if(error) throw error;
 
         if(data && String(data.password || "") === pass){
@@ -903,12 +1247,17 @@ async function employeeLogin(){
             alert("Wrong Password"); return;
         }
 
+        // SAVE AUTO-LOGIN SESSION
+        localStorage.setItem("ao_saved_emp_id", id);
+        localStorage.setItem("ao_saved_emp_phone", phone);
+
         let job = await fetchOneByEmployeeId("Jobcard", id);
         let pay = await fetchOneByEmployeeId("Payslip", id);
         let totalOvertime = await fetchOneByEmployeeId("Total_Overtime", id);
 
         currentEmployee = { info, job, pay, totalOvertime };
         hideAll();
+        document.body.classList.add("is-employee-logged-in");
         document.getElementById("employeeDashboard").classList.remove("hidden");
         document.getElementById("welcomeText").innerText = "Welcome " + (info.Name_OF_Employee || id);
         showEmployeeInfo();
@@ -917,7 +1266,13 @@ async function employeeLogin(){
     }
 }
 
-function logout(){ currentEmployee = null; goHome(); }
+function logout(){
+    currentEmployee = null;
+    // Clear Saved Session
+    localStorage.removeItem("ao_saved_emp_id");
+    localStorage.removeItem("ao_saved_emp_phone");
+    goHome();
+}
 
 function normalizeEmployeePhotoId(employeeId){
     return String(employeeId || "").trim().toLowerCase().replace(/([a-z]+)0+(\d+)/i,'$1$2').replace(/[^a-z0-9_-]/g,'');
